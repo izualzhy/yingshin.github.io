@@ -1,0 +1,275 @@
+---
+title:  "Codeforec Contest 479"
+date:   2014-10-10 19:32:02
+excerpt: "submissions for codeforce contest 479"
+tags: [codeforce]
+---
+
+工作忙碌，一直没有时间做cf了。不知道cf冲天梯的目标何时才能实现。
+
+题目链接在[这里](http://codeforces.com/contest/479)
+
+<!--more-->
+
+### [A. Expression](http://codeforces.com/contest/479/problem/A)
+
+题意： 三个数字，不能改变顺序，可以在其中加入操作符\+, \*，以及括号。问能得到表达式最大值多少。
+
+分析： 6种结果，穷举即可。
+
+```
+int main()
+{
+    ios::sync_with_stdio(0);
+    int a, b, c;
+    cin >> a >> b >> c;
+
+    int r[6] = {0};
+    r[0] = a + b + c;
+    r[1] = a + b * c;
+    r[2] = (a + b) * c;
+    r[3] = a * b * c;
+    r[4] = a * b + c;
+    r[5] = a * (b + c);
+    sort(r, r + 6);
+    cout << r[5] << endl;
+
+    return 0;
+}
+```
+
+### [B. Towers](http://codeforces.com/contest/479/problem/B)
+
+题意： n个塔，高度已知。每次可以操作使得一个塔的高度+1， 另一个塔高度-1.操作次数不能超过k次。问最后使得高度最大值之差最小。
+
+分析： 每次都让最高的塔高度-1，最矮的塔+1即可。注意不要每次都排序，使用数组记录。下标为塔的高度，数组内容为当前高度的塔的下标。做题时定义了struct T，实际上是没有必要的。直接使用vector<int> indexes就可以了。
+
+```
+struct T {
+    T() : count(0)
+    {}
+
+    int count;
+    vector<int> indexes;
+};
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    T t[10005];
+    int maxc = -1, minc = 100000, a[105];
+    int n, k;
+    cin >> n >> k;
+    for (int i = 1; i <= n; ++i) {
+        cin >> a[i];
+        t[a[i]].count++;
+        t[a[i]].indexes.push_back(i);
+        maxc = maxc > a[i] ? maxc : a[i];
+        minc = minc < a[i] ? minc : a[i];
+    }
+
+    int m = 0;
+    int from[1000] = {0}, to[1000] = {0};
+    for (m = 0; m < k; ++m) {
+        if (maxc > minc) {
+            t[maxc].count--;
+            t[minc].count--;
+            t[maxc - 1].count++;
+            t[minc + 1].count++;
+
+            from[m] = *t[maxc].indexes.begin();
+            to[m] = *t[minc].indexes.begin();
+
+            t[maxc].indexes.erase(t[maxc].indexes.begin());
+            t[minc].indexes.erase(t[minc].indexes.begin());
+            t[maxc - 1].indexes.push_back(from[m]);
+            t[minc + 1].indexes.push_back(to[m]);
+
+            if (t[maxc].count == 0) {
+                maxc--;
+            }
+            if (t[minc].count == 0) {
+                minc++;
+            }
+        }
+        else {
+            break;
+        }
+    }
+
+    cout << maxc - minc << " " << m << endl;
+    for (int i = 0; i < m; ++i) {
+        cout << from[i] << " " << to[i] << endl;
+    }
+    return 0;
+}
+```
+
+
+### [C. Exams](http://codeforces.com/contest/479/problem/C)  
+
+题意： n次考试，时间可选择第a天或者第b天(a &ge; b)。每考完一科，会记录考试时间。无论怎么选择，考试记录的时间都是第a天。如果要使得最后的考试记录时间单调非递减，同时为了尽快考完所有课程，应当如何选择。输出最后一天的考试时间。
+
+分析： 因为无论如何选择，记录的都是a天，因此a值小的科目应当先考。对当前的科目[a, b]，如果上个考试时间小于b，那么可以选择第b天考，否则只能选择第a天考试。同时出于贪心的考虑，当a相同时，b小的先考优先选择，比如 [5 3] [5 2] [5 1]这种情况考试顺序应当是3 2 1。
+
+```
+struct T {
+    int a;
+    int b;
+    int c;
+};
+
+bool comp(const T& lhs, const T& rhs) {
+    if (lhs.a != rhs.a) {
+        return lhs.a < rhs.a;
+    }
+    else {
+        return lhs.b < rhs.b;
+    }
+}
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    T t[5005];
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        cin >> t[i].a >> t[i].b;
+    }
+    sort(t, t + n, comp);
+    t[0].c = t[0].b;
+    for (int i = 1; i < n; ++i) {
+        if (t[i].b >= t[i - 1].c) {
+            t[i].c = t[i].b;
+        }
+        else {
+            t[i].c = t[i].a;
+        }
+    }
+
+    cout << t[n - 1].c << endl;
+    return 0;
+}
+```
+
+### [D. Long Jumps](http://codeforces.com/contest/479/problem/D)  
+
+题意： 长度为l的尺子，共有n个刻度，尺子开始结束均标有刻度，因此 n&ge;2。可以测量的长度是两个刻度的差，问如果现在需要测量x, y(x &lt; y)。应当如何添加刻度。
+
+分析： 答案无非3种，添加0, 1, 2个刻度，即一个不添加，添加x或者y，添加x和y。
+
+因此第一个问题是需要计算现在的刻度是否可以测量x或者y。n&le;1e5，n \* (n - 1)暴力明显是不行的。因为从某个刻度往后，能够测量的长度递增，因此可以用二分法来计算是否能测量某个长度。  
+
+如果x y都不能测量到，需要判断是否有两个刻度满足距离为y - x或者 y + x。查找满足条件的刻度下标方法同上。
+
+对于两个刻度距离x + y的情况，容易解决，在距离起点x处添加一处刻度即可，不会超过尺子的边界。
+
+对于两个刻度距离y - x的情况，需要向左或者向右延伸x，因此可能会存在超出尺子边界的情况。正因如此，对于这种情况，需要遍历每组满足条件的刻度pair。
+
+```
+int n, l, x, y;
+int a[100005];
+struct Ruler {
+    Ruler(int s = 0, int e = 0)
+        : start(s)
+        , end(e)
+    {}
+    int start;
+    int end;
+};
+
+vector<Ruler> rulers[4];// 0:x, 1:y, 2:x+y, 3:y-x, 4:y-x
+
+int bs(int start, int d) {
+    int left = start;
+    int right = n - 1;
+    while (left <= right) {
+        int mid = (left + right) >> 1;
+        if (a[mid] - a[start] > d) {
+            right = mid - 1;
+        }
+        else if (a[mid] - a[start] < d) {
+            left = mid + 1;
+        }
+        else {
+            return mid;
+        }
+    }
+
+    return -1;
+}
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin >> n >> l >> x >> y;
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    int e;//temp variable.
+    int target_d[] = {x, y, x + y, y - x};
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            e = bs(i, target_d[j]);
+            if (e > 0) {
+                rulers[j].push_back(Ruler(i, e));
+            }
+        }
+
+        if (!rulers[0].empty() && !rulers[1].empty()) {
+            break;
+        }
+    }
+
+    if (!rulers[0].empty() && !rulers[1].empty()) {
+        cout << 0 << endl;
+    }
+    else if (!rulers[0].empty() && rulers[1].empty()) {
+        cout << 1 << endl;
+        cout << y << endl;
+    }
+    else if (rulers[0].empty() && !rulers[1].empty()) {
+        cout << 1 << endl;
+        cout << x << endl;
+    }
+    else {
+        if (!rulers[2].empty()) {
+            int s = (*rulers[2].begin()).start;
+            cout << 1 << endl;
+            cout << a[s] + x << endl;
+        }
+        else if (!rulers[3].empty()) {
+            bool found = false;
+            for (vector<Ruler>::iterator iter = rulers[3].begin(); iter != rulers[3].end(); ++iter) {
+                int s = (*iter).start;
+                int e = (*iter).end;
+                if (a[s] >= x) {
+                    cout << 1 << endl;
+                    cout << a[s] -x << endl;
+                    found = true;
+                    break;
+                }
+                else if (a[e] <= l - x) {
+                    cout << 1 << endl;
+                    cout << a[e] + x << endl;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                cout << 2 << endl;
+                cout << x << " " << y << endl;
+            }
+        }
+        else {
+            cout << 2 << endl;
+            cout << x << " " << y << endl;
+        }
+    }
+
+
+    return 0;
+}
+```

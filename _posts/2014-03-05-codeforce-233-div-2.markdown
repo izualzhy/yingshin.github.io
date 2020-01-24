@@ -1,0 +1,176 @@
+---
+title:  "Codeforec Contest 233Div.2"
+date:   2014-03-05 17:09:53
+excerpt: "submissions for codeforce contest 233Div.2#A.Pages B.Red and Blue Balls C.Cards"
+tags: [codeforce]
+---
+
+只做了一下ABC三道题目，比较简单，欢迎指出错误。
+> [A.Pages](http://codeforces.com/contest/399/problem/A)  
+
+注意一下边界的判断即可  
+
+<!--more-->
+
+```
+//http://codeforces.com/contest/399/problem/A
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n,k,p;
+    cin >> n >> p >> k;
+
+    int start = p - k;
+    int end = p + k;
+    start = start < 1 ? 1 : start;
+    end = end > n ? n : end;
+
+    if (start > 1)
+        cout << "<< ";
+    for (int i = start; i <= end; ++i)
+    {
+        if (i == p)
+            cout << "(";
+        cout << i;
+        if (i == p)
+            cout << ")";
+        cout << " ";
+    }
+
+    if (end < n)
+        cout << ">>" << endl;
+
+    return 0;
+}
+```
+
+> [B.Red and Blue Balls](http://codeforces.com/contest/399/problem/B)    
+
+不妨假设第一个BlueBall在第i个位置，那么一次操作的结果就是前面i-1个位置的RedBall变为Blue.  
+即  
+```
+f[i] = 1 + f[0] + f[1] + ... + f[i - 1];
+```
+
+f[0] = 1, f[1] = 2, f[3] = 4,写下式子就可以发现是二进制形式。  
+
+```
+//http://codeforces.com/contest/399/problem/B
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int n;
+    string s;
+    cin >> n >> s;
+    unsigned long long f[51] = {0};
+    f[0] = 1;
+    f[1] = 2;
+    unsigned long long sum = f[0] + f[1];
+    for (int i = 2; i < 50; ++i)
+    {
+        f[i] = 1 + sum;
+        sum += f[i];
+        //cout << i << " " << f[i] << endl;
+    }
+    unsigned long long r = 0;
+    for (int i = 0; i < s.size(); ++i)
+    {
+        if (s[i] == 'B')
+            r += f[i];
+    }
+    cout << r << endl;
+    return 0;
+}
+```  
+
+> [C.Cards](http://codeforces.com/contest/399/problem/C)  
+
+假设*a，b* cards分别分成了p,q堆，则|p-q|<=1, p,q<=n。
+单独考虑一种cards,分堆分的越平均则平方和越小，类似于这样的公式:  
+x1 + x>2 = x;
+x1<sup>2</sup> + x2<sup>2</sup> = 2 * (x/2)<sup>2</sup>即x1 = x2 = x/2  
+因此对*a*cards,最大值为  
+(a-p+1)<sup>2</sup> + (p - 1);
+对*b*cards,最小值为  
+d = b/q;  
+m = b%q;  
+前m堆，每堆放d+1张，剩下的放d张。  
+(d+1)<sup>2</sup>\*m + d<sup>2</sup>\*(q-m);  
+
+```
+//http://codeforces.com/contest/399/problem/C
+#include <algorithm>
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    unsigned long long a, b, maxi, maxj;
+    long long maxr = 0;
+    string s;
+    cin >> a >> b;
+    unsigned long long n = min(a, b);
+    int aa = min(a, n + 1);
+    int bb = min(b, n + 1);
+
+    if (a == 0)
+    {
+        s.assign(b, 'x');
+        maxr = -b*b;
+    }
+    else if (b == 0)
+    {
+        s.assign(a, 'o');
+        maxr = a*a;
+    }
+    else
+    {
+        for (int i = 1; i <= aa; ++i)
+        {
+            for (int j = max(1, i-1); j <= min(i + 1, bb); ++j)
+            {
+                long long r = (a - i + 1) * (a - i + 1) + i - 1;
+                unsigned long long d = b/j;
+                unsigned long long m = b%j;
+                r -= ((d + 1)*(d + 1)*m + d * d * (j - m));
+                if (maxr == 0 || maxr < r)
+                {
+                    maxr = r;
+                    maxi = i;
+                    maxj = j;
+                }
+            }
+        }
+    
+        s.assign(a, 'o');
+        int pos = maxi > maxj ? a - maxi + 1 : 0;
+        int j = 1;
+        int m = b%maxj;
+        while (j <= maxj)
+        {
+            int ocount = j <= m ? b/maxj + 1: b/maxj;
+            s.insert(pos, string(ocount, 'x'));
+            if (pos)
+            {
+                pos += (ocount + 1);
+            }
+            else
+            {
+                pos += (a - maxi + 1 + ocount);
+            }
+            ++j;
+        }
+    }
+
+    cout << maxr << endl;
+    cout << s << endl;
+
+    return 0;
+}
+```

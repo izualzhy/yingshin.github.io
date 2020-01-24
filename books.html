@@ -1,0 +1,27 @@
+---
+layout: page
+title: 在读和读过的书
+---
+愿我们在白底黑字中读懂自己
+<table>
+    <thead>
+        <tr>
+            <th>Cover</th>
+            <th>Name</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in site.data.books %}
+            <tr>
+                <td><a href="{{ book.douban_link }}"><img src="{{ book.cover }}" class="img-rounder" width="60" height="80" alt="{{ book.name }}"/></td>
+                <td>{{ book.name }}</td>
+                <td>{{ book.start_date }}</td>
+                <td>{{ book.finish_date }}</td>
+                <td>{{ book.note }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
