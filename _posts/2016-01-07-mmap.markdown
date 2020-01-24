@@ -1,0 +1,394 @@
+---
+title:  "共享内存mmap介绍"
+date: 2016-01-07 20:26:17
+excerpt: "共享内存mmap介绍"
+tags: IPC  mmap
+---
+
+存储映射I/O(Memory-mapped I/O)使一个磁盘文件与存储空间的一个缓冲区相映射。当从缓存区中取数据，就相当于读文件中的相应字节。与此类似，将数据存入缓冲区，相应的就自动地写入文件。这样就可以在不使用read和write的情况下执行I/O。普通文件被映射到进程地址空间后，进程可以像访问普通内存一样对文件进行访问。
+
+本文主要通过3个例子介绍下mmap的用法。
+
+<!--more-->
+
+## 1. 函数原型
+
+```c
+#include <sys/mman.h>
+
+void* mmap(void* start, size_t length, int prot, int flags, int fd, off_t offset)
+```
+
+## 2. 参数说明
+
+1. 参数fd为即将映射到内存空间的文件描述符，一般由open返回。同时fd也可以指定为-1，此时须指定flags参数中的MAP_ANON，表名进行的是匿名映射。
+2. len是映射到调用进程地址空间的字节数，它从被映射文件开头offset个字节开始算起。
+3. prot参数指定共享内存的访问权限，可指定为   
+ **PROT_NONE**：映射区不可访问  
+或者以下几个值的或：  
+ **PROT_READ**：可读  
+ **PROT_WRITE**：可写  
+ **PROT_EXEC**：可执行  
+4. flags参数影响映射存储区的多种属性：  
+**MAP_FIXED**: 返回值必须等于addr。因为这不利于可移植性，所以不建议使用此标志。如果未指定此标志，而且addr非0，则内核只把addr视为在何处设置映射区的一种建议，但是不保证会使用所要求的地址。将addr指定为0可获得最大可移植性。  
+**MAP_SHARED**: 这一标志说明了本进程对映射区所进行的存储操作的配置。此标志指定存储操作修改映射文件，也就是说，存储操作相当于对该文件的write。  
+**MAP_PRIVATE**: 本标志说明，对映射区的存储操作导致创建该映射文件的一个私有副本。所有后来对该映射区的引用都是引用该副本，而不是原始文件。（此标志的一种用途是用于调试程序，它将一程序文件的正文部分映射至一存储区，但允许用户修改其中的指令。任何修改只影响程序文件的副本，而不影响原文件）。  
+5. offset参数一般设置为0，表示从文件头开始映射。   
+6. 参数addr指定文件应被映射到进程空间的起始地址，一般被指定为一个空指针，此时选择起始地址的任务留给内核来完成。返回值为最后文件映射到进程空间的起始地址，进程可以直接操作该地址。   
+
+
+具体值定义在/usr/include/bits/mman.h可以找到
+
+```c
+/* Protections are chosen from these bits, OR'd together.  The
+   implementation does not necessarily support PROT_EXEC or PROT_WRITE
+   without PROT_READ.  The only guarantees are that no writing will be
+   allowed without PROT_WRITE and no access will be allowed for PROT_NONE. */
+
+#define PROT_READ  0x1   /* Page can be read.  */
+#define PROT_WRITE 0x2   /* Page can be written.  */
+#define PROT_EXEC  0x4   /* Page can be executed.  */
+#define PROT_NONE  0x0   /* Page can not be accessed.  */
+
+/* Sharing types (must choose one and only one of these).  */
+#define MAP_SHARED 0x01      /* Share changes.  */
+#define MAP_PRIVATE 0x02      /* Changes are private.  */
+/* Other flags.  */
+#define MAP_FIXED  0x10      /* Interpret addr exactly.  */
+```
+
+## 3. 几个典型例子
+
+### 3.1. 单进程例子
+
+先看一个单进程的例子，代码通过mmap映射自身文件的内存，打印指定位置处的字符。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <errno.h>
+
+int main(int argc, char* argv[]) {
+    int fd, offset;
+    char* data;
+    struct stat sbuf;
+
+    if (argc != 2) {
+        fprintf(stderr, "usage:mmapdemo offset\n");
+        exit(1);
+    }
+
+    if ((fd = open("mmapdemo.c", O_RDONLY)) == -1) {//打开文件自身
+        perror("open");
+        exit(1);
+    }
+
+    if (stat("mmapdemo.c", &sbuf) == -1) {//文件大小，mmap的有效内存大小不超过该值
+        perror("stat");
+        exit(1);
+    }
+
+    offset = atoi(argv[1]);//文件偏移量
+    if (offset < 0 || offset > sbuf.st_size - 1) {
+        fprintf(stderr, "mmapdemo: offset must be in the range 0-%d\n",
+                sbuf.st_size - 1);
+        exit(1);
+    }
+
+    data = mmap((caddr_t)0, sbuf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+
+    if (data == (caddr_t)(-1)) {
+        perror("mmap");
+        exit(1);
+    }
+
+    printf("byte at offset %d is '%c'\n", offset, data[offset]);
+
+    return 0;
+}
+
+```
+
+程序首先通过stat查看文件大小，然后将文件通过mmap映射到内存，查找文件offset位置字符，就可以直接查找内存data在offset位置的字符了。
+
+这里也可以看到mmap的基本功能就是映射文件到内存。
+
+注意几个错误：  
+1. open的flag需要与mmap的prot对应，比如open时为O\_RDONLY，而mmap时prot为PROT_WRITE，那么会报错`mmap: Permission denied`  
+2. 程序限定了offset值不会超过文件大小，如果去掉这一限制，./mmapdemo 4095返回一个''，./mmapdemo 4096，那么会报一个`Bus error (core dumped)`的错误  
+3. munmap解除映射关系，程序退出时也会自动unmap，unmap之后如果继续访问之前映射的内存，那么会报一个`Segmentation fault (core dumped)`的错误   
+
+说明下2里4096的原因：  
+mmap映射时，按照系统虚存页的长度整数倍映射。假定文件长12字节，系统页长512字节，则系统通常提供512字节的映射区，其中后500字节被设置为0.可以修改这500字节，但任何变动都不会在文件中反应出来(这点在后面的例子里会再验证下)。如果超过了512字节，那么会报SIGBUS的信号。   
+而我的系统里，这个系统虚存页的大小就是4096字节。   
+系统虚存页的大小获取方式：  
+
+```c
+    printf("%ld\n", getpagesize());
+    printf("%ld\n", sysconf(_SC_PAGESIZE));
+```
+
+### 3.2. 进程间通信的例子
+
+先看下两段代码:
+
+```c
+//map_normalfile1.cpp
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+
+struct People{
+    char name[4];
+    int age;
+};
+
+const int file_struct_cnt = 5;
+const int mem_struct_cnt = 10;
+
+int main(int argc, char* argv[]) {
+    int fd = open(argv[1], O_CREAT | O_RDWR | O_TRUNC, 00777);
+    lseek(fd, sizeof(People) * file_struct_cnt - 1, SEEK_SET);//文件大小为8*5
+    write(fd, "", 1);
+
+    //内存大小为8*10
+    People* pmap = (People*)mmap(NULL, sizeof(People) * mem_struct_cnt, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    close(fd);
+
+    //内存赋值
+    for (int i = 0; i < 10; ++i) {
+        char c = 'a' + i;
+        memcpy((pmap + i)->name, &c, 1);
+        (pmap + i)->age = 20 + i;
+    }
+
+    printf("initialize over.\n");
+    sleep(10);//等待map_normalfile2读取argv[1]
+    if (munmap(pmap, sizeof(People) * 10) != 0) {
+        printf("munmap error[%s]\n", strerror(errno));
+        return -1;
+    }
+
+    return 0;
+}
+```
+
+```c
+//map_normalfile2.cpp
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+#include <sys/mman.h>
+
+struct People{
+    char name[4];
+    int age;
+};
+
+const int mem_struct_cnt = 10;
+
+int main(int argc, char* argv[]) {
+    int fd = open(argv[1], O_CREAT | O_RDONLY, 00777);
+    People* pmap = (People*)mmap(NULL, sizeof(People) * mem_struct_cnt, PROT_READ, MAP_SHARED, fd, 0);
+
+    for (int i = 0; i < mem_struct_cnt; ++i) {
+        printf("name:%s age:%d\n", (pmap + i)->name, (pmap + i)->age);
+    }
+    if (munmap(pmap, sizeof(People) * 10) != 0) {
+        printf("munmap error[%s]\n", strerror(errno));
+        return -1;
+    }
+
+    return 0;
+}
+```
+
+其中：
+两个文件都定义了`struct People`，映射相同的文件，分别编译为map_normalfile1 map_normalfile2。  
+1. map\_normalfile1写数据到文件，首先把文件长度调整为5个struct的大小，mmap映射到内存后，写入10个struct大小的数据，sleep 10秒，munmap程序退出。  
+2. map\_normalfile2读文件，通过mmap映射到内存，然后读取内存数据。  
+
+测试时首先运行./map\_normalfile1 mmapdata  
+程序输出"initialze over"后运行./map\_normalfile2 mmapdata  
+map_normalfile1程序退出后再运行一次./map\_normalfile2 mmapdata  
+两次结果分别如下：  
+
+```
+//first
+name:a age:20
+name:b age:21
+name:c age:22
+name:d age:23
+name:e age:24
+name:f age:25
+name:g age:26
+name:h age:27
+name:i age:28
+name:j age:29
+
+//second
+name:a age:20
+name:b age:21
+name:c age:22
+name:d age:23
+name:e age:24
+name: age:0
+name: age:0
+name: age:0
+name: age:0
+name: age:0
+```
+
+由此我们可以得出结论：  
+1. 映射内存的实际长度不局限于文件大小，应该是虚存页大小的整数倍，超出部分填充'\0'。  
+2. 对内存超出文件大小部分的修改不会对文件产生影响，我们执行`stat mmapdata`也可以验证这点（每个struct大小为8bytes，一共写了40bytes）。  
+
+```
+  File: 'data'
+  Size: 40              Blocks: 8          IO Block: 4096   regular file
+```
+
+### 3.3. 匿名内存映射
+
+匿名映射是指参数fd=-1的映射，此时不通过文件共享内存，适用于父子进程之间。在父进程中先调用mmap()，然后调用 fork()。那么在调用fork()之后，子进程继承父进程匿名映射后的地址空间，同样也继承mmap()返回的地址，这样，父子进程就可以通过映射区 域进行通信了。注意，这里不是一般的继承关系。一般来说，子进程单独维护从父进程继承下来的一些变量。而mmap()返回的地址，却由父子进程共同维护。 对于具有亲缘关系的进程实现共享内存最好的方式应该是采用匿名内存映射的方式。
+
+```c
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+struct People {
+    char name[4];
+    int age;
+};
+
+int main() {
+    People* pmap = (People*)mmap(NULL, sizeof(People) * 10, PROT_READ | PROT_WRITE,
+            MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+    if (fork() == 0) {
+        sleep(2);//等待父进程更新内存
+        for (int i = 0; i < 5; ++i)  {
+            printf("child read name:%s age:%d\n", (pmap + i)->name, (pmap + i)->age);
+        }
+        pmap->age = 100;//更新内存
+        if (munmap(pmap, sizeof(People) * 10) != 0) {
+            printf("munmap error:%s\n", strerror(errno));
+            return -1;
+        }
+
+        return 0;
+    } else {
+        for (int i = 0; i < 5; ++i) {
+            char c = 'a' + i;
+            memcpy((pmap + i)->name, &c, 1);
+            (pmap + i)->age = 20 + i;
+        }
+
+        sleep(5);//等待子进程读取并且更新内存
+        printf("parent read name:%s age:%d\n", pmap->name, pmap->age);
+        if (munmap(pmap, sizeof(People) * 10) != 0) {
+            printf("munmap error:%s\n", strerror(errno));
+            return -1;
+        }
+
+        return 0;
+    }
+}
+
+```
+
+程序输出如下：
+
+```
+child read name:a age:20
+child read name:b age:21
+child read name:c age:22
+child read name:d age:23
+child read name:e age:24
+parent read name:a age:100
+```
+
+### 3.4. 结合信号量的一个例子
+
+我们知道信号量sem是支持跨进程的，这里写了一个简化的例子（同时出于篇幅的原因，省略了include）
+
+进程间共享信号量，其中一个进程负责初始化/销毁信号量，并随机sleep一段时间后 sem_post该信号量，另一个进程sem_wait该信号量。代码如下：
+
+*test_mmap1.cpp*
+
+```c
+const int mem_size = sizeof(sem_t);
+
+int main() {
+    int fd = open("mmap.data", O_CREAT | O_RDWR | O_TRUNC, 0777);
+    lseek(fd, mem_size, SEEK_SET);
+    write(fd, "", 1);
+
+    sem_t *psem = (sem_t*)mmap(NULL, mem_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    close(fd);
+
+    int res = sem_init(psem, 1, 0);
+    if (res != 0) {
+        printf("sem_init error. %d %s\n", errno, strerror(errno));
+        return -1;
+    }
+
+    while (true) {
+        sleep(rand() % 10);
+        printf("before post. ts:%ld\n", time(NULL));
+        sem_post(psem);
+    }
+
+    res = sem_destroy(psem);
+    assert(res != 0);
+
+    munmap(psem, mem_size);
+    printf("unmap.\n");
+
+    return 0;
+}
+```
+
+*test_mmap2.cpp*
+
+```c
+const int mem_size = sizeof(bin_sem);
+
+int main() {
+    int fd = open("mmap.data", O_CREAT | O_RDWR, 0777);
+    sem_t *psem = (sem_t*)mmap(NULL, mem_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    close(fd);
+
+    while (true) {
+        printf("before wait. ts:%ld\n", time(NULL));
+        sem_wait(psem);
+    }
+
+    sem_destroy(psem);
+    munmap(psem, mem_size);
+
+    return 0;
+}
+```
+
+## 4. 一个疑问：  
+1. man mmap里有这么一句："The file may not actually be updated until msync(2) or munmap(2) are called."，**不过我在使用的时候没有发现，程序即使没有调用msync or mmap，在程序退出前文件也会更新内容，具体原因未知**，有的参考资料里说到：在mmap共享方式中，如果不显示调用msync函数，内存数据和文件不能保持一致性。在程序停止运行后，会有大量的写硬盘操作，此时io压力很大，遇到相关问题需要注意下这个可能的原因  
+
+## 5. 参考文档：  
+1. [Memory Mapped Files](http://beej.us/guide/bgipc/output/html/multipage/mmap.html)  
+2. [Linux环境进程间通信: 共享内存](http://blog.sae.sina.com.cn/archives/1953)  

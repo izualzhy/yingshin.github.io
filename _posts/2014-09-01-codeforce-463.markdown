@@ -1,0 +1,268 @@
+---
+title:  "Codeforec Contest 463"
+date:   2014-09-01 19:55:02
+excerpt: "submissions for codeforce contest 463"
+tags: [codeforce]
+---
+
+题目链接在[这里](http://codeforces.com/contest/463)
+
+<!--more-->
+
+### [A. Caisa and Sugar](http://codeforces.com/contest/463/problem/A)
+
+题意： 有s dollars，n件物品，每件的价格是x dollar y cents，问购买那件才能获得最多的cents。
+
+分析： 每件物品求一遍即可，注意y=0时，不会找零，同时需要判断买的起。
+
+```
+int main()
+{
+    int n, s;
+    int x, y;
+    int ans = -1;
+
+    cin >> n >> s;
+    for (int i = 0; i < n; ++i) {
+        cin >> x >> y;
+        if (x > s || (x == s && y > 0)) {
+            continue;
+        }
+        else {
+            if (y == 0) {
+                ans = ans == -1 ? 0 : ans;
+            }
+            else {
+                ans = max(100 - y, ans);
+            }
+        }
+    }
+    cout << ans << endl;
+    return 0;
+}
+```
+
+### [B. Caisa and Pylons](http://codeforces.com/contest/463/problem/B)
+
+题意： n + 1个塔，从高往低走收获能量，从低往高走失去能量，能量数为两者的高度差，移动到第n+1个塔，中间能量不能为负。可以通过花钱的方式，增加某个塔的高度，问最少花钱的数目。
+
+分析： 贪心模拟，如果有能量就使用能量，不够的话补上还需要的高度就可以了。
+
+```
+int main()
+{
+    LL h[100001], n, ans = 0, e = 0;
+    cin >> n;
+    h[0] = 0;
+    for (int i = 1; i <= n; ++i) {
+        cin >> h[i];
+    }
+
+    for (int i = 0; i < n; ++i) {
+        LL inc_e = h[i] - h[i + 1];
+        if (inc_e > 0) {
+            e += inc_e;
+        }
+        else if (inc_e < 0) {
+            if (e >= -inc_e) {
+                e += inc_e;
+            }
+            else {
+                ans += (-inc_e - e);
+                e = 0;
+            }
+        }
+    }
+
+    cout << ans << endl;
+    return 0;
+}
+```
+
+
+### [C. Gargari and Bishops](http://codeforces.com/contest/463/problem/C)  
+
+题意： n\*n的chessboard，放置两个Bishops，Bishops可以攻击到对角线上的格子，攻击得分为格子上的数字，两个Bishops不能攻击到同一个格子，问怎么防止得分最高。
+
+分析： 两个Bishops不能攻击到同一个格子，画下就可以发现，类似于黑白棋，两个不能放在同一个颜色的格子上。    
+![chessboard](/assets/images/chessboard.jpg "chessboard")     
+同时要求某个点上的可获得分数，如果一个个求会超时，一共有4\*n + 2条对角线，然后对每个点，只要找到对应的两个对角线相加就可以了。   
+对角线两个方向:  
+对topleft&bottomright 方向的对角线，由(1, 1) , (1, 2) + (2, 1), ..., (n,n)组成。  
+对topright&bottomleft方向的对角线，由(1, n), (1, n - 1)+(2, n), ..., (n, 1)组成。   
+例如对点(i,j)   
+topleft与bottomright的对角线下标为i + j - 1, topright与bottomleft的对角线下标为i - j + n   
+同时注意，cin会超时。   
+
+
+```
+int main()
+{
+    ios::sync_with_stdio(0);
+    int n,x1,y1,x2,y2;
+    int a[2005][2005] = {0};
+    LL d1[4005] = {0};
+    LL d2[4005] = {0};
+    cin >> n;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            cin >> a[i][j];
+            // scanf("%d",&a[i][j]);
+            d1[i + j - 1] += a[i][j];
+            d2[i - j + n] += a[i][j];
+        }
+    }
+
+    //for (i,j), dollars = d1[i + j - 1] + d2[i - j + n] - a[i][j]
+    x1 = 1;
+    y1 = 1;
+    LL max1 = d1[x1 + y1 - 1] + d2[x1 - y1 + n] - a[x1][y1];
+    x2 = 1;
+    y2 = 2;
+    LL max2 = d1[x2 + y2 - 1] + d2[x2 - y2 + n] - a[x2][y2];
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            LL dollar = d1[i + j - 1] + d2[i - j + n] - a[i][j];
+            if (((i + j) % 2 == 0) && dollar > max1) {
+                max1 = dollar;
+                x1 = i;
+                y1 = j;
+            }
+            else if (((i + j) % 2 == 1) && dollar > max2) {
+                max2 = dollar;
+                x2 = i;
+                y2 = j;
+            }
+        }
+    }
+
+    cout << max1 + max2 << endl;
+    cout << x1 << " "
+         << y1 << " "
+         << x2 << " "
+         << y2 << endl;
+
+
+    return 0;
+}
+```
+
+### [D. Gargari and Permutations](http://codeforces.com/contest/463/problem/D)  
+
+题意： 有k个排列，每个排列的数字为1&rarr;n。问这k个排列的公共子字符串。  
+
+分析： 注意逐个求公共子字符串不行，因为公共子字符串不唯一。  
+
+与经典的LCS不同的是，字符串的长度相同，而且内容一样，只是前后顺序不同。  
+
+两种办法:   
+第一种是记录前n - 1个排列内数字的相对位置，对于第n个排列，查看相对顺序是否一致。   
+dp[i]为到第i个数字的公共子字符串长度    
+比如对第i个数字，查看从0&rarr;(i - 1)的数字，如果其中某个数字(索引为j)在前面n-1个排列里与第i个数字相对顺序都一致，那么j到i是一个公共子字符串，长度等于到dp[j] + 1,比较是否可以更新dp[i]。
+
+```
+int main()
+{
+    int n,k,t;
+    int pos[4][1000];
+    int p[1000];
+    int dp[1000];
+
+    cin >> n >> k;
+    for (int i = 0; i < k - 1; ++i)
+        for (int j = 0; j < n; ++j) {
+            cin >> t;
+            pos[i][t] = j;
+        }
+
+    for (int j = 0; j < n; ++j)
+        cin >> p[j];
+
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        dp[i] = 1;
+        for (int j = 0; j < i; ++j) {
+            bool all = true;
+            for (int m = 0; m < k - 1; ++m) {
+                if (pos[m][p[j]] > pos[m][p[i]]) {
+                    all = false;
+                    break;
+                }
+            }
+
+            if (all) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+
+        ans = max(ans, dp[i]);
+    }
+
+    cout << ans << endl;
+    return 0;
+}
+```
+
+第二种思路是看做图，每个序列表示了一条路径，首先更新出图的正确路径，即这条路径在所有序列都存在。然后计算最长路径即可。   
+
+```
+int n, k, t, ans;
+int orders[5][1005];
+vector<int> edge[1005];
+int w[1005];
+
+int dfs(int vertex)
+{
+    if (w[vertex]) {
+        return w[vertex];
+    }
+
+    w[vertex] = 1;
+    for (unsigned int i = 0; i < edge[vertex].size(); ++i) {
+        w[vertex] = max(w[vertex], dfs(edge[vertex][i]) + 1);
+    }
+
+    return w[vertex];
+}
+
+int main()
+{
+    cin >> n >> k;
+
+    for (int i = 0; i < k; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            cin >> t;
+            orders[i][t] = j;
+        }
+    }
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if (i == j)
+                continue;
+
+            bool all = true;
+            for (int p = 0; p < k; ++p) {
+                if (orders[p][i] > orders[p][j]) {
+                    all = false;
+                    break;
+                }
+            }
+
+            if (all) {
+                edge[i].push_back(j);
+            }
+        }
+    }
+
+    for (int i = 1; i <= n; ++i) {
+        dfs(i);
+    }
+
+    for (int i = 1; i <= n; ++i) {
+        ans = max(w[i], ans);
+    }
+
+    cout << ans << endl;
+}
+```

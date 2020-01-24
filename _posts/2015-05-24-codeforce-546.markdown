@@ -1,0 +1,157 @@
+---
+title:  "Codeforec Contest 546"
+date: 2015-05-24 19:24:35
+excerpt: "submissions for codeforce contest 546"
+tags: [codeforce]
+---
+
+题目链接在[这里](http://codeforces.com/contest/546)
+
+<!--more-->
+
+### [Soldier and Bananas](http://codeforces.com/contest/546/problem/A)
+
+题意： 香蕉价格为等差数列,手里有n元,要买w个香蕉,还需要借多少钱.
+
+```
+int main()
+{
+    int k, n, w;
+    cin >> k >> n >> w;
+    int total = k * w * (w + 1) / 2;
+    int borrow_dollars = total - n;
+    borrow_dollars = borrow_dollars > 0 ? borrow_dollars : 0;
+    cout << borrow_dollars << endl;
+
+    return 0;
+}
+```
+
+### [B. Soldier and Badges](http://codeforces.com/contest/546/problem/B)
+
+题意： n个数字,范围为[1,n],通过增加某些数字,使得所有数字各不相同,问增加的最小值.
+
+分析： 先排序,再从小到大增加不满足条件的数字即可,只要比前面的数字大1.
+
+```
+int main()
+{
+    int a[3001] = {0}, n, r = 0;
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i];
+    }
+    sort(a + 1, a + n + 1);
+    for (int i = 2; i <= n; ++i)
+    {
+        int d = a[i] - a[i - 1];
+        if (d <= 0)
+        {
+            r += (-d + 1);
+            a[i] += (-d + 1);
+        }
+    }
+    cout << r << endl;
+
+    return 0;
+}
+```
+
+
+### [C. Soldier and Cards](http://codeforces.com/contest/546/problem/C)  
+
+题意： n张牌数字不同,两个士兵,初始时每个士兵手里有一些牌,两人都拿最上层的牌比较.赢的人先把对方的牌放到最低端,然后再把自己的牌放在最低端,牌先光的为输,问最后谁赢还是没有赢家.
+
+分析：n的范围[2,10],因此暴力即可.注意没有赢家的判断,只要超过一定次数仍没有赢家即可.感觉应该是1!\*9!+2!\*8!+...+5!\*5!.我直接使用的500000.
+
+```
+int main()
+{
+    int n, k1, k2, tmp;
+    queue<int> q1, q2;
+    scanf("%d", &n);
+    scanf("%d", &k1);
+    for (int i=0; i<k1; ++i)
+    {
+        scanf("%d", &tmp);
+        q1.push(tmp);
+    }
+    scanf("%d", &k2);
+    for (int i=0; i<k2; ++i)
+    {
+        scanf("%d", &tmp);
+        q2.push(tmp);
+    }
+
+    for (int i=1; i<500000; ++i)
+    {
+        int q1top = q1.front();
+        int q2top = q2.front();
+        q1.pop();
+        q2.pop();
+        if (q1top > q2top)
+        {
+            q1.push(q2top);
+            q1.push(q1top);
+        }
+        else
+        {
+            q2.push(q1top);
+            q2.push(q2top);
+        }
+
+        if (q1.empty())
+        {
+            printf("%d 2\n", i);
+            return 0;
+        }
+        if (q2.empty())
+        {
+            printf("%d 1\n", i);
+            return 0;
+        }
+    }
+    printf("-1\n");
+
+    return 0;
+}
+```
+
+### [D. Soldier and Number Game](http://codeforces.com/contest/546/problem/D)  
+
+题意： 已知数字为a!/b!,每次除以某个数直到为1,求最大的次数.如果除的是非素数,那么就不是最大次数.因此题目转化为求该数字有多少因子,注意可能给定1000000个数字。
+
+分析： 对给定的每个数字求解多少个因数的话，由于次数很多，因此会超时。需要提前计算[2,5000000]内的数字有多少因子，如果i是素数，j是i的倍数，fac[j] = 1 + fac[j/i]。注意f[j]可能前面计算的是错误的,比如素数=2时f[6] = 1 + f[3] = 1, 素数=3时f[6] = 1 + f[2] = 2，即较大素数时结果是对的。
+
+
+```
+int main()
+{
+    int t, a, b;
+    const int N = 5000001;
+    int fac[N] = {0};
+    for (int i=2; i<N; i++)
+    {
+        if (fac[i] == 0)
+        {
+            for (int j=i; j<N; j+=i)
+            {
+                fac[j] = 1 + fac[j/i];
+            }
+        }
+    }
+    for (int i=2; i<N; i++)
+    {
+        fac[i] += fac[i-1];
+    }
+    scanf("%d", &t);
+    for (int i = 0; i < t; ++i)
+    {
+        scanf("%d %d", &a, &b);
+        printf("%d\n", fac[a] - fac[b]);
+    }
+
+    return 0;
+}
+```

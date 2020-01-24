@@ -1,0 +1,46 @@
+---
+title: 追core笔记之一：pstack
+date: 2016-11-21 22:30:23
+excerpt: "saverng追core笔记之pstack"
+tags: core  gdb
+---
+
+最近接手了一个模块，遇到的第一个问题是每天产生很多core，逐一看肯定是不现实的，因此先对core进行分类。
+
+想到的方案自然是逐台机器gdb对应的core，core栈拿到后在本地分析归类。事实上后来发现这么做带来的另外一个好处是可以看到core的分布规律，比如是否集中在某个时间段出现。
+
+实现逐台机器gdb查看core栈这个功能，自然想到了pstack。
+
+`pstack`可以看到进程所有线程当前的栈，实际上是一个脚本，封装了gdb的功能，贴下最核心的片段：
+
+```
+# Run GDB, strip out unwanted noise.
+$GDB --quiet $readnever -nx /proc/$1/exe $1 <<EOF 2>&1 | 
+$backtrace
+EOF
+sed -n \
+    -e 's/^(gdb) //' \
+    -e '/^#/p' \
+    -e '/^Thread/p'
+```
+
+采用here document的方式，使用sed过滤了部分输出。
+
+`$backtrace`设置为`bt`或者`thread apply all bt`
+
+查看core栈的脚本（很懒的保留了pstack的大部分语句）：
+
+```
+gdb --quiet -nx dlb_receiver $1 <<EOF 2>&1 | 
+set width 0
+set height 0
+set solib-search-path
+bt
+EOF
+/bin/sed -n \
+    -e 's/^\((gdb) \)*//' \
+    -e '/^#/p' \
+    -e '/^Thread/p'
+```
+
+其中`dlb_receiver`为进程名，`$1`为core文件。

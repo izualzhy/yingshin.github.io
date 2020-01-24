@@ -1,0 +1,40 @@
+- title: 'Working Hard to Keep It Simple'
+  url: 'https://www.youtube.com/watch?reload=9&v=3jg1AheF4n0'
+  tag: 'scala'
+  note: 'Martin Odersky 在2011年的一篇演讲，关于 Scala 的一个简短的介绍。最近真的快要被函数式编程圈粉了，高效、简洁还不易出错。这个题目我也很喜欢，感觉自己总是 Working Hard，却没有做到 Keep It Simple，工作上最后收到的结果也不尽如人意。原文在这里:https://www.slideshare.net/Odersky/oscon-keynote-working-hard-to-keep-it-simple'
+
+- title: '架构设计与架构师 林仕鼎'
+  url: 'http://djt.qq.com/video/1058'
+  tag: 'architect'
+  note: '这是QCon-2013上的一场演讲，现在听了依然受益匪浅。演讲以存储、服务架构、计算模型为例子介绍了架构：What Why How.存储需要考虑结构、访问模式、数据特点、实时性等，服务架构需要考虑高吞吐、稳定性，计算需要考虑数据/计算/通讯密集型等。作者提到，Architect是位于Engineer和Researcher间的一个角色，理论映射到实践，实践抽象为理论。最后则介绍了架构师的三板斧。从去年6 7月份以来，我突然困惑于架构是做什么的这个问题，而林仕鼎是这么说的："对于架构师的技能要求，我参考武林高手，建了个模型：内力+招式+经验。内力由修炼得来，招式源于剑法拳谱即前人的积累，而经验则靠实战。编程能力像是内力，在不断对代码进行重构的过程中获得提升，参与项目就是实战。通常来说，内力+经验就能赢得战斗，但招式会使你看起来出身名门大派，即不山寨。内力、招式和经验，这三者通常也不是单独增长的，需要在一次次的迭代过程中螺旋式上升，即在实战中锻炼内力并加深对招式的理解，而后两者可以带来更多实战的机会和成功概率。待你到达一定阶段，自然也会总结出自己的功法招式，传与后人。当然还可以写成秘笈，留在山洞里等待有缘人。"'
+
+- title: 'THE WORLD OF C++ STL ALGORITHMS'
+  url: 'https://izualzhy.cn/cpp-seasoning'
+  tag: 'STL'
+  note: '关于C++ STL ALGOS的演讲，巧合的是作者也提到了上一个推荐的演讲，105个算法被分到不同的领地，类似魔兽世界，我从中截取了1分钟的介绍视频，大家可以感受下。有个评论说"Haha. That world map. As nerdy as it gets.Loving it."，算是非常精辟了。'
+
+- title: 'C++ Seasoning:3 Goals for Better Code'
+  url: 'https://izualzhy.cn/cpp-seasoning'
+  tag: 'Cpp-Seasoning'
+  note: '作者在演讲里提出了3 Goals for Better Code，分别关于No Raw Loop、No Raw Synchronization Primitives、No Raw Pointers，在场的听众以及视频的评论里，很多希望作者出一本书，因为作者用真实代码(Chromium)展示了如何把一段代码变的更好，虽然没有完全理解也不完全认同作者的观点，但这篇演讲的确能够带给人很多思考和共鸣，有些你习以为常的代码习惯，例如智能指针，可能也需要不断思考是否是正确的，比如提出这样的问题：Why-Should-I-Not-Use-Smart-Pointers(https://stackoverflow.com/questions/18813679/why-should-i-not-use-smart-pointers), 保持自我思考的能力。'
+
+- title: '关于 BloomFilter 的几篇论文'
+  url: 'https://izualzhy.cn/bloom-filter-paper'
+  tag: 'bloom filter'
+  note: 'BloomFilter无论是学术还是工程领域，都已经得到了广泛的证明和实践，例如在Chromium, bigtable等，也不断进化出了很多新的类型：Counting Bloom Filter/Partial Bloom Filter/Compressed Bloom Filter...'
+
+- title: 'Skip Lists: A Probabilistic Alternative to
+Balanced Trees'
+  url: 'https://epaperpress.com/sortsearch/download/skiplist.pdf'
+  tag: 'skiplist'
+  note: 'skiplist 是一种概率数据结构，大概率下拥有和红黑树同样的查找和修改性能，但是实现简单很多，在很多场景都有使用，例如leveldb redis， 论文和c实现可以参考这里 ftp://ftp.cs.umd.edu/pub/skipLists。'
+
+- title: 'In Search of an Understandable Consensus Algorithm'
+  url: 'https://raft.github.io/raft.pdf'
+  tag: 'raft'
+  note: '鼎鼎大名的raft论文，文章按照Leader Election, Log Replication, Safety介绍了一致性算法，跟paxos做了对比，同时介绍了Cluster membership changes以及Log compaction.'
+
+- title: 'MapReduce: Simplified Data Processing on Large Clusters'
+  url: 'https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf'
+  tag: 'mapreduce'
+  note: 'Jeffrey Dean and Sanjay Ghemawat的mr论文，非常详细的介绍了mr模型，包括模型是如何被提出来的，为什么定义了mapper/reducer两个用户接口，以及整体的数据处理流程，数据的准备、任务的分配，中间结果的存储以及容错。个人觉得最优秀的是从google众多的大数据计算里抽象出了mr这个模型。'

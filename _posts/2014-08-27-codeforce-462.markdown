@@ -1,0 +1,222 @@
+---
+title:  "Codeforec Contest 462"
+date:   2014-08-27 19:55:02
+excerpt: "submissions for codeforce contest 462"
+tags: [codeforce]
+---
+
+题目链接在[这里](http://codeforces.com/contest/462)
+
+这次的题目比较简单，做完ABC后试了下如何hack别人哈哈。  
+
+
+<!--more-->
+
+### [A. Appleman and Easy Task](http://codeforces.com/contest/462/problem/A)
+
+题意： n\*n的矩阵，由字母xo组成，问是否每个格子四边的格子为o的个数是偶数。    
+
+分析： 对每个格子计算一遍即可
+
+```
+int main()
+{
+    int n;
+    char a[100][100];
+
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> a[i][j];
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int count = 0;
+            if (i > 0 && a[i - 1][j] == 'o') {
+                count++;
+            }
+            if (i < n - 1 && a[i + 1][j] == 'o') {
+                count++;
+            }
+            if (j > 0 && a[i][j - 1] == 'o') {
+                count++;
+            }
+            if (j < n - 1 && a[i][j + 1] == 'o') {
+                count++;
+            }
+
+            if (count & 1) {
+                cout << "NO" << endl;
+                return 0;
+            }
+        }
+    }
+
+    cout << "YES" << endl;
+    return 0;
+}
+```
+
+### [B. Appleman and Card Game](http://codeforces.com/contest/462/problem/B)
+
+题意： A有n张卡片，卡片上写着1个大写字母，B可以抽k张，1&le;k&le;n&le;1e5，对B的每张卡片，得分数为B的相同字母的卡片个数，
+ 最后总的的分数就是B的每张卡片的分数和。  
+
+分析：对于一个字母B有a张，这a张得分为a<sup>2</sup>，假设要取10张，10<sup>2</sup> &gt; a<sup>2</sup> + (10 - a)<sup>2</sup>，因此能多取就多取，贪心算法即可。  
+
+```
+int main()
+{
+    LL n, k, ans = 0;
+    cin >> n >> k;
+    char card;
+    LL count[100] = {0};
+
+    for (int i = 0; i < n; ++i) {
+        cin >> card;
+        ++count[card - 'A'];
+    }
+
+    sort(count, count + 26);
+    int i = 25;
+
+    while (k > 0 && i >= 0) {
+        if (k >= count[i]) {
+            k -= count[i];
+            ans += (count[i] * count[i]);
+        }
+        else {
+            ans += (k * k);
+            k = 0;
+        }
+        --i;
+    }
+
+    cout << ans << endl;
+
+
+    return 0;
+}
+```
+
+
+### [C. Appleman and Toastman](http://codeforces.com/contest/462/problem/C)  
+
+题意：初始状态A有n个数字，作为一组全部给B，从现在开始A每次收到的这组如果只有一个数字，则丢弃，否则将该组数字分成两组，两组都交给B，B还给A，如此往复， 直到没有数字。B每次收到卡片计算收到的数字和累加。
+
+分析：使得最大的数字能够最晚丢弃，最开始丢弃的都是最小的，贪心算法，可以参考Huffman的思想。  
+
+
+```
+int main()
+{
+    LL n, a[300001], ans = 0;
+    cin >> n;
+    for (LL i = 1; i <= n; ++i) {
+        cin >> a[i];
+        ans += a[i];
+    }
+    sort(a + 1, a + n + 1);
+
+    for (LL i = 1; i <= n; ++i) {
+        ans += (i * a[i]);
+    }
+    ans -= a[n];
+
+    cout << ans << endl;
+
+    return 0;
+}
+```
+
+### [D. Appleman and Tree](http://codeforces.com/contest/462/problem/D)  
+
+题意:n个顶点，编号0,1,..,n-1，其中有黑白两个颜色，后面的顶点有且只有一条边指向前面的顶点，因此可以看做这是树，而不是图，不要被误解了。求将树分成多个子树，同时每个子树有且只有一个黑色节点的方法数。  
+
+分析：动态规划，对顶点v     
+    dp[v][0]表示以v为root的树对父节点贡献0个黑色的情况数   
+    dp[v][1]表示以v为root的树对父节点贡献1个黑色的情况数    
+    注意v与父节点的边如果切断需要保证v为root的子树黑色数为1，这样才能满足题目要求   
+
+假设v有3个子树a,b,c    
+1. 假设v本身为白色   
+    dp[v][1]即v为父节点贡献1个黑色的情况数，即为一个子树贡献1个黑色其余子树贡献0个情况数和   
+    dp[v][0]分两种情况:  
+        a. 所有子树均贡献0个黑色    
+        b. 一个子树贡献1个黑色其余子树贡献0个情况数,同时v与父节点的边切断   
+        即：   
+        dp[v][1] = dp[a][1] * dp[b][0] * dp[c][0] +   
+                   dp[a][0] * dp[b][1] * dp[c][0] +   
+                   dp[a][0] * dp[b][0] * dp[c][1]    
+        dp[v][0] = dp[a][0] * dp[b][0] * dp[c][0] + dp[v][1]  
+2. 假设v本身为黑色   
+        如果v对父节点贡献0个黑色，那么只能切断v与父节点的边，同时为了使得仍然只有1个黑色节点，那么要满足v的子树均贡献0个    
+        即dp[v][0] = dp[a][0] * dp[b][0] * dp[c][0]    
+        如果v对父节点贡献1个黑色，那么不能切断v与父节点的边，同时为了使得只有1个黑色节点，那么要满足v的子树均贡献0个    
+        即dp[v][1] = dp[v][0]。    
+
+第一次解决树形DP的题目，如有不对还请指出。    
+另外注意mod操作在每次子树操作时都要做，否则会溢出。   
+
+```
+const LL MOD = 1e9 + 7;
+const int N = 1e5;
+LL dp[N][2];
+bool vis[N];
+int n,v;
+vector<int> edge[N];
+int color[N];
+
+void dfs(int index)
+{
+    vis[index] = true;
+    dp[index][0] = 1;
+    dp[index][1] = 0;
+
+    for (unsigned int i = 0; i < edge[index].size(); ++i) {
+        int u = edge[index][i];
+        if (vis[u])
+            continue;
+
+        dfs(u);
+
+        dp[index][1] *= dp[u][0];
+        dp[index][1] += dp[index][0] * dp[u][1];
+        dp[index][0] *= dp[u][0];
+
+        dp[index][0] %= MOD;
+        dp[index][1] %= MOD;
+    }
+
+    if (color[index] == 1) {
+        dp[index][1] = dp[index][0];
+    }
+    else {
+        dp[index][0] += dp[index][1];
+    }
+
+    dp[index][0] %= MOD;
+    dp[index][1] %= MOD;
+}
+
+int main()
+{
+    cin >> n;
+    for (int i = 1; i < n; ++i) {
+        cin >> v;
+        edge[i].push_back(v);
+        edge[v].push_back(i);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        cin >> color[i];
+    }
+
+    dfs(0);
+
+    cout << dp[0][1] << endl;
+    return 0;
+}
+```
