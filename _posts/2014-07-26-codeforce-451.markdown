@@ -1,0 +1,263 @@
+---
+title:  "Codeforec Contest 451"
+date:   2014-07-26 22:00:02
+excerpt: "submissions for codeforce contest 451"
+tags: [codeforce]
+---
+
+自从换了工作就一顿忙碌，回顾了下却也不知道自己在忙什么。
+
+于是决定还是做下cf，这次的题目感觉偏数学一些，而且很多找规律的。做了ABCD四道。
+
+<!--more-->
+
+> [A.Games With Sticks](http://codeforces.com/contest/451/problem/A)  
+
+每拿一次就是去掉一根横线和一根竖线，因此判断直到一个方向变为0即可。
+
+```
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+
+    if (min(n,m) & 1)
+    {
+        cout << "Akshat" << endl;
+    }
+    else
+    {
+        cout << "Malvika" << endl;
+    }
+
+    return 0;
+}
+
+```
+
+> [B.Sort the Array](http://codeforces.com/contest/451/problem/B)
+
+一个数组，是否可以找到一个区间做反转，使得整个数组递增。需要满足       
+
+1. 只能有个一个逆序区间
+2. 逆序区间前的最大值应当小于区间内最小值
+3. 逆序区间后的最小值应当大于区间内最大值
+
+当时为了满足2，3多花了很多时间调试，后来才看到有人说这个数组个数比较少。     
+找到区间后反转，再遍历一边查看是否递增即可。    
+
+```
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+int main()
+{
+    int n;
+    int a[100001];
+
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i];
+    }
+
+    int s = -1, e = -1;
+    //逆序区间之前的最大值，区间内值需要大于该值
+    int max = 0;
+    //逆序区间之后的最小值，区间内值需要小于该值
+    int min = 1e9+1;
+
+    for (int i = 1; i < n; ++i)
+    {
+        //逆序对
+        if (a[i] > a[i+1])
+        {
+            //标记逆序开始
+            if (s == -1)
+            {
+                s = i;
+            }
+            //两个及以上逆序区间返回NO
+            if (e != -1)
+            {
+                cout << "no" << endl;
+                return 0;
+            }
+        }
+        else
+        {
+            if (s == -1)
+                max = max > a[i] ? max : a[i];
+            if (e != -1)
+                min = min > a[i] ? a[i] : min;
+            //标记逆序结束
+            if (s != -1 && e == -1)
+            {
+                e = i;
+                if (i == n-1)
+                    min = min > a[n] ? a[n] : min;
+            }
+
+        }
+    }
+
+    if (s != -1 && e == -1)
+    {
+        e = n;
+    }
+
+    if (s == -1 && e == -1)
+    {
+        s = e = 1;
+    }
+    else
+    {
+        for (int i = s; i <= e; ++i)
+        {
+            if (a[i] > min || a[i] < max)
+            {
+                cout << "no" << endl;
+                return 0;
+            }
+        }
+    }
+    cout << "yes" << endl;
+    cout << s << " " << e << endl;
+
+    return 0;
+}
+
+```  
+
+> [C.Predict Outcome of the Games](http://codeforces.com/contest/451/problem/C)  
+
+1，2，3三个队伍,共赛n场，已经比赛了k场，已知的猜测结果如下：     
+1.  |x1-x2| = d1    
+2.  |x2-x3| = d2
+
+同时`x1 + x2 + x3 = k`     
+可知有四种情况，满足一个即可。最后需要使得`x1 = x2 = x3 = n/3`则构成平局。
+
+```
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+int main()
+{
+    LL t,n,k,d1,d2;
+    string res[100000];
+    cin >> t;
+    LL a[4];
+    LL x1,x2,x3;
+
+    for (LL i = 0; i < t; ++i)
+    {
+        cin >> n >> k >> d1 >> d2;
+        a[0] = k + 2*d1 + d2;
+        a[1] = k - 2*d1 + d2;
+        a[2] = k + 2*d1 - d2;
+        a[3] = k - 2*d1 - d2;
+    
+        for (LL j = 0; j < 4; ++j)
+        {
+            if (a[j]%3 == 0 && n%3 == 0)
+            {
+                x1 = a[j]/3;
+                if (j&1)
+                    x2 = x1 + d1;
+                else
+                    x2 = x1 - d1;
+                x3 = k - x1 - x2;
+
+                if (x1 >= 0 && x1 <= n/3 &&
+                        x2 >= 0 && x2 <= n/3 &&
+                        x3 >= 0 && x3 <= n/3)
+                {
+                    res[i] = "yes";
+                    break;
+                }
+            }
+            res[i] = "no";
+        }
+    }
+
+    for (LL i = 0; i < t; ++i)
+    {
+        cout << res[i] << endl;
+    }
+}
+
+```
+
+> [D.Count Good Substrings](http://codeforces.com/contest/451/problem/D)   
+
+字符串s只包括'a' 'b'   
+举一个例子:   
+`s=aaaaabbaaabbbaa`   
+> 1.  对于奇数位置的字符，与之前的同样的字符就可以组成Good String.     
+    如果该字符在奇数位置，则该substring个数为奇数个。    
+    如果该字符在偶数位置，则该substring个数为偶数个。    
+> 2.  对于偶数位置的字符，与之前的同样的字符就可以组成Good String.   
+    如果该字符在奇数位置，则该substring个数为偶数个。    
+    如果该字符在偶数位置，则该substring个数为奇数个。    
+
+遍历到该位置时，加上对应的substring即可。   
+同时注意字符本身即为一个Good string，奇数结果+1.   
+
+```
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+int main()
+{
+    string s;
+    cin >> s;
+
+    int even_index[2] = {0};
+    int odd_index[2] = {0};
+    LL odd_res = 0;
+    LL even_res = 0;
+
+    for (unsigned int i = 0; i < s.size(); ++i)
+    {
+        int id = s[i] - 'a';
+        odd_res++;
+        if (i & 1)
+        {
+            even_res += even_index[id];
+
+            odd_res += odd_index[id];
+            odd_index[id]++;
+        }
+        else
+        {
+            even_res += odd_index[id];
+            odd_res += even_index[id];
+            even_index[id]++;
+        }
+    }
+
+    cout << even_res << " " << odd_res << endl;
+    return 0;
+}
+```
+

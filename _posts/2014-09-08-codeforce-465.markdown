@@ -1,0 +1,282 @@
+---
+title:  "Codeforec Contest 465"
+date:   2014-09-08 17:16:02
+excerpt: "submissions for codeforce contest 465"
+tags: [codeforce]
+---
+
+题目链接在[这里](http://codeforces.com/contest/465)
+
+<!--more-->
+
+### [A. inc ARG](http://codeforces.com/contest/465/problem/A)
+
+题意： n-bits的数，第1位+1，如果加到第n位仍需进位，则忽略掉进位的数字。
+
+分析： 从第一位+1，如果是1，则会影响最近的高位，最多影响n位。
+
+```
+int main()
+{
+    int n, res = 1;
+    cin >> n;
+    char c;
+    for (int i = 0; i < n; ++i) {
+        cin >> c;
+        if (c ==  '1') {
+            res++;
+        }
+        else {
+            break;
+        }
+    }
+    res = res >= n ? n : res;
+
+    cout << res << endl;
+    return 0;
+}
+```
+
+### [B. Inbox (100500)](http://codeforces.com/contest/465/problem/B)
+
+题意： n封邮件，列表的形式，编号从1到n，有的未读，有的已读，现在有三种操作：  
+1. 从列表进入到某封邮件   
+2. 从邮件返回列表    
+3. 从邮件进到上一封/下一封邮件  
+问最少多少操作可以读完所有邮件。  
+
+分析：如果在阅读邮件的状态，同时下一封邮件也是未读的话，直接操作3就可以了。注意最后一封邮件的状态，如果其他则返回列表，最后一封未读邮件，不要返回到列表。
+
+```
+int main()
+{
+    int n, r[1000], res = 0;
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        cin >> r[i];
+    }
+
+    bool in_list = false;
+    for (int i = 0; i < n; ++i) {
+        if (r[i] == 1) {
+            if (in_list) {
+                res++;
+            }
+            else
+            {
+                res++;
+                in_list = true;
+            }
+        }
+        else {
+            if (in_list) {
+                res++;
+                in_list = false;
+            }
+            else {
+            }
+        }
+    }
+
+    if (!in_list && res > 0) {
+        res--;
+    }
+
+    cout << res << endl;
+    return 0;
+}
+```
+
+
+### [C. No to Palindromes!](http://codeforces.com/contest/465/problem/C)  
+
+题意： n长度的字符串，字符全是由小写英文字母的前p个字母的集合，同时不包含任意回文子串，问下一个比给定的字符串大的同时满足上述两个条件的字符串，如果没有则输出NO.
+
+分析： 首先想下暴力的耗时的地方，比如abdc是给定的字符串,n = 4, p = 4    
+接下来的字符串：abdd, acaa, acab, acac, acad, acba    
+acba满足条件，对acaa,acab,acac,acad， aca\*实际上都已经重复了。  
+因此分析下不包含任意回文子串的条件,假定n长度字符串s，第1到第n位为s1,...,sn。     
+
+1. s1可以在[abcd]里任意选择。  
+2. s2可以在[abcd] - {s1}里任意选择。  
+3. s3可以在[abcd] - {s1} - {s2}里任意选择。  
+4. s4可以在[abcd] - {s2} - {s3}里任意选择。  
+
+也就是说对第i位，只要与第i-1,i-2位（如果存在的话）不相同就可以了。   
+
+因此接下来步骤如下，i=n-1。  
+1. 对第i位，由s[i]逐个递增，如果找到满足与i-1,i-2位（如果存在的话）都不相同的字符，则开始构造更低的位数，如果没有找到，i--，继续这一步骤，如果找不到，则说明没有这样的字符串。  
+2. 第i位正好大于s[i]同时满足条件的数字找到，[0,i)与s相同，接下来构造[i+1, n)的字符，从i+1位开始，由'a'逐个递增，如果找到满足与i-1,i-2位（如果存在的话）都不相同的字符，则继续构造i+2位，直到第n-1位。
+
+
+```
+int main()
+{
+    int n, p;
+    string s, ans = "NO";
+    cin >> n >> p;
+    cin >> s;
+    int i = n - 1;
+    char max_alpha = 'a' + p - 1;
+
+    while (i >= 0) {
+        char c = s[i] + 1;
+        for (; c <= max_alpha; ++c) {
+            if ((i >= 1 && c == s[i - 1]) || (i >= 2 && c == s[i - 2])) {
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+        if (c > max_alpha) {
+            --i;
+            continue;
+        }
+        else {
+            ans = s.substr(0, i);
+            ans.append(1, c);
+            for (int j = i + 1; j < n; ++j) {
+                for (char c = 'a'; c <= max_alpha; ++c) {
+                    if (!((j >= 1 && c == ans[j - 1]) || (j >= 2 && c == ans[j - 2]))) {
+                        ans.append(1, c);
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+    }
+
+    cout << ans << endl;
+    return 0;
+}
+```
+
+### [D. Restore cube.](http://codeforces.com/contest/465/problem/D)  
+
+题意： 有一个立方体，各顶点都在三维坐标系的整数坐标点上，各点[x, y, z]被打乱了，求是否可以还原原来的坐标。
+
+分析： 做题的时候没有想到这是一个暴力的题目，注意(3!)<sup>8</sup>的组合方式，因此判断这些点是不是正方形条件要简单，即：对每个点必然存在三个点距离相等而且最近，这三点与原点组成的线段两两垂直（只要一个点满足即可）。个人不是很理解这道题目，毕竟立体几何不接触很久了，而且如果点复杂了，就会超时，我的程序如果去掉输入的时候的去掉重复点对，就会超时。
+
+```
+struct Point {
+    LL x;
+    LL y;
+    LL z;
+    Point(LL i1 = 0, LL i2 = 0, LL i3 = 0)
+        : x(i1)
+        , y(i2)
+        , z(i3)
+    {}
+    bool operator==(const Point& p)
+    {
+        return x == p.x && y == p.y && z == p.z;
+    }
+};
+
+LL dis_square(const Point& lhs, const Point& rhs)
+{
+    return (lhs.x - rhs.x) * (lhs.x - rhs.x)
+           + (lhs.y - rhs.y) * (lhs.y - rhs.y)
+           + (lhs.z - rhs.z) * (lhs.z - rhs.z);
+
+}
+
+vector<Point> points[8];
+Point point[8];
+
+bool dfs(int ci)
+{
+    if (ci == 8) {
+        LL distance[8][8];
+        for (int i = 0; i < 8; ++i)
+            for (int j = i + 1; j < 8; ++j) {
+                distance[i][j] = distance[j][i] = dis_square(point[i], point[j]);
+            }
+
+        LL l = -1;
+        for (int i = 1; i < 8; ++i) {
+            if (l == -1 || distance[0][i] < l) {
+                l = distance[0][i];
+            }
+        }
+
+        bool res = false;
+        for (int i = 0; i < 8; ++i) {
+            res = false;
+            int v[3] = {0};
+            int index = 0;
+            for (int j = 0; j < 8; ++j) {
+                if (distance[i][j] == l) {
+                    v[index++] = j;
+                }
+            }
+            if (index == 3) {
+                if (i == 0) {
+                    Point l0(point[v[0]].x - point[i].x, point[v[0]].y - point[i].y, point[v[0]].z - point[i].z);
+                    Point l1(point[v[1]].x - point[i].x, point[v[1]].y - point[i].y, point[v[1]].z - point[i].z);
+                    Point l2(point[v[2]].x - point[i].x, point[v[2]].y - point[i].y, point[v[2]].z - point[i].z);
+                    res = (l0.x * l1.x + l0.y * l1.y + l0.z * l1.z == 0) &&
+                          (l0.x * l2.x + l0.y * l2.y + l0.z * l2.z == 0) &&
+                          (l2.x * l1.x + l2.y * l1.y + l2.z * l1.z == 0);
+                }
+                else {
+                    res = true;
+                }
+            }
+
+            if (!res) {
+                break;
+            }
+        }
+
+        return res;
+    }
+
+    for (unsigned int i = 0; i < points[ci].size(); ++i) {
+        point[ci] = points[ci][i];
+        if (dfs(ci + 1)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    int x, y, z;
+    for (int i = 0; i < 8; ++i) {
+        cin >> x >> y >> z;
+        if (find(points[i].begin(), points[i].end(), Point(x, y, z)) == points[i].end())
+            points[i].push_back(Point(x, y, z));
+        if (find(points[i].begin(), points[i].end(), Point(x, z, y)) == points[i].end())
+            points[i].push_back(Point(x, z, y));
+        if (find(points[i].begin(), points[i].end(), Point(y, x, z)) == points[i].end())
+            points[i].push_back(Point(y, x, z));
+        if (find(points[i].begin(), points[i].end(), Point(y, z, x)) == points[i].end())
+            points[i].push_back(Point(y, z, x));
+        if (find(points[i].begin(), points[i].end(), Point(z, x, y)) == points[i].end())
+            points[i].push_back(Point(z, x, y));
+        if (find(points[i].begin(), points[i].end(), Point(z, y, x)) == points[i].end())
+            points[i].push_back(Point(z, y, x));
+    }
+
+    if (dfs(0)) {
+        cout << "YES" << endl;
+        for (int i = 0; i < 8; ++i) {
+            cout << point[i].x << " "
+                << point[i].y << " "
+                << point[i].z << endl;
+        }
+    } else {
+        cout << "NO" << endl;
+    }
+
+    return 0;
+}
+
+```
+

@@ -1,0 +1,283 @@
+---
+title:  "glog简介"
+date: 2016-01-21 00:05:47
+excerpt: "glog简介"
+tags: [glog]
+---
+
+glog是google的的一个C++轻量日志库，支持常用的日志功能：例如日志级别，自定义级别，条件输出，DEBUG日志等，同时支持gflag的参数配置方式。  
+本文主要介绍glog的一些基本用法。  
+
+<!--more-->
+
+### 1. 日志输出目录
+日志默认打印到屏幕，同时有一句提示  
+"WARNING: Logging before InitGoogleLogging() is written to STDERR"  
+加了这一句后`google::InitGoogleLogging(argv[0])`，日志输出到文件。  
+默认的输出位置在tmp下，文件名格式为：  
+`/tmp/<program name>.<hostname>.<username>.log.<severity level>.<data>.<time>.<pid>`  
+比如:introduction.ymac.yingshin.log.ERROR.20160102-231949.11182
+
+### 2. 日志级别
+
+日志级别有4种，INFO WARNING ERROR FATAL，在`glog/log_severity.h`中定义，数值越大级别越高(severity)。
+
+```cpp
+const int GLOG_INFO = 0, GLOG_WARNING = 1, GLOG_ERROR = 2, GLOG_FATAL = 3, NUM_SEVERITIES = 4;
+const int INFO = GLOG_INFO, WARNING = GLOG_WARNING, ERROR = GLOG_ERROR, FATAL = GLOG_FATA;
+```
+
+FATAL日志会在打印日志后退出，并产生一个core文件，例如：  
+
+```
+F0108 19:13:50.348691 16848 demo.cpp:10] Hello, glog fatal
+*** Check failure stack trace: ***
+    @           0x408a2c  google::LogMessage::Fail()
+    @           0x408984  google::LogMessage::SendToLog()
+    @           0x408419  google::LogMessage::Flush()
+    @           0x40b1da  google::LogMessageFatal::~LogMessageFatal()
+    @           0x405241  main
+    @     0x7f4e535ecbd5  __libc_start_main
+    @           0x405049  (unknown)
+Aborted (core dumped)
+```
+
+不同的日志级别会输出到不同的文件，与日志级别一样，文件名后缀共有4个，分别是.INFO .WARNING .ERROR .FATAL。  
+X级别的日志会输出到所有<=X的日志文件里，例如error日志在.INFO .WARNING .ERROR日志里都会输出。  
+
+注意还有一种日志级别是DFATAL，当定义NDEBUG宏时是ERROR，否则是FATAL。主要通过在NDEBUG下定义为ERROR，否则为FATAL来实现。  
+
+```cpp
+// glog/log_severity.h
+// DFATAL is FATAL in debug mode, ERROR in normal mode
+#ifdef NDEBUG
+#define DFATAL_LEVEL ERROR
+#else
+#define DFATAL_LEVEL FATAL
+#endif
+```
+
+例如：
+
+```cpp
+LOG(DFATAL) << "Hello, glog fatal.";
+```
+
+两种情况下的输出分别为：
+
+```
+//MACRO NDEBUG is defined.
+E0113 20:32:17.928611 23650 demo.cpp:27] Hello, glog fatal.
+```
+
+```
+//MACRO NDEBUG is not defined.
+F0113 20:36:49.486486 32554 demo.cpp:27] Hello, glog fatal.
+*** Check failure stack trace: ***
+    @           0x408b90  google::LogMessage::Fail()
+    @           0x408ae8  google::LogMessage::SendToLog()
+    @           0x40857d  google::LogMessage::Flush()
+    @           0x4083b1  google::LogMessage::~LogMessage()
+    @           0x4053c0  main
+    @     0x7fbdd9722bd5  __libc_start_main
+    @           0x4050f9  (unknown)
+Aborted (core dumped)
+```
+
+
+### 3. 配置
+
+glog有很多配置项，这些配置项都是通过gflags设置的，关于gflags的使用可以参考[这篇文章](http://izualzhy.cn/gflags-introduction)。  
+例如对于logtostderr这个配置，有3种方法可以设置：  
+1. 设置GLOG\_前缀名的系统环境变量：`export GLOG_logtostderr=1;./your_application`  
+2. 手动在程序里修改gflags配置变量：`FLAGS_logtostderr = 1;LOG(INFO) << ...`。  
+   注意`FLAGS_log_dir`比较特殊，如果想要生效，需要再调用`google::InitGoogleLogging`之前。  
+3. 程序启动时在命令行配置gflags：`./your_application --logtostderr=1`  
+
+注意第三种方法需要安装了gflags库，我在编译安装glog时手动指定了gflags的位置：`--with-gflags=gflags安装路径`。编译的glog库是否支持gflags可以参考下logging.h这一行
+
+```cpp
+//1表示支持，0表示不支持
+#if 1
+#include <gflags/gflags.h>
+#endif
+```
+
+推荐使用第三种方法。  
+
+介绍下最常用的几个flag：  
+1. **logtostderr**: bool型，设置为true后日志不输出到文件，在屏幕打印，默认值为false。  
+2. **stderrthreshold**： int型，>=该值的日志级别除了输出到文件，同时在屏幕打印，默认值为2，即屏幕和日志同时输出ERROR FATAL错误。  
+3. **minloglevel**: int型，>=该值的日志级别才会输出到文件，默认值为0，即大于等于INFO的日志会输出的文件，也就是全部输出。  
+4. **log_dir**: string型，日志输出位置，默认为""。  
+5. **v**:自定义日志级别  
+6. **vmodele**:自定义文件日志级别  
+
+### 4. 条件输出
+
+条件输出是指，当某些变量满足某些条件时才输出日志。我在实际使用时也经常有这种需求，适用于全部输出磁盘IO可能有问题的情况。使用条件输出可以起到一个抽样的作用。  
+1. LOG\_IF(INFO, i > 5)，当条件(i > 5)满足时输出日志。  
+2. LOG\_EVERY\_N(INFO, 3)，当运行该语句时，第1,3+1,6+1,...时输出日志，google::COUNTER记录语句的执行次数。  
+3. LOG\_IF\_EVERY\_N(INFO, (i > 5), 2)，1 2的结合，当满足某些条件时，每N次输出日志。  
+4. LOG\_FIRST\_N(INFO, 4), 此语句的前N次输出到日志，google::COUNTER记录语句的执行次数。  
+
+一个测试demo如下：  
+
+```cpp
+#include "glog/logging.h"
+
+int main(int argc, char* argv[]) {
+    google::InitGoogleLogging(argv[0]);
+
+    for (int i = 0; i < 10; ++i) {
+        LOG_IF(INFO, i > 5) << "LOG_IF i > 5 i:" << i;
+        LOG_EVERY_N(INFO, 3) << "LOG_EVERY_N 3 i:" << i << " google::COUNTER:" << google::COUNTER;
+        LOG_IF_EVERY_N(INFO, (i > 5), 2) << "LOG_IF_EVERY_N i > 5 2 i:" << i;
+        LOG_FIRST_N(INFO, 4) << "LOG_FIRST_N 4 i:" << i << " google::COUNTER:" << google::COUNTER;
+    }
+
+    return 0;
+}
+```
+
+程序输出为：  
+
+```
+I0110 23:19:16.891237 17039 demo1.cpp:25] LOG_EVERY_N 3 i:0 google::COUNTER:1
+I0110 23:19:16.891355 17039 demo1.cpp:27] LOG_FIRST_N 4 i:0 google::COUNTER:1
+I0110 23:19:16.891362 17039 demo1.cpp:27] LOG_FIRST_N 4 i:1 google::COUNTER:2
+I0110 23:19:16.891367 17039 demo1.cpp:27] LOG_FIRST_N 4 i:2 google::COUNTER:3
+I0110 23:19:16.891371 17039 demo1.cpp:25] LOG_EVERY_N 3 i:3 google::COUNTER:4
+I0110 23:19:16.891376 17039 demo1.cpp:27] LOG_FIRST_N 4 i:3 google::COUNTER:4
+I0110 23:19:16.891381 17039 demo1.cpp:24] LOG_IF i > 5 i:6
+I0110 23:19:16.891386 17039 demo1.cpp:25] LOG_EVERY_N 3 i:6 google::COUNTER:7
+I0110 23:19:16.891389 17039 demo1.cpp:26] LOG_IF_EVERY_N i > 5 2 i:6
+I0110 23:19:16.891393 17039 demo1.cpp:24] LOG_IF i > 5 i:7
+I0110 23:19:16.891397 17039 demo1.cpp:24] LOG_IF i > 5 i:8
+I0110 23:19:16.891402 17039 demo1.cpp:26] LOG_IF_EVERY_N i > 5 2 i:8
+I0110 23:19:16.891405 17039 demo1.cpp:24] LOG_IF i > 5 i:9
+I0110 23:19:16.891409 17039 demo1.cpp:25] LOG_EVERY_N 3 i:9 google::COUNTER:10
+```
+
+注意`google::COUNTER`只有条件输出时才生效的，实际使用时见过这样的例子，没有意义，数据全为0：
+
+```cpp
+        if (tera::ErrorCode::kOK != code) {
+            if (tera::ErrorCode::kNotFound != code) {
+                tera_failed = true;
+                time_t t = time(NULL);
+                LOG(WARNING) <<
+                    "printall read failed but ret code is not kNotFound count:" << google::COUNTER;
+            }
+        }
+```
+
+### 5. DEBUG日志
+
+在debug模式下可用的日志输出的宏  
+
+```cpp
+   DLOG(INFO) << "Found cookies";
+   DLOG_IF(INFO, num_cookies > 10) << "Got lots of cookies";
+   DLOG_EVERY_N(INFO, 10) << "Got the " << google::COUNTER << "th cookie";
+```
+
+### 6. 自定义日志  
+
+glog提供了VLOG宏用于自定义日志的输出，用户可以使用--v=数字来指定自定义的日志级别。  
+与系统日志级别不同的是，vlog数值越低，级别越高。例如：  
+
+```cpp
+    VLOG(1) << "I'm printed when you run the program with --v=1 or higher";
+    VLOG(2) << "I'm printed when you run the program with --v=2 or higher";
+```
+
+不同的日志级别下的输出为：  
+
+```
+$ ./vlog -v=1 -logtostderr=1
+I0119 22:53:17.962025 26849 vlog_main.cpp:23] I'm printed when you run the program with --v=1 or higher
+$ ./vlog -v=2 -logtostderr=1
+I0119 22:53:19.023028 26871 vlog_main.cpp:23] I'm printed when you run the program with --v=1 or higher
+I0119 22:53:19.023130 26871 vlog_main.cpp:24] I'm printed when you run the program with --v=2 or higher
+```
+
+同时，更精彩的是自定义日志可以定义到文件级别，使用--vmodule=mapreduce=2,file=1,gfs*=3这种形式。  
+例如有两个文件main.c,hello.h，代码如下：  
+
+```cpp
+//main.cpp
+#include <glog/logging.h>
+#include "hello.h"
+
+int main(int argc, char* argv[]) {
+    google::InitGoogleLogging(argv[0]);
+    google::ParseCommandLineFlags(&argc, &argv, true);
+
+    VLOG(1) << "main VLOG(1)";
+    VLOG(2) << "main VLOG(2)";
+
+    hello();
+
+    google::ShutDownCommandLineFlags();
+
+    return 0;
+}
+```
+
+```cpp
+//hello.h
+#ifndef _HELLO_H
+#define _HELLO_H
+
+#include <glog/logging.h>
+
+void hello() {
+    VLOG(1) << "hello VLOG(1)";
+    VLOG(2) << "hello VLOG(2)";
+}
+#endif  //_HELLO_H
+```
+
+编译后运行`./main -v=2 --vmodule=main=2,hello=1  --logtostderr=1`  
+输出：  
+
+```
+I0119 23:05:52.615139  9245 main.cpp:8] main VLOG(1)
+I0119 23:05:52.615236  9245 main.cpp:9] main VLOG(2)
+I0119 23:05:52.615243  9245 hello.h:7] hello VLOG(1)
+```
+
+可以看到hello和main里使用了不同的自定义输出标准。  
+VLOG\_IS\_ON(n)用于判断级别n是否会输出到日志，即当--v指定的值>=n时返回true。  
+VLOG\_IF, VLOG\_EVERY\_N，VLOG\_IF\_EVERY\_N与LOG\_XXX一致，只不过参数里的级别为自定义级别。  
+
+### 7. CHECK宏
+
+CHECK系列的宏跟assert很像，都是检测某个表达式是否为真，不过不受NDEBUG影响  
+`CHEKCK(expression) << "check failed description"`  
+检测expression如果不为真，则打印后面的description和栈上的信息，然后退出程序，出错后的处理过程和FATAL比较像。  
+除了CHECK，还有 CHECK\_EQ,CHECK\_NE,CHECK\_LE,CHECK\_LT,CHECK\_GE,CHECK\_GT一系列宏用于判断。  
+
+空指针的判断需要转化下，例如`CHECK_EQ(p, static_cast<int*>(NULL)`，直接`CHECK_EQ(p, NULL)`会报错。
+
+字符串的比较需要使用 CHECK\_STREQ,CHECK\_STRNE,CHECK\_STRCASEEQ,CHECK\_STRCASENE，注意这种情况下可以传入NULL，例如CHECK\_STREQ(NULL, NULL)可以正常运行。  
+
+### 8. TIPS
+
+#### 8.1. 低级别日志的内容仍然会执行
+
+例如：
+
+```cpp
+    FLAGS_minloglevel = 1;
+
+    LOG(INFO) << "info log";
+    LOG(INFO) << PackageToString(1);
+    LOG(WARNING) << "warning log";
+```
+
+虽然`LOG(INFO)`所在的行不会打印，但是`PackageToString`还是会执行，需要注意是否带来状态的变化或者性能损耗。
+
+### 参考文档：  
+1. [glog官方文档](https://github.com/google/glog/blob/master/doc/glog.html)  

@@ -1,0 +1,341 @@
+---
+title:  "Codeforec Contest 454"
+date:   2014-08-06 19:16:02
+excerpt: "submissions for codeforce contest 451"
+tags: [codeforce]
+---
+
+题目链接在[这里](http://codeforces.com/contest/454)
+
+<!--more-->
+
+> [A. Little Pony and Crystal Mine](http://codeforces.com/contest/454/problem/A)  
+
+按照要求打印就可以了。
+
+```
+//http://codeforces.com/contest/454/problem/A
+#include <stdio.h>
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+void print(int c, int n)
+{
+    int mid = n / 2 + 1;
+    int t = c / 2;
+    for (int j = 1; j <= n; ++j)
+    {
+        if (j < (mid - t) || j > (mid + t))
+        {
+            printf("*");
+        }
+        else
+        {
+            printf("D");
+        }
+    }
+    printf("\n");
+}
+int main()
+{
+    int n;
+    cin >> n;
+    int mid = n / 2 + 1;
+    for (int i = 1; i <= n; ++i) {
+        if (i <= mid)
+        {
+            int c = 2 * i - 1;
+            print(c, n);
+        }
+        else
+        {
+            int c = n - (i - mid) * 2;
+            print(c, n);
+        }
+    }
+
+    return 0;
+}
+
+```
+
+> [B. Little Pony and Sort by Shift](http://codeforces.com/contest/454/problem/B)
+
+数组改变的方式只有一种：   
+`a1,a2,...,an -> an,a1,a2,...a(n-1)`
+
+因此最多只能有个两个递增序列区间，同时前面的区间最小值要大于后面的最大值。  
+即a1 > a(n-1)  
+
+```
+//http://codeforces.com/contest/454/problem/B
+#include <stdio.h>
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+int main()
+{
+    int n;
+    int a[100002];
+    cin >> n;
+    for (int i = 1; i <= n; ++i) {
+        cin >> a[i];
+    }
+    a[n + 1] = 1e6;
+
+    int start_a = 1, end_a = -1;
+    int start_b = -1, end_b = -1;
+    int mina = 1e6, maxb = -1;
+
+    for (int i = 1; i <= n; ++i) {
+        if (a[i] > a[i + 1]) {
+            if (start_a != -1 && end_a == -1) {
+                end_a = i;
+                start_b = i + 1;
+            }
+            else {
+                printf("-1\n");
+                return 0;
+            }
+        }
+    }
+
+    if (end_a == -1) {
+        printf("0\n");
+        return 0;
+    }
+
+    if (end_b == -1) {
+        end_b = n;
+    }
+
+    for (int i = start_a; i <= end_a; ++i)
+    {
+        mina = mina > a[i] ? a[i] : mina;
+    }
+    for (int i = start_b; i <= end_b; ++i)
+    {
+        maxb = maxb > a[i] ? maxb : a[i];
+    }
+
+    if (mina < maxb)
+    {
+        printf("-1\n");
+        return 0;
+    }
+
+    printf("%d\n", end_b - start_b + 1);
+
+
+
+
+    return 0;
+}
+
+```  
+
+> [C. Little Pony and Expected Maximum](http://codeforces.com/contest/454/problem/C)  
+
+非常简单的一道概率题目。    
+以m面，n次为例：  
+`p[m] = (1 - pow((m-1)/m, n)`   
+即p[m]为n次全都不出现m的概率，同理   
+`p[m] + p[m - 1]= (1 - pow((m-2)/m, n)`   
+
+```
+//http://codeforces.com/contest/454/problem/A
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+double mypow(double f, int n)
+{
+    double res = 1.0;
+    while (n) {
+        if (n & 1)
+            res *= f;
+        f *= f;
+        n >>= 1;
+    }
+
+    return res;
+}
+
+int main()
+{
+    int m,n;//m faces, n tosses.
+    cin >> m >> n;
+    double p[100001] = {0};
+    double sum = 0;
+
+    for (int i = m; i > 0; --i)
+    {
+        double t = double(i - 1)/double(m);
+        p[i] = 1.0 - mypow(t, n) - sum;
+        sum += p[i];
+    }
+
+    double exp = 0.0;
+    for (int i = 1; i <= m; ++i)
+    {
+        exp += p[i] * i;
+    }
+
+    cout << exp << endl;
+    return 0;
+}
+
+```
+
+> [D. Little Pony and Harmony Chest](http://codeforces.com/contest/454/problem/D)   
+
+这道题目没有做出来，第一次听说状态压缩dp，之后争取整理出一片状态压缩的dp学习笔记出来。  
+
+先说下题目：  
+给定a数组，元素大小不超过30。要求构造一个元素两两互质的数组b，同时使得对应元素的绝对值之和最小。  
+
+
+分析：   
+
+可以想到b的元素取1是能满足条件1的，于是有一个最简单的一个组合{1,1,...,1}。  
+因此选取b的元素时，最差可以选1.假设我们选择了值x，则x应当满足：   
+`|x - ai| < |ai - 1|`,可以得到`x < 2*ai - 1 < 59`   
+还有一个条件是如果某个质因子已经被选中，那么接下来就不能选了。  
+比如之前选择了数字4，那么10就不能选了，因为质因子2已经选择过了。  
+于是统计[2,59)内的质因子，共16个，那么状态位共使用16个bits，  
+对每个ai，在[1,59)内循环一遍，找到该数的质因子没有被用掉的所有状态，计算并更新目标值。   
+注意要同时有个数组记录路径，以便输出b。
+
+对状态压缩还不熟悉，欢迎留言指出错误。
+
+```
+//http://codeforces.com/contest/454/problem/A
+#include <string.h>
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+typedef long long LL;
+
+const int maxn = 101;
+const int maxa = 30;
+const int maxb = 2 * 30 - 1;
+const int abs_max = 3000;
+int n, ans_min = 0x7ffffff;
+int a[maxn];
+int b[maxn];
+int prime[maxb];
+int fact[maxb];
+int prime_cnt;
+const int max_sta = 1 << 17;//prime_cnt=16
+int dp[maxn][max_sta];
+int ans[maxn][max_sta];
+
+void init()
+{
+    bool prime_flag[maxb];
+    memset(prime_flag, 1, maxb);
+    prime[0] = 1;
+    for (int i = 2; i < maxb; ++i)
+    {
+        if (prime_flag[i])
+        {
+            prime[prime_cnt++] = i;
+            for (int j = i * i; j < maxb; j += i)
+            {
+                prime_flag[j] = false;
+            }
+        }
+    }
+    //[2,59)内的素数共16个,prime_cnt = 16
+    //prime[]:2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+
+    //fact[i]记录i的质因子，prime[j]对应的质因子存在就在j位置写1
+    for (int i = 1; i < maxb; ++i)
+    {
+        for (int j = 0; j < prime_cnt; ++j)
+        {
+            if (i % prime[j] == 0)
+            {
+                fact[i] |= (1 << j);
+            }
+        }
+    }
+}
+
+int main()
+{
+    init();
+
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+    {
+        cin >> a[i];
+    }
+
+    for (int i = 0; i < maxn; ++i)
+        for (int j = 0; j < max_sta; ++j)
+        {
+            dp[i][j] = abs_max;
+        }
+
+    for (int j = 0; j < max_sta; ++j)
+    {
+        dp[0][j] = 0;
+    }
+
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j < maxb; ++j)
+        {
+            int x = ~fact[j] & (max_sta - 1);
+            for (int s = x; s; s = (s - 1)&x)
+            {
+                if (dp[i - 1][s] + abs(j - a[i]) <
+                        dp[i][s | fact[j]])
+                {
+                    dp[i][s | fact[j]] = dp[i - 1][s] + abs(j - a[i]);
+                    ans[i][s | fact[j]] = j;
+                }
+            }
+        }
+
+    int sta = -1;
+    for (int i = 0; i < max_sta; ++i)
+    {
+        if (dp[n][i] < ans_min)
+        {
+            ans_min = dp[n][i];
+            sta = i;
+        }
+    }
+
+    for (int i = n; i > 0; --i)
+    {
+        b[i] = ans[i][sta];
+        sta &= ~fact[b[i]];
+    }
+
+    for (int i = 1; i <= n; ++i)
+    {
+        cout << b[i] << " ";
+    }
+
+    cout << endl;
+
+    return 0;
+}
+
+```
+

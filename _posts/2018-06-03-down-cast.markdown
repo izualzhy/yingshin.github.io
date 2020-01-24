@@ -1,0 +1,114 @@
+---
+title: protobuf之down_cast
+date: 2018-06-03 09:47:27
+tags: [protobuf]
+---
+
+C++ 提供了多种 cast 的方式:`static_cast/dynamic_cast/const_cast/interpret_cast`。
+
+其中[google代码规范](https://google.github.io/styleguide/cppguide.html#Run-Time_Type_Information__RTTI_)明确表示了不建议使用[RTTI](https://en.wikibooks.org/wiki/C%2B%2B_Programming/RTTI)，也就是尽量少使用`dynamic_cast`。本文介绍下 protobuf 里是如何使用`down_cast`替代`dynamic_cast`的。
+
+<!--more-->
+
+## 1. 使用
+
+protobuf 自动生成的代码里可以看到`down_cast`的使用，位于`src/google/protobuf/compiler/cpp/cpp_service.cc`。
+
+具体的例如[之前文章](https://izualzhy.cn/demo-protobuf-rpc)提到的：
+
+```
+void EchoService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                             ::google::protobuf::RpcController* controller,
+                             const ::google::protobuf::Message* request,
+                             ::google::protobuf::Message* response,
+                             ::google::protobuf::Closure* done) {
+  GOOGLE_DCHECK_EQ(method->service(), EchoService_descriptor_);
+  switch(method->index()) {
+    case 0:
+      Echo(controller,
+             ::google::protobuf::down_cast<const ::echo::EchoRequest*>(request),
+             ::google::protobuf::down_cast< ::echo::EchoResponse*>(response),
+             done);
+      break;
+    default:
+      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      break;
+  }
+}
+```
+
+其中`::echo::EchoRequest`是`::google::protobuf::Message`的子类，
+
+## 2. 实现
+
+假设我们有这么一组类：
+
+```
+class Base {
+public:
+    virtual ~Base() {}
+};
+
+class Derived : public Base {
+public:
+};
+
+class AnotherDerived : public Base {
+public:
+};
+```
+
+当需要类型间的转换，`static_cast`的缺点是无法保证类型，`dynamic_cast`则可以保证这点。
+
+```
+AnotherDerived ad;
+foo(&ad);
+
+void foo(Base* pb) {
+    std::cout << static_cast<Derived*>(pb) << std::endl;//equal to pb
+    std::cout << dynamic_cast<Derived*>(pb) << std::endl;//0
+}
+```
+
+protobuf里的做法是在`NDEBUG`环境下调用`dynamic_cast`，非`NEBUG`环境下使用`static_cast`。
+
+具体代码参考：
+
+```
+// When you upcast (that is, cast a pointer from type Foo to type
+// SuperclassOfFoo), it's fine to use implicit_cast<>, since upcasts
+// always succeed.  When you downcast (that is, cast a pointer from
+// type Foo to type SubclassOfFoo), static_cast<> isn't safe, because
+// how do you know the pointer is really of type SubclassOfFoo?  It
+// could be a bare Foo, or of type DifferentSubclassOfFoo.  Thus,
+// when you downcast, you should use this macro.  In debug mode, we
+// use dynamic_cast<> to double-check the downcast is legal (we die
+// if it's not).  In normal mode, we do the efficient static_cast<>
+// instead.  Thus, it's important to test in debug mode to make sure
+// the cast is legal!
+//    This is the only place in the code we should use dynamic_cast<>.
+// In particular, you SHOULDN'T be using dynamic_cast<> in order to
+// do RTTI (eg code like this:
+//    if (dynamic_cast<Subclass1>(foo)) HandleASubclass1Object(foo);
+//    if (dynamic_cast<Subclass2>(foo)) HandleASubclass2Object(foo);
+// You should design the code some other way not to need this.
+
+template<typename To, typename From>     // use like this: down_cast<T*>(foo);
+inline To down_cast(From* f) {                   // so we only accept pointers
+  // Ensures that To is a sub-type of From *.  This test is here only                                                // for compile-time type checking, and has no overhead in an
+  // optimized build at run-time, as it will be optimized away
+  // completely.
+  if (false) {
+    implicit_cast<From*, To>(0);
+  }
+
+#if !defined(NDEBUG) && !defined(GOOGLE_PROTOBUF_NO_RTTI)
+  assert(f == NULL || dynamic_cast<To>(f) != NULL);  // RTTI: debug mode only!
+#endif
+  return static_cast<To>(f);
+}
+```
+
+这样就避免了`dynamic_cast`的使用，除了编码规范认为过多使用`dynamic_cast`代表了类设计有问题，另外一种说法是`dynamic_cast`性能相比`static_cast`要低一些，不太确定。
+
+之前我们会使用`NDEBUG`来发布 debug 和 release 版本，现在这个宏用的少了，在 protobuf 代码里翻到，感觉很亲切。
