@@ -8,9 +8,9 @@
 - name: Flink原理、实战与性能优化
   cover: https://img1.doubanio.com/lpic/s32303877.jpg
   start_date: 2019.12.9
-  finish_date:
+  finish_date: 2020.3.8
   douban_link: https://book.douban.com/subject/33426160/
-  note: 
+  note: Flink的书籍相对较少，因此本书虽然大篇都是在照抄官方文档的API，但是也显得相对非常难得，作为工具书以及入门都值得推荐。感觉 Flink 一个比较大的问题是接口众多(DataStream/DataSet/TableAPI/SQL)，Environment一共有8种。而不同版本之间接口有有一些不一致(@Deprecated)，不同语言的接口支持范围又不同等，导致学习成本偏高。当然这侧面又反应了 Flink 发展之迅速，这本书基于 1.7 介绍，在看书的过程中，flink又从1.9发展到了1.10。因此即使看完了书，也还是不知道第五章的State怎么应用到第七章的SQL，第十章的监控真正如何用于实际场景，真切体会到了纸上得来终觉浅，绝知此事要躬行。因此相比照搬 API，各种 TroubleShooting 的介绍可能意义更大，真心希望 flink 的国内commiter先把中文文档写清楚。接下来想读一遍 flink 的PMC写的《基于Apache Flink的流处理》，阿里极力推广 flink ，如果能看到阿里出的一本实践书籍就更好了。
 
 - name: 幕后产品
   cover: https://img1.doubanio.com/lpic/s33525358.jpg
