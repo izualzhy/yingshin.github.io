@@ -4,9 +4,11 @@ date: 2020-05-01 17:41:02
 tags: [flink]
 ---
 
-年前开始接触 flink，到现在已经有三个月的时间了，除了最开始简单看了下 flink 的启动过程，最近一直被其 scala 及 SQL API 搞的很虚。这个假期得空，终于开始盘点下启动流程，这篇笔记介绍下 transformations 的生成过程。
+年前开始接触 flink，到现在已经有三个月的时间了，除了最开始简单看了下 flink 的启动过程，最近一直被其 scala 及 SQL API 搞的很虚。这个假期得空，终于开始盘点下。
 
-其实 flink 相关介绍网上比比皆是，为了避免拾人牙慧，本文主要介绍下自己的理解，对于参考的文章，也都附录到了文末。
+这篇笔记介绍下 transformations 的生成过程。
+
+其实 flink 相关介绍网上比比皆是，为了避免拾人牙慧，本文主要介绍下自己的理解，参考文章附录在文末。
 
 ## 1. 开篇
 
@@ -39,7 +41,7 @@ public abstract class StreamExecutionEnvironment {
 
 每一个 Transformation，都记录了其唯一 id, name 等。具体需要执行的操作，通过对不同的 API 初始化不同的 Transformation 子类，或者相同子类的不同 operator 来实现。
 
-这篇笔记主要就是介绍下，用户的 API 调用如何转换为 Transformation？这些 Transformation 在代码结构里又是如何存储的？
+这篇笔记主要就是介绍下，用户的 API 调用如何转换为 Transformation，这些 Transformation 在代码结构里又是如何存储的？
 
 ## 2. Transformation
 
@@ -83,7 +85,7 @@ public class DataStream<T> {
    protected final Transformation<T> transformation;
 ```
 
-前面的图里可以看到，Transformation 是一个链表的结构，通过其 input 可以递归回溯到源头，也就是最初的 Transformation，类型为 SourceTransformation.
+前面的图里可以看到，Transformation 是一个链表的结构，通过其 input 可以递归回溯到源头，源头子类为 SourceTransformation，负责数据的接入。
 
 ```
 env.socketTextStream 
@@ -103,7 +105,8 @@ public <OUT> DataStreamSource<OUT> addSource(SourceFunction<OUT> function, Strin
 
 DataStreamSource 是 DataStream 的子类，初始化过程中就会构造 SourceTransformation，并且记录到DataStream.transformation 变量。
 
-这就是 SourceTransformation 的构造过程，同时也可以看到 SourceFunction -> StreamSource -> SourceTransformation 的从属关系。
+这就是 SourceTransformation 的构造过程，同时也可以看到类的 has-a 关系：
+SourceFunction &#8712; StreamSource &#8712; SourceTransformation &#8712; DataStreamSource
 
 ## 4. Transformations
 
@@ -116,7 +119,7 @@ DataStreamSource 是 DataStream 的子类，初始化过程中就会构造 Sourc
     transform("Flat Map", outType, new StreamFlatMap<>(clean(flatMapper)));
 ```
 
-跟 SourceTransformation 类似，从这行代码可以看到 FlatMapFunction -> StreamFlatMap -> OneInputTransformation 的类关系。
+跟 SourceTransformation 类似，从这行代码可以看到 FlatMapFunction &#8712; StreamFlatMap &#8712; OneInputTransformation 的类关系。
 
 transform 函数在构造 Transformation 时经常用到，其主要作用为构造 operator 对应的 Transformation，添加到 transformations 列表
 并且返回新的 DataStream.
@@ -258,7 +261,7 @@ Transformation 里记录的 Operator：
 protected final F userFunction;
 ```
 
-无论是我们自定义的函数，例如 FlatMapFunction，还是系统自带的 SocketTextStreamFunction PrintSinkFunction，都被记录到了这里，作为真正待执行的变换函数。
+无论是我们自定义的函数，例如 FlatMapFunction，还是系统内置函数，例如 SocketTextStreamFunction PrintSinkFunction，都被记录到了这里，作为真正待执行的变换函数。
 
 ## 6. Ref
 

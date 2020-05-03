@@ -76,7 +76,7 @@ StreamGraph generate() {
 
 例如对于对`SourceTransformation`调用 `transformSource`，对`SinkTransformation`调用`transformSink`，对`OneInputTransformation`调用`transformOneInputTransform`.
 
-虽然 transformXXXX 实现不同，但是其本质上都在做一件事情：在 StreamGraph 生成对应的节点(StreamNode)及边(StreamEdge).
+虽然 transformXXXX 实现不同，但是其本质上都在做一件事情：生成对应的节点(StreamNode)及边(StreamEdge) 添加到 StreamGraph.
 
 ## 2. StreamGrpah StreamNode StreamEdge
 
@@ -110,7 +110,7 @@ class StreamEdge
   private StreamPartitioner<?> outputPartitioner;
 ```
 
-额外的，有些 transform 不会生成`StreamNode`，例如`keyBy`产生的`PartitionTransformation`，实际上设置的两个节点的连接方式，也就是边的属性(上游节点的数据是如何发送到下游节点)。因此在生成过程中，先生成临时节点。在建立边的过程中，实际连接的是上下游节点的边。
+额外的，有些 transform 不会生成`StreamNode`，例如`keyBy`产生的`PartitionTransformation`，实际上是在设置两个节点的连接方式，也就是边的属性(上游节点的数据是如何发送到下游节点)。因此在生成过程中，先生成临时节点，下游通过边连接到该节点时，转发给上游，起到连接上下游节点的作用。
 
 这些临时节点在 StreamGraph 称为虚拟节点，使用 virtualXXXXNodes 存储：
 
@@ -121,13 +121,13 @@ class StreamGraph
   private Map<Integer, Tuple3<Integer, StreamPartitioner<?>, ShuffleMode>> virtualPartitionNodes;
 ```
 
-### 3. addSource addSink addOperator
+## 3. addSource addSink addOperator
 
-`addOperator`负责创建`StreamNode`，其调用`addNode` new 出 StreamNode(记录节点序号以及具体执行的操作)，并且将该节点加入到`StreamGraph.streamNodes`
+对应的，这 3 个函数负责创建节点，`addOperator`负责创建`StreamNode`，其调用`addNode` new 出 StreamNode(记录节点序号以及具体执行的操作)，并且将该节点加入到`StreamGraph.streamNodes`
 
 `addSource` `addSink`底层还是调用的`addOperator`，不过增加了记录输入源及输出汇的过程。
 
-### 4. 例子流程
+## 4. 例子流程
 
 前面介绍了`StreamNode`、`StreamEdge`的定义以及具体的添加入口函数`addOperator`
 
@@ -135,18 +135,18 @@ class StreamGraph
 
 虽然 transformations 只记录了 id = (2, 4, 5)，但是每个元素生成对应的 StreamNode 时，都会首先检查其输入元素是否已经转化为 StreamNode，例如对于 id = 2 的 FlatMap 操作：
 
-#### 4.1. transformOneInputTransform(id = 2)
+### 4.1. transformOneInputTransform(id = 2)
 
 ```
   private <IN, OUT> Collection<Integer> transformOneInputTransform(OneInputTransformation<IN, OUT> transform) {
     // 先查找输入对应的 StreamNode.id，即 transform.id = 1 对应的 StreamNode
     Collection<Integer> inputIds = transform(transform.getInput());
 
-    // 调用，同样是 transforma.id 作为生成的 StreamNode.id，同时作为返回值
+    // 创建节点
+    // transforma.id 作为节点的 StreamNode.id，同时也会作为该函数的返回值
     streamGraph.addOperator
 
     // 相比 SourceTransformation，OneInputTransformation 会构造 StreamEdge，并且分别增加到上游节点的出边和下游节点的入边
-
     for (Integer inputId: inputIds) {
       streamGraph.addEdge(inputId, transform.getId(), 0);
     }
@@ -158,7 +158,7 @@ class StreamGraph
 注意第一行是一个递归操作，先需要 transform id = 1 的元素，即 SourceTransformation：
 
 ```
-transforma.id 作为生成的 StreamNode.id，同时作为返回值
+// 创建输入 Transformation 对应的 StreamNode，并且返回对应的 StreamNode.id
 private <T> Collection<Integer> transformSource(SourceTransformation<T> source) {
   // 传入了 sourceId = 1，source.getOperatorFactory 即包装了 AbstractUdfStreamOperator
   streamGraph.addSource
@@ -166,7 +166,7 @@ private <T> Collection<Integer> transformSource(SourceTransformation<T> source) 
     sources.add(vertexID);
 ```
 
-接着上一段代码第一行，返回的 id = 1 存储到了`inputIds`，之后 id = (1, 2) 对应的 StreamNode 都已经构建完成，接下来就是创建两个节点间边的关系，当前先忽略处理 virutalxxxxNodes 的相关代码，关注 else 部分：
+接着上一段代码第一行，返回的 id = 1 存储到了`inputIds`，之后 id = (1, 2) 对应的 StreamNode 都已经构建完成，接下来就是创建两个节点间边的关系，当前先忽略处理 virutalxxxxNodes 的相关代码，关注最后一个 else ：
 
 ```
 StreamGraph.addEdge
@@ -208,24 +208,23 @@ StreamGraph.addEdge
     getStreamNode(edge.getTargetId()).addInEdge(edge);
 ```
 
-#### 4.2. transformOneInputTransform(id = 4)
+### 4.2. transformOneInputTransform(id = 4)
 
 接下来处理 id = 4，跟 id = 2 一样，入口为`transformOneInputTransform`，区别是其上游元素 id = 3 对应的是一个 VirtualPartitionNode，因此 addEdge 时会有区别
 
 ```
   private <IN, OUT> Collection<Integer> transformOneInputTransform(OneInputTransformation<IN, OUT> transform) {
     // 先查找输入对应的 StreamNode.id，即 transform.id = 3 对应的 StreamNode
+    // 返回的 StreamNode.id = 6
     Collection<Integer> inputIds = transform(transform.getInput());
 
-    // 调用，同样是 transforma.id 作为生成的 StreamNode.id，同时作为返回值
     // 构建 id=4 的 StreamNode
     streamGraph.addOperator
 
     // 相比 SourceTransformation，OneInputTransformation 会构造 StreamEdge，并且分别增加到上游节点的出边和下游节点的入边
-
     for (Integer inputId: inputIds) {
-      // 6 4
       // 由于 6 是 virtualPartitonNodes，因此 addEdge 其实是连接了 6 的上游节点2和下游节点4
+      // inputId=6, transform.getId()=4
       streamGraph.addEdge(inputId, transform.getId(), 0);
     }
 
@@ -233,7 +232,7 @@ StreamGraph.addEdge
     return Collections.singleton(transform.getId());
 ```
 
-id = 3 的元素类型为`PartitionTransformation`，因此调用`transformPartition`转换为节点
+代码第一行，id = 3 的元素类型为`PartitionTransformation`，因此调用`transformPartition`转换为节点
 
 ```
   private <T> Collection<Integer> transformPartition(PartitionTransformation<T> partition) {
@@ -264,11 +263,11 @@ addVirtualPartitionNode
     virtualId(6) -> (originalId=2, partitoner="HASH", shuffleMode="UNDEFINED")
 ```
 
-当下游节点跟该节点建立边关系的时候，实际上是获取对应的上游节点建立边，例如创建的不是 6->4 而是 2->4。
+接下来的代码跟上一节类似，区别是当下游节点跟该节点建立边关系的时候，实际上是获取对应的上游节点建立边，例如创建的不是 6->4 而是 2->4。
 
 具体代码可以参考`addEdge`里的`virtualPartitionNodes`。
 
-#### 4.3. transformOneInputTransform(id = 5)
+### 4.3. transformOneInputTransform(id = 5)
 
 对应的是`transformedIds = transformSink((SinkTransformation<?>) transform);`
 
@@ -288,25 +287,34 @@ addVirtualPartitionNode
     return Collections.emptyList();
 ```
 
-可以看到除了首节点，添加后续节点的时候都会调用`addEdge`产生对应的边关系。
+可以看到对`StreamExecutionEnvironment.transformations`，都会调用`addEdge`产生对应的边关系。
 
-### 5. 类关系
+## 5. 类关系
 
 类似上一篇笔记，整体的调用流程可以归纳为：
 
 ![streamgraph](/assets/images/flink-source-code/streamgraph.png)
 
-如果我们打印出`getExecutionPlan`，放到 <https://flink.apache.org/visualizer/> 这里来看的话，也是同样的 streamgrahp 结构。
+如果我们打印出`getExecutionPlan`，放到 <https://flink.apache.org/visualizer/> 这里来看的话，也是同样的 streamgraph 结构。
 
-### 6. 思考
+## 6. 思考
 
 + 为什么有这几层图结构？
 + 为什么 transformations 只记录了 3 个节点？
 首先可以看到这 3 个节点是足够用于生成 streamgraph 了，事实上我理解可能只传入尾节点元素也足够了，因为生成 streamgraph 的过程中也是一个先构建其上一个节点的过程。大概是代码的设计需要，或者当有多个输入边时的复杂情况。
 
-如果打开 flink 的 DEBUG 日志，就会看到这个 transform 的过程
+![word_count_visualize](/assets/images/flink-source-code/word_count_visualize.png)
++ 如果打开 flink 的 DEBUG 日志，就会看到这个 transform 的过程
+```
+2020-05-02 18:05:11,108 DEBUG org.apache.flink.streaming.api.graph.StreamGraphGenerator     - Transforming OneInputTransformation{id=2, name='Flat Map', outputType=scala.Tuple2(_1: String, _2: Integer), parallelism=1}
+2020-05-02 18:05:11,108 DEBUG org.apache.flink.streaming.api.graph.StreamGraphGenerator     - Transforming SourceTransformation{id=1, name='Socket Stream', outputType=String, parallelism=1}
+2020-05-02 18:05:11,116 DEBUG org.apache.flink.streaming.api.graph.StreamGraph              - Vertex: 1
+2020-05-02 18:05:11,119 DEBUG org.apache.flink.streaming.api.graph.StreamGraph              - Vertex: 2
+2020-05-02 18:05:11,121 DEBUG org.apache.flink.streaming.api.graph.StreamGraphGenerator     - Transforming OneInputTransformation{id=4, name='aggregation', outputType=scala.Tuple2(_1: String, _2: Integer), parallelism=1}
+...
+```
 
-### 7. Ref
+## 7. Ref
 
 1. [追源索骥：透过源码看懂Flink核心框架的执行流程
 ](https://www.cnblogs.com/bethunebtj/p/9168274.html)
