@@ -230,7 +230,7 @@ ForwardPartitioner 如之前文章介绍，并发度一致时才会设置。
 对应的 isChainable 结果为：  
 1. True: 满足条件
 2. False: StreamGroupedReduce.chainingStrategy = HEAD
-3. False: 并发度不同(Mac 4核，因此对于 id = 5，默认并发为4)
+3. False: 并发度不同(本机 4核，因此对于 id = 5，默认并发为4)
 
 所以经过 Chain 优化后，JobGraph 一共 3 个节点
 
@@ -250,7 +250,7 @@ ForwardPartitioner 如之前文章介绍，并发度一致时才会设置。
 2020-05-04 20:15:31,102 DEBUG org.apache.flink.streaming.api.graph.StreamingJobGraphGenerator  - CONNECTED: KeyGroupStreamPartitioner - 1 -> 4
 ```
 
-这个 hash 值，我们在后面也会看到。
+这个 hash 值，我们在后面也会经常看到。
 
 ## 6. Ref
 
