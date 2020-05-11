@@ -29,9 +29,9 @@
 - name: 楚留香新传（全四册）
   cover: https://img3.doubanio.com/lpic/s30024110.jpg
   start_date: 2020.2.16
-  finish_date:
+  finish_date: 2020.3.21
   douban_link: https://book.douban.com/subject/30366081/
-  note: 
+  note: 前两篇还算续了貂，后面就真的是狗尾了，不推荐。
 
 - name: Flink原理、实战与性能优化
   cover: https://img1.doubanio.com/lpic/s32303877.jpg
