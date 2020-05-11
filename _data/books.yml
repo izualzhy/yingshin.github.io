@@ -1,3 +1,10 @@
+- name: 半小时漫画宋词
+  cover: https://img9.doubanio.com/lpic/s33613256.jpg
+  start_date: 2020.5.1
+  finish_date:
+  douban_link: https://book.douban.com/subject/35009938/
+  note: 
+
 - name: 基于Apache Flink的流处理
   cover: https://img1.doubanio.com/lpic/s33534849.jpg
   start_date: 2020.3.16

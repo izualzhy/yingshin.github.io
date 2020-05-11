@@ -27,6 +27,8 @@ StreamGraph generate() {
 
 这段代码遍历 transformations，逐个元素调用 transform，返回构建好的 StreamGraph.
 
+核心思想在于将 Transformation 转化为图节点，并且建立节点之间的边关系，在建立边关系的过程中，如果输入 Transformation 还没有转化为图节点，那么就递归首先创建上游节点。
+
 ## 1. StreamGraphGenerator.transform
 
 `StreamGraphGenerator.transform`就是对前一篇笔记里介绍的不同的 Transformation 类型调用不同的方法。
@@ -78,7 +80,7 @@ StreamGraph generate() {
 
 虽然 transformXXXX 实现不同，但是其本质上都在做一件事情：生成对应的节点(StreamNode)及边(StreamEdge) 添加到 StreamGraph.
 
-## 2. StreamGrpah StreamNode StreamEdge
+## 2. 图(StreamGrpah)、节点(StreamNode)与边(StreamEdge)
 
 StreamGraph 最主要的是由一系列节点(StreamNode)组成的，StreamNode 内部又记录了当前节点输入与输出的边。
 
@@ -297,13 +299,15 @@ addVirtualPartitionNode
 
 如果我们打印出`getExecutionPlan`，放到 <https://flink.apache.org/visualizer/> 这里来看的话，也是同样的 streamgraph 结构。
 
+![word_count_visualize](/assets/images/flink-source-code/word_count_visualize.png)
+
+因为`getExecutionPlan`也是调用的`StreamGrpah.getStreamingPlanAsJSON`
+
 ## 6. 思考
 
 + 为什么有这几层图结构？
 + 为什么 transformations 只记录了 3 个节点？
 首先可以看到这 3 个节点是足够用于生成 streamgraph 了，事实上我理解可能只传入尾节点元素也足够了，因为生成 streamgraph 的过程中也是一个先构建其上一个节点的过程。大概是代码的设计需要，或者当有多个输入边时的复杂情况。
-
-![word_count_visualize](/assets/images/flink-source-code/word_count_visualize.png)
 + 如果打开 flink 的 DEBUG 日志，就会看到这个 transform 的过程
 ```
 2020-05-02 18:05:11,108 DEBUG org.apache.flink.streaming.api.graph.StreamGraphGenerator     - Transforming OneInputTransformation{id=2, name='Flat Map', outputType=scala.Tuple2(_1: String, _2: Integer), parallelism=1}
