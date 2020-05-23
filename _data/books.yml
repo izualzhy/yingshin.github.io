@@ -1,9 +1,16 @@
+- name: 中国古代文化常识
+  cover: https://img3.doubanio.com/lpic/s27506982.jpg
+  start_date: 2020.5.21
+  finish_date: 
+  douban_link: https://book.douban.com/subject/26021455/
+  note: 
+
 - name: 半小时漫画宋词
   cover: https://img9.doubanio.com/lpic/s33613256.jpg
   start_date: 2020.5.1
-  finish_date:
+  finish_date: 2020.5.16
   douban_link: https://book.douban.com/subject/35009938/
-  note: 
+  note: 看混子哥的半小时系列，每次都会觉得作者是个惬意的写书人啊，这样的工作令人羡慕。
 
 - name: 基于Apache Flink的流处理
   cover: https://img1.doubanio.com/lpic/s33534849.jpg
