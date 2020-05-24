@@ -1,7 +1,7 @@
 ---
 title: "浅谈 Flink - Transformations"
 date: 2020-05-01 17:41:02
-tags: [flink]
+tags: [flink-1.9]
 ---
 
 年前开始接触 flink，到现在已经有三个月的时间了，除了最开始简单看了下 flink 的启动过程，最近一直被其 scala 及 SQL API 搞的很虚。这个假期得空，终于开始盘点下。
