@@ -1,5 +1,5 @@
 ---
-title: "浅谈 Flink - KafkaTableSource 解析"
+title: "浅谈 Flink - KafkaTable 解析"
 date: 2020-05-24 13:14:21
 tags: [flink-1.9]
 ---
@@ -236,9 +236,15 @@ DDL 同样可以配置 offsets，例如官网介绍：
     }
 ```
 
-相关的配置都是通过这段代码传入的，1.9版本还不支持 timestamp，最新的版本应该已经支持了。
+相关的配置都是通过这段代码传入的，1.9版本还不支持 timestamp，最新的版本已经支持了。
 
 kafkaConsumer.open 时，如果 startupMode 为 SPECIFIC_OFFSETS/TIMESTAMP，则直接设置对应的 offsets；否则仅做 Sentinel 标记，在`KafkaConsumerThread.reassignPartitions`时设置真实值。
+
+因此，关于 offsets 的设置部分，总结下规则就是：
+
+1. 优先使用 startup-mode 设置的值，例如 earliest-offset group-offsets specific-offsets 等  
+2. 当指定 specific-offsets 时，读取设置的 offsets；如果未设置，则该 partition 退化为使用 group-offsets  
+3. 当指定 group-offsets 时，则使用该  group 存储的值，如果没有记录，此时'auto.offset.reset'生效  
 
 ### 5.3. 读取和写入 Key
 
@@ -323,7 +329,8 @@ public class KafkaDeserializationSchemaWrapper<T> implements KafkaDeserializatio
 
 同样的，`KeyedSerializationSchemaWrapper`在对 value 的序列化上包装了一层，负责对 key/value 序列化，可以看到默认的实现里 key 是 null，不过这块的好处是至少我们可以实现新的子类，写入序列化后的 key 值，类似阿里云上 Blink.
 
-```public class KeyedSerializationSchemaWrapper<T> implements KeyedSerializationSchema<T> {
+```
+public class KeyedSerializationSchemaWrapper<T> implements KeyedSerializationSchema<T> {
     ...
     @Override
     public byte[] serializeKey(T element) {
@@ -334,7 +341,6 @@ public class KafkaDeserializationSchemaWrapper<T> implements KafkaDeserializatio
     public byte[] serializeValue(T element) {
         return serializationSchema.serialize(element);
     }
-    ...
 }
 ```
 
@@ -363,6 +369,50 @@ public class KafkaDeserializationSchemaWrapper<T> implements KafkaDeserializatio
 
 不过尚未有计划支持。
 
+### 5.5. 分区
+
+#### 5.5.1. 读取
+
+前面提到了`runWithPartitionDiscovery`用于检测读取 topic 的分区是否有变化，通过`flink.partition-discovery.interval-millis`生效，当然也可以[自动发现 topic ](https://ci.apache.org/projects/flink/flink-docs-master/dev/connectors/kafka.html#kafka-consumers-topic-and-partition-discovery)。
+
+注意当读取分区数 &lt; 并发数时，有些 tm 由于不会收到数据处于空跑的状态。
+
+#### 5.5.2. 写入
+
+写入 topic 时默认的分区策略是[FlinkFixedPartitioner](https://ci.apache.org/projects/flink/flink-docs-master/dev/connectors/kafka.html#kafka-producer-partitioning-scheme)，其分区计算公式为：
+
+```
+    @Override
+    public int partition(T record, byte[] key, byte[] value, String targetTopic, int[] partitions) {
+        Preconditions.checkArgument(
+            partitions != null && partitions.length > 0,
+            "Partitions of the target topic is empty.");
+
+        return partitions[parallelInstanceId % partitions.length];
+    }
+```
+
+`parallelInstanceId`其实就是 IndexOfThisSubtask.
+因此如果并发数低于下游分区数时，部分分区不会写入数据，当然我们也可以实现自己的`FlinkKafkaPartitioner`来满足自定义的特殊场景。
+
+如果 partition == null，而我们按照前面的方式指定了`ProducerRecord.key`，此时会基于 key 来选择分区，也就是 Kafka 里`DefaultPartitioner`的行为：
+
+```
+/**
+ * The default partitioning strategy:
+ * <ul>
+ * <li>If a partition is specified in the record, use it
+ * <li>If no partition is specified but a key is present choose a partition based on a hash of the key
+ * <li>If no partition or key is present choose a partition in a round-robin fashion
+ */
+public class DefaultPartitioner implements Partitioner 
+    ...
+```
+
+
 ## 6. Refs
 
+1. [kafka-connector](https://ci.apache.org/projects/flink/flink-docs-master/dev/table/connect.html#kafka-connector)  
+2. [Apache Kafka Connector](https://ci.apache.org/projects/flink/flink-docs-master/dev/connectors/kafka.html)  
+3. [Kafka分区和Flink并行](https://riptutorial.com/zh-CN/apache-flink/example/27996/kafka%E5%88%86%E5%8C%BA%E5%92%8Cflink%E5%B9%B6%E8%A1%8C)  
 
