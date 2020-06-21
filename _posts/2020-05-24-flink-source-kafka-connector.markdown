@@ -4,7 +4,7 @@ date: 2020-05-24 13:14:21
 tags: [flink-1.9]
 ---
 
-flink 提供多种消费 Kafka 数据的方式，由于不同层级的接口支持的功能范围、粒度不同，同时 flink 版本迭代频繁，接口也在不断发生变化，因此使用起来容易混淆。
+flink 提供多种消费 Kafka 数据的方式，由于不同层级接口支持的功能范围、粒度不同，同时 flink 版本迭代频繁，接口也在不断发生变化，因此使用起来容易混淆。
 
 当我们定义了一个 Kafka 的 DDL，例如：
 
@@ -191,7 +191,7 @@ connector.properties.0.key = flink.partition-discovery.interval-millis
 connector.properties.0.value = 60000
 ```
 
-就可以生效到前面提到的自动发现分区数变化。可以看到这种 key/value 的形式配置还是很繁琐的，社区里有个提议未来会做优化。group.id 也是类似的方式，官方文档里有例子。不过看起来最终基于 0.9 版本实现，因此不支持`max.poll.records`，不理解。
+就可以生效到前面提到的自动发现分区数变化。可以看到这种 key/value 的形式配置还是很繁琐的，社区里有个提议未来会做优化。
 
 ### 5.2. 指定Offsets
 
