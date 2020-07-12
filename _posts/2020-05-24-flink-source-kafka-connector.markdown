@@ -28,9 +28,9 @@ flink 的 API 分为多层，越低级能表达的含义越多，越高级使用
 
 ![Flink’s APIs](https://ci.apache.org/projects/flink/flink-docs-master/fig/levels_of_abstraction.svg)
 
-SQL、Table API  都属于比较高级的接口，使用成本很低，在我看来，这是一种偏配置化的接口，通过配置表达其意图。DDL 相当于 Source/Sink 的描述文件，DML 相当于计算逻辑的描述文件。离线的计算逻辑可以统一到 SQL，说明 SQL 语法足够强大，因此实时计算选择 SQL 描述也就顺理成章了。当然，也可以使用 YAML 来描述 Source/Sink。
+SQL、Table API  都属于高级接口，使用成本很低，在我看来，这是一种偏配置化的接口，通过配置表达其意图。DDL 描述 Source/Sink，DML 描述计算逻辑。离线的计算逻辑可以统一到 SQL，说明 SQL 语法足够强大，因此实时计算选择 SQL 描述也就顺理成章了。当然，也可以使用 YAML 来描述 Source/Sink。
 
-例如我们定义一个[Table API Kafka Connector](https://ci.apache.org/projects/flink/flink-docs-master/dev/table/connect.html#kafka-connector)，可以使用 DDL、TableAPI、YAML 多种形式
+定义一个[Table API Kafka Connector](https://ci.apache.org/projects/flink/flink-docs-master/dev/table/connect.html#kafka-connector)，可以使用 DDL、TableAPI、YAML 多种形式
 
 ```
 # 1. DDL
@@ -66,7 +66,7 @@ connector:
 
 ## 2. Connectors - Kafka
 
-如果要提供自己的 DDL，需要继承[TableFactory](https://ci.apache.org/projects/flink/flink-docs-master/dev/table/sourceSinks.html#define-a-tablefactory)，实现`requiredContext` `supportedProperties`方法指定在 DDL 里支持的参数(optional/required).然后借助[Java’s Service Provider Interfaces (SPI)](https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html)让 flink 发现该子类。
+如果要自定义 Source/Sink 的 Connector，需要继承[TableFactory](https://ci.apache.org/projects/flink/flink-docs-master/dev/table/sourceSinks.html#define-a-tablefactory)，实现`requiredContext` `supportedProperties`方法，指定在 DDL 里支持的参数(optional/required)。然后借助[Java’s Service Provider Interfaces (SPI)](https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html)让 flink 发现该子类。
 
 例如对于 Kafka-0.11，实现`Kafka011TableSourceSinkFactory`记录到文件[/resources/META-INF/services/TableFactory](https://github.com/apache/flink/blob/master/flink-connectors/flink-connector-kafka-0.11/src/main/resources/META-INF/services/org.apache.flink.table.factories.TableFactory)，如果 DDL 参数一致，就会通过该类一步步创建读写 Kafka 的对象。
 
@@ -82,8 +82,10 @@ connector:
 
 具体的:  
 1. `Kafka011TableSourceSinkFactoryBase`声明支持的参数，例如required: (update-mode -> append), (connector.type -> kafka)，optional: (connector.topic -> ...)，(connector.startup-mode -> ...)，如果 DDL 一致，则创建对应的`StreamTableSource`  
-2. `Kafka011TableSource`创建 kafka consumer，通过`env.addSource`添加[SourceTransformation](https://izualzhy.cn/flink-source-transformations#3-sourcetransformation)，可以看到这块跟代码部分已经一致了  
+2. `Kafka011TableSource`创建 kafka consumer，通过`env.addSource`添加为[SourceTransformation](https://izualzhy.cn/flink-source-transformations#3-sourcetransformation)，可以看到这块跟代码部分已经一致了  
 3. `FlinkKafkaConsumer011`继承自`SourceFunction`，在`run`的实现里委托`KafkaXXXFetcher`持续读取数据  
+
+*注：实现上都提取到了基类完成，例如 Kafka011TableSource 里调用 env.addSource 是在 KafkaTableSourceBase，FlinkKafkaConsumer011的部分方法也抽象到了 FlinkKafkaConsumerBase*
 
 对应 flink API 的分层，[Table API Connectors - Kafka](https://ci.apache.org/projects/flink/flink-docs-master/dev/table/connect.html#kafka-connector)基于[DataStream Connectors - Kafka](https://ci.apache.org/projects/flink/flink-docs-master/dev/connectors/kafka.html#kafka-consumer)实现，数据的产出，本质上仍然是由`SourceFunction.run`完成的。
 
@@ -140,7 +142,7 @@ public class KafkaConsumerThread extends Thread {
     }
 ```
 
-相对`FlinkKafkaConsumerBase.run`消费者线程，`KafkaConsumerThread`又起到生产者的作用，`Handover handover`作为中间队列。
+在`FlinkKafkaConsumerBase.run`这个消费者线程里，`KafkaConsumerThread`又起到生产者的作用，`Handover handover`作为中间队列。
 
 ```
 // 从 handover poll 数据
