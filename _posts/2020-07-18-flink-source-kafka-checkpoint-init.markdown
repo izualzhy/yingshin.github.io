@@ -45,7 +45,7 @@ public final class KafkaTopicPartition implements Serializable {
 
 当我们使用 Kafka 作为数据源表时，[指定Offsets](https://izualzhy.cn/flink-source-kafka-connector#52-%E6%8C%87%E5%AE%9Aoffsets)的方式(DataStream API也是类似)仅在没有指定 state 的情况下生效。如果启动时指定了 state，则优先从 state 里恢复 offsets，
 
-```
+```java
     public final void initializeState(FunctionInitializationContext context) throws Exception {
         OperatorStateStore stateStore = context.getOperatorStateStore();
 
@@ -67,7 +67,7 @@ Consumer subtask 0 restored state: {KafkaTopicPartition{topic='xxx', partition=0
 
 ## 3. Reading State
 
-首先我们构造一条数据流：订阅 Kafka 的 json 数据，解析其中的 weight 字段，记录收到的各个 weight 的次数。
+首先我们构造一条数据流：订阅 Kafka 的 json 数据，解析其中的 weight 字段，记录收到的各个 weight 的次数，使用 FsStateBackend 存储 state.
 
 ```scala
 /**
@@ -133,17 +133,28 @@ object StreamWithStateSample extends App {
 {"weight": 2}
 {"weight": 3}
 {"weight": 3}
+{"weight": 4}
+{"weight": 5}
+{"weight": 6}
+{"weight": 7}
+{"weight": 8}
 ```
 
-程序输出:
+TM 输出:
 
 ```
-(1,1)
-(3,1)
-(3,2)
-(2,1)
-(2,2)
-(3,3)
+1> (4,1)
+1> (6,1)
+1> (8,1)
+
+2> (1,1)
+2> (3,1)
+2> (3,2)
+2> (2,1)
+2> (2,2)
+2> (3,3)
+2> (5,1)
+2> (7,1)
 ```
 
 当 checkpoint 成功后，`(1,1) (2,2) (3,3)`这些 (key, count) 的数据就写入了对应的 backend.我们看下如何读取:
@@ -224,4 +235,5 @@ count_uid> (2,2)
 3. 为什么会有 KeyedState、OperatorState，为什么会有多种 backend 的需求？
 
 ## 4. Ref
-1. [State Processor API](https://ci.apache.org/projects/flink/flink-docs-master/dev/libs/state_processor_api.html)
+1. [State Processor API](https://ci.apache.org/projects/flink/flink-docs-master/dev/libs/state_processor_api.html)  
+2. [ScalaWay: Scala学习笔记](https://github.com/yingshin/ScalaWay/tree/master/flink)  

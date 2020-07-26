@@ -36,7 +36,7 @@ Work Experience:
 1. 多看阅读kindle系统
 2. 百度Aladdin架构
 3. 百度Spider架构
-4. 作业帮实时架构
+4. 作业帮大数据实时架构
 
 Langs:
 C/C++/python/shell/go/scala
