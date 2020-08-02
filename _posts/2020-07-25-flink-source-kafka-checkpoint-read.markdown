@@ -182,7 +182,7 @@ public class OperatorStateRestoreOperation implements RestoreOperation<Void> {
 
 通过这个图我们可以看到比较清晰的结构：
 
-1. 一个 Savepoint 由各个 OperatorState 组成（~~注意这里的 Operator 是 JobVertex~~）  
+1. 一个 Savepoint 由各个 OperatorState 组成（~注意这里的 Operator 是 JobVertex~）  
 2. 每个 OperatorState 由各个 subtask 的 OperatorSubtaskState 组成，同时包括该 Operator 的 OperatorID, 并发度等等  
 3. 每个 OperatorSubtaskState 包含了[文档](https://ci.apache.org/projects/flink/flink-docs-master/dev/stream/state/state.html)里常说的(managed, raw) * (keyed, operator)  
 4. `managedOperatorState`、`rawOperatorState`暴露出来的就是上节的`OperatorStateHanlde`，通过 handle 可以进一步解析存储的 state.  
@@ -285,7 +285,14 @@ version:2 checkpointId:191
           offset:1209 value:(KafkaTopicPartition{topic='TestTopic', partition=0},18)
 ```
 
-这里也可以看到第一节里报错的`operatorID:77fec41789154996bfa76055dea29472`，我们可以猜测这是`countState`的后端存储，大小为 2114，因为测试程序没有实现该类所以报了匹配失败的错误，即使添加了`--allowNonRestoredState`，也需要保证 source 的 operatorID 为 64248066b88fd35e9203cd469ffb4a53 才能匹配成功，因此下一篇笔记，我们接着[浅谈 Flink - JobGraph ](https://izualzhy.cn/flink-source-job-graph)再看看 flink 认为哪些元素会影响到生成这些唯一 ID。
+这里也可以看到第一节里报错的`operatorID:77fec41789154996bfa76055dea29472`，我们可以猜测这是`countState`的后端存储，大小为 2114，因为测试程序没有实现该类所以报了匹配失败的错误，即使添加了`--allowNonRestoredState`，也需要保证 source 的 operatorID 为 64248066b88fd35e9203cd469ffb4a53 才能匹配成功。而在该数据流的启动日志里
+
+```
+... DEBUG org.apache.flink.streaming.api.graph.StreamGraphHasherV2      - Generated hash 'd216482dd1005af6d275607ff9eabe2c' for node 'Map-2' {id: 2, parallelism: 1, user function: org.apache.flink.streaming.api.scala.DataStream$$anon$4}
+... DEBUG org.apache.flink.streaming.api.graph.StreamGraphHasherV2      - Generated hash 'f0bb9ed0d20321fef7413e1942e21550' for node 'Sink: Print to Std. Out-5' {id: 5, parallelism: 1, user function: org.apache.flink.streaming.api.functions.sink.PrintSinkFunction}
+```
+
+因此下一篇笔记，我们接着[浅谈 Flink - JobGraph ](https://izualzhy.cn/flink-source-job-graph)再看看 flink 认为哪些元素会影响到生成这些唯一 ID。
 
 ## 5. Ref
 

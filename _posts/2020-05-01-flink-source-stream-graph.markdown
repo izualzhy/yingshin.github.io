@@ -299,7 +299,7 @@ addVirtualPartitionNode
 
 如果我们打印出`getExecutionPlan`，放到 <https://flink.apache.org/visualizer/> 这里来看的话，也是同样的 streamgraph 结构。
 
-![word_count_visualize](/assets/images/flink-source-code/word_count_visualize.png)
+![word_count_visualize](/assets/images/flink-source-code/word_count_visualize.jpg)
 
 因为`getExecutionPlan`也是调用的`StreamGrpah.getStreamingPlanAsJSON`
 
