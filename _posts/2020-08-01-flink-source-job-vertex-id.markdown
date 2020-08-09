@@ -136,6 +136,8 @@ object JobVertexGenerator extends App {
 env.addSource(new MockKafkaSource).uid("source_uid").print()
 ```
 
+*注：对比 flink 源码里的 java 实现，scala 的这个例子虽然代码行数更少，但是可读性并不高。源码里的这段逻辑并不简单，相比之前 State 的代码实现要优雅很多*
+
 ## 3. OperatorID 应用
 ### 3.1. State
 
