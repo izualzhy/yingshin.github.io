@@ -174,12 +174,14 @@ metrics 看到的节点都是每条 chain 的首节点，开启了[Latency track
 
 ## 4. 总结
 
-StreamGraph 生成 JobGraph 的过程中，首先为每个节点生成 hash id.JobGraph chain 时，符合条件的节点被 chain 到首节点，相关监控都使用首节点 id。不过全部节点 id 也都记录下来，用于 latency 这类 metrics，state 存储等。在 latency 这里，明显使用`uid` `name`可读性更高，最开始接触 flink 时在社区里也提过[疑问](http://apache-flink.147419.n8.nabble.com/flink-Latency-tracking-td1800.html)，不过没有回应。
+StreamGraph 生成 JobGraph 的过程中，会为每个节点生成 hash id，生成规则为：  
+1. 如果指定了 uid，则使用 uid hash 结果，如果确认 state 可以复用，就可以手动指定。  
+2. 如果没有指定 uid，则跟输入节点的个数以及输入节点是否发生变化，所在图节点的位置，以及可 chain 的出边个数有关。
+
+JobGraph chain 时，符合条件的节点被 chain 到首节点，相关监控都使用首节点 id.当然全部节点 id 也都记录下来，用于 latency 这类 metrics，state 存储等。例如在 latency metrci 的命名结构latency.source_id.X.source_subtask_index.0.operator_id.Y.operator_subtask_index.3.latency_p99」，其中 X Y 都是对应的 VertexID，如果能够使用`uid` `name`等可读性明显更高一些，最开始接触 flink 时在社区里也提过[疑问](http://apache-flink.147419.n8.nabble.com/flink-Latency-tracking-td1800.html)，不过没有回应，后来看到[LatencyMetric scope should include operator names](https://issues.apache.org/jira/browse/FLINK-8592)，flink 的 owner 暂时不打算增加这个易用性的功能。  
 
 ## 5. Ref
 
 1. [Add operator name to latency metrics](https://issues.apache.org/jira/browse/FLINK-9653)  
 2. [LatencyMetric scope should include operator names](https://issues.apache.org/jira/browse/FLINK-8592)  
 3. [latency metrics 里使用 operator name](https://stackoverflow.com/questions/50994512/get-operator-name-in-flink-latency-metric)  
-4. [16年ci的版本还带着 OperatorName](https://github.com/alibaba/flink/commit/a612b9966f3ee020a5721ac2f039a3633c40146c
-https://stackoverflow.com/)  
