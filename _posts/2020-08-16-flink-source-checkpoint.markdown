@@ -368,4 +368,4 @@ public class HBaseUpsertSinkFunction
 
 但是对于 source 算子，flink 暴露出的接口就没有这么优雅了。或许可以将锁封装到`SourceContext.collect`内部避免用户需要自行加锁，或者我理解无论是普通数据，还是 CheckpointBarrier，最终都是放到发送的 FIFO 队列，能否支持写入一些额外的数据例如`offsets` `logid`等，这样 flink 就可以自行完成`SourceFunction.snapshotState`的行为，在`notifyCheckpointComplete`时再返回给用户。当然，flink 需要考虑的场景太多，例如 exactly-once 等，基于这些复杂场景大概最终折衷是这样一个实现，我们的思考更多是纸上谈兵了。
 
-从逻辑上看，需要锁住的范围应该只是记录对应的 offset，这个锁的范围应该尽可能的小，那么其底层是怎样一个过程？细心的读者可能也会发现，这篇笔记里还没有介绍清楚一个问题，如果要确保数据不丢，那么 source 发送 barrier 前的数据需要恰好是 snapshotState 记录的 offset.
+从逻辑上看，需要锁住的范围应该只是记录对应的 offset，这个锁的范围应该尽可能的小，那么其底层是怎样一个过程？细心的读者可能也会发现，这篇笔记里还没有介绍清楚一个问题，如果要确保数据不丢，那么 source 发送 barrier 前的数据需要恰好是 snapshotState 记录的 offset。state 和 checkpoint 的关系是什么？是何时落盘的？
