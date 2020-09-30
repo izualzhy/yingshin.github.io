@@ -1,3 +1,10 @@
+- name: 彩色图解史记
+  cover: https://img3.doubanio.com/lpic/s27291252.jpg
+  start_date: 2020.9.8
+  finish_date: 
+  douban_link: https://book.douban.com/subject/25894745/
+  note: 
+
 - name: 中国古代文化常识
   cover: https://img3.doubanio.com/lpic/s27506982.jpg
   start_date: 2020.5.21
@@ -29,9 +36,9 @@
 - name: 大数据技术体系详解：原理、架构与实践
   cover: https://img1.doubanio.com/lpic/s29779648.jpg
   start_date: 2020.3.7
-  finish_date:
+  finish_date: 2020.9.30
   douban_link: https://book.douban.com/subject/30213139/
-  note: 
+  note: 赶在国庆节前终于看完了这本书，大数据相关的书籍，系统性断断续续的看了几本了。实际使用很多都是浅尝辄止，难以深入，而大数据的应用和基础又层出不穷，需要注意“乱花渐欲迷人眼，纸上得来终觉浅”。
 
 - name: 楚留香新传（全四册）
   cover: https://img3.doubanio.com/lpic/s30024110.jpg
