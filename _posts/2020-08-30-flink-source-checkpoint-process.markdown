@@ -8,7 +8,7 @@ tags: [flink-1.9]
 
 ## 1. StackTrace
 
-把上篇笔记例子里的`getStackTrace`的日志打开，当 source sink 位于不同的 vertex 时，source 的调用是从 SourceStreamTask -> StreamTask -> AbstractStreamOperator:
+把上篇笔记例子里的`getStackTrace`的日志打开，当 source sink 位于不同的 vertex 时，source 的调用是从 SourceStreamTask -> StreamTask -> AbstractUdfStreamOperator:
 
 ```
 java.lang.Thread.getStackTrace(Thread.java:1559)
@@ -59,7 +59,7 @@ org.apache.flink.runtime.taskmanager.Task.run(Task.java:530)
 java.lang.Thread.run(Thread.java:748
 ```
 
-两者入口不同，source 多了 SourceStreamTask，线程函数的入口是在`SourceStreamTask.triggerCheckpoint`，sink 的入口是在`StreamTask.invoke`，在`processInput`过程中，如果发现是`CheckpointBarrier`，则调用`CheckpointBarrierAligner.processBarrier`开始处理。两者最终都统一到了`StreamTask.performCheckpoint`，进而调用`AbstractUdfStreamOperator.snapshotState`一直到调用用户实现的`snapshotState`。
+两者入口不同，source 多了 SourceStreamTask，线程函数的入口是在`SourceStreamTask.triggerCheckpoint`;sink 的入口是在`StreamTask.invoke`，在`processInput`过程中，如果发现是`CheckpointBarrier`，则调用`CheckpointBarrierAligner.processBarrier`开始处理。两者最终都统一到了`StreamTask.performCheckpoint`，进而调用`AbstractUdfStreamOperator.snapshotState`一直到调用用户实现的`snapshotState`。
 
 接下来从 Source 节点和非 Source 节点分别看下源码。
 
@@ -82,7 +82,7 @@ executeAsyncCallRunnable(
         String.format("Checkpoint Trigger for %s (%s).", taskNameWithSubtask, executionId));
 ```
 
-`invokable.triggerCheckpoint`即`SourceStreamTask.triggerCheckpoint`(目前看起来只有这一个类)，接下来`StreamTask.triggerCheckpoint` -> `StreamTask.performCheckpoint`。
+`invokable.triggerCheckpoint`即`SourceStreamTask.triggerCheckpoint`c，接下来`StreamTask.triggerCheckpoint` -> `StreamTask.performCheckpoint`。
 
 `performCheckpoint`重点说下：
 

@@ -26,24 +26,6 @@ titles:
 key: page-about
 ---
 
-```
 一个在不断进取的菜鸟工程师
 
-Education:
-BUAA Bachelor&&Master
-
-Work Experience:
-1. 多看阅读kindle系统
-2. 百度Aladdin架构
-3. 百度Spider架构
-4. 作业帮大数据实时架构
-
-Langs:
-C/C++/python/shell/go/scala
-
-Skills:
-
-Recent Interest:
-flink
-
-```
+爱生活、爱读书、爱做饭
