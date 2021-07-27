@@ -1,3 +1,10 @@
+- name: 杯雪
+  cover: https://img1.doubanio.com/lpic/s6950019.jpg
+  start_date: 2022.6.21
+  finish_date: 
+  douban_link: https://book.douban.com/subject/6560171/
+  note: 
+
 - name: 金字塔原理
   cover: https://img2.doubanio.com/lpic/s29669383.jpg
   start_date: 2021.6.21
@@ -15,9 +22,9 @@
 - name: 显微镜下的大明
   cover: https://img3.doubanio.com/lpic/s29960161.jpg
   start_date: 2021.2.17
-  finish_date: 
+  finish_date: 2021.3.20
   douban_link: https://book.douban.com/subject/30414743/
-  note: 
+  note: 历史大多记录的要么是王侯将相，要么是豪杰草莽，总之是那些足够有意义的人和事。换做市井乡间故事，大多因为琐碎重复而难以记入史册。看这本书，仿佛打开了一扇新的门，原来也有人在记录着这些不那么起眼却同样惊心动魄的小事，透过这扇门，不是看编年记事，不是看人物传记，而是看到因为大历史而带来的小生活的变更。就像最近的抗疫，普通人无法出门，公司倒闭，商场关门，过年回家难这些事情，同样值得被记录，因为共鸣而传播，这大概就是抖音快手快速兴起的原因吧。作者将纷繁复杂的文言文，写的精彩纷呈，故事挑的非常用心，虽说只是民间诸事，却总会受到朝廷政策人员变更的影响，透过普通人的生活，更能折射出当时真实的社会，前几篇非常推荐，后面的就略显潦草了。
 
 - name: 伊索寓言
   cover: 
