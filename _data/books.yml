@@ -14,7 +14,7 @@
 
 - name: 人类简史
   cover: https://img9.doubanio.com/lpic/s29802866.jpg
-  start_date: ?
+  start_date:
   finish_date: 
   douban_link: https://book.douban.com/subject/26953606/
   note: 
