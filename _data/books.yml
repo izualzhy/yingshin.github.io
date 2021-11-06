@@ -120,9 +120,9 @@
 - name: 幕后产品
   cover: https://img1.doubanio.com/lpic/s33525358.jpg
   start_date: 2019.12.3
-  finish_date:
+  finish_date: 2021.11.6
   douban_link: https://book.douban.com/subject/33396395/
-  note: 
+  note: 可以感受到作者有很多思考，不断的整理和更新方法论，持续学习。不过由于太不了解一个产品经理的工作内容，感觉整本书章节层次组织的比较乱，导致看到后面不记得前面讲了什么，又仿佛在前面看到过。
 
 - name: Spark技术内幕
   cover: https://img3.doubanio.com/lpic/s28324850.jpg
