@@ -33,17 +33,8 @@ Education:
 BUAA Bachelor&&Master
 
 Work Experience:
-1. 多看阅读kindle系统
-2. 百度Aladdin架构
-3. 百度Spider架构
-4. 作业帮大数据实时架构
-
-Langs:
-C/C++/python/shell/go/scala
-
-Skills:
-
-Recent Interest:
-flink
-
+4. 作业帮大数据实时计算
+3. 百度 Spider 架构
+2. 百度 Aladdin 架构
+1. 多看阅读 kindle 系统
 ```
