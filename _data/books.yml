@@ -1,9 +1,23 @@
+- name: 老子今注今译
+  cover: https://img3.doubanio.com/lpic/s33746780.jpg
+  start_date: 2022.2.6
+  finish_date: 
+  douban_link: https://book.douban.com/subject/35132334/
+  note:
+
+- name: 囚徒健身
+  cover: https://img2.doubanio.com/lpic/s27248971.jpg
+  start_date: 2022.2.5
+  finish_date: 
+  douban_link: https://book.douban.com/subject/25717097/
+  note:
+
 - name: 冯唐成事心法
   cover: https://img1.doubanio.com/lpic/s33775208.jpg
   start_date: 2021.12.30
   finish_date: 2022.2.2
   douban_link: https://book.douban.com/subject/35267458/
-  note:
+  note: https://izualzhy.cn/ftcsxf-reading
 
 - name: 杯雪
   cover: https://img1.doubanio.com/lpic/s6950019.jpg
