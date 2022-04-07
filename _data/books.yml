@@ -8,16 +8,9 @@
 - name: 置身事内
   cover: https://img1.doubanio.com/lpic/s33956867.jpg
   start_date: 2022.2.6
-  finish_date: 
+  finish_date: 2022.3.26
   douban_link: https://book.douban.com/subject/35546622/
-  note:
-
-- name: 囚徒健身
-  cover: https://img2.doubanio.com/lpic/s27248971.jpg
-  start_date: 2022.2.5
-  finish_date: 
-  douban_link: https://book.douban.com/subject/25717097/
-  note:
+  note: 事莫明于有效，论莫定于有证-读《置身事内》 https://izualzhy.cn/zssn-reading
 
 - name: 冯唐成事心法
   cover: https://img1.doubanio.com/lpic/s33775208.jpg
@@ -32,20 +25,6 @@
   finish_date: 2021.8.25
   douban_link: https://book.douban.com/subject/6560171/
   note: 发现读书时炒炒冷饭也挺好的，温故而知新。大学时从图书馆借书，有小椴的、杨叛的，由于借阅者众，书上难免留了些字迹，娟秀、灵动、挺拔皆有。读那些文字也是读书的乐趣之一，字里行间能感受到留字者既爱惜书籍，又忍不住激扬文字的心情。 如今经常对着满屏的书评、推送的书架消息，不知道为什么，读的书却少了。 说回小椴，印象里小椴的文字是美的，比如写江南的雨：“江南的雨总是不知不觉的就来了。来了以后，便连绵不绝，眉边发际，萦绕不止。”，“那雨一开始只潮潮的，像只闻得着，却看不见，渐渐却阴霾不止。”，一瞬间感觉不像是武侠小说。 就像李健被称为音乐诗人，如果要选一个武侠里的诗人的话，我会选小椴。诗词歌赋，水调歌头、哀江南，信手拈来，缺点是诗歌可能乱了年代😅。 最喜欢《夜雨打金荷》这一本，特别是那个雨夜的酒馆，人物悉数登场，故事节奏紧凑，后面几本明显不如了。
-
-- name: 金字塔原理
-  cover: https://img2.doubanio.com/lpic/s29669383.jpg
-  start_date: 2021.6.21
-  finish_date: 
-  douban_link: https://book.douban.com/subject/25775696/
-  note: 
-
-- name: 人类简史
-  cover: https://img9.doubanio.com/lpic/s29802866.jpg
-  start_date:
-  finish_date: 
-  douban_link: https://book.douban.com/subject/26953606/
-  note: 
 
 - name: 显微镜下的大明
   cover: https://img3.doubanio.com/lpic/s29960161.jpg
@@ -75,25 +54,11 @@
   douban_link: https://book.douban.com/subject/33427878/
   note: 
 
-- name: 你要如何衡量你的人生
-  cover: https://img9.doubanio.com/lpic/s24561045.jpg
-  start_date: 2020.12.6
-  finish_date: 
-  douban_link: https://book.douban.com/subject/20434430/
-  note: 
-
 - name: 掌控习惯
   cover: https://img9.doubanio.com/lpic/s33565235.jpg
   start_date: 2020.10.1
   finish_date: 2020.10.5
   douban_link: https://book.douban.com/subject/34326931/
-  note: 
-
-- name: 彩色图解史记
-  cover: https://img3.doubanio.com/lpic/s27291252.jpg
-  start_date: 2020.9.8
-  finish_date: 
-  douban_link: https://book.douban.com/subject/25894745/
   note: 
 
 - name: 中国古代文化常识
@@ -109,20 +74,6 @@
   finish_date: 2020.5.16
   douban_link: https://book.douban.com/subject/35009938/
   note: 看混子哥的半小时系列，每次都会觉得作者是个惬意的写书人啊，这样的工作令人羡慕。
-
-- name: 基于Apache Flink的流处理
-  cover: https://img1.doubanio.com/lpic/s33534849.jpg
-  start_date: 2020.3.16
-  finish_date:
-  douban_link: https://book.douban.com/subject/34912177/
-  note: 
-
-- name: Prometheus监控实战
-  cover: https://img3.doubanio.com/lpic/s33467251.jpg
-  start_date: 2020.3.10
-  finish_date:
-  douban_link: https://book.douban.com/subject/34801408/
-  note: 
 
 - name: 大数据技术体系详解：原理、架构与实践
   cover: https://img1.doubanio.com/lpic/s29779648.jpg
@@ -152,26 +103,12 @@
   douban_link: https://book.douban.com/subject/33396395/
   note: 可以感受到作者有很多思考，不断的整理和更新方法论，持续学习。不过由于太不了解一个产品经理的工作内容，感觉整本书章节层次组织的比较乱，导致看到后面不记得前面讲了什么，又仿佛在前面看到过。
 
-- name: Spark技术内幕
-  cover: https://img3.doubanio.com/lpic/s28324850.jpg
-  start_date: 2019.11.7
-  finish_date:
-  douban_link: https://book.douban.com/subject/26649141/
-  note: 
-
 - name: 西游八十一案-大唐泥犁狱
   cover: https://img1.doubanio.com/lpic/s29645267.jpg
   start_date: 2019.10.31
   finish_date: 2019.11.07
   douban_link: https://book.douban.com/subject/27609563/
   note: 原本以为是玄幻风格，读到后来才发现是推理小说，把玄奘演绎的如同现在荧幕上的狄仁杰一般。作者立意足够宏大，奈何剧情太差。十分给其中的佛法精要辩论机锋，八分文采，三分剧情，零分感情。
-
-- name: Spark Streaming实时流式大数据处理实战
-  cover: https://img3.doubanio.com/lpic/s32312663.jpg
-  start_date: 2019.10.13
-  finish_date: 
-  douban_link: https://book.douban.com/subject/33436902/
-  note: 
 
 - name: 半小时漫画中国史
   cover: https://img3.doubanio.com/lpic/s29492853.jpg
@@ -194,13 +131,6 @@
   douban_link: https://book.douban.com/subject/34800351/
   note: 
 
-- name: 斯坦福大学人生设计课
-  cover: https://img3.doubanio.com/lpic/s29639731.jpg
-  start_date: 2019.9.9
-  finish_date: 
-  douban_link: https://book.douban.com/subject/27601926
-  note: 
-
 - name: Scala谜题
   cover: https://img3.doubanio.com/lpic/s29652200.jpg
   start_date: 2019.8.9
@@ -208,26 +138,12 @@
   douban_link: https://book.douban.com/subject/27616235/
   note: https://izualzhy.cn/scala-puzzlers
 
-- name: 蛤蟆的油
-  cover: https://img3.doubanio.com/lpic/s27325332.jpg
-  start_date: 2019.7.5
-  finish_date: 
-  douban_link: https://book.douban.com/subject/25903505/
-  note: 
-
 - name: 图解HTTP
   cover: https://img3.doubanio.com/lpic/s27283822.jpg
   start_date: 2019.6.23
   finish_date: 2019.6.29
   douban_link: https://book.douban.com/subject/25863515/
   note: 名词介绍居多，看的比较快。工作值周时经常遇到百度抓取失败但是Google能搜到的站点，原本想从这本书入手研究下怎么样才能不要总是让站点修改，不过收获一般。
-
-- name: 全球科技通史
-  cover: https://img3.doubanio.com/lpic/s32271437.jpg
-  start_date: 2019.6.23
-  finish_date: 
-  douban_link: https://book.douban.com/subject/33385217/
-  note:
 
 - name: 长安古意
   cover: https://img3.doubanio.com/lpic/s6338264.jpg
@@ -361,13 +277,6 @@
   finish_date: 2018.3.4
   douban_link: http://book.douban.com/subject/24760712/
   note: https://izualzhy.cn/bai-yu-lao-hu
-
-- name: 张居正
-  cover: https://img3.doubanio.com/lpic/s2395176.jpg
-  start_date: 2018.1.23
-  finish_date: 
-  douban_link: https://book.douban.com/subject/1082361/
-  note: 
 
 - name: 心理罪
   cover: https://img3.doubanio.com/lpic/s2825936.jpg
