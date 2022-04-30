@@ -1,0 +1,51 @@
+<svg width="176pt" height="188pt" viewBox="0.00 0.00 176.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-184 172,-184 172,4 -4,4"></polygon>
+<!-- n0 -->
+<g id="node1" class="node">
+<title>n0</title>
+<text text-anchor="middle" x="63" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">π</text>
+</g>
+<!-- n1 -->
+<g id="node2" class="node">
+<title>n1</title>
+<text text-anchor="middle" x="27" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">name</text>
+</g>
+<!-- n0&#45;&#45;n1 -->
+<g id="edge3" class="edge">
+<title>n0--n1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M53.9157,-143.8314C48.5,-133 41.6438,-119.2876 36.2066,-108.4133"></path>
+</g>
+<!-- n2 -->
+<g id="node3" class="node">
+<title>n2</title>
+<text text-anchor="middle" x="99" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">σ</text>
+</g>
+<!-- n0&#45;&#45;n2 -->
+<g id="edge4" class="edge">
+<title>n0--n2</title>
+<path fill="none" stroke="#000000" d="M72.0843,-143.8314C77.5,-133 84.3562,-119.2876 89.7934,-108.4133"></path>
+</g>
+<!-- n3 -->
+<g id="node4" class="node">
+<title>n3</title>
+<text text-anchor="middle" x="57" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">empno = 1</text>
+</g>
+<!-- n2&#45;&#45;n3 -->
+<g id="edge1" class="edge">
+<title>n2--n3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M88.4016,-71.8314C82.0833,-61 74.0844,-47.2876 67.7411,-36.4133"></path>
+</g>
+<!-- n4 -->
+<g id="node5" class="node">
+<title>n4</title>
+<text text-anchor="middle" x="141" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">emps</text>
+</g>
+<!-- n2&#45;&#45;n4 -->
+<g id="edge2" class="edge">
+<title>n2--n4</title>
+<path fill="none" stroke="#000000" d="M109.5984,-71.8314C115.9167,-61 123.9156,-47.2876 130.2589,-36.4133"></path>
+</g>
+</g>
+</svg>

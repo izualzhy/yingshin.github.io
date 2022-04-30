@@ -1,0 +1,161 @@
+<svg width="550pt" height="404pt" viewBox="0.00 0.00 550.00 404.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 400)">
+<title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-400 546,-400 546,4 -4,4"></polygon>
+<!-- n0 -->
+<g id="node1" class="node">
+<title>n0</title>
+<text text-anchor="middle" x="159" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">π</text>
+</g>
+<!-- n1 -->
+<g id="node2" class="node">
+<title>n1</title>
+<text text-anchor="middle" x="91" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">deptno, AVG (ag) → avg_age</text>
+</g>
+<!-- n0&#45;&#45;n1 -->
+<g id="edge14" class="edge">
+<title>n0--n1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M141.8407,-359.8314C131.6111,-349 118.6605,-335.2876 108.3903,-324.4133"></path>
+</g>
+<!-- n2 -->
+<g id="node3" class="node">
+<title>n2</title>
+<text text-anchor="middle" x="227" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">γ</text>
+</g>
+<!-- n0&#45;&#45;n2 -->
+<g id="edge15" class="edge">
+<title>n0--n2</title>
+<path fill="none" stroke="#000000" d="M176.1593,-359.8314C186.3889,-349 199.3395,-335.2876 209.6097,-324.4133"></path>
+</g>
+<!-- n3 -->
+<g id="node4" class="node">
+<title>n3</title>
+<text text-anchor="middle" x="176" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">deptno, AVG (ag)</text>
+</g>
+<!-- n2&#45;&#45;n3 -->
+<g id="edge12" class="edge">
+<title>n2--n3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M214.1305,-287.8314C206.4583,-277 196.7454,-263.2876 189.0427,-252.4133"></path>
+</g>
+<!-- n4 -->
+<g id="node5" class="node">
+<title>n4</title>
+<text text-anchor="start" x="274" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">⋈</text>
+</g>
+<!-- n2&#45;&#45;n4 -->
+<g id="edge13" class="edge">
+<title>n2--n4</title>
+<path fill="none" stroke="#000000" d="M240.1218,-287.8314C247.9444,-277 257.8479,-263.2876 265.7015,-252.4133"></path>
+</g>
+<!-- n5 -->
+<g id="node6" class="node">
+<title>n5</title>
+<text text-anchor="middle" x="160" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">ρ</text>
+</g>
+<!-- n4&#45;&#45;n5 -->
+<g id="edge5" class="edge">
+<title>n4--n5</title>
+<path fill="none" stroke="#000000" d="M251.9971,-217.6621C232.6591,-205.9618 206.7149,-190.2645 187.308,-178.5225"></path>
+</g>
+<!-- n10 -->
+<g id="node11" class="node">
+<title>n10</title>
+<text text-anchor="middle" x="279" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">t1 . deptno = t2 . deptno</text>
+</g>
+<!-- n4&#45;&#45;n10 -->
+<g id="edge6" class="edge">
+<title>n4--n10</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M279,-215.8314C279,-205 279,-191.2876 279,-180.4133"></path>
+</g>
+<!-- n11 -->
+<g id="node12" class="node">
+<title>n11</title>
+<text text-anchor="middle" x="398" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">ρ</text>
+</g>
+<!-- n4&#45;&#45;n11 -->
+<g id="edge11" class="edge">
+<title>n4--n11</title>
+<path fill="none" stroke="#000000" d="M306.0029,-217.6621C325.3409,-205.9618 351.2851,-190.2645 370.692,-178.5225"></path>
+</g>
+<!-- n6 -->
+<g id="node7" class="node">
+<title>n6</title>
+<text text-anchor="middle" x="117" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">t1</text>
+</g>
+<!-- n5&#45;&#45;n6 -->
+<g id="edge3" class="edge">
+<title>n5--n6</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M149.1493,-143.8314C142.6806,-133 134.4912,-119.2876 127.9968,-108.4133"></path>
+</g>
+<!-- n7 -->
+<g id="node8" class="node">
+<title>n7</title>
+<text text-anchor="middle" x="189" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">σ</text>
+</g>
+<!-- n5&#45;&#45;n7 -->
+<g id="edge4" class="edge">
+<title>n5--n7</title>
+<path fill="none" stroke="#000000" d="M167.3179,-143.8314C171.6805,-133 177.2036,-119.2876 181.5835,-108.4133"></path>
+</g>
+<!-- n8 -->
+<g id="node9" class="node">
+<title>n8</title>
+<text text-anchor="middle" x="161" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">age &gt; 30</text>
+</g>
+<!-- n7&#45;&#45;n8 -->
+<g id="edge1" class="edge">
+<title>n7--n8</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M181.9344,-71.8314C177.7222,-61 172.3896,-47.2876 168.1607,-36.4133"></path>
+</g>
+<!-- n9 -->
+<g id="node10" class="node">
+<title>n9</title>
+<text text-anchor="middle" x="239" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">emp</text>
+</g>
+<!-- n7&#45;&#45;n9 -->
+<g id="edge2" class="edge">
+<title>n7--n9</title>
+<path fill="none" stroke="#000000" d="M201.6171,-71.8314C209.1389,-61 218.6614,-47.2876 226.213,-36.4133"></path>
+</g>
+<!-- n12 -->
+<g id="node13" class="node">
+<title>n12</title>
+<text text-anchor="middle" x="340" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">t2</text>
+</g>
+<!-- n11&#45;&#45;n12 -->
+<g id="edge9" class="edge">
+<title>n11--n12</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M383.3642,-143.8314C374.6389,-133 363.5928,-119.2876 354.8329,-108.4133"></path>
+</g>
+<!-- n13 -->
+<g id="node14" class="node">
+<title>n13</title>
+<text text-anchor="middle" x="412" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">σ</text>
+</g>
+<!-- n11&#45;&#45;n13 -->
+<g id="edge10" class="edge">
+<title>n11--n13</title>
+<path fill="none" stroke="#000000" d="M401.5328,-143.8314C403.6389,-133 406.3052,-119.2876 408.4196,-108.4133"></path>
+</g>
+<!-- n14 -->
+<g id="node15" class="node">
+<title>n14</title>
+<text text-anchor="middle" x="384" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">create_time &gt; "2010-01-01"</text>
+</g>
+<!-- n13&#45;&#45;n14 -->
+<g id="edge7" class="edge">
+<title>n13--n14</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M404.9344,-71.8314C400.7222,-61 395.3896,-47.2876 391.1607,-36.4133"></path>
+</g>
+<!-- n15 -->
+<g id="node16" class="node">
+<title>n15</title>
+<text text-anchor="middle" x="515" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">dept</text>
+</g>
+<!-- n13&#45;&#45;n15 -->
+<g id="edge8" class="edge">
+<title>n13--n15</title>
+<path fill="none" stroke="#000000" d="M437.9912,-71.8314C453.6053,-60.9167 473.4045,-47.0764 489.0171,-36.1628"></path>
+</g>
+</g>
+</svg>
