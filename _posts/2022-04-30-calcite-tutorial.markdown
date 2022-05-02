@@ -1,6 +1,6 @@
 ---
 title: "Calcite笔记之一：Tutorial"
-date: 2022-04-23 08:19:06
+date: 2022-04-30 08:19:06
 tags: [Calcite]
 ---
 
@@ -184,7 +184,7 @@ sqlline> !connect jdbc:calcite:model=src/test/resources/smart.json admin admin
 6. 想要自己实现其他优化的 Rule 应该如何做？  
 
 
-## 4. 参考资料：
+## 4. 参考资料
 
 1. [Apache Calcite](https://github.com/apache/calcite)  
 2. [Apache Calcite: One planner fits all](https://www.youtube.com/watch?v=5_MyORYjq3w)  
