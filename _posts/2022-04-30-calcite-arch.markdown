@@ -77,7 +77,7 @@ ORDER BY b.id
 2. SQL Interface &rarr; Parser &rarr; Optimizer : SQL 的解析和优化流程
 3. Caches & Pluggable Storage Engines: 结果缓存以及可插拔的存储引擎，比如常见的 InnoDB、MyISAM.
 
-上篇笔记提到**"One size fits all" is an idea whose time has come and gone"**，这套架构，抽出部分来是否也能支持其他存储？是的，只是目标不同。注意**Pluggable**的特性，更多的是把其他引擎作为插件，我的理解是接口标准已经定义，不同引擎按照标准适配。
+上篇笔记提到**"One size fits all" is an idea whose time has come and gone"**. MySQL 的这套架构，抽出部分来是否也能支持其他存储？我想是的，但是目标不同，所以发展思路不同。注意**Pluggable**的特性，更多的是把其他引擎作为插件，我的理解是接口标准已经定义，不同引擎按照标准适配。
 
 而 Calcite 的特性是**flexible, embeddable, and extensible**，是把自身作为一个插件嵌入到其他系统中，这种目标的不同，就会导致哪些接口开放、开放的形式不同。
 
@@ -111,7 +111,7 @@ ORDER BY b.id
 4. RelOptPlanner: RelNode &rarr; RelNode，根据规则优化树的节点组成，因此该阶段会引入 RelRule RelMetadataProvider
 5. RelRunner: 根据 RelNode 树执行的过程  
 
-注意还有一个入口是 API calls ，通过 RelBuilder 构造关系表达式。
+注意还有一个入口是 API calls ，通过 RelBuilder 构造关系表达式。下一篇笔记，我们用实际代码来深入看看这套架构和处理流程。
 
 ## 参考资料
 
