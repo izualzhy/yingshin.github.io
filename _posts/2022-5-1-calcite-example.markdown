@@ -29,7 +29,7 @@ tags: [Calcite]
   println(s"[Parsed query]\n${sqlNodeParsed}")
 ```
 
-解析阶段没有引入依赖，所以不容易出错，主要是将 Query 解析为各类 SqlNode，以 sqlNodeParsed 为根节点的一棵语法树：
+解析阶段不需要引入依赖，代码只要几行，主要是将 Query 解析为各类 SqlNode，结果保存到以 sqlNodeParsed 为根节点的一棵语法树：
 
 ```
 sqlNodeParsed(SqlOrderBy)
@@ -54,7 +54,7 @@ sqlNodeParsed(SqlOrderBy)
 
 ## 2. SqlValidator
 
-检测合法性的阶段，就需要引入表结构，使用到的两张表结构如下：
+合法性检测，需要检查表名、字段名、字段类型等，因此这个阶段代码稍微复杂一点，需要引入表结构。使用到的两张表结构如下：
 
 **Book**表结构：
 
@@ -103,6 +103,20 @@ sqlNodeParsed(SqlOrderBy)
   println(s"[Validated query]\n${sqlNodeParsed}")
 ```
 
+结果跟 parse 差别不大
+
+```
+[Validated query]
+SELECT `B`.`ID`, `B`.`TITLE`, `B`.`PUBLISH_YEAR`, `A`.`FNAME`, `A`.`LNAME`
+FROM `BOOK` AS `B`
+LEFT JOIN `AUTHOR` AS `A` ON `B`.`author_id` = `A`.`id`
+WHERE `B`.`publish_year` > 1830
+ORDER BY `B`.`id`
+FETCH NEXT 5 ROWS ONLY
+ORDER BY `B`.`ID`
+FETCH NEXT 5 ROWS ONLY
+```
+
 代码注释比较详细，就不再赘述了
 
 ## 3. SqlToRelConverter
@@ -130,7 +144,7 @@ sqlNodeParsed(SqlOrderBy)
   println(RelOptUtil.dumpPlan("[Logical plan]", logicalPlan, SqlExplainFormat.TEXT, SqlExplainLevel.NON_COST_ATTRIBUTES))
 ```
 
-这一步则由语法树转换为了关系运算符组成的树：
+这一步则由语法树转换为了关系运算符组成的树，即 SqlNode -> RelNode：
 
 ```
 [Logical plan]
@@ -142,15 +156,17 @@ LogicalSort(sort0=[$0], dir0=[ASC], fetch=[5]), id = 8
         LogicalTableScan(table=[[author]]), id = 3
 ```
 
+用图表示的话：
+
 ![logical plan](/assets/images/calcite/logical plan.png)
 
 到这一步，其实我们发现跟[关系运算树](https://izualzhy.cn/calcite-arch#1-relational-algebra)在逻辑上是一致的，只是用计算机的语言表达了出来。
 
 ## 4. RelOptPlanner
 
-这一步即优化部分，比如我们在第一篇笔记里提到的，扫描各表时，仅获取需要的列。
+这一步即优化部分，比如我们在[第一篇笔记](https://izualzhy.cn/calcite-tutorial)里提到的，扫描各表时，仅获取需要的列。
 
-观察上一节的图，还有一个比较明显的优化手段，就是扫描 Book 表时，提前应用`b.publish_year > 1830`这个条件，减少 b 表的 IO。这个想法，对应就是 Calcite 的内置 FilterIntoJoinRule 规则。
+在这个例子里，观察上一节的图，还有一个比较明显的优化手段，就是扫描 Book 表时，提前应用`b.publish_year > 1830`这个条件，减少 b 表的 IO。这个想法，对应就是 Calcite 的内置`FilterIntoJoinRule`规则。我们在一节构造`hepPlanner`时已经加进来了，这里看下优化后的效果：
 
 ```scala
   // Start the optimization process to obtain the most efficient physical plan based on the
@@ -172,9 +188,9 @@ LogicalSort(sort0=[$0], dir0=[ASC], fetch=[5]), id = 17
       LogicalTableScan(table=[[author]]), id = 3
 ```
 
-Rule 优化就跟第三方的实现有关了，比如之前看在看阿里 MaxCompute 时就提到过优化 MergeJoin + GroupAggregate 算子。我的理解是，MergeJoin 前本身就需要对字段排序，所以如果字段在同一区间，就会分配到同一实例实现拉链式 Join，也就是此时完全可以提前进行该字段的 GroupAggregate 而不影响其准确性。
+Rule 优化就跟第三方的实现有关了，比如在看阿里 MaxCompute 时就提到过优化 MergeJoin + GroupAggregate 算子。我的理解是，MergeJoin 算子需要提前对字段排序，两个表的字段如果在同一区间，就需要分配到同一实例实现拉链式 Join. 而该字段的相同值分配到同一实例后，GroupAggregate 算子就可以局部聚合而不影响准确性，因此也可以下推到跟 MergeJoin 算子同时进行，避免了全局的多次排序。
 
-可见其思路也是尽量降低不必要的 IO，我觉得跟[Z-Order](https://izualzhy.cn/lakehouse-zorder#2-data-skipping)一样，核心是 DataSkipping.
+可见其思路也是尽量降低不必要的 IO，我觉得跟[Z-Order](https://izualzhy.cn/lakehouse-zorder#2-data-skipping)一样，核心思想是 DataSkipping，对应到 SQL 的优化手段就是谓词下推(Predicate Pushdown - CoreRules.FILTER_INTO_JOIN)、常量折叠(Constant Folding - CoreRules.PROJECT_REDUCE_EXPRESSIONS)、列裁剪(Column Pruning)等。
 
 ## 5. RelBuilder
 
@@ -215,10 +231,26 @@ Rule 优化就跟第三方的实现有关了，比如之前看在看阿里 MaxCo
   println(RelOptUtil.toString(node))
 ```
 
-可见跟 SQL 是类似的，省了解析 AST 的部分，效果上跟我们的 SQL 也类似，只是 JOIN 条件没有看懂应该如何指定不同的字段名。感兴趣的可以看下源码里`RelBuilderExample`这个类。
+可见整体流程是是类似的，省了 SQL 解析成 AST 的部分，效果上跟第一节里的 SQL 也基本一致(JOIN 条件没有看懂应该如何指定不同的字段名)。感兴趣的可以看下源码里`RelBuilderExample`这个类。
 
-## 参考资料
+## 6. SqlNode RelNode RexNode
+
+通过前面的示例，总结下代码里这三种 Node 的区别：
+
+1. SqlNode 是 Parse、Validate 阶段的结果，对应 SQL 转换为语法树后的每个节点，例如 SqlSelect SqlJoin.
+2. RelNode 是 SqlToRelConverter、Optimize 阶段的结果，对应语法树转换为关系运算符的节点，例如 LogicalProject LogicalJoin，这些节点操作的都是集合，是关系代数运算符的一种，即 relational expression.
+3. RexNode 跟 RelNode 位于同一阶段，操作的是数据本身，例如`limit 5`里的 5 是`RexLiteral`，`b.publish_year > 1830`、`b.author_id = a.id`都是`RexCall`，对应常量、函数的表达式，即 Expression Node.
+
+引用<sup>4</sup>的一段话来总结下：
+> SqlNode is the abstract syntax tree that represents the actual structure of the query a user input. When a query is first parsed, it's parsed into a SqlNode. For example, a SELECT query will be parsed into a SqlSelect with a list of fields, a table, a join, etc. Calcite is also capable of generating a query string from a SqlNode as well.
+
+> RelNode represents a relational expression - hence "rel." RelNodes are used in the optimizer to decide how to execute a query. Examples of relational expressions are join, filter, aggregate, etc. Typically, specific implementations of RelNode will be created by users of Calcite to represent the execution of some expression in their system. When a query is first converted from SqlNode to RelNode, it will be made up of logical nodes like LogicalProject, LogicalJoin, etc. Optimizer rules are then used to convert from those logical nodes to physical ones like JdbcJoin, SparkJoin, CassandraJoin, or whatever the system requires. Traits and conventions are used by the optimizer to determine the set of rules to apply and the desired outcome, but you didn't ask about conventions :-)
+
+> RexNode represents a row expression - hence "Rex" - that's typically contained within a RelNode. The row expression contains operations performed on a single row. For example, a Project will contain a list of RexNodes that represent the projection's fields. A RexNode might be a reference to a field from an input to the RedNode, a function call (RexCall), a window (RexOver), etc. The operator within the RexCall defines what the node does, and operands define arguments to the operator. For example, 1 + 1 would be represented as a RexCall where the operator is + and the operands are 1 and 1.
+
+## 7. 参考资料
 
 1. [Calcite tutorial at BOSS 2021](https://www.youtube.com/watch?v=meI0W12f_nw)
 2. [春蔚专访--MaxCompute 与 Calcite 的技术和故事](https://developer.aliyun.com/article/710764)
 3. [Algebra](https://calcite.apache.org/docs/algebra.html)
+4. [Difference between sqlnode and relnode and rexnode](https://lists.apache.org/thread/z3pvzy1fnl6t5m04gd3wv4tntwpf3g52)

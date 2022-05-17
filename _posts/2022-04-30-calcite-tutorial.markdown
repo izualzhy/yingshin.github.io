@@ -165,7 +165,6 @@ smart.json 的执行计划对上述过程做了优化，`CsvSchemaFactory`构造
 
 ```sql
 sqlline> !connect jdbc:calcite:model=src/test/resources/smart.json admin admin
-0: jdbc:calcite:model=src/test/resources/smar> explain plan for select name emps;
 0: jdbc:calcite:model=src/test/resources/smar> explain plan for select name from emps;
 +----------------------------------------------------+
 |                        PLAN                        |
