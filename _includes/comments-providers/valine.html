@@ -19,12 +19,14 @@
 {%- endif -%}
 
 <script>
-  window.Lazyload.js(['{{ _sources.leancloud_js_sdk}}', '{{ _sources.valine }}'], function() {
+  <!--window.Lazyload.js(['{{ _sources.leancloud_js_sdk}}', '{{ _sources.valine }}'], function() {-->
+  window.Lazyload.js(['{{ _sources.valine }}'], function() {
     var _config = {
       el: '#vcomments',
       appId:  '{{ _VALINE_APP_ID }}',
       appKey: '{{ _VALINE_APP_KEY }}',
       verify: true,
+      visitor: true, // 阅读量统计
     };
     {%- if _VALINE_PLACEHOLDER -%}
       _config.placeholder = '{{ _VALINE_PLACEHOLDER }}';
