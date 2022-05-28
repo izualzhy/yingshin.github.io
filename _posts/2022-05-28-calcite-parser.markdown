@@ -139,7 +139,7 @@ Explain Plan.
 Explain Over.
 ```
 
-我把完整的例子放在里[]()
+完整的例子放在了[codegen](https://github.com/izualzhy/BigData-Systems/tree/main/calcite/src/main/codegen)
 
 ## 2. Calcite 源码分析
 
@@ -157,7 +157,7 @@ PARSER_BEGIN(${parser.class})
 package ${parser.package};
 ```
 
-对应生成的类是[SqlParserImpl.java]()
+对应生成的类是[SqlParserImpl.java](https://github.com/izualzhy/BigData-Systems/blob/main/calcite/src/main/codegen/SqlParserImpl.java)
 
 参考资料<sup>3</sup>里有一个非常用心的图，一目了然：
 
