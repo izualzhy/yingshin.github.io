@@ -157,7 +157,7 @@ PARSER_BEGIN(${parser.class})
 package ${parser.package};
 ```
 
-对应生成的类是[SqlParserImpl.java](https://github.com/izualzhy/BigData-Systems/blob/main/calcite/src/main/codegen/SqlParserImpl.java)
+对应生成的类是[SqlParserImpl.java](https://github.com/izualzhy/BigData-Systems/blob/main/calcite/src/main/resources/SqlParserImpl.java)
 
 参考资料<sup>3</sup>里有一个非常用心的图，一目了然：
 
