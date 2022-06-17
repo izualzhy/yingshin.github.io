@@ -27,14 +27,15 @@ key: page-about
 ---
 
 ```
-一个在不断进取的菜鸟工程师
+1. Education:
+  2. BUAA Master
+  1. BUAA Bachelor
 
-Education:
-BUAA Bachelor&&Master
+2. Work Experience:
+  4. 作业帮大数据实时计算
+  3. 百度 Spider 架构
+  2. 百度 Aladdin 架构
+  1. 多看阅读 kindle 系统
 
-Work Experience:
-4. 作业帮大数据实时计算
-3. 百度 Spider 架构
-2. 百度 Aladdin 架构
-1. 多看阅读 kindle 系统
+爱做饭、爱阅读、喜欢代码
 ```
