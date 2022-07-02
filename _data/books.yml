@@ -1,9 +1,9 @@
 - name: 高智商犯罪
-  cover: 
+  cover: https://img9.doubanio.com/lpic/s26997555.jpg
   start_date: 2022.6.18
-  finish_date:
-  douban_link: 
-  note: 
+  finish_date: 2022.7.2
+  douban_link: https://book.douban.com/subject/25663137/
+  note: 社会这所大学-读《高智商犯罪》 https://izualzhy.cn/gzsfz-reading
 
 - name: ClickHouse原理解析与应用实践
   cover: https://img2.doubanio.com/lpic/s33660603.jpg
