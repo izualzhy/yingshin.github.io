@@ -66,12 +66,12 @@
               <i class="far fa-calendar-alt"></i> <span>{{ include.article.date | date: __return }}</span>
             </li>
           {%- endif -%}
-          <!--<li>-->
-            <!--<span id="{{include.article.url}}" class="leancloud-visitors" data-flag-title={{include.article.title}}>-->
-                <!--<em class="post-meta-item-text">阅读量:</em>-->
-                <!--<i class="leancloud-visitors-count">-1</i>-->
-            <!--</span>-->
-          <!--</li>-->
+          <li>
+            <span id="{{include.article.url}}" class="leancloud-visitors" data-flag-title={{include.article.title}} style="display:none">
+                <em class="post-meta-item-text">阅读量:</em>
+                <i class="leancloud-visitors-count">-1</i>
+            </span>
+          </li>
 
           {%- if _pageview -%}
             {%- if site.pageview.provider -%}
