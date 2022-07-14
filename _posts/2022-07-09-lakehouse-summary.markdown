@@ -151,6 +151,8 @@ DataBricks 开发 Delta 是源于客户常见的四个问题：
 
 这里值得一提的是 ZOrder，原理参见之前的笔记<sup>14</sup>。笔者所在的公司也有自行实现的，虽然易用性、效果加速上都比数据湖较差，但是定向场景解决，反而可以忽略上述这些问题。虽然前面没有提及，但是之后 Z-Order、BloomFilter、二级索引这些技术，是否又会发展成为数据的基础底座之一？
 
+又如低代码平台这些概念，也是在这两年重新流行起来，低代码平台，是美好生活之路还是托拉拽重现江湖<sup>16</sup>？
+
 总结来看的话，使用云存储替换 HDFS 势在必行，另外比较好的应用点是多时效性场景的需求，例如分钟级时效性、Kappa 架构的中间层实时查询等，但是无论对于实时(Kafka)谈流批一体，还是离线(Hive)谈湖仓一体，个人感觉还不成熟。
 
 ## 参考资料
@@ -170,3 +172,4 @@ DataBricks 开发 Delta 是源于客户常见的四个问题：
 13. [揭秘 - 字节跳动基于Hudi的数据湖集成实践](https://mp.weixin.qq.com/s/dNOezXwnYsTCiXZ2rVfPxA)
 14. [干货 - 实时数据湖在字节跳动的实践](https://mp.weixin.qq.com/s/CgNQfAHrvgY7JPc4hgSwhA)
 15. [数据湖笔记之一：Z-Order](https://izualzhy.cn/lakehouse-zorder)
+16. [低代码平台](https://insights.thoughtworks.cn/low-code-platform/)
