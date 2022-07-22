@@ -1,0 +1,21 @@
+---
+layout: article
+title: 一些有意思的站点
+---
+<table>
+    <thead>
+        <tr>
+            <th>站点</th>
+            <th>简介</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for friend_blog in site.data.friend_blogs %}
+            <tr bgcolor=#D8F781>
+            <tr>
+                <td><a href="{{ friend_blog.site_url }}"><img src="{{ friend_blog.cover }}" class="img-rounder" width="60" height="80" alt="{{ friend_blog.name }}"/>{{ friend_blog.name }}</td>
+                <td>{{ friend_blog.desc }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
