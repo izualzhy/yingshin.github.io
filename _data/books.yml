@@ -1,3 +1,10 @@
+- name: 麦肯锡教我的写作武器
+  cover: https://img2.doubanio.com/lpic/s26863863.jpg
+  start_date: 2022.8.16
+  finish_date:
+  douban_link: https://book.douban.com/subject/24745639/
+  note: 
+
 - name: Spring Boot趣味实战课
   cover: https://img2.doubanio.com/lpic/s34212851.jpg
   start_date: 2022.7.24
