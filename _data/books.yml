@@ -1,3 +1,10 @@
+- name: 叫魂
+  cover: https://img2.doubanio.com/lpic/s9015481.jpg
+  start_date: 2022.9.4
+  finish_date: 
+  douban_link: https://book.douban.com/subject/10471333/
+  note: 
+
 - name: 麦肯锡教我的写作武器
   cover: https://img2.doubanio.com/lpic/s26863863.jpg
   start_date: 2022.8.16
