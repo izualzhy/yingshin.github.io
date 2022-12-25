@@ -1,7 +1,7 @@
 ---
-title: "Apache DolphinScheduler 代码速读"
+title: "DolphinScheduler笔记之一：代码速读"
 date: 2022-07-24 05:59:58
-tags: [dolphin]
+tags: [DolphinScheduler]
 ---
 
 周末花时间看了下 Apache DolphinScheduler 的代码，先水一篇整理的基础部分笔记占位。
