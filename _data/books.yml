@@ -1,3 +1,10 @@
+- name: 史记的读法
+  cover: https://img9.doubanio.com/lpic/s33506895.jpg
+  start_date: 2023.1.1
+  finish_date: 
+  douban_link: https://book.douban.com/subject/34781358/
+  note: 
+
 - name: Hive性能调优实战
   cover: https://img1.doubanio.com/lpic/s33636109.jpg
   start_date: 2022.12.1
