@@ -1,7 +1,7 @@
 ---
-title: "DolphinScheduler笔记之二：Master、Worker的线程模型"
+title: "DolphinScheduler笔记之一：Master、Worker的线程模型"
 date: 2022-12-24 12:26:25
-tags: [DolphinScheduler]
+tags: [DolphinScheduler-3.1.3]
 ---
 
 Master、Worker是DolphinScheduler最重要的两个模块，Master负责任务的调度，Worker负责任务的执行。
@@ -10,11 +10,14 @@ Master、Worker是DolphinScheduler最重要的两个模块，Master负责任务�
 
 ![start-process-thread-model](/assets/images/dolphin/dolphin/start-process-thread-model.png)
 
-简单来讲，线程模型就是串联了多个生产者-消费者，队列使用内存队列。线程定义了独立的名字区分，Master-Worker 之间通过 Netty 通信。
+DolphinScheduler 的线程模型总的来说：  
+1. 串联了多个生产者-消费者，队列使用内存队列  
+2. 线程定义了独立的名字区分  
+3. Master-Worker 之间通过 Netty 通信  
 
 ## 1. Master
 
-调度的处理入口类是`class MasterSchedulerBootstrap extends BaseDaemonThread implements AutoCloseable`，这是一个单线程。
+定时调度的处理入口类是`class MasterSchedulerBootstrap extends BaseDaemonThread implements AutoCloseable`，这是一个单线程。
 
 1. `findCommands`方法查询出待调度的任务，通过`command2ProcessInstance`转化为`ProcessInstance`。构造`WorkflowExecuteRunnable`，作为生产者传入`WorkflowEventQueue`。   
 2. `class WorkflowEventLooper extends BaseDaemonThread`消费`WorkflowEventQueue`，调用`WorkflowStartEventHandler.handleWorkflowEvent`，将`WorkflowExecuteRunnable::call`方法交给`WorkflowExecuteThreadPool`  
