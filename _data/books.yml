@@ -1,3 +1,10 @@
+- name: 品人录
+  cover: https://img1.doubanio.com/lpic/s1670160.jpg
+  start_date: 2023.4.16
+  finish_date: 
+  douban_link: https://book.douban.com/subject/1028805/
+  note: 
+
 - name: 流星·蝴蝶·剑
   cover: https://img1.doubanio.com/lpic/s28026827.jpg
   start_date: 2023.3.26
