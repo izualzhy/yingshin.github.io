@@ -8,7 +8,7 @@ tags: [DolphinScheduler-3.1.3]
 
 在了解 DolphinScheduler 的实现之前，我们不妨先多去思考几个任务调度的问题：
 
-1. 分布式常见的例如避免不同 Master 实例分别启动了同一个任务？或者都没有启动任务？  
+1. 分布式的常见问题，例如如何避免同一个任务被不同 Master 实例分别启动？或者都没有启动任务？  
 2. 工作流实例是由多个任务实例的 DAG 组成，先启动哪个？什么时候启动下一个？  
 3. 任务应该发送到哪个 Worker 执行？发送 Worker 超时或者失败怎么处理，重试还是发送到其他 Worker？  
 4. Worker 需要分组么？有什么好处？    
@@ -16,7 +16,9 @@ tags: [DolphinScheduler-3.1.3]
 
 当我们深入思考进去，类似的问题就会变得越来越多，比如任务的扩展性、Failover、数据库的优化、系统的可观察性等等。
 
-然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler笔记之3：工作流的生命周期](https://izualzhy.cn/dolphinscheduler-process-state)的任务状态：**工作流是如何初始化和运行的？**
+然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler笔记之3：工作流的生命周期](https://izualzhy.cn/dolphinscheduler-process-state)的任务状态：
+
+**工作流是如何初始化和运行的？**
 
 ## 总览
 
