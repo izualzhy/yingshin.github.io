@@ -1,3 +1,10 @@
+- name: 中台落地手记
+  cover: https://img2.doubanio.com/lpic/s33990103.jpg
+  start_date: 2023.7.30
+  finish_date: 
+  douban_link: https://book.douban.com/subject/35591140/
+  note: 
+
 - name: 为什么精英都是时间控
   cover: https://img2.doubanio.com/lpic/s29733031.jpg
   start_date: 2023.7.9
@@ -348,13 +355,6 @@
   douban_link: https://book.douban.com/subject/30234022/
   note: https://izualzhy.cn/dataflow-reading
 
-- name: 人类群星闪耀时
-  cover: https://img3.doubanio.com/lpic/s24946251.jpg
-  start_date: 2018.8.22
-  finish_date:
-  douban_link: https://book.douban.com/subject/3757732/
-  note:
-
 - name: 半小时漫画中国史
   cover: https://img3.doubanio.com/lpic/s29492853.jpg
   start_date: 2018.8.22
@@ -375,20 +375,6 @@
   finish_date: 2018.6.8
   douban_link: https://book.douban.com/subject/26888775/
   note: https://izualzhy.cn/rcxlx-reading
-
-- name: 见识
-  cover: https://img3.doubanio.com/lpic/s29575321.jpg
-  start_date: 2018.4.24
-  finish_date:
-  douban_link: https://book.douban.com/subject/27167992/
-  note: 
-
-- name: Effective STL
-  cover: https://img3.doubanio.com/lpic/s4188086.jpg
-  start_date: 2018.3.1
-  finish_date:
-  douban_link: https://book.douban.com/subject/1456960/
-  note: 
 
 - name: 封神演义
   cover: https://img3.doubanio.com/lpic/s5867853.jpg
@@ -453,11 +439,6 @@
   douban_link: https://book.douban.com/subject/10797189/
   note: 工作第二年有人推荐看了这本书的英文版，在厂子里看了很多的代码，反过来再看又有一些新的心得。
 
-- name: GitHub入门与实践
-  cover: https://img1.doubanio.com/lpic/s29237757.jpg
-  start_date: 2016.10.19
-  douban_link: https://book.douban.com/subject/26462816/
-
 - name: 最后一个道士
   cover: https://img1.doubanio.com/lpic/s23139097.jpg
   start_date: 2016.10.7
@@ -471,22 +452,12 @@
   finish_date: 2016.10.7
   douban_link: https://book.douban.com/subject/26766807/
 
-- name: 围城
-  cover: https://img3.doubanio.com/lpic/s6941453.jpg
-  start_date: 2016.9.11
-  douban_link: https://book.douban.com/subject/1855364/
-
 - name: 秘密
   cover: https://img3.doubanio.com/lpic/s27185093.jpg
   start_date: 2016.9.13
   finish_date: 2016.9.17
   douban_link: https://book.douban.com/subject/25720041/
   note: 东野的小说读的越多，越来越发现情感为主题，解谜只是部分。
-
-- name: Python网络编程攻略
-  cover: https://img3.doubanio.com/lpic/s28480936.jpg
-  start_date: 2016.8.15
-  douban_link: https://book.douban.com/subject/26230343/
 
 - name: 大漠苍狼
   cover: https://img1.doubanio.com/lpic/s4547388.jpg
@@ -501,11 +472,6 @@
   finish_date: 2016.8.31
   douban_link: https://book.douban.com/subject/2376486/
   note: 历史是多面的，但是了解历史总是要从某一面开始。这本书展开了很多事情、人物的某一面。虽然无法赞同作者的很多观点，但是值得思考。比较有感触的是相比过去的大学生，现在所谓的名牌大学在灌输的更多的是精英主义、利己主义。
-
-- name: Linux Shell脚本攻略
-  cover: https://img1.doubanio.com/lpic/s22702207.jpg
-  start_date: 2016.6.13
-  douban_link: https://book.douban.com/subject/6889456/
 
 - name: 英雄无泪
   cover: https://img3.doubanio.com/lpic/s27045485.jpg
@@ -539,11 +505,6 @@
   finish_date: 2016.2.6
   douban_link: http://book.douban.com/subject/26650970/
   note: 这一部主要冲着看下老朝奉是谁去的，整体比较平常的一个结局，但是好处是作者填上了坑，没有用一系列的难以填的坑来吊读者的胃口。
-
-- name: Linux多线程服务端编程
-  cover: https://img1.doubanio.com/lpic/s24522799.jpg
-  start_date: 2016.2.1
-  douban_link: http://book.douban.com/subject/20471211/
 
 - name: 欢乐英雄
   cover: https://img3.doubanio.com/lpic/s26723000.jpg
