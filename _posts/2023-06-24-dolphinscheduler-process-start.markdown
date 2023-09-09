@@ -6,7 +6,7 @@ tags: [DolphinScheduler-3.1.3]
 
 如果要设计一套 Master-Worker 架构的任务调度系统，Master 的复杂度无疑更高一些。因为 Master 相当于系统的“大脑”，从宏观上管理着任务调度的准确性和稳定性。其中核心又在于需要准确的管理工作流的状态以及调度下一步的行为。
 
-在了解 DolphinScheduler 的实现之前，我们不妨先多去思考几个任务调度的问题：
+在了解 DolphinScheduler 的实现之前，我们不妨先思考几个任务调度的问题：
 
 1. 分布式的常见问题，例如如何避免同一个任务被不同 Master 实例分别启动？或者都没有启动任务？  
 2. 工作流实例是由多个任务实例的 DAG 组成，先启动哪个？什么时候启动下一个？  
@@ -16,7 +16,7 @@ tags: [DolphinScheduler-3.1.3]
 
 当我们深入思考进去，类似的问题就会变得越来越多，比如任务的扩展性、Failover、数据库的优化、系统的可观察性等等。
 
-然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler笔记之3：工作流的生命周期](https://izualzhy.cn/dolphinscheduler-process-state)的任务状态：
+然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler笔记之3：工作流的生命周期](https://izualzhy.cn/dolphinscheduler-process-state)的任务状态的第一步：
 
 **工作流是如何初始化和运行的？**
 
@@ -26,7 +26,7 @@ tags: [DolphinScheduler-3.1.3]
 1. 系统调度：例如用户配置的Crontab、上游依赖任务的触发、任务的容错  
 2. 手动运行：例如任务测试、补数、重跑失败任务    
 
-之后初始化和运行工作流，Master 分为三个阶段:
+启动后，Master 的执行过程可以简单分为三个阶段:
 
 1. 生成工作流实例  
 2. 构造DAG，生成任务实例     
@@ -69,6 +69,10 @@ Process 定义了算子及其依赖关系，而算子的真正执行是在 Task�
 
 ## 3. 分发任务实例    
 
-该类是一个单线程，也是标准的 Producer-Consumer 模型，从优先级队列选取出任务实例后。多线程发送到配置的 Worker 节点。节点的选择、负载均衡都是在这一步完成的。
+该类是一个单线程，也是标准的 Producer-Consumer 模型。
+
+对于`CommonTaskProcessor`类型，从优先级队列选取出任务实例后。多线程发送到配置的 Worker 节点。节点的选择、负载均衡都是在这一步完成的。
 
 当 Worker 节点正常接收并且开始处理任务后，会发送消息通知对应的 Master 节点。工作流实例也就正式启动了。  
+
+这个过程总结在了[DolphinScheduler笔记之5: 普通任务CommonTaskProcessor](http://izualzhy.cn/commontaskprocessor)
