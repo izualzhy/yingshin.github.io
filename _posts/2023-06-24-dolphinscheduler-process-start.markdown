@@ -65,7 +65,7 @@ Process 定义了算子及其依赖关系，而算子的真正执行是在 Task�
 
 1. 首先提交的是 DAG 的开始节点，例如没有前置依赖的节点、直接运行的节点等。前置节点运行结束后，再执行后续节点，这大概也是函数命名`submitPostNode`的由来。   
 2. 待提交的任务先添加到`readyToSubmitTaskQueue`队列，然后遍历该队列，判断是否满足提交条件。如果满足，则调用`submitTaskExec`方法。  
-3. 根据任务实例的不同类型，构造对应的`ITaskProcessor`实例，例如 `CommonTaskProcessor` `DependentTaskProcessor` 等。实际处理的任务类型对应 `CommonTaskProcessor`，逻辑任务对应`DependentTaskProcessor`。前者会将任务添加到`TaskPriorityQueue<TaskPriority> taskUpdateQueue`优先级队列。  
+3. 根据任务实例的不同类型，构造对应的`ITaskProcessor`实例，例如 `CommonTaskProcessor` `DependentTaskProcessor` 等。实际处理的任务类型对应[CommonTaskProcessor](http://izualzhy.cn/commontaskprocessor)，逻辑任务对应[DependentTaskProcessor](https://izualzhy.cn/ds-dependent)。前者会将任务添加到`TaskPriorityQueue<TaskPriority> taskUpdateQueue`优先级队列继续分发，后者则在 master 模块完成计算。  
 
 ## 3. 分发任务实例    
 
@@ -74,5 +74,3 @@ Process 定义了算子及其依赖关系，而算子的真正执行是在 Task�
 对于`CommonTaskProcessor`类型，从优先级队列选取出任务实例后。多线程发送到配置的 Worker 节点。节点的选择、负载均衡都是在这一步完成的。
 
 当 Worker 节点正常接收并且开始处理任务后，会发送消息通知对应的 Master 节点。工作流实例也就正式启动了。  
-
-这个过程总结在了[DolphinScheduler笔记之5: 普通任务CommonTaskProcessor](http://izualzhy.cn/commontaskprocessor)
