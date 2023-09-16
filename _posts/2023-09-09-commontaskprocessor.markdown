@@ -317,4 +317,4 @@ public class NettyExecutorManager extends AbstractExecutorManager<Boolean> {
 
 master 构建完 DAG 生成 TaskInstance 后，`CommonTaskProcessor`完成了后续分发任务的部分。重点需要考虑状态持久化、负载均衡、网络协议、线程隔离等。
 
-`BaseTaskProcessor`作为基类，封装了任务在 master 的执行过程。了解该过程有助于了解各个子类的实现，比如`DependentTaskProcessor`，接下来的笔记会继续总结该类的实现逻辑。
+`BaseTaskProcessor`作为基类，封装了任务在 master 的执行过程。了解该过程有助于了解各个子类的实现，其中主要分为两种，一个是本文总结的`CommonTaskProcessor`，另一个则是[DependentTaskProcessor](https://izualzhy.cn/ds-dependent)
