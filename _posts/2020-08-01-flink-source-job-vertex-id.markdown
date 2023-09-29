@@ -1,5 +1,5 @@
 ---
-title: "浅谈 Flink - JobGraph 之 JobVertexID"
+title: "谈谈 Flink - JobGraph 之 JobVertexID"
 date: 2020-08-01 00:56:34
 tags: [flink-1.9]
 ---

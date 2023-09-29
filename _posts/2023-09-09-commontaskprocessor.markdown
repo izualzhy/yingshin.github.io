@@ -283,7 +283,7 @@ public class ExecutorDispatcher implements InitializingBean {
 ### 3.6. NettyExecutorManager.execute
 
 dolphin 使用 Netty 收发数据，可以看到发送的数据只有`context.command`，如果发送失败，则尝试发送到其他 host.   
-`doExecute`方法比较简单，就是通过 channel 发送数据，失败时重试。  
+`doExecute`方法通过 channel 发送数据，失败时重试，这块具体可以参考笔记[DolphinScheduler笔记之7: 网络模型](http://izualzhy.cn/ds-net-model)。  
 
 ```java
 public class NettyExecutorManager extends AbstractExecutorManager<Boolean> {
