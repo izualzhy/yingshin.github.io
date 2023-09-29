@@ -1,5 +1,5 @@
 ---
-title: "浅谈 Flink - SQL Window 简介"
+title: "谈谈 Flink - SQL Window 简介"
 date: 2022-07-23 09:08:37
 tags: [flink-1.15]
 ---

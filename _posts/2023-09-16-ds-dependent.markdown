@@ -6,9 +6,9 @@ tags: [DolphinScheduler-3.1.3]
 
 ## 1. 为什么要有任务依赖？
 
-大数据的离线场景中，任务每次执行更新一个新的 Hive 分区，分区大部分场景下都是时间相关的，比如天、小时。
+大数据的离线场景中，任务每次执行更新一个新的 Hive 分区，分区基本都是时间相关的，比如天、小时分区。
 
-而任务之间是由依赖关系的，写入 ODS 表新分区的任务执行完成后，接着执行写入 DWD 表新分区的任务。这里有严格的上下游关系，因为 ODS 是 DWD 的输入，如果启动时间过早，DWD 任务就会读不到或者读到一个空分区导致任务失败/数据错误。
+写入 ODS 表新分区的任务执行完成后，接着执行写入 DWD 表新分区的任务，因此任务之间是有严格的依赖关系的。因为 ODS 是 DWD 的输入，如果任务启动时间过早，DWD 任务就会读不到或者读到一个空分区导致任务失败/数据错误。
 
 所以任务依赖是任务调度系统中非常重要的一环。
 
@@ -18,14 +18,14 @@ tags: [DolphinScheduler-3.1.3]
 
 我们是否可以**只基于任务事件触发构建调度系统**呢？对应到系统实现上，上游任务成功发送消息，接收到消息后启动下游任务。这样既节省了轮询，又提高了时效性。
 
-但实际上，大部分的调度系统里，任务都是通过 crontab 的时间属性触发的<sup>1 2</sup>.
+但实际上大部分调度系统里，任务都是通过 crontab 的时间属性触发的<sup>1 2</sup>.
 
 我觉得主要原因有三个：   
 1. 最上游的任务，是没有前置节点的，因此必须定时启动。  
 2. 不同调度周期的任务依赖，例如周级任务依赖天级任务，需要 crontab 指定依赖周几的天级任务。  
-3. 触发式增加了系统的复杂度，同时降低了易用性。比如易用性：crontab的方式，固定间隔执行一次，生成一条新的日志，离线开发人员容易理解，看日志方便。触发式一直不打印日志，可能是依赖未就绪，也可能是系统出问题了。       
+3. 触发式增加了系统的复杂度，同时降低了易用性。比如 crontab 定时生成日志，离线开发人员容易理解，看日志方便。触发式一直不打印日志，可能是依赖未就绪，也可能是系统出问题了。       
 
-实际上，任务真正执行的时间是由 crontab 和上游依赖就绪共同决定的。crontab 是任务的初始时间，任务依赖是DAG的一部分。
+实际上，任务真正执行的时间是由 crontab 和上游依赖就绪共同决定的。crontab 是任务的初始时间，任务依赖是 DAG 的一部分。
 
 基于此，任务依赖这个功能，看上去适合用触发消息实现，但是实际上轮询检查才是最合理的。
 
@@ -45,10 +45,10 @@ tags: [DolphinScheduler-3.1.3]
 
 从图里还可以看到 Dolphin 支持了二级关系。
 
-对应上述图里的标注，核心实现类有三个：   
-1. 最外层的实现类是`DependentTaskProcessor`，封装了任务依赖全部功能，类似于上篇笔记里的[CommonTaskProcessor](https://izualzhy.cn/commontaskprocessor)      
-2. 依赖的最小单元是`DependentItem`，包含了项目+工作流+任务+依赖的时间周期  
-3. 中间类是`DependentExecute`，包含了多个`DependentItem`及其且或关系       
+对应上述图里的标注，主要实现类有三个：   
+1. 最外层的实现类是`DependentTaskProcessor`，封装了任务依赖全部功能，类层次上等同于[CommonTaskProcessor](https://izualzhy.cn/commontaskprocessor)      
+2. 依赖的最小单元是`DependentItem`，记录了依赖的项目、工作流、任务、依赖时间周期等    
+3. 中间类是`DependentExecute`，包含了多个`DependentItem`及其且或关系，计算任务实例获取对应状态都在这里实现   
 
 具体的：
 ```java
@@ -76,7 +76,7 @@ public class DependentItem {
 
 ```java
 public class DependentExecute {
-        /**
+    /**
      * depend item list
      */
     private List<DependentItem> dependItemList;
@@ -101,7 +101,7 @@ public class DependentTaskProcessor extends BaseTaskProcessor {
     private Map<String, DependResult> dependResultMap = new HashMap<>();
 ```
 
-因此实现思路上，就是获取基础的`DependentItem`状态，然后根据且或关系计算整个 DependentTask 的结果。
+实现思路上，就是获取基础的`DependentItem`状态，然后根据且或关系计算整个 DependentTask 的结果。
 
 同时**应当尽可能在本地缓存任务查询结果，避免重复远程请求，造成服务端、DB的压力**。
 
@@ -130,7 +130,7 @@ public class DependentTaskProcessor extends BaseTaskProcessor {
 1. 检查所有依赖任务的状态是否为已完成    
 2. 如果已完成，根据任务状态计算 DependentTask 的结果    
 
-接下来分别看看这两步的实现，前两个注释比较清晰，就不赘述了。   
+接下来分别看看这两步的实现。   
 
 ### 4.2. allDependentTaskFinish
 
@@ -233,7 +233,7 @@ public class DependentTaskProcessor extends BaseTaskProcessor {
 
 `DependentTask`有点类似于编程语言里的`if`，但是DolphinScheduler 的实现里没有考虑 Short-circuit evaluation<sup>3</sup>，比如依赖了上游任务 A OR B，那即使 A 成功了，也需要能够查询到 B 的工作流实例。
 
-因此，这块的代码虽然不多，但是由于很难理解作者的思路，感觉代码可读性一般。
+这块的代码虽然不多，但是由于很难理解作者的思路，感觉代码可读性一般。
 
 但是需要强调的是，**理解任务依赖的配置对调度准确性是及其重要的，从阿里云的文档<sup>4</sup>复杂度也可以窥见一斑**。
 
