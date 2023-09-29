@@ -1,5 +1,5 @@
 ---
-title: "浅谈 Flink - Row 里使用字符串的 ParseException"
+title: "谈谈 Flink - Row 里使用字符串的 ParseException"
 date: 2022-06-03 02:37:26
 tags: [flink-1.15]
 ---
