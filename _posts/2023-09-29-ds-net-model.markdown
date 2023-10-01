@@ -255,6 +255,8 @@ public class WorkerRpcServer implements Closeable {
             boolean offer = workerManager.offer(workerTaskExecuteRunnable);
 ```
 
+经过上述的 RPC 过程，待执行的任务实例信息就从 master 分发到了 worker，开始真正执行。
+
 ## 7. 总结
 
 字节在模块间的流转过程，本质是这样的：
