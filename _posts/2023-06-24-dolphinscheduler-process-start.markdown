@@ -63,7 +63,7 @@ Process 定义了算子及其依赖关系，而算子的真正执行是在 Task�
 
 然后提交任务到优先级队列中：
 
-1. 首先提交的是 DAG 的开始节点，例如没有前置依赖的节点、直接运行的节点等。前置节点运行结束后，再执行后续节点，这大概也是函数命名`submitPostNode`的由来。   
+1. 首先提交的是 DAG 的开始节点，例如没有前置依赖的节点、直接运行的节点等。前置节点运行结束后，再执行后续节点，函数命名`submitPostNode`。后续的任务也会由该方法执行，具体可以查看[Dolphin状态](https://izualzhy.cn/ds-state-machine-first)。   
 2. 待提交的任务先添加到`readyToSubmitTaskQueue`队列，然后遍历该队列，判断是否满足提交条件。如果满足，则调用`submitTaskExec`方法。  
 3. 根据任务实例的不同类型，构造对应的`ITaskProcessor`实例，例如 `CommonTaskProcessor` `DependentTaskProcessor` 等。实际处理的任务类型对应[CommonTaskProcessor](http://izualzhy.cn/commontaskprocessor)，逻辑任务对应[DependentTaskProcessor](https://izualzhy.cn/ds-dependent)。前者会将任务添加到`TaskPriorityQueue<TaskPriority> taskUpdateQueue`优先级队列继续分发，后者则在 master 模块完成计算。  
 
