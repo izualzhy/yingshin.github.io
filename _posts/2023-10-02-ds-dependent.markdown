@@ -1,6 +1,6 @@
 ---
 title: "DolphinScheduler笔记之6: 依赖任务DependentTaskProcessor"
-date: 2023-09-16 09:35:52
+date: 2023-10-02 09:35:52
 tags: [DolphinScheduler-3.1.3]
 ---
 
@@ -46,7 +46,7 @@ tags: [DolphinScheduler-3.1.3]
 从图里还可以看到 Dolphin 支持了二级关系。
 
 对应上述图里的标注，主要实现类有三个：   
-1. 最外层的实现类是`DependentTaskProcessor`，封装了任务依赖全部功能，类层次上等同于[CommonTaskProcessor](https://izualzhy.cn/commontaskprocessor)      
+1. 最外层的实现类是`DependentTaskProcessor`，封装了任务依赖全部功能，类层次上等同于[CommonTaskProcessor](https://izualzhy.cn/ds-commontaskprocessor)      
 2. 依赖的最小单元是`DependentItem`，记录了依赖的项目、工作流、任务、依赖时间周期等    
 3. 中间类是`DependentExecute`，包含了多个`DependentItem`及其且或关系，计算任务实例获取对应状态都在这里实现   
 
@@ -107,7 +107,7 @@ public class DependentTaskProcessor extends BaseTaskProcessor {
 
 ## 4. DependentTaskProcessor 的实现
 
-对比来看，[CommonTaskProcessor](https://izualzhy.cn/commontaskprocessor)和 DependentTaskProcessor 的 submitTask 方法基本一致。区别在于前者逻辑实现在`dispatchTask`，后者在`runTask`。
+对比来看，[CommonTaskProcessor](https://izualzhy.cn/ds-commontaskprocessor)和 DependentTaskProcessor 的 submitTask 方法基本一致。区别在于前者逻辑实现在`dispatchTask`，后者在`runTask`。
 
 因此我们主要看下`runTask`的实现:    
 

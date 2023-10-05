@@ -1,10 +1,10 @@
 ---
 title: "DolphinScheduler笔记之5: 普通任务CommonTaskProcessor"
-date: 2023-09-09 00:52:37
+date: 2023-10-01 23:52:37
 tags: [DolphinScheduler-3.1.3]
 ---
 
-接[上一篇笔记](https://izualzhy.cn/dolphinscheduler-process-start)，这里总计下普通任务在 master 的处理过程。
+接[上一篇笔记](https://izualzhy.cn/ds-how-process-start)，这里总计下普通任务在 master 的处理过程。
 
 DolphinScheduler 里的任务类型，按照逻辑可以分为两种：  
 1. 普通任务：具体执行的任务，例如 Shell、SQL、Flink 等，相当于编程语言里的函数、计算    
@@ -152,7 +152,7 @@ public class ProcessServiceImpl implements ProcessService {
 
 ### 3.3. dispatchTask
 
-这一步将待分发任务放到了`TaskPriorityQueueImpl`队列，也就是[DolphinScheduler笔记之4：工作流的启动](https://izualzhy.cn/dolphinscheduler-process-start)图里的`TaskPriorityQueue`
+这一步将待分发任务放到了`TaskPriorityQueueImpl`队列，也就是[DolphinScheduler笔记之4：工作流的启动](https://izualzhy.cn/ds-how-process-start)图里的`TaskPriorityQueue`
 
 该队列通过 Bean 装配：
 
