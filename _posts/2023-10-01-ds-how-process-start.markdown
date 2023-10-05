@@ -1,6 +1,6 @@
 ---
 title: "DolphinScheduler笔记之4：工作流的启动"
-date: 2023-06-24 06:46:03
+date: 2023-10-01 06:46:03
 tags: [DolphinScheduler-3.1.3]
 ---
 
@@ -16,7 +16,7 @@ tags: [DolphinScheduler-3.1.3]
 
 当我们深入思考进去，类似的问题就会变得越来越多，比如任务的扩展性、Failover、数据库的优化、系统的可观察性等等。
 
-然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler笔记之3：工作流的生命周期](https://izualzhy.cn/dolphinscheduler-process-state)的任务状态的第一步：
+然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler笔记之3：工作流的生命周期](https://izualzhy.cn/ds-how-process-state)的任务状态的第一步：
 
 **工作流是如何初始化和运行的？**
 
@@ -65,7 +65,7 @@ Process 定义了算子及其依赖关系，而算子的真正执行是在 Task�
 
 1. 首先提交的是 DAG 的开始节点，例如没有前置依赖的节点、直接运行的节点等。前置节点运行结束后，再执行后续节点，函数命名`submitPostNode`。后续的任务也会由该方法执行，具体可以查看[Dolphin状态](https://izualzhy.cn/ds-state-machine-first)。   
 2. 待提交的任务先添加到`readyToSubmitTaskQueue`队列，然后遍历该队列，判断是否满足提交条件。如果满足，则调用`submitTaskExec`方法。  
-3. 根据任务实例的不同类型，构造对应的`ITaskProcessor`实例，例如 `CommonTaskProcessor` `DependentTaskProcessor` 等。实际处理的任务类型对应[CommonTaskProcessor](http://izualzhy.cn/commontaskprocessor)，逻辑任务对应[DependentTaskProcessor](https://izualzhy.cn/ds-dependent)。前者会将任务添加到`TaskPriorityQueue<TaskPriority> taskUpdateQueue`优先级队列继续分发，后者则在 master 模块完成计算。  
+3. 根据任务实例的不同类型，构造对应的`ITaskProcessor`实例，例如 `CommonTaskProcessor` `DependentTaskProcessor` 等。实际处理的任务类型对应[CommonTaskProcessor](http://izualzhy.cn/ds-commontaskprocessor)，逻辑任务对应[DependentTaskProcessor](https://izualzhy.cn/ds-dependent)。前者会将任务添加到`TaskPriorityQueue<TaskPriority> taskUpdateQueue`优先级队列继续分发，后者则在 master 模块完成计算。  
 
 ## 3. 分发任务实例    
 
