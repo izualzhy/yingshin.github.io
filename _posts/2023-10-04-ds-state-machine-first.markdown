@@ -8,7 +8,9 @@ tags: [DolphinScheduler-3.1.3]
 
 ## 1. 状态机
 
-如果我们自行实现一个任务调度系统，首要是梳理清楚任务状态。以 Flink 任务流程为例：
+如果我们实现一个任务调度系统，首要是梳理清楚任务状态。
+
+以 Flink 任务流程为例：
 
 1. 提交：任务提交后，资源调度需要分配资源、初始化Container、启动JobManager、TaskManager等。因此任务首先是从**初始化**到**提交中**，再从**提交成功**到**运行**，当然任务也有可能因为各种原因导致**提交失败**。   
 2. 运行：运行中的任务，可能会**成功**，可能会**失败**，对流式任务，也有可能一直是**运行**。   
@@ -16,21 +18,21 @@ tags: [DolphinScheduler-3.1.3]
 
 ![FlinkTaskState](/assets/images/dolphin/dolphin/flink-task-state.png)
 
-这个流程包含三部分：  
+这个流程包含三元素：  
 1. 状态：初始化、提交中、运行、成功、失败、已停止，都是任务的状态   
 2. 事件：提交任务、停止任务时，都会触发对应的事件(任务提交、任务停止)   
 3. 动作：响应事件，执行某个方法，然后任务切换到另一个状态   
 
 简单讲，就是触发不同的事件(主动/被动)后，执行某个动作，使得状态变了。  
 
-另外假如依次收到三个事件：`提交任务 -> 停止任务 -> 提交任务`   
-如果顺序弄成了：`提交任务 -> 提交任务 -> 停止任务`     
+假如依次收到三个事件：`提交任务 -> 停止任务 -> 提交任务`   
+如果执行顺序弄成了：`提交任务 -> 提交任务 -> 停止任务`     
 
-那任务的状态就不符合预期了。   
+那任务的最终状态就不符合预期了，因此**事件必须顺序处理**。   
 
-从实现的角度，有的过程是无法打断的，比如提交任务，如果强行 interrupt 提交线程，结果可能是未知的。最保险的做法，是等提交完成后再去停止任务。
+另外从实现的角度，有的过程是无法打断的，比如提交任务，强行 interrupt 提交线程结果是未知的，结果任务可能提交了，也可能没有提交。最保险的做法，是等提交完成后再去停止任务。
 
-因此可以得到结论：**事件可能是多线程触发的，为了确保顺序性，应该单线程执行动作**   
+因此可以得到结论：**事件是多线程触发的，但是为了确保顺序性，动作应该单线程执行**   
 
 上面的描述很容易让人联想到状态机，不过状态机实际是一个抽象的概念，更多是一种约定而非限制。比如[Raft](https://izualzhy.cn/notes-on-raft)协议里的 Replicated state machines、资源管理系统(YARN)里的任务状态：NEW_SAVING ACCEPTED RUNNING 等，都是状态机的一种实现。  
 
@@ -66,7 +68,7 @@ DolphinScheduler 无论对于 Task 还是 Process 的状态变更，本质都是
 2. `TaskEventService`: 事件的分发，需要同时考虑顺序性和性能   
 3. `TaskEventHandler`: 事件处理，每种类型的事件，都会有对应的处理方法     
 
-[网络模型](https://izualzhy.cn/ds-net-model)这里，介绍了任务是如何从 master 发送到 worker 的。接着以工作流的任务结束为例，说明下 worker 发送回 master 后 master 是如何处理的。    
+之前介绍了工作流的启动过程，DAG 里的首节点任务开始执行；而当首节点任务结束后，就需要触发 DAG 里下游节点开始执行。这便是状态机的作用之一，接下来介绍下这个该过程。    
 
 ### 3.1. 事件产生   
 
@@ -179,5 +181,14 @@ public class TaskResultEventHandler implements TaskEventHandler {
 
 `EventExecuteService`收到该事件后，交给`TaskStateEventHandler`处理，该方法会调用[DolphinScheduler笔记之4：工作流的启动](https://izualzhy.cn/ds-how-process-start)里的`submitPostNode`继续提交下游任务。
 
-## 4. 参考资料
-+ [Finite-State Machines: Theory and Implementation](https://code.tutsplus.com/finite-state-machines-theory-and-implementation--gamedev-11867t)   
+## 4. 总结
+
+Dolphin里有两处状态机的具体实现，一处是在任务状态，一处是在工作流状态。实现方式上都是类似的，既考虑了顺序性(准确性)又兼顾了性能，其中性能上主要是通过线程池同时确保单个工作流实例只有单个线程在处理。
+
+Success Text.
+{:.success}
+
+状态机的作用之一，就是确保了 DAG 的算子能够依次顺利执行。
+
+## 5. 参考资料
+1. [Finite-State Machines: Theory and Implementation](https://code.tutsplus.com/finite-state-machines-theory-and-implementation--gamedev-11867t)   
