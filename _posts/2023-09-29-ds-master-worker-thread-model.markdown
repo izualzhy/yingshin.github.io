@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之1：Master、Worker的线程模型"
+title: "DolphinScheduler笔记之1: Master、Worker的线程模型"
 date: 2023-09-29 12:26:25
 tags: [DolphinScheduler-3.1.3]
 ---
