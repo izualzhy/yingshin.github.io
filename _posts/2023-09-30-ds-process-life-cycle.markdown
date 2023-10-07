@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之3：工作流的生命周期"
+title: "DolphinScheduler笔记之3: 工作流的生命周期"
 date: 2023-09-30 22:24:40
 tags: [DolphinScheduler-3.1.3]
 ---
