@@ -185,9 +185,6 @@ public class TaskResultEventHandler implements TaskEventHandler {
 
 Dolphin里有两处状态机的具体实现，一处是在任务状态，一处是在工作流状态。实现方式上都是类似的，既考虑了顺序性(准确性)又兼顾了性能，其中性能上主要是通过线程池同时确保单个工作流实例只有单个线程在处理。
 
-Success Text.
-{:.success}
-
 状态机的作用之一，就是确保了 DAG 的算子能够依次顺利执行。
 
 ## 5. 参考资料
