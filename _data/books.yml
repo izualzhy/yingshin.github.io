@@ -1,3 +1,17 @@
+- name: 大模型时代：ChatGPT开启通用人工智能浪潮
+  cover: https://izualzhy.cn/assets/images/book/s34523140.jpeg
+  start_date: 2023.10.26
+  finish_date:
+  douban_link: https://book.douban.com/subject/36397929/
+  note: TODO
+
+- name: 窦占龙憋宝：七杆八金刚
+  cover: https://izualzhy.cn/assets/images/book/s34016059.jpeg
+  start_date: 2023.10.24
+  finish_date:
+  douban_link: https://book.douban.com/subject/35621142/
+  note: TODO
+
 - name: 崔老道传奇
   cover: https://izualzhy.cn/assets/images/book/s32296331.jpeg
   start_date: 2023.10.10
@@ -10,7 +24,7 @@
   start_date: 2023.10.1
   finish_date: 
   douban_link: https://book.douban.com/subject/36328704/
-  note:
+  note: TODO
 
 - name: 中台落地手记
   cover: https://izualzhy.cn/assets/images/book/s33990103.jpg
