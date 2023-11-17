@@ -1,7 +1,7 @@
 ---
 title: "战略思维+专业思维-读《麦肯锡结构化战略思维》"
 date: 2022-10-10 00:02:26
-tags: [read]
+tags: read
 ---
 
 ![麦肯锡结构化战略思维](https://img2.doubanio.com/lpic/s33757911.jpg)

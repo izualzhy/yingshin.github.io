@@ -2,7 +2,7 @@
 title: "C++模板技术之SFINAE与enable_if的使用"
 date: 2017-12-16 10:36:23
 excerpt: "C++模板技术之SFINAE与enable_if的使用"
-tags: compiler  SFINAE
+tags: cpp
 ---
 
 想写这篇文章主要是偶然看到很多代码使用[protobuf里的反射](http://izualzhy.cn/protobuf-message-reflection)，例如我们想要获取字段`common.logid`对应的value，很多实现使用`GetReflection/GetString/field/HasFeild`这些接口来获取。

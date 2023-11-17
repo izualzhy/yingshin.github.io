@@ -2,7 +2,7 @@
 title: "leveldb笔记之8:sstable"
 date: 2018-12-22 11:41:51
 excerpt: "leveldb笔记之8:sstable"
-tags: [leveldb]
+tags: leveldb
 ---
 
 ## 1. 简介

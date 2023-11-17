@@ -1,7 +1,7 @@
 ---
 title: "心流者，事竟成-读《只管去做》"
 date: 2022-11-27 11:04:14
-tags: [read]
+tags: read
 ---
 
 ![只管去做](https://img2.doubanio.com/lpic/s29636101.jpg)

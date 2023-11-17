@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler笔记之4: 工作流的启动"
 date: 2023-10-01 06:46:03
-tags: [DolphinScheduler-3.1.3]
+tags: dolphin
 ---
 
 如果要设计一套 Master-Worker 架构的任务调度系统，Master 的复杂度无疑更高一些。因为 Master 相当于系统的“大脑”，从宏观上管理着任务调度的准确性和稳定性。其中核心又在于需要准确的管理工作流的状态以及调度下一步的行为。

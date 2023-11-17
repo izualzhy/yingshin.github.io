@@ -1,7 +1,7 @@
 ---
 title: "想明白，写出来-读《麦肯锡教我的协作武器》"
 date: 2022-08-28 12:11:53
-tags: [read]
+tags: read
 ---
 
 ![麦肯锡教我的协作武器](https://img2.doubanio.com/lpic/s26863863.jpg)

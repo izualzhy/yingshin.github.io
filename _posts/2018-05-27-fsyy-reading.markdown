@@ -1,7 +1,7 @@
 ---
 title: "AI时代 - 评《封神演义》"
 date: 2018-05-27 12:02:58
-tags: [read]
+tags: read
 ---
 
 ![封神演义](assets/images/fengshenyanyi.jpg)

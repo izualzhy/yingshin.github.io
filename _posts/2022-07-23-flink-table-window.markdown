@@ -1,7 +1,7 @@
 ---
-title: "谈谈 Flink - SQL Window 简介"
+title: "漫谈 Flink - SQL Window 简介"
 date: 2022-07-23 09:08:37
-tags: [flink-1.15]
+tags: flink
 ---
 
 如果说 Flink 里 `FlatMap` `Filter` 这些算子，还只是简单的在`MapReduce`思想上的扩展。那么 Window 机制，则是真正的在乱序、无界的实时流处理的一个核心设计。Window 的切分与触发，跟数据量、时间、watermark有关，又依赖着状态保证数据的准确性，在 Flink 里是非常典型同时比较复杂的一环。

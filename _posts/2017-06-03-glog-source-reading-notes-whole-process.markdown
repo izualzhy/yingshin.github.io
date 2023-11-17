@@ -2,7 +2,7 @@
 title: glog源码解析二：从LOG(INFO)到写入日志的代码分析
 date: 2017-06-03 22:50:14
 excerpt: "glog源码解析"
-tags: [glog]
+tags: glog
 ---
 
 这篇笔记接着[上篇笔记:glog源码解析一：整体结构](http://izualzhy.cn/glog-source-reading-notes)，继续介绍`LOG(INFO)`调用后的完整过程，通过梳理这个过程，能覆盖到大部分的代码。当然为了便于理解，一些细节和分支都做了简化。

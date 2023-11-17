@@ -2,7 +2,7 @@
 title:  "leetcode上2Sum 3Sum 4Sum以及kSum问题的分析"
 date: 2014-04-17 17:52:21
 excerpt: "TwoSum,3Sum,4Sum,kSum problems on leetcode."
-tags: sort  leetcode
+tags: algorithm
 ---
 
 leetcode上很多题目是一系列的，循序渐进，比如TwoSum,3Sum,4Sum的问题。  
