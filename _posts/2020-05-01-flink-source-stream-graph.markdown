@@ -1,7 +1,7 @@
 ---
-title: "谈谈 Flink - StreamGraph"
+title: "漫谈 Flink - StreamGraph"
 date: 2020-05-01 22:06:45
-tags: [flink-1.9]
+tags: flink
 ---
 
 上一篇笔记介绍由 API 生成`StreamExecutionEnvironment.transformations`，接下来就是生成 StreamGraph.

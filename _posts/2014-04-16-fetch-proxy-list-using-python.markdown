@@ -2,7 +2,7 @@
 title:  "使用python获取IP代理列表"
 date:   2014-04-16 15:33:03
 excerpt: "Fetch active proxy list using python."
-tags: proxy  python
+tags: python
 ---
 
 无聊写点小例子玩玩，非常简单。  

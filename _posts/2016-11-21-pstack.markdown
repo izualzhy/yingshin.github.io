@@ -2,7 +2,7 @@
 title: 追core笔记之一：pstack
 date: 2016-11-21 22:30:23
 excerpt: "saverng追core笔记之pstack"
-tags: core  gdb
+tags: core
 ---
 
 最近接手了一个模块，遇到的第一个问题是每天产生很多core，逐一看肯定是不现实的，因此先对core进行分类。

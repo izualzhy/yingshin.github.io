@@ -2,7 +2,7 @@
 title: "boost容器之bimap"
 date: 2017-12-23 19:14:46
 excerpt: "boost容器之bimap"
-tags: boost  bimap
+tags: boost
 ---
 
 在使用mysql时我们经常有需求对不止一列建立索引，例如对于student表，既可能按照`id`查找，也可能按照`name`查找。

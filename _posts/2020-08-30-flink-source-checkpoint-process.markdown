@@ -1,7 +1,7 @@
 ---
-title: "谈谈 Flink - State 之 Checkpoint 流程"
+title: "漫谈 Flink - State 之 Checkpoint 流程"
 date: 2020-08-30 10:52:17
-tags: [flink-1.9]
+tags: flink
 ---
 
 [上篇笔记](https://izualzhy.cn/flink-source-checkpoint)介绍了从用户视角看如何正确的应用 state，不过要想进一步确认一些猜测，例如对于 kafka-source，是如何确保`snapshotState`与`emitRecord`互相阻塞执行的，发送 CheckpointBarrier 时怎么保证 barrier 与普通数据的顺序性？这篇笔记比较简单，我们直接撸一下代码。

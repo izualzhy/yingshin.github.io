@@ -1,7 +1,7 @@
 ---
 title:  "Morris遍历二叉树"
 date:   2014-03-26 14:36:03
-tags: binarytree  leetcode
+tags: algorithm
 ---
 
 Morris遍历不使用栈，O(1)空间进行二叉树的遍历。  

@@ -1,7 +1,7 @@
 ---
 title: "《Scala实用指南》读书笔记八：创建应用程序"
 date: 2019-06-30 21:18:53
-tags: [scala]
+tags: scala
 ---
 
 ## 1. XML作为一等公民

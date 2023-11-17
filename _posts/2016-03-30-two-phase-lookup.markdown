@@ -2,7 +2,7 @@
 title:  "C++里的Two phase lookup"
 date: 2016-03-30 22:19:03
 excerpt: "Two phase lookup"
-tags: [compliler]
+tags: cpp
 ---
 
 本文主要介绍C++里的two phase lookup，网上关于two phase lookup的文章很多，这里主要介绍下自己整理之后的一些看法。

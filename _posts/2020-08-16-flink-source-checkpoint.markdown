@@ -1,7 +1,7 @@
 ---
-title: "谈谈 Flink - State 之 Kafka 写入 HBase"
+title: "漫谈 Flink - State 之 Kafka 写入 HBase"
 date: 2020-08-16 10:28:51
-tags: [flink-1.9]
+tags: flink
 ---
 
 前面介绍了读取 state，这篇笔记介绍下 state 是如何触发写入的。

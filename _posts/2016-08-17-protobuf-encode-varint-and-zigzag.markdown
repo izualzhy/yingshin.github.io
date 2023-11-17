@@ -2,7 +2,7 @@
 title: protobuf编码之varint/zigzag
 date: 2016-8-17 20:45:25
 excerpt: "protobuf编码之varint/zigzag"
-tags: protobuf, varint  zigzag
+tags: protobuf
 ---
 
 本文主要介绍protobuf里整型的编码方式，包括varint/zigzag等。分析下protobuf为了兼顾数据压缩和高性能的一些相关源码。进而给出一些pb整型使用上的建议。使用的pb版本为2.6.1。

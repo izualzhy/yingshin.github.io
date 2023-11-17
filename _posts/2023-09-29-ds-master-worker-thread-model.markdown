@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler笔记之1: Master、Worker的线程模型"
 date: 2023-09-29 12:26:25
-tags: [DolphinScheduler-3.1.3]
+tags: dolphin
 ---
 
 Master、Worker是DolphinScheduler最重要的两个模块，Master负责任务的调度，Worker负责任务的执行。

@@ -1,7 +1,7 @@
 ---
 title: "眼耳鼻舌身意 色声香味触法-读《在宇宙间不易被风吹散》"
 date: 2022-06-11 10:39:24
-tags: [read]
+tags: read
 ---
 
 ![在宇宙间不易被风吹散](https://img2.doubanio.com/lpic/s33520942.jpg)

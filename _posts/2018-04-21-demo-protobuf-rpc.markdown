@@ -1,7 +1,7 @@
 ---
 title: 如何基于protobuf实现一个极简版的RPC
 date: 2018-04-21 22:34:44
-tags: [protobuf rpc]
+tags: protobuf
 ---
 
 基于 protobuf 的 RPC 可以说是五花八门，其中不乏非常优秀的代码例如 brpc, muduo-rpc 等。

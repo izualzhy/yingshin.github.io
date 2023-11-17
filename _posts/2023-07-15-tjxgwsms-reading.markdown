@@ -1,7 +1,7 @@
 ---
 title: "原来这就是贝叶斯统计-读《统计学关我什么事》"
 date: 2023-07-15 01:26:21
-tags: [read]
+tags: read
 ---
 
 ![统计学关我什么事](https://img1.doubanio.com/lpic/s29774927.jpg)

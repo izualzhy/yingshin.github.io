@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler笔记之7: 网络模型"
 date: 2023-10-03 09:31:43
-tags: [DolphinScheduler-3.1.3]
+tags: dolphin
 ---
 
 DolphinScheduler 使用 Netty 作为网络框架，实现 Master Worker 模块间的 RPC 通信。这篇笔记介绍 DolphinScheduler 基础的网络模型，以及是如何使用 Netty 的。

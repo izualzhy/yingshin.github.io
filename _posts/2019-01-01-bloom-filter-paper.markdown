@@ -1,7 +1,7 @@
 ---
 title: "papers of bloom filter"
 date: 2019-01-01 17:07:19
-tags: [bloom filter]
+tags: bloomfilter
 ---
 
 bloom filter 的相关论文较多，按照时间线整理了下自己觉得比较有意义的。有些观点没有找到佐证的中文资料，如有错误还请指出。

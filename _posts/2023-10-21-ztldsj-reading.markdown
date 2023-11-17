@@ -1,7 +1,7 @@
 ---
 title: "知易行难-读《中台落地手记》"
 date: 2023-10-21 09:25:21
-tags: [read]
+tags: read
 ---
 ![中台落地手记](https://izualzhy.cn/assets/images/book/s33990103.jpg)
 

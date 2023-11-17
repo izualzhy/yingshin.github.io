@@ -2,7 +2,7 @@
 title: zookeeper c客户端源码分析三：两个线程
 date: 2016-10-23 12:39:50
 excerpt: "zookeeper c客户端源码分析三：两个线程"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 [上篇文章](http://izualzhy.cn/zookeeper-c-client-src-user-thread)介绍了`zookeeper_init`开启了两个线程，本文主要看下这两个线程`do_io do_completion`的流程。

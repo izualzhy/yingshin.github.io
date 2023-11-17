@@ -2,7 +2,7 @@
 title: 菜鸟读Raft论文
 date: 2017-11-17 17:04:51
 excerpt: "菜鸟读Raft论文"
-tags: Distributed-Systems, 6.824  raft
+tags: 6.824
 ---
 
 本文是一篇分布式菜鸟阅读Raft论文过程中的一些心得。

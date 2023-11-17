@@ -1,7 +1,7 @@
 ---
 title: "《崔老道传奇》书摘"
 date: 2023-10-22 10:22:05
-tags: [read]
+tags: read
 ---
 ![崔老道传奇](https://izualzhy.cn/assets/images/book/s32296331.jpeg)
 

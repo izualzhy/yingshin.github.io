@@ -2,7 +2,7 @@
 title: "boost容器之multi_index性能"
 date: 2018-02-13 14:56:10
 excerpt: "boost容器之multi_index性能"
-tags: boost  multi_index
+tags: boost
 ---
 
 上次介绍了boost里的[multi_index_container](http://izualzhy.cn/boost-multi-index)，通过组合不同stl容器，实用性很强。

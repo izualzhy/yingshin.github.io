@@ -1,7 +1,7 @@
 ---
-title: "谈谈 Flink - State 之读取 Kafka Offsets"
+title: "漫谈 Flink - State 之读取 Kafka Offsets"
 date: 2020-07-25 23:55:12
-tags: [flink-1.9]
+tags: flink
 ---
 
 [上篇学习笔记](https://izualzhy.cn/flink-source-kafka-checkpoint-init)通过 Kafka Offsets 以及用户 Count 函数分别介绍了 OperatorState 以及 KeyedState，但当我们使用 flink-SQL 时无法[Assigning Operator IDs

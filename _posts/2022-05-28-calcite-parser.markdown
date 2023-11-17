@@ -1,7 +1,7 @@
 ---
 title: "Calcite笔记之五：SQL解析"
 date: 2022-05-23 01:28:21
-tags: [Calcite]
+tags: calcite
 ---
 
 C 代码编译时要经过词法分析、语法分析：比如提取关键字(int/for/#define, ETC.)，判断语法是否正确。

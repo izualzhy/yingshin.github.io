@@ -1,7 +1,7 @@
 ---
 title: "Divide And Conquer-读《大脑减压的子弹笔记术》"
 date: 2022-12-01 01:21:00
-tags: [read]
+tags: read
 ---
 
 ![大脑减压的子弹笔记术](https://img2.doubanio.com/lpic/s30015033.jpg)

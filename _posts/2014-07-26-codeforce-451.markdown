@@ -1,8 +1,8 @@
 ---
-title:  "Codeforec Contest 451"
+title:  "codeforces Contest 451"
 date:   2014-07-26 22:00:02
 excerpt: "submissions for codeforce contest 451"
-tags: [codeforce]
+tags: codeforces
 ---
 
 自从换了工作就一顿忙碌，回顾了下却也不知道自己在忙什么。
