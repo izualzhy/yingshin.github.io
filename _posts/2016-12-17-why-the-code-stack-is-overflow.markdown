@@ -2,7 +2,7 @@
 title: 追core笔记之五：如何查看一个corrupt stack的core
 date: 2016-12-17 16:13:46
 excerpt: "追core笔记之五：如何查看一个corrupt stack的core"
-tags: core  stack
+tags: core
 ---
 
 接触c以来有很多好奇的问题，其中一类是关于栈的。比如：栈上存储了哪些数据？函数参数怎么传递的？返回值怎么传出去的？从一个函数是怎么跳转到另外一个函数的？为何gdb可以看到函数的调用栈？为何有些栈的信息会乱？

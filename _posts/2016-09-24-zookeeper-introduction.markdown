@@ -2,7 +2,7 @@
 title: zookeeper介绍
 date: 2016-9-24 23:05:08
 excerpt: "zookeeper介绍"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 本文主要介绍zookeeper的数据模型以及常用的四字命令。

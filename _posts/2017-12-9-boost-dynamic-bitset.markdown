@@ -2,7 +2,7 @@
 title: "boost容器之dynamic_bitset"
 date: 2017-12-09 21:39:48
 excerpt: "boost容器之dynamic_bitset"
-tags: boost  dynamic_bitset
+tags: boost
 ---
 
 boost提供了很多非常有用的容器及数据结构，是对stl的一个极大的增强。本文主要介绍二进制数值处理的**boost::dynamic_bitset**

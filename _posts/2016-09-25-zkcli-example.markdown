@@ -2,7 +2,7 @@
 title: 使用zkcli实现一个主-从模式的架构
 date: 2016-9-25 21:59:19
 excerpt: "使用zkcli实现一个主-从模式的架构"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 本文主要介绍通过zkCli工具实现主-从实例的一些功能，当然实际情况中我们永远不会这么去搭建系统。只是为了说明通过ZooKeeper，如何方便的实现多进程间的任务协作。

@@ -1,8 +1,8 @@
 ---
-title:  "Codeforec Contest 479"
+title:  "codeforces Contest 479"
 date:   2014-10-10 19:32:02
 excerpt: "submissions for codeforce contest 479"
-tags: [codeforce]
+tags: codeforces
 ---
 
 工作忙碌，一直没有时间做cf了。不知道cf冲天梯的目标何时才能实现。

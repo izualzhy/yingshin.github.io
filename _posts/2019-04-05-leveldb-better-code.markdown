@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之22:Better Code"
 date: 2019-04-05 10:27:05
-tags: [leveldb]
+tags: leveldb
 ---
 
 本文总结下 leveldb 一些好的代码习惯。

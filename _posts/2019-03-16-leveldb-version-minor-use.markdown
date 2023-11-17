@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之15:minor compaction 之 version"
 date: 2019-03-16 21:45:50
-tags: [leveldb]
+tags: leveldb
 ---
 
 这篇笔记讲下[minor compaction](https://izualzhy.cn/leveldb-compaction)过程中[version](https://izualzhy.cn/leveldb-version)是怎么生效的，算是对 minor compaction 介绍的补充。

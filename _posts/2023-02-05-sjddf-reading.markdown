@@ -1,7 +1,7 @@
 ---
 title: "如何读史-读《史记的读法》"
 date: 2023-02-05 09:42:47
-tags: [read]
+tags: read
 ---
 
 ![史记的读法](https://img9.doubanio.com/lpic/s33506895.jpg)

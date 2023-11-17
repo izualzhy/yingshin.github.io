@@ -1,7 +1,7 @@
 ---
 title: "Calcite笔记之一：Tutorial"
 date: 2022-04-30 08:19:06
-tags: [Calcite]
+tags: calcite
 ---
 
 最开始了解 Calcite 的时候，印象最深的是众多名词。而由于 Calcite 的定位，其应用方式又多种多样，所以有一种以为看懂了，却还是不知道如何应用的感觉。这篇笔记，记录下我对 Calcite 的理解。

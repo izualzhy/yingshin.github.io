@@ -2,7 +2,7 @@
 title: "参数解析gflags介绍"
 date: 2015-11-15 00:22:58
 excerpt: "参数解析gflags介绍"
-tags: [gflags]
+tags: gflags
 ---
 
 gflags是google一个开源的处理命令行参数的库，相比getopt，更加容易使用。  

@@ -2,7 +2,7 @@
 title:  "hadoop环境搭建笔记"
 date: 2015-08-12 20:02:53
 excerpt: "hadoop环境搭建笔记"
-tags: [hadoop]
+tags: mixed
 ---
 
 关于如何搭建hadoop环境的文章网上有很多，大同小异。这里记录下自己搭建hadoop环境的过程。

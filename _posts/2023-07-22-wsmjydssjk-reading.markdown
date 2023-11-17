@@ -1,7 +1,7 @@
 ---
 title: "意识并且利用自己的专注力-读《为什么精英都是时间控》"
 date: 2023-07-22 08:21:27
-tags: [read]
+tags: read
 ---
 
 ![为什么精英都是时间控](https://img2.doubanio.com/lpic/s29733031.jpg)

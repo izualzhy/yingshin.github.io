@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之12:LRUCache的使用"
 date: 2019-02-16 18:31:54
-tags: [leveldb]
+tags: leveldb
 ---
 
 [上篇](https://izualzhy.cn/leveldb-cache)讲了 leveldb 里 LRUCache 的实现，这篇笔记继续介绍下具体的使用场景。

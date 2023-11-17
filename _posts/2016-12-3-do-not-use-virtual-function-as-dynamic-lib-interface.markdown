@@ -2,7 +2,7 @@
 title: 避免使用虚函数作为动态库的接口
 date: 2016-12-3 11:47:09
 excerpt: "避免使用虚函数作为动态库的接口"
-tags: vtable  lib
+tags: cpp
 ---
 
 最近在微信上看到[一篇文章](http://mp.weixin.qq.com/s?timestamp=1480736663&src=3&ver=1&signature=dSLt*qzwsSv*QuBHHvhmIAXB9MD4jXdbDYYx6hAt5q11kEmQG4PVLmhopXImsrjPWs4uH-qlRfxOrPzUYg-1gP9kELDpZ3mNiW-ofRvLnGeTU9x76KeAaOTXegQpw9Ymo32oDJmSM0BfHQadmOSRYRo5pRKmgYVeBimNP1-gZp0=)，介绍了Google关于使用静态库or动态库的习惯。

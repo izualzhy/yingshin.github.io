@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之16:seek_compaction && size_compaction"
 date: 2019-03-16 22:12:24
-tags: [leveldb]
+tags: leveldb
 ---
 
 major compaction 一个首要问题，就是要 compact 哪个文件。这个计算是在[version](https://izualzhy.cn/leveldb-version#331-apply)完成的，与之相关的主要是两个属性`allowed_seeks compaction_score`。

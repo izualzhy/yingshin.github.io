@@ -2,7 +2,7 @@
 title:  "sqlalchemy使用with_lockmode的问题记录"
 date: 2015-04-11 20:37:35
 excerpt: "sqlalchemy使用with_lockmode的问题记录"
-tags: [sqlalchemy]
+tags: mysql
 ---
 
 最近在使用sqlalchemy，关于`select * for update`  

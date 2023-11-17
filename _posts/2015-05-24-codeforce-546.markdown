@@ -1,8 +1,8 @@
 ---
-title:  "Codeforec Contest 546"
+title:  "codeforces Contest 546"
 date: 2015-05-24 19:24:35
 excerpt: "submissions for codeforce contest 546"
-tags: [codeforce]
+tags: codeforces
 ---
 
 题目链接在[这里](http://codeforces.com/contest/546)

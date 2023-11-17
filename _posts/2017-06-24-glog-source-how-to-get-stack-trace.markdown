@@ -2,7 +2,7 @@
 title: glog源码解析四：如何获取函数的调用栈
 date: 2017-06-24 12:15:36
 excerpt: "glog源码解析"
-tags: [glog]
+tags: glog
 ---
 
 glog在fatal时会提前打印函数的调用栈到日志，平时工作大部分时候我们关心调用栈基本都是通过gdb core查看。今天介绍下如何在正常情况下获取函数的调用栈。

@@ -1,7 +1,7 @@
 ---
 title: "学习学习的方法-读《西蒙学习法》"
 date: 2022-11-03 3:11:38
-tags: [read]
+tags: read
 ---
 
 ![西蒙学习法](https://img1.doubanio.com/lpic/s34305667.jpg)

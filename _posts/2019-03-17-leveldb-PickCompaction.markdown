@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之17:major compaction之筛选文件"
 date: 2019-03-23 12:25:51
-tags: [leveldb]
+tags: leveldb
 ---
 
 继续接着[上一篇笔记](https://izualzhy.cn/leveldb-version-for-compaction)的结尾讲，这篇笔记介绍下筛选参与 major compaction 文件的过程，算是介绍 major compaction 的一个开端。

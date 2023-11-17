@@ -2,7 +2,7 @@
 title: "关于架构的思考 - 评《阿里巴巴中台战略思想与架构实践》"
 date: 2018-08-25 16:17:13
 excerpt: "关于架构的思考 - 评《阿里巴巴中台战略思想与架构实践》"
-tags: [read]
+tags: read
 ---
 
 ![中台](assets/images/alibaba-1.jpeg)

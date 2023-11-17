@@ -2,7 +2,7 @@
 title: 单机zookeeper的安装
 date: 2016-9-24 22:37:43
 excerpt: "单机zookeeper的安装"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 本文主要介绍下单机环境下zookeeper的安装，分为两个步骤：java环境搭建和zookeeper环境搭建，方便起见，所有源码放了一份在[百度云](http://pan.baidu.com/s/1kVPjbRx)上。

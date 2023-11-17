@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之24:leveldb笔记总结"
 date: 2019-04-27 18:16:05
-tags: [leveldb]
+tags: leveldb
 ---
 
 从去年突然想写几篇关于 leveldb 的笔记[开始](https://izualzhy.cn/start-leveldb)，不知不觉已经过去五个月了，原定的几篇也不小心写成了二十多篇。

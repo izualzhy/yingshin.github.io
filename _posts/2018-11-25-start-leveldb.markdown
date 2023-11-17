@@ -2,7 +2,7 @@
 title: "leveldb笔记开篇"
 date: 2018-11-25 16:56:29
 excerpt: "leveldb笔记开篇"
-tags: [leveldb]
+tags: leveldb
 ---
 
 leveldb是个高性能、可靠的单机Key-Value数据库，其软件架构设计以及代码实现都非常值得学习。

@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler笔记之5: 普通任务CommonTaskProcessor"
 date: 2023-10-01 23:52:37
-tags: [DolphinScheduler-3.1.3]
+tags: dolphin
 ---
 
 接[上一篇笔记](https://izualzhy.cn/ds-how-process-start)，这里总计下普通任务在 master 的处理过程。

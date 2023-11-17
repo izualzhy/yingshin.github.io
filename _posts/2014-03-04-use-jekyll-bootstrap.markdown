@@ -2,7 +2,7 @@
 title:  "jekyll-bootstrap折腾记"
 date:   2014-3-4 16:26:50
 excerpt: "记录使用jekyll-bootstrap搭建博客的过程"
-tags: jekyll,bootstrap blog
+tags: blog
 ---
 
 想自己弄一个博客很久了，因为一直以来都在使用GitHub保存一些[文件](https://github.com/yingshin)。

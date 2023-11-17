@@ -1,7 +1,7 @@
 ---
 title: "protobuf 之 Custom Options"
 date: 2019-06-02 21:03:42
-tags: [protobuf]
+tags: protobuf
 ---
 
 ## 1. 问题

@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之13:minor compaction"
 date: 2019-03-09 22:15:24
-tags: [leveldb]
+tags: leveldb
 ---
 
 在[level笔记开篇](https://izualzhy.cn/leveldb-architecture)里，提到过**Compaction**这个过程，这是 leveldb 中最为复杂的一部分，从这篇笔记开始，介绍下 Compaction.
