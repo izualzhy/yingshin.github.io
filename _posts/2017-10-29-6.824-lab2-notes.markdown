@@ -2,7 +2,7 @@
 title: MIT 6.824 Distributed Systems Lab-2 笔记
 date: 2017-10-29 09:41:36
 excerpt: "MIT 6.824 Distributed Systems Lab-2 笔记"
-tags: Distributed-Systems, 6.824  raft
+tags: 6.824
 ---
 
 本文是[上篇lab1笔记](http://izualzhy.cn/mit-6.824-distributed-system-lab1-notes)的继续。主要介绍MIT 6.824课程lab2的一些心得。

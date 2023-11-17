@@ -1,7 +1,7 @@
 ---
 title: "Calcite笔记之三：处理流程的代码例子"
 date: 2022-05-01 10:33:20
-tags: [Calcite]
+tags: calcite
 ---
 
 单纯看[Caclite 架构](https://izualzhy.cn/calcite-arch)理解不深，这篇笔记通过代码示例补充下处理流程：Parser、Valiator、SqlToRelConverter 等。

@@ -2,7 +2,7 @@
 title: "leveldb笔记之2:日志"
 date: 2018-12-15 16:05:31
 excerpt: "leveldb笔记之2:日志"
-tags: [leveldb]
+tags: leveldb
 ---
 
 

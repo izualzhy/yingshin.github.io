@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之10:sstable读取"
 date: 2019-01-27 18:46:15
-tags: [leveldb]
+tags: leveldb
 ---
 
 ## 1. 简介

@@ -2,7 +2,7 @@
 title: zookeeper指南
 date: 2016-10-6 00:40:18
 excerpt: "zookeeper指南"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 接触zk想起来已经大概有两年多的时间，期间一直没有系统的总结过。最近接手了两个遗留模块，都将zk作为模块的强依赖，但是都存在一些使用上的问题，导致接手后梳理非常困难。因此抽空重新系统的了解了下zookeeper，也是这几篇指南的来历。

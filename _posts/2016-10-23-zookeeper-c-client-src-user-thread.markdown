@@ -2,7 +2,7 @@
 title: zookeeper c客户端源码分析二：接口调用后发生了什么？
 date: 2016-10-23 11:14:42
 excerpt: "zookeeper c客户端源码分析二：接口调用后发生了什么？"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 本文介绍zk-clib暴露出来的接口调用后的处理流程，尝试解决以下几个疑问：

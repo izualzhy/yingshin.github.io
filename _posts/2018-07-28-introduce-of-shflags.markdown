@@ -2,7 +2,7 @@
 title: shell上的gflags - shflags介绍
 date: 2018-07-28 16:17:13
 excerpt: "shell上的gflags - shflags介绍"
-tags: gflags bash
+tags: gflags
 ---
 
 在处理命令行参数的选择上，很多 C++ 项目里都可以见到 gflags 的使用，之前的[笔记](https://izualzhy.cn/gflags-introduction)也简单介绍过。

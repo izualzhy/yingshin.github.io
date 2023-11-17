@@ -2,7 +2,7 @@
 title: "boost容器之circular_buffer"
 date: 2017-12-10 16:02:46
 excerpt: "boost容器之circular_buffer"
-tags: boost  circular_buffer
+tags: boost
 ---
 
 本文主要介绍boost里的环形缓冲区**boost::circular_buffer**

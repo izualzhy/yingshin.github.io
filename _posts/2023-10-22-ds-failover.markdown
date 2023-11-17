@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler笔记之9: 容错"
 date: 2023-10-22 08:39:46
-tags: [DolphinScheduler-3.1.3]
+tags: dolphin
 ---
 
 ## 1. 容错的必要性

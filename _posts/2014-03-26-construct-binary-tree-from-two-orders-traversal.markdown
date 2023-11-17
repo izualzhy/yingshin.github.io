@@ -1,7 +1,7 @@
 ---
 title:  "由两种遍历结果构造二叉树"
 date:   2014-03-26 14:36:03
-tags: binarytree  leetcode
+tags: algorithm
 ---
 
 还是二叉树遍历的题目，不过是由遍历结果反推二叉树。  

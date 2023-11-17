@@ -2,7 +2,7 @@
 title:  "非递归遍历二叉树"
 date:   2014-03-17 18:19:03
 excerpt: "采用非递归方法前序，中序，后序遍历二叉树"
-tags: binarytree  leetcode
+tags: algorithm
 ---
 
 遍历二叉树算是基础知识了，看到leetcode上有这个题目，就做了一下。  

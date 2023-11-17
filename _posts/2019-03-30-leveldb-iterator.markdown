@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之18:Iterator"
 date: 2019-03-30 09:37:52
-tags: [leveldb]
+tags: leveldb
 ---
 
 Iterator 的思想在 [stl 很常见](https://izualzhy.cn/stl-iterator-introduction)，通过迭代器，可以实现算法和容器的解耦。当我们实现某个算法时，只需要关注迭代器的常见操作，例如`++ --`等，而不用关心作用的具体容器是 map 还是 vector.
