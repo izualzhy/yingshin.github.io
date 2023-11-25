@@ -61,7 +61,18 @@ tags: dolphin
 
 quartz 同样支持集群模式，例子<sup>2</sup>多进程的情况下，任务到了启动时间，由且只由单个进程启动。
 
-分布式相关代码实现可以参考`QuartzSchedulerThread::run`、`JobStore::acquireNextTriggers`
+分布式相关代码实现可以参考`QuartzSchedulerThread::run`、`JobStore::acquireNextTriggers`，核心实现在:
+
+```java
+public abstract class DBSemaphore implements Semaphore, Constants,
+    StdJDBCConstants, TablePrefixAware {
+    public boolean obtainLock(Connection conn, String lockName) {
+        // SELECT * FROM QRTZ_LOCKS WHERE SCHED_NAME = '?' AND LOCK_NAME = ? FOR UPDATE 
+    }
+}
+```
+
+使用了排他锁。
 
 ## 3. dolphin应用
 
@@ -317,7 +328,7 @@ ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
 
 ### 5.2. 如何监控和解决
 
-原因分析清楚了，如何解决呢？
+原因分析清楚了，如何解决？
 
 我的经验无外乎是以下几点：    
 1. 多进程提高并发    
@@ -326,7 +337,7 @@ ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
 
 如果还有问题，由于相关操作几乎全部集中在数据库，就需要考虑数据库的性能了，trigger 量级在几万的话，数据库一般都不会成为瓶颈  
 
-还有一点是如何监控，这是我这两年工作比较痛的点，由于缺乏合理的晋升评价/项目复盘制度，大多数人宁愿救火而不愿提前扑灭问题。  
+还有一点是如何监控，这是这两年工作比较痛的点，由于缺乏合理的晋升评价/项目复盘制度，大多数人选择救火而做不到提前扑灭问题。  
 
 我想到的方法是在日志里输出**工作流实际fire时间 - 工作流预期fire的时间**，如果这个值接近 misfireThreshold，就需要提前评估性能了。  
 
