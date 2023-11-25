@@ -1,3 +1,10 @@
+- name: 暗黑者外传：惩罚
+  cover: https://izualzhy.cn/assets/images/book/s28342721.jpeg
+  start_date: 2023.11.15
+  finish_date:
+  douban_link: https://book.douban.com/subject/26614581/
+  note: TODO
+
 - name: 大模型时代：ChatGPT开启通用人工智能浪潮
   cover: https://izualzhy.cn/assets/images/book/s34523140.jpeg
   start_date: 2023.10.26
