@@ -1,16 +1,9 @@
 - name: 暗黑者外传：惩罚
   cover: https://izualzhy.cn/assets/images/book/s28342721.jpeg
   start_date: 2023.11.15
-  finish_date:
+  finish_date: 2023.11.26
   douban_link: https://book.douban.com/subject/26614581/
-  note: TODO
-
-- name: 大模型时代：ChatGPT开启通用人工智能浪潮
-  cover: https://izualzhy.cn/assets/images/book/s34523140.jpeg
-  start_date: 2023.10.26
-  finish_date:
-  douban_link: https://book.douban.com/subject/36397929/
-  note: TODO
+  note: “一切有罪之人都要得到惩罚”，看到这个标语的时候，想到的是同为悬疑小说《心理罪》里的“城市之光”，动漫死亡笔记里的Kira。这句话毫无疑问是正确的，可亘古的命题都是谁是那个公正执行的“执法者”呢？
 
 - name: 窦占龙憋宝：七杆八金刚
   cover: https://izualzhy.cn/assets/images/book/s34016059.jpeg
