@@ -14,6 +14,8 @@ ANTLR 使用通用的方式解决了这一点，并对应分成两个步骤：
 1. LEXER: 输入流解析为 tokens  
 2. PARSER: tokens 解析为 AST  
 
+![lexer-and-parser](/assets/images/antlr/lexer-and-parser.jpg)
+
 类似的工具还有[javacc](https://izualzhy.cn/calcite-parser#1-javacc)、YACC.
 
 ## 2. 什么用
@@ -23,6 +25,8 @@ ANTLR 使用通用的方式解决了这一点，并对应分成两个步骤：
 因此 ANTLR 主要用于实现基础的构建语言的框架，例如语言翻译、代码分析、自定义语言等。grammars-v4<sup>2</sup>里提供了很多语法文件，比如 JAVA、SQL、JSON、Protobuf 等，不过我觉得实际场景里，还是 SQL 应用最广泛，Hive、Presto 都使用了 ANTLR.
 
 ## 3. 怎么用
+
+![use-process](/assets/images/antlr/use-process.jpg)
 
 类似使用 protobuf、thrift ，分为三步：  
 1. 定义语法文件：描述了关键字、元素之间的规则等，按照 ANTLR 格式实现，.g4 格式   
@@ -70,9 +74,9 @@ WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
 ### 3.2. 生成代码
 
-手动的方式，可以通过 Intellij 的 ANTLR v4 插件，该插件还支持 ANTLR Preview，即指定语法文件后，对输入串解析并可视化的展示，形如：![antlr-preview-123](https://liucs.net/cs664s16/antlr-preview-123.png)
+手动的方式，可以通过 Intellij 的 ANTLR v4 插件，该插件还支持 ANTLR Preview，即指定语法文件后，对输入串解析并可视化的展示<sup>4</sup>，形如：![antlr-preview-123](https://liucs.net/cs664s16/antlr-preview-123.png)
 
-手动的方式需要往代码库 ci 生成后代码，但是代码库应当尽量使用语法文件本身，以方便升级版本。因此更推荐自动的方式，可以在 pom.xml 配置 antlr4-maven-plugin 实现.
+手动的方式需要往代码库 ci 生成后的代码，但是代码库应当尽量使用语法文件本身，以方便升级版本。因此更推荐自动的方式，可以在 pom.xml 配置 antlr4-maven-plugin 实现.
 
 生成的代码列表：
 * \<Grammar\>Lexer.java: Lexer
