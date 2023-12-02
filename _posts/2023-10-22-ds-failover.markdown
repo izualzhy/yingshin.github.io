@@ -171,6 +171,8 @@ Master 实例的容错实现在`MasterFailoverService.failoverMaster`:
 
 Worker 实例的容错实现在`WorkerFailoverService.failoverWorker`，流程大同小异，就不再展开了。
 
+注意这里会检查 TaskInstance 是否存在 Yarn applicationId，如果存在的话会发送 Kill 命令。对于 shell 任务，由于 processId 此时未回传，不会处理。也就是当 worker 重启时，shell 任务会成为 orphan process.
+
 ## 4. 总结
 
 Coordination Service 是分布式系统的基础，ZooKeeper 是最常见的一种选型。Apache Curator 则在 zk-API 的基础上，进一步提供了 recipe 级别的易用性。
