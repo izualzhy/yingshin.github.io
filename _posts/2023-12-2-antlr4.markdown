@@ -1,0 +1,171 @@
+---
+title: "ANTLR4 介绍"
+date: 2023-12-02 06:16:33
+tags: antlr4
+---
+
+## 1. 是什么
+
+ANTLR(ANother Tool for Language Recognition)<sup>1</sup>是一个强大的语法生成器，可以读取、处理、执行和翻译结构化或二进制数据。
+
+比如当我们解析 C++ 代码时，需要提取出其中的变量、常量、关键字、注释；解析 JSON 时，需要提取出`{} [] '"`；解析 SQL、Protobuf 等也是如此。 解析完成后，还需要通过结果元素之间的关系判断语法是否正确。
+
+ANTLR 使用通用的方式解决了这一点，并对应分成两个步骤：
+1. LEXER: 输入流解析为 tokens  
+2. PARSER: tokens 解析为 AST  
+
+类似的工具还有[javacc](https://izualzhy.cn/calcite-parser#1-javacc)、YACC.
+
+## 2. 什么用
+
+简单的解析需求实际上正则就可以完成，但是随着场景、文本变复杂，例如 SQL 重写，正则表达式本身会越来越难维护，原因是无法从根本上解决问题。
+
+因此 ANTLR 主要用于实现基础的构建语言的框架，例如语言翻译、代码分析、自定义语言等。grammars-v4<sup>2</sup>里提供了很多语法文件，比如 JAVA、SQL、JSON、Protobuf 等，不过我觉得实际场景里，还是 SQL 应用最广泛，Hive、Presto 都使用了 ANTLR.
+
+## 3. 怎么用
+
+类似使用 protobuf、thrift ，分为三步：  
+1. 定义语法文件：描述了关键字、元素之间的规则等，按照 ANTLR 格式实现，.g4 格式   
+2. 通过工具生成代码：ANTLR 支持生成多个语言的代码，例如 java、python、go 等，代码包含了 Lexer/Parser/Visitor/Listener 
+3. 使用代码库及生成代码：通过接口遍历 AST，支持 Visitor/Listener 两种模式。
+
+接下来逐步介绍。
+
+_注：本文主要介绍 ANTLR ，因此例子里没有使用前面提到的复杂 SQL grammar_
+
+### 3.1. g4 语法文件
+
+语法文件的基础格式：
+
+```
+/** Optional javadoc style comment */
+grammar Name; ①
+options {...}
+import ... ;
+ 	
+tokens {...}
+channels {...} // lexer only
+@actionName {...}
+ 	 
+rule1 // parser and lexer rules, possibly intermingled
+...
+ruleN
+```
+
+例如 Hello.g4
+
+```
+// Define a grammar called Hello
+grammar Hello;
+r  : 'hello' ID ;         // match keyword hello followed by an identifier
+ID : [a-z]+ ;             // match lower-case identifiers
+WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+```
+
+定义了名为 Hello 的 grammar，包含唯一的规则`r`，该规则:   
+1. 匹配 hello xxx 的内容，xxx 将会保存到 WHAT，必须是小写字符   
+2. 定义了空白字符并忽略这些字符  
+
+更多语法可以参考 grammars-v4 的模板以及《The Definitive ANTLR 4 Reference》的 Exploring Some Real Grammars 部分
+
+### 3.2. 生成代码
+
+手动的方式，可以通过 Intellij 的 ANTLR v4 插件，该插件还支持 ANTLR Preview，即指定语法文件后，对输入串解析并可视化的展示，形如：![antlr-preview-123](https://liucs.net/cs664s16/antlr-preview-123.png)
+
+手动的方式需要往代码库 ci 生成后代码，但是代码库应当尽量使用语法文件本身，以方便升级版本。因此更推荐自动的方式，可以在 pom.xml 配置 antlr4-maven-plugin 实现.
+
+生成的代码列表：
+* \<Grammar\>Lexer.java: Lexer
+* \<Grammar\>Parser.java: Parser
+* \<Grammar\>Listener.java: Listener 接口
+* \<Grammar\>BaseListener.java: Listener 默认实现
+* \<Grammar\>Visitor.java: Visitor 接口
+* \<Grammar\>BaseVisitor.java: Visitor 默认实现
+* \<Grammar\>[Lexer].tokens: 当语法被拆分成多个多个文件时用于同步编号
+
+### 3.3. 应用代码
+
+应用上，主要分为两部分：校验、遍历
+
+```java
+    private static void run(String expr) {
+        ANTLRInputStream input = new ANTLRInputStream(expr);
+
+        Lexer lexer = new HelloLexer(input);
+        CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
+        HelloParser parser = new HelloParser(commonTokenStream);
+
+        ParseTree parseTree = parser.r();
+        System.out.println("LISP:\n" + parseTree.toStringTree(parser));
+
+        HelloWhatVisitor helloWhatVisitor = new HelloWhatVisitor();
+        System.out.println(helloWhatVisitor.visit(parseTree));
+
+        ParseTreeWalker walker = new ParseTreeWalker();
+        HelloWhatListener helloWhatListener = new HelloWhatListener();
+        walker.walk(helloWhatListener, parseTree);
+    }
+
+    public static void main(String[] args) {
+        run("hello world");
+    }
+```
+
+`parser.r`校验定义的规则`r`，效果上类似于`ANTLR Preview`。
+
+比较有意思的是，ANTLR4 提供了两种遍历方式: visitor/listener.
+
+通过对比`HelloBaseListener` `HelloBaseVisitor`能够比较清楚的看出区别：
+
+```java
+public class HelloBaseListener implements HelloListener {
+	@Override public void enterR(HelloParser.RContext ctx) { }
+	@Override public void exitR(HelloParser.RContext ctx) { }
+	@Override public void enterEveryRule(ParserRuleContext ctx) { }
+	@Override public void exitEveryRule(ParserRuleContext ctx) { }
+	@Override public void visitTerminal(TerminalNode node) { }
+	@Override public void visitErrorNode(ErrorNode node) { }
+}
+
+public class HelloBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements HelloVisitor<T> {
+    @Override public T visitR(HelloParser.RContext ctx) { return visitChildren(ctx); }
+}
+```
+
+visitor 是主动遍历，我们可以手动调用`visitR`；而 listener 是被动遍历，因此需要配合`ParseTreeWalker`，遍历到某个节点，则调用对应的`enter`方法。  
+
+示例代码上传到了 antlr example<sup>5</sup>
+
+## 4. Hive应用 
+
+很多数据库都用到了 ANTLR，例如 Hive 里 Hplsql.g4 语法文件，摘抄部分 insert 语句：
+
+```
+insert_stmt :           // INSERT statement
+       T_INSERT (T_OVERWRITE T_TABLE | T_INTO T_TABLE?) table_name insert_stmt_cols? (select_stmt | insert_stmt_rows)
+     ;
+```
+
+如果你需要记录表血缘，可以考虑实现子类 visitor:
+
+```java
+public class HplsqlBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements HplsqlVisitor<T> {
+
+    @Override
+    public T visitInsert_stmt(HplsqlParser.Insert_stmtContext ctx) {
+        return visitChildren(ctx);
+    }
+
+}
+```
+
+不过有的文章提到 Hive 2.x 版本语法文件比较旧，可以使用 grammars-v4 里的 sql/hive
+
+## 5. 参考资料
+
+1. [What is ANTLR?](http://www.antlr.org/)  
+2. [github.com/antlr/grammars-v4](https://github.com/antlr/grammars-v4/blob/master/protobuf3/Protobuf3.g4)
+3. [Grammar Structure](https://github.com/antlr/antlr4/blob/master/doc/grammars.md)
+4. [CS 664 ANTLR](https://liucs.net/cs664s16/antlr.html)  
+5. [antlr example](https://github.com/izualzhy/Bigdata-Systems/tree/main/antlr)
+6. [Hplsql.g4](https://github.com/apache/hive/blob/master/hplsql/src/main/antlr4/org/apache/hive/hplsql/Hplsql.g4)

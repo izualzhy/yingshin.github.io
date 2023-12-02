@@ -173,6 +173,8 @@ sqlline> !connect jdbc:calcite:model=src/test/resources/smart.json admin admin
 +----------------------------------------------------+
 ```
 
+SQL 解析部分，Calcite 是使用 JavaCC 实现的，将 SQL 语句转化为 Java 代码，然后进一步转化为 AST.后续执行部分，则是使用了 Janino 支持运行时编译 Java 代码。
+
 文档接下来用了比较短的篇幅介绍了跟`CsvProjectTableScanRule`有关，但是我看到这儿的时候还是有很多疑问，比如：
 
 1. Rule 是如何生效的，为什么 Plan 会不同，背后流程是什么样的？  
