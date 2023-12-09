@@ -1,14 +1,14 @@
 ---
-title: "ANTLR4 介绍"
+title: "SQL 解析之 ANTLR "
 date: 2023-12-02 06:16:33
 tags: antlr4
 ---
 
-## 1. 是什么
+## 1. 简介
 
-ANTLR(ANother Tool for Language Recognition)<sup>1</sup>是一个强大的语法生成器，可以读取、处理、执行和翻译结构化或二进制数据。
+ANTLR(ANother Tool for Language Recognition)<sup>1</sup>是一个强大的 parser generator，可以根据规则生成 parser 代码，用于读取、处理、执行和翻译结构化或二进制数据。Hive/Trino/Spark/Flink/Doris/... 等常见大数据组件都用到了 ANTLR.
 
-比如当我们解析 C++ 代码时，需要提取出其中的变量、常量、关键字、注释；解析 JSON 时，需要提取出`{} [] '"`；解析 SQL、Protobuf 等也是如此。 解析完成后，还需要通过结果元素之间的关系判断语法是否正确。
+如果要实现 C++ 代码的解析器，需要提取出其中的变量、常量、关键字、注释；解析 JSON ，需要提取出`{} [] '"`；解析 SQL、Protobuf 也是如此。 解析完成后，还需要能够遍历结果树，判断语法是否正确。
 
 ANTLR 使用通用的方式解决了这一点，并对应分成两个步骤：
 1. LEXER: 输入流解析为 tokens  
@@ -16,26 +16,24 @@ ANTLR 使用通用的方式解决了这一点，并对应分成两个步骤：
 
 ![lexer-and-parser](/assets/images/antlr/lexer-and-parser.jpg)
 
-类似的工具还有[javacc](https://izualzhy.cn/calcite-parser#1-javacc)、YACC.
+类似的工具还有[javacc](https://izualzhy.cn/calcite-parser#1-javacc)、LEX+YACC.
 
-## 2. 什么用
+## 2. 场景
 
-简单的解析需求实际上正则就可以完成，但是随着场景、文本变复杂，例如 SQL 重写，正则表达式本身会越来越难维护，原因是无法从根本上解决问题。
+简单的解析需求实际上正则就可以完成，但是随着场景、文本变复杂，例如 SQL 重写，正则表达式本身会越来越难维护，原因是没有从根本上解决问题。
 
-因此 ANTLR 主要用于实现基础的构建语言的框架，例如语言翻译、代码分析、自定义语言等。grammars-v4<sup>2</sup>里提供了很多语法文件，比如 JAVA、SQL、JSON、Protobuf 等，不过我觉得实际场景里，还是 SQL 应用最广泛，Hive、Presto 都使用了 ANTLR.
+ANTLR 主要用于实现基础的构建语言的框架，例如语言翻译、代码分析、自定义语言等。grammars-v4<sup>2</sup>里提供了很多语法文件，比如 JAVA、SQL、JSON、Protobuf，不过我觉得实际场景里，应用最广泛的还是解析 SQL，即围绕上述使用了 ANTLR 且 SQL 实践广泛的大数据组件。
 
-## 3. 怎么用
+## 3. 使用
 
 ![use-process](/assets/images/antlr/use-process.jpg)
 
 类似使用 protobuf、thrift ，分为三步：  
 1. 定义语法文件：描述了关键字、元素之间的规则等，按照 ANTLR 格式实现，.g4 格式   
 2. 通过工具生成代码：ANTLR 支持生成多个语言的代码，例如 java、python、go 等，代码包含了 Lexer/Parser/Visitor/Listener 
-3. 使用代码库及生成代码：通过接口遍历 AST，支持 Visitor/Listener 两种模式。
+3. 使用 runtime API 及生成代码遍历 AST：支持 Visitor/Listener 两种模式。
 
 接下来逐步介绍。
-
-_注：本文主要介绍 ANTLR ，因此例子里没有使用前面提到的复杂 SQL grammar_
 
 ### 3.1. g4 语法文件
 
@@ -56,21 +54,32 @@ rule1 // parser and lexer rules, possibly intermingled
 ruleN
 ```
 
+注意：
+1. 注释使用 /* */ //
+2. 解析规则通常是 lower camel case (对应函数名)
+3. 词法规则、词法单元通常是大写字母
+4. 字符、字符串统一用 ''
+5. \| 用于连接两个规则（或的关系）
+6. fragment 用于定义辅助规则，仅用于其他规则内使用
+7. 支持调试，例如在语法文件里使用`{System.out.println("Parsed successfully!");}`
+
+更多高级的语法可以参考 grammars-v4 的模板以及《The Definitive ANTLR 4 Reference》的 Exploring Some Real Grammars 部分。跟之前介绍过的 Parser.jj 很像，本质上也是定义了词法分析与解析的一套语法。
+
 例如 Hello.g4
 
 ```
 // Define a grammar called Hello
 grammar Hello;
-r  : 'hello' ID ;         // match keyword hello followed by an identifier
-ID : [a-z]+ ;             // match lower-case identifiers
+hello  : 'Hello' name ', I am' name EOF ;         // match keyword hello followed by an identifier
+name : ID ;
+ID : [a-zA-Z']+ ;             // match lower-case identifiers
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+
 ```
 
 定义了名为 Hello 的 grammar，包含唯一的规则`r`，该规则:   
-1. 匹配 hello xxx 的内容，xxx 将会保存到 WHAT，必须是小写字符   
+1. 匹配类似`Hello Han'Meimei, I am Li'Lei`的内容， 匹配部分将会保存到 name
 2. 定义了空白字符并忽略这些字符  
-
-更多语法可以参考 grammars-v4 的模板以及《The Definitive ANTLR 4 Reference》的 Exploring Some Real Grammars 部分
 
 ### 3.2. 生成代码
 
@@ -87,11 +96,53 @@ WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 * \<Grammar\>BaseVisitor.java: Visitor 默认实现
 * \<Grammar\>[Lexer].tokens: 当语法被拆分成多个多个文件时用于同步编号
 
+Parser.java 里会根据规则生成方法：例如`HelloContext hello()`、`NameContext name()`，变量对应`TerminalNode`
+
+`class ${RULE}Context`包含了`#{SUBRULE}Context`、`TerminalNode`用于递归。
+
+```java
+static class HelloContext extends RarserRuleContext {
+    public List<NameContext> name() { return getRuleContexts(NameContext.class); }
+    public NameContext name(int i) { return getRuleContext(NameContext.class, i); }
+}
+
+static class NameContext extends ParserRuleContext {
+    public TerminalNode ID() { return getToken(HelloParser.ID, 0); }
+}
+```
+
+如果有多个同名的子 rule，通过`List`获取。
+
+BaseVisitor.java BaseListener.java 里则定义了访问到具体规则的默认实现：
+
+```java
+public class HelloBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements HelloVisitor<T> {
+	@Override public T visitHello(HelloParser.HelloContext ctx) { return visitChildren(ctx); }
+	@Override public T visitName(HelloParser.NameContext ctx) { return visitChildren(ctx); }
+}
+
+public class HelloBaseListener implements HelloListener {
+    @Override
+    public void enterHello(HelloParser.HelloContext ctx) { }
+
+    @Override
+    public void exitHello(HelloParser.HelloContext ctx) { }
+
+    @Override
+    public void enterName(HelloParser.NameContext ctx) { }
+    // ...
+}
+```
+
+有意思的是 ANTLR4 提供了两种遍历方式: visitor/listener:
+visitor 是主动遍历，我们可以手动调用`visitHello`；而 listener 是被动遍历，因此需要配合`ParseTreeWalker`，遍历到某个节点，则调用对应的`enter${RULE}`方法。
+
 ### 3.3. 应用代码
 
 应用上，主要分为两部分：校验、遍历
 
 ```java
+public class HelloTest {
     private static void run(String expr) {
         ANTLRInputStream input = new ANTLRInputStream(expr);
 
@@ -99,8 +150,8 @@ WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         HelloParser parser = new HelloParser(commonTokenStream);
 
-        ParseTree parseTree = parser.r();
-        System.out.println("LISP:\n" + parseTree.toStringTree(parser));
+        ParseTree parseTree = parser.hello();
+        System.out.println("parserTree:" + parseTree.toStringTree(parser));
 
         HelloWhatVisitor helloWhatVisitor = new HelloWhatVisitor();
         System.out.println(helloWhatVisitor.visit(parseTree));
@@ -111,59 +162,143 @@ WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
     }
 
     public static void main(String[] args) {
-        run("hello world");
+        run("Hello Han'Meimei, I am Li'Lei");
     }
-```
-
-`parser.r`校验定义的规则`r`，效果上类似于`ANTLR Preview`。
-
-比较有意思的是，ANTLR4 提供了两种遍历方式: visitor/listener.
-
-通过对比`HelloBaseListener` `HelloBaseVisitor`能够比较清楚的看出区别：
-
-```java
-public class HelloBaseListener implements HelloListener {
-	@Override public void enterR(HelloParser.RContext ctx) { }
-	@Override public void exitR(HelloParser.RContext ctx) { }
-	@Override public void enterEveryRule(ParserRuleContext ctx) { }
-	@Override public void exitEveryRule(ParserRuleContext ctx) { }
-	@Override public void visitTerminal(TerminalNode node) { }
-	@Override public void visitErrorNode(ErrorNode node) { }
-}
-
-public class HelloBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements HelloVisitor<T> {
-    @Override public T visitR(HelloParser.RContext ctx) { return visitChildren(ctx); }
 }
 ```
 
-visitor 是主动遍历，我们可以手动调用`visitR`；而 listener 是被动遍历，因此需要配合`ParseTreeWalker`，遍历到某个节点，则调用对应的`enter`方法。  
+`parser.hello`运行 hello 规则。
 
-示例代码上传到了 antlr example<sup>5</sup>
-
-## 4. Hive应用 
-
-很多数据库都用到了 ANTLR，例如 Hive 里 Hplsql.g4 语法文件，摘抄部分 insert 语句：
-
-```
-insert_stmt :           // INSERT statement
-       T_INSERT (T_OVERWRITE T_TABLE | T_INTO T_TABLE?) table_name insert_stmt_cols? (select_stmt | insert_stmt_rows)
-     ;
-```
-
-如果你需要记录表血缘，可以考虑实现子类 visitor:
+`HelloWhatListener`重载关注的规则方法：
 
 ```java
-public class HplsqlBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements HplsqlVisitor<T> {
+public class HelloWhatListener extends HelloBaseListener {
+    @Override
+    public void enterHello(HelloParser.HelloContext ctx) {
+        System.out.println("HelloWhatListener enterHello");
+        List<HelloParser.NameContext> nameContextsList = ctx.name();
+        if (nameContextsList.size() == 1) {
+            System.out.println("someone say hello to " + nameContextsList.get(0).ID());
+        } else if (nameContextsList.size() == 2) {
+            System.out.println(nameContextsList.get(1).ID() + " say hello to " + nameContextsList.get(0).ID());
+        }
+        super.enterHello(ctx);
+    }
+}
+```
+
+## 4. 表血缘解析
+
+解析 SQL 的需求很常见，通过 ANTLR4 实现的好处是统一，比如 HiveSQL、PrestoSQL、FlinkSQL 都可以使用 ANTLR4 实现。
+
+以 HiveSQL 解析为例，输入：
+```sql
+INSERT INTO app.table_c PARTITION(dt = '20231221')
+SELECT a.id,
+       table_a.col1,
+       c.col2
+FROM app.table_a a
+         LEFT JOIN bdm.table_b c
+                   ON a.id=c.id
+```
+
+表血缘预期的结果：
+```
+[app.table_a,bdm.table_b] -> [app.table_c@partition(dt='20231221')]
+```
+Hive 2.x 版本里使用的还是 antlr3 的语法(HiveParser.g<sup>6</sup>)，我使用了 grammars-v4 提供的 antlr4 实现。
+
+首先是需要明确关注哪些规则。
+
+在 FromClauseParser.g4 里定义了 From 字句的规则：
+
+```antlrv4
+fromClause
+    : KW_FROM fromSource
+    ;
+
+fromSource
+    : uniqueJoinToken uniqueJoinSource (COMMA uniqueJoinSource)+
+    | joinSource
+    ;    
+atomjoinSource
+    : tableSource lateralView*
+    | virtualTableSource lateralView*
+    | subQuerySource lateralView*
+    | partitionedTableFunction lateralView*
+    | LPAREN joinSource RPAREN
+    ;
+
+joinSource
+    : atomjoinSource (
+        joinToken joinSourcePart (KW_ON expression | KW_USING columnParenthesesList)?
+    )*
+    ;
+    
+tableSource
+    : tableName tableProperties? tableSample? (KW_AS? identifier)?
+    ;
+    
+tableName
+    : identifier DOT identifier
+    | identifier
+    ;
+```
+
+因此可以通过 tableName 规则得到输入表。
+
+HiveParser.g4 里定义了 insert 的规则：
+```antlrv4
+insertClause
+    : KW_INSERT KW_OVERWRITE destination ifNotExists?
+    | KW_INSERT KW_INTO KW_TABLE? tableOrPartition (LPAREN columnNameList RPAREN)?
+    ;
+    
+tableOrPartition
+    : tableName partitionSpec?
+    ;
+```
+
+`destination`匹配写入文件的 SQL，不关注可忽略。因此可以通过 tableOrPartition 规则得到写入的表。
+
+对应的代码就明确了，使用了 listener 模式：
+
+```java
+public class HiveParserListenerImpl extends HiveParserBaseListener {
+    List<String> inputTables = new ArrayList<>();
+    List<Pair<String, String>> outputTables = new ArrayList<>();
+    @Override
+    public void enterSelectStatement(HiveParser.SelectStatementContext ctx) {
+        super.enterSelectStatement(ctx);
+    }
 
     @Override
-    public T visitInsert_stmt(HplsqlParser.Insert_stmtContext ctx) {
-        return visitChildren(ctx);
+    public void enterTableSource(HiveParser.TableSourceContext ctx) {
+        inputTables.add(ctx.tableName().getText());
+        super.enterTableSource(ctx);
     }
 
+    @Override
+    public void enterTableOrPartition(HiveParser.TableOrPartitionContext ctx) {
+        String table = ctx.tableName() != null ? ctx.tableName().getText() : "UNKNOWN";
+        String partition = ctx.partitionSpec() != null ? ctx.partitionSpec().getText() : "UNKNOWN";
+
+        outputTables.add(new Pair<>(table, partition));
+        super.enterTableOrPartition(ctx);
+    }
+
+    public void show() {
+        System.out.println(inputTables.stream().collect(Collectors.joining(",", "[", "]")) +
+                " -> " + outputTables.stream()
+                        .map(pair -> pair.a + "@" + pair.b)
+                        .collect(Collectors.joining(",", "[", "]")));
+    }
 }
 ```
 
-不过有的文章提到 Hive 2.x 版本语法文件比较旧，可以使用 grammars-v4 里的 sql/hive
+注意对应实现了`ANTLRNoCaseStringStream`以适配 HiveSQL，实际还要补全各种场景比如 CTE。如果要做字段血缘，那复杂度就完全不同了，需要关注 selectList lateralView joinSource 的众多细节。
+
+示例代码上传到了 antlr example<sup>5</sup>.
 
 ## 5. 参考资料
 
@@ -172,4 +307,4 @@ public class HplsqlBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 3. [Grammar Structure](https://github.com/antlr/antlr4/blob/master/doc/grammars.md)
 4. [CS 664 ANTLR](https://liucs.net/cs664s16/antlr.html)  
 5. [antlr example](https://github.com/izualzhy/Bigdata-Systems/tree/main/antlr)
-6. [Hplsql.g4](https://github.com/apache/hive/blob/master/hplsql/src/main/antlr4/org/apache/hive/hplsql/Hplsql.g4)
+6. [HiveParser.g](https://github.com/apache/hive/tree/branch-2.3/ql/src/java/org/apache/hadoop/hive/ql/parse)

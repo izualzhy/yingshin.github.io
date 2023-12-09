@@ -8,7 +8,7 @@ flink 提供多种消费 Kafka 数据的方式，由于不同层级接口支持�
 
 当我们定义了一个 Kafka 的 DDL，例如：
 
-```
+```sql
 CREATE TABLE MyUserTable (
   ...
 ) WITH (
@@ -32,7 +32,7 @@ SQL、Table API  都属于高级接口，使用成本很低，在我看来，这
 
 定义一个[Table API Kafka Connector](https://ci.apache.org/projects/flink/flink-docs-master/dev/table/connect.html#kafka-connector)，可以使用 DDL、TableAPI、YAML 多种形式
 
-```
+```sql
 # 1. DDL
 CREATE TABLE MyUserTable (
   ...
@@ -91,7 +91,7 @@ connector:
 
 ## 3. FlinkKafkaConsumerBase.run
 
-```
+```java
 this.kafkaFetcher = createFetcher(
     ...
 if (discoveryIntervalMillis == PARTITION_DISCOVERY_DISABLED) {
@@ -109,7 +109,7 @@ if (discoveryIntervalMillis == PARTITION_DISCOVERY_DISABLED) {
 
 消费线程即`KafkaConsumerThread`：
 
-```
+```java
 public class KafkaConsumerThread extends Thread {
     ...
     /** The handover of data and exceptions between the consumer thread and the task thread. */
@@ -121,7 +121,7 @@ public class KafkaConsumerThread extends Thread {
 
 这里仅列举了最重要的两个成员变量，到了`KafkaConsumer`就是 Kafka 的原生接口了，负责消费 topic 的数据，线程启动后会创建 consumer
 
-```
+```java
     @Override
     public void run() {
         ...
@@ -144,7 +144,7 @@ public class KafkaConsumerThread extends Thread {
 
 在`FlinkKafkaConsumerBase.run`这个消费者线程里，`KafkaConsumerThread`又起到生产者的作用，`Handover handover`作为中间队列。
 
-```
+```java
 // 从 handover poll 数据
 Kafka09Fetcher.runFetchLoop
             ...
@@ -172,7 +172,7 @@ KafkaConsumerThread.run
 
 该参数的来源在`TableFactory`：
 
-```
+```java
     private Properties getKafkaProperties(DescriptorProperties descriptorProperties) {
         final Properties kafkaProperties = new Properties();
         final List<Map<String, String>> propsList = descriptorProperties.getFixedIndexedProperties(
@@ -188,7 +188,7 @@ KafkaConsumerThread.run
 
 因此可以通过`connector.properties.i.key connector.properties.i.value`的形式传入，例如：
 
-```
+```sql
 connector.properties.0.key = flink.partition-discovery.interval-millis
 connector.properties.0.value = 60000
 ```
@@ -199,7 +199,7 @@ connector.properties.0.value = 60000
 
 DDL 同样可以配置 offsets，例如官网介绍：
 
-```
+```sql
   'connector.startup-mode' = 'earliest-offset',    -- optional: valid modes are "earliest-offset",
                                                    -- "latest-offset", "group-offsets",
                                                    -- or "specific-offsets"
@@ -213,7 +213,7 @@ DDL 同样可以配置 offsets，例如官网介绍：
 
 按照上一节的介绍，这类非 properties.xxx 的配置是无法传入到`FlinkKafkaConsumerBase`的，因此感觉这块的实现有些丑了，主要就是创建`FlinkKakfaConsumerBase`后，再指定对应的 startup-mode、specific-offsets
 
-```
+```java
     protected FlinkKafkaConsumerBase<Row> getKafkaConsumer(
             String topic,
             Properties properties,
@@ -252,7 +252,7 @@ kafkaConsumer.open 时，如果 startupMode 为 SPECIFIC_OFFSETS/TIMESTAMP，则
 
 无论是对于`ConsumerRecord`还是`ProducerRecord`，都可能用到 T key 的成员变量
 
-```
+```java
 public final class ConsumerRecord<K, V> {
     private final String topic;
     private final int partition;
@@ -278,7 +278,7 @@ public final class ProducerRecord<K, V> {
 
 例如创建`FlinkKafkaConsumer011`时
 
-```
+```java
     public FlinkKafkaConsumer011(List<String> topics, DeserializationSchema<T> deserializer, Properties props) {
         this(topics, new KafkaDeserializationSchemaWrapper<>(deserializer), props);
     }
@@ -286,7 +286,7 @@ public final class ProducerRecord<K, V> {
 
 传入的反序列化跟 DDL 指定的`format.type`有关，`KafkaDeserializationSchemaWrapper`在其上面包装了一层，当`Kafka09Fetcher.runFetchLoop`获取到数据后，用来反序列化数据：
 
-```
+```java
             while (running) {
                 // this blocks until we get the next records
                 // it automatically re-throws exceptions encountered in the consumer thread
@@ -302,7 +302,7 @@ public final class ProducerRecord<K, V> {
 
 而`deserialize`的接口设计和实现里，都可以看到在这个过程中 key 已经被丢掉了
 
-```
+```java
 public class KafkaDeserializationSchemaWrapper<T> implements KafkaDeserializationSchema<T> {
     ...
     @Override
@@ -315,7 +315,7 @@ public class KafkaDeserializationSchemaWrapper<T> implements KafkaDeserializatio
 
 例如创建`FlinkKafkaConsumer011`时
 
-```
+```java
     protected SinkFunction<Row> createKafkaProducer(
             String topic,
             Properties properties,
@@ -331,7 +331,7 @@ public class KafkaDeserializationSchemaWrapper<T> implements KafkaDeserializatio
 
 同样的，`KeyedSerializationSchemaWrapper`在对 value 的序列化上包装了一层，负责对 key/value 序列化，可以看到默认的实现里 key 是 null，不过这块的好处是至少我们可以实现新的子类，写入序列化后的 key 值，类似阿里云上 Blink.
 
-```
+```java
 public class KeyedSerializationSchemaWrapper<T> implements KeyedSerializationSchema<T> {
     ...
     @Override
@@ -354,7 +354,7 @@ public class KeyedSerializationSchemaWrapper<T> implements KeyedSerializationSch
 
 如果数据不是 json 格式，则会直接异常退出：
 
-```
+```java
     public Row deserialize(byte[] message) throws IOException {
         try {
             final JsonNode root = objectMapper.readTree(message);
@@ -383,7 +383,7 @@ public class KeyedSerializationSchemaWrapper<T> implements KeyedSerializationSch
 
 写入 topic 时默认的分区策略是[FlinkFixedPartitioner](https://ci.apache.org/projects/flink/flink-docs-master/dev/connectors/kafka.html#kafka-producer-partitioning-scheme)，其分区计算公式为：
 
-```
+```java
     @Override
     public int partition(T record, byte[] key, byte[] value, String targetTopic, int[] partitions) {
         Preconditions.checkArgument(
@@ -399,7 +399,7 @@ public class KeyedSerializationSchemaWrapper<T> implements KeyedSerializationSch
 
 如果 partition == null，而我们按照前面的方式指定了`ProducerRecord.key`，此时会基于 key 来选择分区，也就是 Kafka 里`DefaultPartitioner`的行为：
 
-```
+```java
 /**
  * The default partitioning strategy:
  * <ul>
