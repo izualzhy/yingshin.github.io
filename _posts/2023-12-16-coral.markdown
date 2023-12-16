@@ -34,13 +34,13 @@ SparkSQL 和 HiveSQL 间语法差异很多，诸如 order by 别名、hash方法
 
 这一层是逻辑上的表，通过元数据关联到具体存储层（Trino、Kafka、Hive、Iceberg、CH、etc.）的表。
 
-这里有点像 Flink 之前一直推广的流批一体<sup>1</sup>，不同的是其思路是想用 FlinkSQL 统一所有计算，而不是将 SQL 按不同引擎重写。
+这里有点像 Flink 之前一直推广的流批一体<sup>2</sup>，不同的是其思路是想用 FlinkSQL 统一所有计算，而不是将 SQL 按不同引擎重写。
 
 SQL 重写，python 里的小工具比较多，例如[tobymao/sqlglot](https://github.com/tobymao/sqlglot)，没有过多依赖，用于简单的 SQL 重写、元数据提取就足够了。复杂 SQL 的场景，Coral 是一个比较好的解决方案。
 
 ## 2. 思路：Coral 介绍
 
-linkedin 对 Coral 的定义是：**SQL translation, analysis, and rewrite engine**<sup>2</sup>.   
+linkedin 对 Coral 的定义是：**SQL translation, analysis, and rewrite engine**<sup>3</sup>.   
 Coral 的核心思路是将 HiveSQL 转为 calcite 的 RelNode(文档里的Coral IR?)，然后再转为其他方言的 SQL.
 
 ![coral-hive-to-IR](/assets/images/coral/coral-hive-to-IR.png)
@@ -357,5 +357,6 @@ Coral项目本身代码非常值得一读，对 calcite 框架、hive/trino/spar
 
 ## 5. 参考资料
 
-1. [流批一体技术在天猫双11的应用](https://files.alicdn.com/tpsservice/abbaec7b252c69ff7f721663f40c6eda.pdf)
-2. [Coral: A SQL translation, analysis, and rewrite engine for modern data lakehouses](https://engineering.linkedin.com/blog/2020/coral)
+1. [linkedin/coral](https://github.com/linkedin/coral)
+2. [流批一体技术在天猫双11的应用](https://files.alicdn.com/tpsservice/abbaec7b252c69ff7f721663f40c6eda.pdf)
+3. [Coral: A SQL translation, analysis, and rewrite engine for modern data lakehouses](https://engineering.linkedin.com/blog/2020/coral)
