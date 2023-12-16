@@ -77,7 +77,7 @@ ORDER BY b.id
 2. SQL Interface &rarr; Parser &rarr; Optimizer : SQL 的解析和优化流程
 3. Caches & Pluggable Storage Engines: 结果缓存以及可插拔的存储引擎，比如常见的 InnoDB、MyISAM.
 
-上篇笔记提到**"One size fits all" is an idea whose time has come and gone"**. MySQL 的这套架构，抽出部分来是否也能支持其他存储？我想是的，但是目标不同，所以发展思路不同。注意**Pluggable**的特性，更多的是把其他引擎作为插件，我的理解是接口标准已经定义，不同引擎按照标准适配。
+上篇笔记提到**"One size fits all" is an idea whose time has come and gone"**, MySQL 的这套架构，抽出部分来是否也能支持其他存储？是的，但是目标不同，所以发展思路不同。注意**Pluggable**的特性，更多的是把其他引擎作为插件，接口标准已经定义，不同引擎按照标准适配。
 
 而 Calcite 的特性是**flexible, embeddable, and extensible**，是把自身作为一个插件嵌入到其他系统中，这种目标的不同，就会导致哪些接口开放、开放的形式不同。
 
@@ -91,11 +91,11 @@ ORDER BY b.id
     1. JDBC Client: 通过类似[sqlline](https://github.com/julianhyde/sqlline)的工具，SQL 作为入口  
     2. Data Processing System: 通过直接构建 Expressions 来使用 Caclite  
 2. 扩展：Operator Expressions/Metadata Providers/Pluggable Rules，外部系统接入时，可以扩展对应的接口，来提供更多的信息。  
-3. 优化器：如果说关系代数是 Calcite 的心脏的话，Query Optimizer 就是 Calcite 的大脑，2扩展部分最终视为 Optimizer 服务的，以生成更符合自身的执行计划
+3. 优化器：如果说关系代数是 Calcite 的心脏的话，Query Optimizer 就是 Calcite 的大脑，2扩展部分最终是为 Optimizer 服务的，以生成更符合自身的执行计划
 
-抛弃了哪些部分？数据存储/元数据存储/数据处理等，比如 MySQL 架构里的 Storage Engines、Caches 等。
+不支持哪些部分？数据存储/元数据存储/数据处理等，比如 MySQL 架构里的 Storage Engines、Caches 等。
 
-两者(保留核心+抛弃数据处理相关)加起来，完成了"One Size"到"One Planner"的蜕变，能够“有能力”支持众多的数据存储和数据处理系统：
+两者(保留核心+不支持数据处理相关)加起来，完成了"One Size"到"One Planner"的蜕变，使得 calcite “有能力”支持众多的数据存储和数据处理系统：
 
 ![one planner with many storages](/assets/images/calcite/one planner with many storages.png)
 
