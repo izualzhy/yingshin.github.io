@@ -297,7 +297,7 @@ public class RelToTrinoConverter extends RelToSqlConverter {
 }
 ```
 
-`DataTypeDerivedSqlCallConverter`、`CoralToTrinoSqlCallConverter`定义了众多的`SqlCallTransformer`，例如:
+`DataTypeDerivedSqlCallConverter`、`CoralToTrinoSqlCallConverter`定义了众多的`SqlCallTransformer`，例如以下两个 transformer 的作用:
 
 ```java
 public class ConcatOperatorTransformer extends SqlCallTransformer {
@@ -324,8 +324,8 @@ public class ConcatOperatorTransformer extends SqlCallTransformer {
 
 ```
 该方法产生如下的转换效果：
-1. Input - SqlCall:  \`concat\`(CURRENT_DATE, '|', CURRENT_DATE, '-00')   
-2. Output - SqlCall: \`concat\`(CAST(CURRENT_DATE AS VARCHAR(65535)), '|', CAST(CURRENT_DATE AS VARCHAR(65535)), '-00')
+1. Input - SqlCall:  \`concat\`(CURRENT_DATE, '\|', CURRENT_DATE, '-00')   
+2. Output - SqlCall: \`concat\`(CAST(CURRENT_DATE AS VARCHAR(65535)), '\|', CAST(CURRENT_DATE AS VARCHAR(65535)), '-00')
 
 ```java
 public class OperatorRenameSqlCallTransformer extends SourceOperatorMatchSqlCallTransformer {
@@ -340,11 +340,11 @@ public class OperatorRenameSqlCallTransformer extends SourceOperatorMatchSqlCall
 
 `TrinoSqlDialect.INSTANCE`定义了 trino 一些特殊写法，例如`concat` -> `"concat"`。
 
-对于上一节的 SQL，由于并不复杂，实际上在这一步只用`calcite`的原始接口也生成正确的 trinoSQL.
+对于上一节的 SQL，由于并不复杂，实际上在这一步只用`calcite`的原始接口(RelNode -> SqlString -> String)也生成正确的 trinoSQL.
 
 ## 4. 总结
 
-SQL 重写的工具很多，如果要比较重写的效果，`HiveToTrinoConverterTest`单测的 SQL 是个不错的选择:
+SQL 重写的工具很多，如果要比较重写的效果，`HiveToTrinoConverterTest`单测的 SQL 是个不错的选择，例如:
 
 | HiveSQL                                                    | TrinoSQL                                                                                                 |
 |------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
@@ -352,7 +352,7 @@ SQL 重写的工具很多，如果要比较重写的效果，`HiveToTrinoConvert
 | SELECT size(ARRAY (1, 2))                                  | SELECT CAST(CARDINALITY(ARRAY[1, 2]) AS INTEGER)                                                         |
 | select concat(current_date(), '\|', current_date(), '-00') | SELECT "concat"(CAST(CURRENT_DATE AS VARCHAR(65535)), '\|', CAST(CURRENT_DATE AS VARCHAR(65535)), '-00') |
 
-但是由于 hive/trino/presto 版本多，我觉得很难做到100%准确的转换，就像将一门编程语言准确的转换为另一种一样，更多的是作为参考。   
+但是由于 hive/trino/presto 版本多，很难做到100%准确的转换，就像将一门编程语言准确的转换为另一种一样，更多的是作为参考。   
 Coral项目本身代码非常值得一读，对 calcite 框架、hive/trino/sparkSQL 都能有更深的理解。快速读了一遍，我还是有很多疑问，比如同样是遍历重写 SqlNode，为什么分别在转换 RelNode 前后实现？跟 view 有关？为什么同样是 SqlCallTransformer，实现在了多个类里？  
 
 ## 5. 参考资料
