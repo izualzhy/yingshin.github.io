@@ -4,7 +4,7 @@ date: 2022-05-01 10:33:20
 tags: calcite
 ---
 
-单纯看[Caclite 架构](https://izualzhy.cn/calcite-arch)理解不深，这篇笔记通过代码示例补充下处理流程：Parser、Valiator、SqlToRelConverter 等。
+单纯看[Calcite笔记之二](https://izualzhy.cn/calcite-arch)里的架构图理解不深，这篇笔记通过代码示例补充下 SqlParser、SqlValiator、SqlToRelConverter 等的处理流程。
 
 实现主要参考了<sup>1</sup>和源码单测里的`CsvTest`，使用 Book & Author 表，查询 SQL 跟[关系代数](https://izualzhy.cn/calcite-arch#1-relational-algebra)里基本一致以方便前后对比，完整的代码可以参考[CalciteProcessSteps.scala](https://github.com/yingshin/BigData-Systems/blob/main/calcite/src/main/scala/cn/izualzhy/CalciteProcessSteps.scala)
 
@@ -117,7 +117,10 @@ ORDER BY `B`.`ID`
 FETCH NEXT 5 ROWS ONLY
 ```
 
-代码注释比较详细，就不再赘述了
+主要是引入了：
+1. CalciteSchema.SchemaPlusImpl: 记录了 csvSchema, csvSchema 又记录了表的 schema  
+2. CalciteCatalogReader: 读取 schema，传入了 JavaTypeFactoryImpl，该类支持创建 RelDataType 类型，例如`sqlTypeFactory.createSqlType(SqlTypeName.TIMESTAMP) sqlTypeFactory.createStructType(Pair.zip(names, types))`
+3. SqlValidator: `validate`方法校验 SqlNode
 
 ## 3. SqlToRelConverter
 
