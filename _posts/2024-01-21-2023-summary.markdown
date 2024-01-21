@@ -1,0 +1,41 @@
+---
+title: "2023年个人总结"
+date: 2024-01-21 06:45:00
+tags: Patronum
+---
+
+
+## 1. 工作
+
+2023年花了很大的精力，把自研的任务调度系统迁移到了 DolphinScheduler.
+
+原有的调度系统使用 PHP 开发，非常古老，可能比公司成立时间还要早。如果放到十年前看，有很多可圈可点之处。但是近几年只能勉强维护，新的功能需求，开发两周，再加两周补开发带来的 bug.
+
+由于离线任务调度系统的高峰是在凌晨，迁移过程熬夜挺多。也总结了一些经验，发表在了 https://mp.weixin.qq.com/s/smsNDH2MYpoys-qWz4O0Sg
+
+22年总结实时计算时，担心 Flink 任务动态扩缩这个项目，很多收尾的工作，由于人力撤出导致盘点不全。23年这块还是出了一些问题，值得反思的地方很多。进一步的，如果提前处理了，问题就不会发生，但是价值如何自证?
+
+整体上，调度引擎升级到 DolphinScheduler，算是在做一件难而正确的事情，还需要再坚持半年收尾，有始有终。
+
+## 2. 读书
+
+今年读书很少，按照时间顺序做个总结。
+
+推荐《麒麟之翼》，父爱如山，父亲对孩子的爱，永远是伟大的，让人怀念，让人铭记于心。
+
+| 书名                                                                                                                                                                                                                                                                                                                                                                                                                              | 一句话总结                                                   |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| [史记的读法](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGF8dXwQBVm4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYBUFZfCkgVHDZNRwYlIn5GN1Y7djF0GTdQexNrGX5dLSYpeEcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFdcAUMQAmkPEmsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEkWAWwIGlsJXQIHXV9fFEsRAmsBGlIdWAUCU1ZtCkoWB2Y4K2tuP1V6VCMUczVIBhkOegJtJWRnEz0EcT95URd2TF59IFNwITZYcykXa2lWKw)          | 这本书像是在讲如何读史记，又像是在讲如何读历史，如何读懂司马迁。                        |
+| [白鸟与蝙蝠](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQgJK1olXwUGXFxVCkoRB18IGloSVAYLVV5YDkkSAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksWAmgBG1IUXQMEVltcFxJSXzI4Tz18WUJpMV49TEhzaAdyeDtHBH56NFJROEonA24JGFkWWwEKUW5tCEwnQgEIGF0SWQAFV25cOEsRAmsBGlMdXAAFUlxtD0seMzdDXwtIFl9KZG5tC3sQA2YcHSlUDxIEJm5tCHsUM28JG1MWWAEHUFxeFEsQAGkLGUcVWwcGXV9VAUweC2kBK1kUXAILZG5tXwl-BgkAS1wWC3lHIwkWdRRMUA5_HiIRMwRGDCYiVBFOf2xdUBhjP2ZeIm4) | 白鸟变成了蝙蝠，蝙蝠又是白鸟                                          |
+| [流星·蝴蝶·剑](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGlsUWQMKVG4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYDVF9ZDUMXHDZNRwYlHBx7Bhs_bAJ3WDMSQwxBAhh7KTs4TkcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFdcAEMeBWwJHGsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAU8RCmgMG1IJXQYCXFdaFEsRAmsBGlMdVAQFVF1tCkoWB2Y4K2tgIFh7EiE-Vk0TRB9ca1NKOmFaNxUPfA55ARx3GhxqH1p_UldUfTZcByxBKw)        | 偶尔重新看看冷兵器时代的故事                                          |
+| [品人录](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGFgSVQYLXW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYBV1lVCEIeHDZNRwYlK3lmTgMdVQJyWTMISwV2JkFxTjg6eEcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCUoRBW4MHGsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEgSAW8NG1wJXQcFUVleFEsRAmsBG1oUWwMBU15tCkoWB2Y4K2t3NUJkC1ZUTzUeW29tHCBDBX5qBBdabkN5AQ9uTgNeHHF7KhYVaiN0W2ZfKw)            | 易中天老师有思想、说真话                                            |
+| [统计学关我什么事](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGFkSVQQLVm4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYBVllVCkIVHDZNRwYlO21QDSBcdzJ0fzMNRzpHPlh_Al4qXkcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCUsTAWYPEmsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEkWAWwIE14JXQILU1tdFEsRAmsBG1oVWQYLV1xtCkoWB2Y4K2t8JGEBVjYjCAltAgx9QwhrNlFFAzooAQ15ARZzWVpsAQ9QFgMAYTJca2tyKw)       | 讲的很通俗、很有意思的统计学                                          |
+| [为什么精英都是时间控](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGFgdVAcAXG4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYBV1ZUCUkfHDZNRwYlVU1CAioNcCp1dTNAbQtdPX5fEAgdXkcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCUgUCmoKGGsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEgSBmkIGVoJXQQDUF9dFEsRAmsBG1oWXgIBUVptCkoWB2Y4K2tyIgUFNSAVdBZXBjVjGC1-GFNBCgABDDR5ARh-TV5nBW5KCQUGbzRpez0NKw)     | 每年找一本时间管理的书看看，自省                                        |
+| [中台落地手记](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGVwdWAQGV24ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYAU1ZYCk8UHDZNRwYlNFlZCCIndzV3cGxJQFlRBn5hPx4VaEcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCUgeCmgOHWsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEsWAmsNGV8JXQcLU15dFEsRAmsBG1oWVAMAVF1tCkoWB2Y4K2tKX1l6JhoWcwhSXgZ2Eg5jCgFQBhwEaE95ASRBUAZwFU4KFygrV0kXAz9cKw)         | 中台相关的书，常看常新。                                            |
+| [太白金星有点烦](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGVMTWQcBUW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYAXFhZCUgSHDZNRwYlIkZUNQUNaS53fDNeUyFyBXEYUiMPaEcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCUkTA24PHGsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEoRBW0JE1kJXQYCV1laFEsRAmsBG1oXWAAGVV5tCkoWB2Y4K2twLVYBDTVcTBhfeSR9eTkUDlpGCCMIUDx5AW9oHCFSFF4HBwoJbTsSeThIKw)        | 神仙的工作日常，很羡慕作者的文字功底，能将打工人的日常甩锅、吐槽、烦闷，写的淋漓尽致。             |
+| [崔老道传奇](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGF4dWAEBU24ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYBUVZYD0gQHDZNRwYlNFRjLigeUQ91WB1pYQBSD05aNw4rTkcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCU8eAmwIH2sSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEkWAWwJHVkJXQQLUFtYFEsRAmsBG1oRWw8DU1xtCkoWB2Y4K2tADXpEDhofUhRoADh8GS1LOnNVJyMbWCJ5ATdWZ1hnJ0dJCyopXRtKQBpuKw)          | 像是相声的一本书，还给人看饿了                                         |
+| [窦占龙憋宝：七杆八金刚](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAOwJK1olXDYAVVddDU0SBF9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFkkWCm8NHV4SQl9HCANtCTlqZBwPeC51KwFYMAhbbRcURzYLa1cZbQcyVF9cC0kUBWgAHmslXQEyHzBcOEonA2kJH1IVXAALUVdbCXsQA2Y4QxBRDVtJDRZtOHsUM2gIEk8TL0dQQFgvOHsXM2w4G1oVVQUCV1teCEMLA2oAHF4VQQYEVVpUCEoRCm4IHlolXwcDUFdtOHtscTdIbB19KHREMTobUhZjdSpccz4VW15sViUnai5JdjJAaQlHJk9cHzcKOA)                                | 古代读书门槛高，说书场，有教化世人的作用，讲究个因果循环、报应不爽。这世上的道理，只有信的人多了，道理才是道理 |
+| [暗黑者外传：惩罚](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IGFkWXAAHV24ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYBVl1cDk4UHDZNRwYlJQJKCQEVcUt1WWxMcyd-FE1SAV8LTkcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCUMSAW8MGWsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAEsWBG0IGFkJXQYCUV5fFEsRAmsBG1odWAcCUF5tCkoWB2Y4K2tKX1l6JhoWcwhSXgZ2eidjPwFQBiENaDl5ASRBUAZwFU4KFygrV0lEQDRcKw)       | 谁是那个最公平的执法者？                                            |
+| [麒麟之翼](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQEJK1olXwMAVl5ZC0MRAF8IG1MWWgQAXW4ZVxNJXF9RXh5UHw0cSgYYXBcIWDoXSQVJQwYCXF1aCkkeHDZNRwYlPkBdUCwvElV3WnULcw9BWgYHLx5HaEcbM244G1oUXgQBUllVDXsnA2g4STXN67Da8e9B3OGY1uefK1olXQADUFddCEoXAmoIHmsSXQ8yDBUZWBZcWic4K2sWbQECXUpbegpFF2l6K2sVbQUyVF9dAUMTBmkPE10JXQQFUVpYFEsRAmsBG1sUXAcHVlltCkoWB2Y4K2tvNFJLFyYFDhVQdSh7Hy9qBU0EDwoPTTJ5ARV1Wi0cCnJqChcUciJEWDcKKw)           | 教给孩子爱，教给孩子做一个正直的人。                                      |
+| [碧血洗银枪](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQgJK1olXgUCUV1UDUkVA18IGloRWAYHUF1UCkoQBl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksWAmsNG14RXg8AVVlYFxJSXzI4fg9RCmdkMws4aTEUdwZ9aB4XAw91JFJROEonA24JGFkWWwEKUW5tCEwnQgEIGl4UXgMDUW5cOEsRAmsBG1sUVAADVldtD0seMzdDXwtIFl9KZG5tC3sQA2YcHSlUDxIEJm5tCHsUM28JG1ITXgUKUlleFEsXAm8IG0cVWwcGXV5dCUIWBWoOK1kUXAILZG5tUwx8Bxd6QDp-O2JJKisJbzBTeGlPWFJcMwQGV1o5Xw5iVAR2HAB3L150XG4) | 前面很精彩，结尾一般。                                             |
+
