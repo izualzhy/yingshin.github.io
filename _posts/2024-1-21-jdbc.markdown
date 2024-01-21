@@ -4,7 +4,7 @@ date: 2024-01-21 03:31:11
 tags: bigdata
 ---
 
-## 1. 定义 
+## 1. JDBC 定义 
 
 Java Database Connectivity (JDBC) 定义了一套访问数据库的 API.
 
@@ -14,7 +14,7 @@ Java Database Connectivity (JDBC) 定义了一套访问数据库的 API.
 
 定义在 package java.sql，主要包含了 `DriverManager Driver Connection Statement ResultSet`.
 
-## 2. 接口类的设计
+## 2. JDBC 接口类的设计
 
 JDBC 的接口类设计，使用起来非常方便，值得学习。看个[读取 MySQL 表的例子](https://github.com/izualzhy/Bigdata-Systems/blob/main/dolphinscheduler/src/main/java/cn/izualzhy/MySQLJDBCSample.java)：
 
