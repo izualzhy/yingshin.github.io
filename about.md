@@ -12,8 +12,6 @@ key: page-about
 
 > 白乐天每作诗，令一老妪解之。问曰：“解否？”妪曰：“解。”则录之；不解，则易之。
 
-所以这里，记录看过的书、去过的城市、关注的技术、爱做的菜，点点滴滴的思绪。
-
 ## 关于代码
 
 [![Ying's GitHub stats](https://github-readme-stats.vercel.app/api?username=izualzhy)](https://github.com/izualzhy)

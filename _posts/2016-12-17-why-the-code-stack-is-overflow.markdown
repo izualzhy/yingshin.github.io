@@ -27,7 +27,7 @@ tags: core
 
 函数调用关系为：`main->bar->foo`
 
-```
+```cpp
 void foo(const char* arg) {
     char buf[16] = {0};
     strcpy(buf, arg);
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 
 传入的参数为"helloworld"，我们在`bar`处设置下断点：
 
-```
+```cpp
 (gdb) set args helloworld
 (gdb) disass main
 Dump of assembler code for function main(int, char**):
@@ -94,7 +94,7 @@ rsp            0x7fffffffdd50   0x7fffffffdd50
 
 类似需要注意的还有gdb自动帮我们跳过去的代码，比如接下来`si`调用`bar`：
 
-```
+```cpp
 (gdb) si
 bar (argc=0, arg=0x7ffff7ba55f0 <vtable for (anonymous namespace)::future_error_category+16> " 677") at test_test.cpp:10
 10      void bar(int argc, const char* arg) {
@@ -119,7 +119,7 @@ Dump of assembler code for function bar(int, char const*):
 
 如果使用`b bar`，则断点停在`0x0000000000400756`指令处，也就是已经运行了以下这些指令：
 
-```
+```cpp
 void bar(int argc, const char* arg)
   400747:       55                      push   %rbp
   400748:       48 89 e5                mov    %rsp,%rbp
@@ -131,7 +131,7 @@ void bar(int argc, const char* arg)
 
 言归正传，看下运行到`bar`汇编指令第一行后`rsp rbp`寄存器变化
 
-```
+```cpp
 (gdb) i r rbp rsp
 rbp            0x7fffffffdd60   0x7fffffffdd60
 rsp            0x7fffffffdd48   0x7fffffffdd48
@@ -139,7 +139,7 @@ rsp            0x7fffffffdd48   0x7fffffffdd48
 
 `callq`指令运行后，可以看到栈顶指针`rsp`减少了8字节的空间，我们看下这个8字节存了什么?
 
-```
+```cpp
 (gdb) x /xg $rsp
 0x7fffffffdd48: 0x00000000004007b6
 (gdb) info symbol 0x00000000004007b6
@@ -150,7 +150,7 @@ main + 62 in section .text of /home/users/y/Training/test/test_test
 
 继续运行下一条指令，看下对`rbp rsp`的影响：
 
-```
+```cpp
 (gdb) ni
 0x0000000000400748      10      void bar(int argc, const char* arg) {
 (gdb) i r rbp rsp
@@ -164,7 +164,7 @@ rsp            0x7fffffffdd40   0x7fffffffdd40
 
 继续运行看下一条指令：
 
-```
+```cpp
 (gdb) ni
 0x000000000040074b      10      void bar(int argc, const char* arg) {
 (gdb) i r rbp rsp
@@ -179,7 +179,7 @@ rsp            0x7fffffffdd40   0x7fffffffdd40
 
 我们先贴一下`foo`前面几行汇编代码：
 
-```
+```cpp
 void foo(const char* arg)
   400700:       55                      push   %rbp
   400701:       48 89 e5                mov    %rsp,%rbp
@@ -209,7 +209,7 @@ void foo(const char* arg)
 
 上图可以清晰的看到`rsp`始终指向了栈顶，而`rbp`的作用还有些不够明显。先看下i386函数的标准开头
 
-```
+```cpp
 push rbp             //%rbp压入栈中，称为prev rbp, rsp += 8
 mov rbp rsp          //%rbp = %rsp，也就是当前rbp存储了prev rbp的地址
 ```
@@ -236,7 +236,7 @@ mov rbp rsp          //%rbp = %rsp，也就是当前rbp存储了prev rbp的地�
 
 我们还是gdb看下`foo`函数退出时栈上的变化：
 
-```
+```cpp
 => 0x0000000000400745 <+69>:    leaveq 
    0x0000000000400746 <+70>:    retq   
 End of assembler dump.
@@ -249,7 +249,7 @@ rsp            0x7fffffffdd00   0x7fffffffdd00
 
 看下执行`leaveq`后的寄存器变化
 
-```
+```cpp
 (gdb) ni
 0x0000000000400746      8       }
 (gdb) i r rbp rsp
@@ -259,14 +259,14 @@ rsp            0x7fffffffdd28   0x7fffffffdd28
 
 `leaveq`实际上是两条指令：
 
-```
+```cpp
 movq %rbp, %rsp      //%rbp的值，赋值到rsp，即rsp指向的内存存储了prev_rbp
 popq %rbp            //弹出栈顶的数据:prev_rbp到rbp，即rbp的值
 ```
 
 可以看到跟函数首部的指令正好相反
 
-```
+```cpp
 push rbp             //%rbp压入栈中，称为prev rbp, rsp += 8
 mov rbp rsp          //%rbp = %rsp，也就是当前rbp存储了prev rbp的地址
 ```
@@ -280,7 +280,7 @@ mov rbp rsp          //%rbp = %rsp，也就是当前rbp存储了prev rbp的地�
 
 `retq`将栈顶地址pop到`rip`，也就是下一条要执行的指令，我们验证下
 
-```
+```cpp
 (gdb) i r rbp rsp rip
 rbp            0x7fffffffdd40   0x7fffffffdd40
 rsp            0x7fffffffdd28   0x7fffffffdd28
@@ -308,7 +308,7 @@ GCC编译器有一个`--fomit-frame-pointer`可以取消帧指针，即不使用
 
 举个例子，`foo`函数加了该编译选项后的汇编如下
 
-```
+```cpp
 void bar(int argc, const char* arg) {
   40074c:       48 83 ec 18             sub    $0x18,%rsp
   ... ...
@@ -338,7 +338,7 @@ void bar(int argc, const char* arg) {
 
 我们继续用第一节里的代码看下corrupt stack的core实例
 
-```
+```cpp
 $ ./test_test helloworldabcdef
 bar argc:2
 foo arg:helloworldabcdef
@@ -347,7 +347,7 @@ Segmentation fault (core dumped)
 
 gdb看下
 
-```
+```cpp
 $ gdb test_test core.22278
 (gdb) bt
 #0  0x00007fff1d18613d in ?? ()
@@ -363,7 +363,7 @@ Backtrace stopped: previous frame inner to this frame (corrupt stack?)
 
 这种core实际修复要复杂的多，这里只是简单介绍下一些基本思路：
 
-```
+```cpp
 (gdb) fr 0
 #0  0x00007fff1d18613d in ?? ()
 (gdb) i r rsp rbp rip
@@ -374,7 +374,7 @@ rip            0x7fff1d18613d   0x7fff1d18613d
 
 可以看到`rip`的地址明显不是一个合法的指令，通过`dmesg`也可以验证这点：
 
-```
+```cpp
 $ dmesg | tail -n 1
 test_test[3932]: segfault at 7fff1d18613d ip 00007fff1d18613d sp 00007fff1d185110 error 15
 ```
@@ -383,7 +383,7 @@ test_test[3932]: segfault at 7fff1d18613d ip 00007fff1d18613d sp 00007fff1d18511
 
 我们先看下`rbp`的值是否合法
 
-```
+```cpp
 (gdb) x /xg 0x400898
 0x400898:       0x6367726120726162
 (gdb) info symbol 0x6367726120726162
@@ -394,7 +394,7 @@ No symbol matches 0x6367726120726162.
 
 可以看到第一个有用的信息，是在使用字符串"bar argc:%d\n"附近。
 
-```
+```cpp
 (gdb) x /16xg $rsp
 0x7fff1d185110: 0x726f776f6c6c6568      0x666564636261646c
 0x7fff1d185120: 0x00007fff1d185100      0x0000000000400776
@@ -412,7 +412,7 @@ bar(int, char const*) + 47 in section .text of /home/users/yingshin/Training/tes
 
 猜测问题是否出在`foo`函数，查看源码，`strcpy`这种很容易写栈溢出的函数，对比"helloworldabcdef"的长度，不难得到答案。这里贴一下`foo`的汇编:
 
-```
+```cpp
   400704:       48 83 ec 20             sub    $0x20,%rsp
   400708:       48 89 7d e8             mov    %rdi,-0x18(%rbp)//参数拷贝到$rbp - 0x18内存开始的位置
     char buf[16] = {0};
