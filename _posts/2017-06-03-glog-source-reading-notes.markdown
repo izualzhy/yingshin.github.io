@@ -19,13 +19,13 @@ glog相关源码都在src下面，并不存在我们会经常include的`logging.
 
 在`logging.h`，可以看到`LOG(xxx)`实际上通过宏定义转换为了类`LogMessage`的操作。
 
-```
+```cpp
 #define LOG(severity) COMPACT_GOOGLE_LOG_ ## severity.stream()
 ```
 
 `##`起到连接符的作用，`COMPACT_GOOGLE_LOG_XXX.stream()`也是一个宏定义。
 
-```
+```cpp
 #define COMPACT_GOOGLE_LOG_INFO google::LogMessage( \
     __FILE__, __LINE__)
 #define COMPACT_GOOGLE_LOG_WARNING google::LogMessage( \
@@ -40,14 +40,14 @@ glog相关源码都在src下面，并不存在我们会经常include的`logging.
 
 到这里，我们可以看到`LOG(xxx)`最后替换完成的样子
 
-```
+```cpp
 LOG(INFO) => COMPACT_GOOGLE_LOG_INFO.stream() => LogMessage(__FILE__, __LINE__).stream()
 LOG(WARNING) => COMPACT_GOOGLE_LOG_WARNING.stream() => LogMessage(__FILE__, __LINE__, google::GLOG_WARNING).stream()
 ```
 
 `stream`是`LogMessage`的public函数
 
-```
+```cpp
 ostream& LogMessage::stream() {
   return data_->stream_;
 }

@@ -178,4 +178,3 @@ public class SlidingWindowAssigner extends PanedWindowAssigner<TimeWindow>
 5. 迟到的数据怎么处理，DataStream 和 SQL 的功能是否有 diff，代码上两套是否会导致口径也有 diff？
 6. ...
 
-如此这些，也是之前在应用 SQL 时曾经困惑的点，接下来的笔记会逐步介绍下。

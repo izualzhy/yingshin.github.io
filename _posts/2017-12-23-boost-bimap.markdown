@@ -70,7 +70,7 @@ animals[std::string("dog")] = 4;
 
 默认类型为`boost::bimaps::set_of `，要求元素是unique的，看个指定container的例子
 
-```
+```cpp
     typedef boost::bimap<boost::bimaps::set_of<std::string>,
             boost::bimaps::multiset_of<int>> bimap;
     bimap animals;
@@ -103,7 +103,7 @@ bimap里container的类型很多
 
 ## 3. std::map
 
-```
+```cpp
     typedef boost::bimap<std::string,
             boost::bimaps::unconstrained_set_of<int>> bimap;
     bimap animals;
@@ -141,7 +141,7 @@ bimap里container的类型很多
 
 前面提到了左视图、右视图分别用`bimap.left` `bimap.right`来访问，为了提高易用性，boost提供了`bimaps::tagged`类给左右视图在语法层面上贴tag，在使用上可以更清晰的看到左右视图的含义。
 
-```
+```cpp
     boost::bimap<boost::bimaps::tagged<int, struct id>,
         boost::bimaps::tagged<std::string, struct name> > bm;
     //通过bimap::by接口可以更清晰的表名视图的含义
@@ -166,7 +166,7 @@ bimap里container的类型很多
 
 回到我们最开始的关于students表的使用场景，看下`bimap`如何有效的基于`id` or `name`为key的操作。
 
-```
+```cpp
     boost::bimap<boost::bimaps::tagged<int, struct id>,
         boost::bimaps::multiset_of<boost::bimaps::tagged< std::string, struct name> > > students;
 
