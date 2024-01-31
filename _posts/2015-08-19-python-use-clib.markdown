@@ -2,7 +2,7 @@
 title:  "python调用clib的两种方法"
 date: 2015-08-19 16:45:29
 excerpt: "python调用clib的两种方法"
-tags: [clib]
+tags: python
 ---
 
 这篇文章介绍在python中调用clib定义的函数，分别是**ctypes/Python API**的形式。

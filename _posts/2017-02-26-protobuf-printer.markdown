@@ -2,7 +2,7 @@
 title: protobuf之Printer
 date: 2017-2-26 10:11:21
 excerpt: "protobuf之Printer"
-tags: protobuf  Printer
+tags: protobuf
 ---
 
 [上节](http://izualzhy.cn/protobuf-zerocopy)介绍了protobuf里的ZeroCopyStream，本文介绍下对应的辅助类`Printer`。

@@ -2,7 +2,7 @@
 title: "leveldb笔记之5:block"
 date: 2018-12-16 16:29:49
 excerpt: "leveldb笔记之5:block"
-tags: [leveldb]
+tags: leveldb
 ---
 
 ## 1. 简介

@@ -1,7 +1,7 @@
 ---
 title: "当我谈论数据湖时，在谈些什么"
 date: 2022-07-09 9:50:18
-tags: [DataLake]
+tags: bigdata
 ---
 
 最近由于工作原因，又重新接触了一番数据湖。如果按照英文直译，数据湖(DataLake)是一个非常早的概念，在 Data Lake Wiki<sup>1</sup>里引用的最早一篇文章是Pentaho 的创始人兼 CTO James Dixon 发表的这篇博客：《Pentaho, Hadoop, and Data Lakes》<sup>2</sup>，发表在 2010 年。

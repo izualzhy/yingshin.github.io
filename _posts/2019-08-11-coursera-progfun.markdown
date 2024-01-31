@@ -1,7 +1,7 @@
 ---
 title: "《Functional Programming Principles in Scala》"
 date: 2019-08-01 16:43:33
-tags: [scala]
+tags: scala
 ---
 
 最近借着几个周末在 Coursera 上完成了 [《Functional Programming Principles in Scala
