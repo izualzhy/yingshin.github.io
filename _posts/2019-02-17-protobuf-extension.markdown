@@ -1,7 +1,7 @@
 ---
 title: "protobuf之extension"
 date: 2019-02-17 18:00:06
-tags: [protobuf]
+tags: protobuf
 ---
 
 最近看到的代码里， extension 字段使用越来越广泛，因此这篇笔记介绍下 extension 的使用。同时，[protobuf反射详解](https://izualzhy.cn/protobuf-message-reflection)里的 field 接口获取不到 extension 字段，因此也会介绍下关于 extension 的反射。

@@ -2,30 +2,106 @@
 layout: article
 title: 在读和读过的书
 ---
-愿我们在白底黑字中读懂自己
-<table>
-    <thead>
-        <tr>
-            <th>Cover</th>
-            <th>Name</th>
-            <th>Start</th>
-            <th>Finish</th>
-            <th>Note</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for book in site.data.books %}
-            {%- if book.finish_date -%}
-            <tr bgcolor=#D8F781>
-            {%- else -%}
-            <tr>
-            {%- endif -%}
-                <td><a href="{{ book.douban_link }}"><img src="{{ book.cover }}" class="img-rounder" width="60" height="80" alt="{{ book.name }}"/></td>
-                <td>{{ book.name }}</td>
-                <td>{{ book.start_date }}</td>
-                <td>{{ book.finish_date }}</td>
-                <td>{{ book.note }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<html>
+<head>
+    <title>读书记录</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .timeline {
+            position: relative;
+            width: 100%;
+            margin-left: 50px;
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+
+        .year {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .year-dot {
+            position: absolute;
+            top: 0;
+            left: -10px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #008000;
+        }
+
+        .year-number {
+            position: absolute;
+            top: -20px;
+            left: -110px;
+            font-weight: bold;
+            /*color: #000;*/
+            font-size: 2.1em;
+            color: #8b4513;
+            background-color: #ff8c00;
+            padding: 5px 10px; /* 添加一些内边距，使样式更好看 */
+            border-radius: 5px; /* 圆角边框 */
+            display: inline-block; /* 让背景颜色只占用文字的宽度 */
+        }
+
+        .book {
+            margin-bottom: 20px;
+            border-left: 2px solid #008000;
+            padding-left: 30px;
+        }
+
+        .book-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .book-info img {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .book-note {
+        }
+    </style>
+</head>
+<body>
+<h3>愿我们在白底黑字中读懂自己</h3>
+{% assign previous_year = '' %}
+{% assign state = 'warning' %}
+<div class="timeline">
+{% for book in site.data.books %}
+    {% assign current_year = book.start_date | split: '.' | first %}
+    {% if current_year != previous_year %}
+        {% if previous_year != empty %}
+            </div>
+        {% endif %}
+        <div class="year">
+        <div class="year-dot"></div>
+        <div class="year-number">{{ current_year }}</div>
+        {% assign previous_year = current_year %}
+    {% endif %}
+    {%- if book.finish_date -%}
+        {% assign state = 'success' %}
+    {% endif %}
+    <div class="book">
+        <div class="book-info">
+            <img src="{{ book.cover }}" alt="{{ book.name }}"/>
+            <div>
+                <p class="{{ state }}"><a href= "{{ book.douban_link }}">{{ book.name }}</a><br>开始日期：{{ book.start_date }}<br>结束日期：{{ book.finish_date }}</p>
+            </div>
+        </div>
+        <div class="book-note">
+            <p class="info">{{ book.note }}</p>
+        </div>
+    </div>
+{% endfor %}
+</div>
+</div>
+</body>
+</html>

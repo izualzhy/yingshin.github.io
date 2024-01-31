@@ -2,7 +2,7 @@
 title: 2016年4月陪护住院的感悟
 date: 2016-05-09 09:53:27
 excerpt: "生活感悟"
-tags: [life]
+tags: Patronum
 notebook: blog article notes
 ---
 

@@ -2,7 +2,7 @@
 title: "leveldb笔记之4:MemTable"
 date: 2018-12-15 21:22:24
 excerpt: "leveldb笔记之4:MemTable"
-tags: [leveldb]
+tags: leveldb
 ---
 
 前面介绍了[ skiplist ](https://izualzhy.cn/skiplist-leveldb)，skiplist 是 leveldb 里一个非常重要的数据结构，实现了高效的数据查找与插入(O(logn))。

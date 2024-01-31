@@ -1,7 +1,7 @@
 ---
 title: "我是一个 op 之 supervisor"
 date: 2019-05-26 10:09:01
-tags: op supervisor
+tags: linux
 ---
 
 ## 1. 简介

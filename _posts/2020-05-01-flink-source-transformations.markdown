@@ -1,7 +1,7 @@
 ---
-title: "浅谈 Flink - Transformations"
+title: "漫谈 Flink - Transformations"
 date: 2020-05-01 17:41:02
-tags: [flink-1.9]
+tags: flink
 ---
 
 年前开始接触 flink，到现在已经有三个月的时间了，除了最开始简单看了下 flink 的启动过程，最近一直被其 scala 及 SQL API 搞的很虚。这个假期得空，终于开始盘点下。
@@ -14,7 +14,7 @@ tags: [flink-1.9]
 
 以 flink 里的 Hello World 为例：
 
-```
+```java
 val text = env.socketTextStream("127.0.0.1", 8011)
 
 text.flatMap(new FlatMapFunction[String, (String, Int)] {
@@ -30,7 +30,7 @@ text.flatMap(new FlatMapFunction[String, (String, Int)] {
 
 对 API 的每一次调用，都会转换为对应的一个 Transformation，env 会记录所有的 Transformation。
 
-```
+```java
 public abstract class StreamExecutionEnvironment {
     protected final List<Transformation<?>> transformations = new ArrayList<>()
 ```
@@ -47,7 +47,7 @@ public abstract class StreamExecutionEnvironment {
 
 class Transformation 是所有子类的基类，除了 id name，还有 outputType parallelism 等基础属性:
 
-```
+```java
 public abstract class Transformation<T> {
    protected final int id;
    protected String name;
@@ -57,7 +57,7 @@ public abstract class Transformation<T> {
 
 这里先只列举下本文相关的子类关系
 
-```
+```java
                                    +----------------+
                                +---> Transformation <-----------------------+
                                |   +----------------+                       |
@@ -79,7 +79,7 @@ public abstract class Transformation<T> {
 
 对应的，DataStream 定义了 Transformation 成员变量：
 
-```
+```java
 public class DataStream<T> {
    protected final StreamExecutionEnvironment environment;
    protected final Transformation<T> transformation;
@@ -87,7 +87,7 @@ public class DataStream<T> {
 
 前面的图里可以看到，Transformation 是一个链表的结构，通过其 input 可以递归回溯到源头，源头子类为 SourceTransformation，负责数据的接入。
 
-```
+```java
 env.socketTextStream 
     return addSource(new SocketTextStreamFunction(hostname, port, delimiter, maxRetry),
 
@@ -114,7 +114,7 @@ SourceFunction &#8712; StreamSource &#8712; SourceTransformation &#8712; DataStr
 
 ### 4.1. flatMap
 
-```
+```java
     // 传入的 operator 为 StreamFlatMap
     transform("Flat Map", outType, new StreamFlatMap<>(clean(flatMapper)));
 ```
@@ -124,7 +124,7 @@ SourceFunction &#8712; StreamSource &#8712; SourceTransformation &#8712; DataStr
 transform 函数在构造 Transformation 时经常用到，其主要作用为构造 operator 对应的 Transformation，添加到 transformations 列表
 并且返回新的 DataStream.
 
-```
+```java
 public <R> SingleOutputStreamOperator<R> transform(String operatorName, TypeInformation<R> outTypeInfo, OneInputStreamOperator<T, R> operator) {
     // 传入 operator，构造 OneInputTransformation
     // 注意第一个参数为 this.transformation，作为 resultTransform 的输入
@@ -146,7 +146,7 @@ public <R> SingleOutputStreamOperator<R> transform(String operatorName, TypeInfo
 
 keyBy 传入 DataStream，构造出 KeyedStream，跟 Transformation 有关的是 ParitionTransformation，用于修改输入数据的 partitioning.
 
-```
+```java
     public KeyedStream(DataStream<T> dataStream, KeySelector<T, KEY> keySelector, TypeInformation<KEY> keyType) {
         this(
         dataStream,
@@ -164,7 +164,7 @@ keyBy 传入 DataStream，构造出 KeyedStream，跟 Transformation 有关的�
 
 该函数最后还是会调用到 DataStream.transform:
 
-```
+```java
     aggregate(AggregationType.SUM, position)
         transform
             resultTransform = new OneInputTransformation<>(
@@ -182,7 +182,7 @@ keyBy 传入 DataStream，构造出 KeyedStream，跟 Transformation 有关的�
 
 Print 初始化 sinkFunction，并调用 addSink 传入
 
-```
+```java
     PrintSinkFunction<T> printFunction = new PrintSinkFunction<>();
     return addSink(printFunction).name("Print to Std. Out");
         // sink 对应的 operator
@@ -196,7 +196,7 @@ Print 初始化 sinkFunction，并调用 addSink 传入
 
 可以看到 flatMap sum print 过程中调用了`addOperator`。因此最终`env.transformations`包含3个元素：
 
-```
+```java
 // 1. OneInputTransformation{id=2, name='Flat Map', outputType=scala.Tuple2(_1: String, _2: Integer), parallelism=1}
 // 2. OneInputTransformation{id=4, name='aggregation', outputType=scala.Tuple2(_1: String, _2: Integer), parallelism=1}
 // 3. SinkTransformation{id=5, name='Print to Std. Out', outputType=GenericType<java.lang.Object>, parallelism=4}
@@ -216,7 +216,7 @@ Print 初始化 sinkFunction，并调用 addSink 传入
 
 DataStream API 会生成新的 DataStream，其相关的部分子类：
 
-```
+```java
                                    +------------+
                      +------------>+ DataStream +<----------------+
                      |             +--------+---+                 |
@@ -234,7 +234,7 @@ DataStream API 会生成新的 DataStream，其相关的部分子类：
 
 Transformation 里记录的 Operator：
 
-```
+```java
                                                 +----------------+
                                                 | StreamOperator |
                                                 ++--------+------+
@@ -257,7 +257,7 @@ Transformation 里记录的 Operator：
 
 可以看到所有的 Operator 都继承自`AbstractUdfStreamOperator`，该类有一个成员变量
 
-```
+```java
 protected final F userFunction;
 ```
 

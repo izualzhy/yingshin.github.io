@@ -2,7 +2,7 @@
 title: "leveldb笔记之1:基本架构"
 date: 2018-12-10 18:51:10
 excerpt: "leveldb笔记之1:基本架构"
-tags: [leveldb]
+tags: leveldb
 ---
 
 本文主要介绍 leveldb 入门例子，基于例子里的各个接口介绍下基本架构。

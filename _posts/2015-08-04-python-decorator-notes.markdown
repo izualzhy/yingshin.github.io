@@ -2,7 +2,7 @@
 title:  "python装饰器介绍"
 date: 2015-08-04 19:13:04
 excerpt: "python装饰器介绍"
-tags: [decorator]
+tags: python
 ---
 
 这篇文章主要介绍自己对python装饰器的一些理解。

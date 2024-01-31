@@ -1,8 +1,8 @@
 ---
-title:  "Codeforec Contest 459"
+title:  "codeforces Contest 459"
 date:   2014-08-17 18:16:02
 excerpt: "submissions for codeforce contest 459"
-tags: [codeforce]
+tags: codeforces
 ---
 
 题目链接在[这里](http://codeforces.com/contest/459)
@@ -15,7 +15,7 @@ tags: [codeforce]
 注意按三种情况处理就可以了。
 
 
-```
+```cpp
 int main()
 {
     int x[4],y[4];
@@ -66,7 +66,7 @@ int main()
 n的范围[2,2\*1e5]，n\*(n - 1)可能会超int范围，要用long long。
 
 
-```
+```cpp
 int main()
 {
     LL n;
@@ -123,7 +123,7 @@ n最大为1000，因此计算k**d过程中能够大于该值就可以返回了�
  例子后面贴了另外一种思路更清楚办法
 
 
-```
+```cpp
 typedef long long LL;
 LL n,k,d, stu;
 int a[1001][1001] = {0};
@@ -187,7 +187,7 @@ f/g分别是两种表现，本质相同
 
 具体看程序,打印前20个排列：
 
-```
+```cpp
 int n,k,d;
 
 void f()

@@ -1,7 +1,7 @@
 ---
 title: "如何申请 JetBrains 的免费 License"
 date: 2022-07-22 09:37:35
-tags: [JetBrain]
+tags: mixed
 ---
 
 之前写 C++ 的时候，开发工具配置 VIM 就足够强大了，Clion 用的都少。现在以 Scala/Java/Go 这些为主，深感 JetBrains 工具的强大。不过商业版价格不菲：

@@ -1,7 +1,7 @@
 ---
 title: "summary of <105 STL Algorithms in Less Than an Hour>"
 date: 2019-02-24 12:02:56
-tags: [STL]
+tags: cpp
 ---
 
 <video src="/assets/images/world map of C++ STL.mp4" width="80%" controls="controls">

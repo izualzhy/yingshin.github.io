@@ -1,7 +1,7 @@
 ---
 title: "如何同步网站文章到百家号"
 date: 2019-02-17 21:12:26
-tags: [others]
+tags: mixed
 ---
 
 2019-02-25 udpate：

@@ -1,7 +1,7 @@
 ---
 title: "3 Goals for Better Code"
 date: 2019-01-05 18:20:52
-tags: Cpp-Seasoning  STL
+tags: cpp
 ---
 
 这篇笔记是关于 Sean Parent 在2013年的一篇演讲，题目就叫做《3 Goals for Better Code》，听完之后有比较多的共鸣和触动，因此专门记录下来。

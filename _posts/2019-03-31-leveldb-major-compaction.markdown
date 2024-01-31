@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之19:major compaction"
 date: 2019-03-31 12:21:23
-tags: [leveldb]
+tags: leveldb
 ---
 
 [minor compaction](https://izualzhy.cn/leveldb-compaction)主要解决内存数据持久化磁盘。major compaction 则负责将磁盘上的数据合并，每合并一次，数据就落到更底一层。

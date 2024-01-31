@@ -1,7 +1,7 @@
 ---
-title: "浅谈 Flink - Row 里使用字符串的 ParseException"
+title: "漫谈 Flink - Row 里使用字符串的 ParseException"
 date: 2022-06-03 02:37:26
-tags: [flink-1.15]
+tags: flink
 ---
 
 ## 1. Row 里显式使用字符串的问题

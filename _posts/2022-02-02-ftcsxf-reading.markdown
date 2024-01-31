@@ -1,7 +1,7 @@
 ---
 title: "成事是自我的修行-读《冯唐成事心法》"
 date: 2022-02-02 18:02:01
-tags: [read]
+tags: read
 ---
 
 ![冯唐成事心法](https://img1.doubanio.com/lpic/s33775208.jpg)

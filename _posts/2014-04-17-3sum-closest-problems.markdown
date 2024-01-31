@@ -2,7 +2,7 @@
 title:  "leetcode上3Sum Closest问题的分析"
 date: 2014-04-17 18:21:52
 excerpt: "3Sum Closest problems on leetcode."
-tags: sort  leetcode
+tags: algorithm
 ---
 
 与[这篇文章](http://izualzhy.cn/ksum-problems/)的思路非常类似，题目链接如下：  

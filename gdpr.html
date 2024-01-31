@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GDPR Banner with AdSense</title>
+    <style>
+        #gdpr-banner {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ccc;
+            padding: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!--GDPR Banner-->
+    <div id="gdpr-banner">
+        We use cookies to improve your experience on our website. By clicking "Ok" or continuing to use our site, you agree to our use of cookies.
+        <button id="gdpr-ok-btn">Ok</button>
+    </div>
+
+    <!--AdSense code-->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-xxxxxxxxxxxxxxxx",
+            enable_page_level_ads: true
+        });
+    </script>
+
+    <!--GDPR Banner Script-->
+    <script>
+        var gdprBanner = document.getElementById("gdpr-banner");
+        var gdprOkBtn = document.getElementById("gdpr-ok-btn");
+
+        gdprOkBtn.onclick = function() {
+            gdprBanner.style.display = "none";
+        };
+
+        function gdprBannerCheck() {
+            if (navigator.cookieEnabled === false) {
+                gdprBanner.style.display = "block";
+            }
+        }
+
+        window.onload = gdprBanner
+    </script>
+</body>

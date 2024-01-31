@@ -2,7 +2,7 @@
 title:  "scrapy笔记一proxy的抓取"
 date: 2015-07-31 23:03:31
 excerpt: "scrapy笔记一proxy的抓取"
-tags: [scrapy]
+tags: python
 ---
 
 这篇笔记介绍使用scrapy写一个入门爬虫的示例，该爬虫从网站爬取一些ip/port数据。主要目的是先把一个爬虫启动起来，后续再逐步讲其中的一些细节。

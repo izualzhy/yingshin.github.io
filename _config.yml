@@ -20,7 +20,7 @@ text_skin: default # "default" (default), "dark", "forest", "ocean", "chocolate"
 highlight_theme: default # "default" (default), "tomorrow", "tomorrow-night", "tomorrow-night-eighties", "tomorrow-night-blue", "tomorrow-night-bright"
 url     : https://izualzhy.cn
 baseurl : # does not include hostname
-title   : Ying's Blog
+title   : Ying
 description: New
   
 
@@ -201,6 +201,7 @@ exclude:
   - /screenshots
   - /test
   - /vendor
+  - .idea
 
 defaults:
   - scope:

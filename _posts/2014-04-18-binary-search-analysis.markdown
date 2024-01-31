@@ -2,7 +2,7 @@
 title:  "如何写出正确的二分法以及分析"
 date: 2014-04-18 16:43:18
 excerpt: "binary search problems analysis."
-tags: [binarysearch]
+tags: algorithm
 ---
 
 二分法在平时经常用到，除了查找某个key的下标以外，还有很多变形的形式。  

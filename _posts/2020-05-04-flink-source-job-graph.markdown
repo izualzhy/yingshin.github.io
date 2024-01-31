@@ -1,7 +1,7 @@
 ---
-title: "浅谈 Flink - JobGraph"
+title: "漫谈 Flink - JobGraph"
 date: 2020-05-04 13:24:31
-tags: [flink-1.9]
+tags: flink
 ---
 
 生成[StreamGraph](https://izualzhy.cn/flink-source-stream-graph)后，接下来就是构造 JobGraph 了，这一步主要的变化是将尽可能合并多个相邻的 StreamNode.
@@ -16,7 +16,7 @@ Flink 从 StreamGraph 转化为 JobGrpah 的过程，主要就是这个目的。
 
 跟`class StreamGraphGenerator`生成 StreamGraph 类似，`StreamingJobGraphGenerator`生成 JobGraph，而 JobGraph 由 JobVertex + JobEdge 组成。
 
-```
+```java
 public class StreamingJobGraphGenerator {
   ...
   // StreamNode.id 对应的 JobVertex
@@ -31,7 +31,7 @@ public class StreamingJobGraphGenerator {
 
 创建 jobGraph 的入口在`createJobGraph`
 
-```
+```java
   private JobGraph createJobGraph() {
     // make sure that all vertices start immediately
     jobGraph.setScheduleMode(streamGraph.getScheduleMode());
@@ -47,7 +47,7 @@ public class StreamingJobGraphGenerator {
 ```
 
 Flink 将这个合并的过程称为 chain，通过`setChainning`实现：
-```
+```java
   private void setChaining(Map<Integer, byte[]> hashes, List<Map<Integer, byte[]>> legacyHashes, Map<Integer, List<Tuple2<byte[], byte[]>>> chainedOperatorHashes) {
     for (Integer sourceNodeId : streamGraph.getSourceIDs()) {
       createChain(sourceNodeId, sourceNodeId, hashes, legacyHashes, 0, chainedOperatorHashes);
@@ -68,7 +68,7 @@ Flink 将这个合并的过程称为 chain，通过`setChainning`实现：
 4. chainIndex: chain 下标(从0开始)
 5. chainedOperatorHashes: Map结构，在执行过程中不断填充，大小与 chain 条数相同，`chain的初始节点ID -> [(hash, legacyHash)]`
 
-```
+```java
   private List<StreamEdge> createChain(
       Integer startNodeId,
       Integer currentNodeId,
@@ -171,7 +171,7 @@ Flink 将这个合并的过程称为 chain，通过`setChainning`实现：
 
 JobVertex&rarr;IntermediateDataSet&rarr;JobEdge&rarr;JobVertex
 
-```
+```java
   // 创建 JobEdge，注意同时给上游节点建立了 IntermediateDataSet，edge消费该 dataset
   public JobEdge connectNewDataSetAsInput(
       JobVertex input,
@@ -194,7 +194,7 @@ JobVertex&rarr;IntermediateDataSet&rarr;JobEdge&rarr;JobVertex
 
 通过比较传入 edge 上下游节点的并发度等，用来判断这两个节点能否 chain 成为一个节点。
 
-```
+```java
   public static boolean isChainable(StreamEdge edge, StreamGraph streamGraph) {
     StreamNode upStreamVertex = streamGraph.getSourceVertex(edge);
     StreamNode downStreamVertex = streamGraph.getTargetVertex(edge);
@@ -238,7 +238,7 @@ ForwardPartitioner 如之前文章介绍，并发度一致时才会设置。
 
 对应的日志：
 
-```
+```java
 2020-05-04 20:15:30,962 DEBUG org.apache.flink.streaming.api.graph.StreamGraphHasherV2      - Generated hash 'cbc357ccb763df2852fee8c4fc7d55f2' for node 'Source: Socket Stream-1' {id: 1, parallelism: 1, user function: org.apache.flink.streaming.api.functions.source.SocketTextStreamFunction}
 2020-05-04 20:15:30,963 DEBUG org.apache.flink.streaming.api.graph.StreamGraphHasherV2      - Generated hash '7df19f87deec5680128845fd9a6ca18d' for node 'Flat Map-2' {id: 2, parallelism: 1, user function: WordCount$$anon$3}
 2020-05-04 20:15:30,963 DEBUG org.apache.flink.streaming.api.graph.StreamGraphHasherV2      - Generated hash '9dd63673dd41ea021b896d5203f3ba7c' for node 'aggregation-4' {id: 4, parallelism: 1, user function: org.apache.flink.streaming.api.functions.aggregation.SumAggregator}
