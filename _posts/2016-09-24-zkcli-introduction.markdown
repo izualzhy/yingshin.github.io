@@ -2,7 +2,7 @@
 title: zookeeper之zkCli的使用
 date: 2016-9-24 23:25:08
 excerpt: "zookeeper之zkCli的使用"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 从本节开始，我们进入zk的实战部分。

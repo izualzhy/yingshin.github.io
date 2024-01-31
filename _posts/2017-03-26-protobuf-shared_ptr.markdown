@@ -2,7 +2,7 @@
 title: 再扯扯智能指针之protobuf
 date: 2017-3-26 17:33:13
 excerpt: "再扯扯智能指针之protobuf"
-tags: protobuf  smartptr
+tags: protobuf
 ---
 
 一直对智能指针很感兴趣，之前写过一篇[扯扯智能指针](http://izualzhy.cn/smart_pointer)，平时没事也会翻出来boost chrome源码里的智能指针学习下。

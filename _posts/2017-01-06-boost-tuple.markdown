@@ -2,7 +2,7 @@
 title: "boost容器之tuple"
 date: 2018-01-06 22:22:05
 excerpt: "boost容器之tuple"
-tags: boost  tuple
+tags: boost
 ---
 
 python里tuple(元组)的使用很常见，例如

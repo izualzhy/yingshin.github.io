@@ -2,7 +2,7 @@
 title: protobuf之string bytes的区别
 date: 2017-3-20 16:24:34
 excerpt: "protobuf之string bytes的区别"
-tags: protobuf, string  bytes
+tags: protobuf
 ---
 
 protobuf提供了多种基础数据格式，包括string/bytes。从字面意义上，我们了解bytes适用于任意的二进制字节序列。然而对C++程序员来讲，std::string既能存储ASCII文本字符串，也能存储任意多个`\0`的二进制序列。那么区别在哪里呢？

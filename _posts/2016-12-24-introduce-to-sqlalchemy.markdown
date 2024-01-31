@@ -2,7 +2,7 @@
 title: sqlalchemy十分钟入门
 date: 2016-12-24 22:05:43
 excerpt: "sqlalchemy十分钟入门"
-tags: mysql  sqlalchemy
+tags: mysql
 ---
 
 接触ORM是在两年前接手开发到一半的模块时，模块后端使用mysql作为存储，采用python开发。当时就惊讶于ORM开发的迅捷，想安利一把sqlalchemy很久了，今天终于得空，介绍下python ORM的利器--**sqlalchemy**.

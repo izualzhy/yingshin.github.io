@@ -1,49 +1,39 @@
 ---
 layout: article
-titles:
-  # @start locale config
-  en      : &EN       About
-  en-GB   : *EN
-  en-US   : *EN
-  en-CA   : *EN
-  en-AU   : *EN
-  zh-Hans : &ZH_HANS  关于
-  zh      : *ZH_HANS
-  zh-CN   : *ZH_HANS
-  zh-SG   : *ZH_HANS
-  zh-Hant : &ZH_HANT  關於
-  zh-TW   : *ZH_HANT
-  zh-HK   : *ZH_HANT
-  ko      : &KO       소개
-  ko-KR   : *KO
-  fr      : &KO       À propos
-  fr-BE   : *FR
-  fr-CA   : *FR
-  fr-CH   : *FR
-  fr-FR   : *FR
-  fr-LU   : *FR
-  # @end locale config
+title: ""
 key: page-about
 ---
 
-```
-一个在不断进取的菜鸟工程师
+## 关于博客
 
-Education:
-BUAA Bachelor&&Master
+博客对我的一个重要作用是保留记忆。“好记性不如烂笔头”，生活中不时看到一个场景、听到一首歌，仿佛似曾相识却又说不上来。过往的记忆，无论酸甜苦辣咸，都值得保留下来。
 
-Work Experience:
-1. 多看阅读kindle端系统开发
-2. 百度Aladdin架构
-3. 百度Spider架构
-4. TBD
+另一个作用是梳理思路，从自己了解到能够给别人讲清楚，还有很长的一段距离。能够把复杂的系统抽丝剥茧，用不那么多的名词解释清楚，实在是一件很美妙的事情。
 
-Langs:
-C/C++/python/shell/go/scala
+> 白乐天每作诗，令一老妪解之。问曰：“解否？”妪曰：“解。”则录之；不解，则易之。
 
-Skills:
+## 关于代码
 
-Recent Interest:
-flink
+[![Ying's GitHub stats](https://github-readme-stats.vercel.app/api?username=izualzhy)](https://github.com/izualzhy)
 
-```
+## 关于我
+
+### 教育经历
+
++ 2008 ~ 2011 : 北京航空航天大学-计算数学
++ 2004 ~ 2008 : 北京航空航天大学-信息与计算科学
+
+虽然学习的各种代数、微积分在工作之后都还给老师了，不过一直对母校心存感激，现在工作用到的很多逻辑思维、算法基础都得益于大学的锻炼。
+
+数学学艺不精，只好努力学习编程混饭吃。
+
+### 工作经历
+
++ 2019 ~ : 作业帮
+  + 离线调度 
+  + 实时计算 : 基于 Flink 的实时数仓构建方案、搭建实时计算平台   
++ 2014 ~ 2019 : 百度，做项目的方法论、工作习惯的养成，对我影响最大的一家公司。
+  + Spider 架构 : 全网链接库、抓取调度相关架构，稳定性提升
+  + Aladdin 架构 : 搜索后端，数据流同步
++ 2012 ~ 2014 : 小米多看阅读，主要使用 C++ 负责多看阅读 Kindle 系统的开发。第一次经来自微软的同事推荐读了《The Art of Readable Code》.
++ 2011 ~ 2012 : 汉王科技，半年多的时间学习到了很多。给了在北京的根基，不卷的氛围、规律的时间管理，比较平和的日子，感恩。

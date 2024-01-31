@@ -2,8 +2,7 @@
 title: 使用curl进行http高并发访问
 date: 2016-06-01 18:30:21
 excerpt: "使用curl进行http高并发访问"
-tags: [curl]
-notebook: blog article notes
+tags: cpp
 ---
 
 本文主要介绍curl异步接口的使用方式，以及获取高性能的一些思路和实践。同时假设读者已经熟悉并且使用过同步接口。

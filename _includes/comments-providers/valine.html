@@ -14,12 +14,15 @@
 <div id="vcomments"></div>
 
 {%- if _VALINE_VISITOR -%}    
-<span id="{{page.url}}" class="leancloud-visitors" data-flag-title={{page.title}}>
-</span>
+<!--<span id="{{page.url}}" class="leancloud-visitors" data-flag-title={{page.title}}>-->
+    <!--<em class="post-meta-item-text">阅读量 </em>-->
+    <!--<i class="leancloud-visitors-count">-1</i>-->
+<!--</span>-->
 {%- endif -%}
 
 <script>
-  window.Lazyload.js(['{{ _sources.leancloud_js_sdk}}', '{{ _sources.valine }}'], function() {
+  <!--window.Lazyload.js(['{{ _sources.leancloud_js_sdk}}', '{{ _sources.valine }}'], function() {-->
+  window.Lazyload.js(['{{ _sources.valine }}'], function() {
     var _config = {
       el: '#vcomments',
       appId:  '{{ _VALINE_APP_ID }}',

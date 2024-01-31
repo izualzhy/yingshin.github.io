@@ -2,7 +2,7 @@
 title: protobuf编码
 date: 2016-8-27 22:03:45
 excerpt: "protobuf编码"
-tags: [protobuf]
+tags: protobuf
 ---
 
 [上篇文章](http://izualzhy.cn/protobuf-encode-varint-and-zigzag)介绍了protobuf里整型的编码方式，这篇文章从整体上介绍下pb的编码规则，包括string/bytes/float/double/message等类型的序列化实例以及源码，最后分析下pb向前兼容这个特性的一些细节。

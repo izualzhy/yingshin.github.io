@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之9:bloom filter"
 date: 2018-12-31 17:55:21
-tags: leveldb  bloom filter
+tags: leveldb
 ---
 
 leveldb 的[filter block](https://izualzhy.cn/filter-block)用到了 filter policy，其中默认提供的是`BloomFilterPolicy`，即布隆过滤器，这篇笔记聊聊布隆过滤器的理论和在 leveldb 里的实现。

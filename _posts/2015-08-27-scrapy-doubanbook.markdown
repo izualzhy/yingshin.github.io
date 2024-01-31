@@ -2,7 +2,7 @@
 title:  "使用scrapy爬取豆瓣书籍"
 date: 2015-08-27 14:35:51
 excerpt: "使用scrapy爬取豆瓣书籍"
-tags: [scrapy]
+tags: python
 ---
 
 这次爬虫的目标是从豆瓣读书抓取书籍以及对应的标签，抓取后的数据存放到mysql。

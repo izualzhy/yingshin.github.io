@@ -2,7 +2,7 @@
 title: 追core笔记之四：由FileDescriptorTables::~FileDescriptorTables看静态库共享库的全局变量double-free的问题
 date: 2016-12-11 11:21:09
 excerpt: "由FileDescriptorTables::~FileDescriptorTables看静态库共享库的全局变量double-free的问题"
-tags: core  global
+tags: core
 ---
 
 最近把负责模块依赖的protobuf版本从2.4升级到了2.6，程序运行时正常，但是退出的时候，一个诡异的core出现了，部分core栈如下：
@@ -230,7 +230,7 @@ objdump -R main | c++filt  | grep s_foo
 
 #### 3.1. 代码风格
 
-在谈解决方案前，实际上更想先说下代码风格，全局变量/静态变量都应当是非POD（non-plain old data）类型的。G厂的代码规范明确规定了[这点](https://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables)
+在谈解决方案前，实际上更想先说下代码风格，全局变量/静态变量都应当是POD（plain old data）类型的。G厂的代码规范明确规定了[这点](https://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables)
 
 > Objects with static storage duration, including global variables, static variables, static class member variables, and function static variables, must be Plain Old Data (POD): only ints, chars, floats, or pointers, or arrays/structs of POD.
 
