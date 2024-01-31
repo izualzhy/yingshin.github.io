@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之7:filter block"
 date: 2018-12-17 22:18:26
-tags: [leveldb]
+tags: leveldb
 ---
 
 ## 1. 简介

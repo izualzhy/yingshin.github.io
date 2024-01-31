@@ -1,7 +1,7 @@
 ---
-title: "浅谈 Flink - State 之读取 Kafka Offsets"
+title: "漫谈 Flink - State 之读取 Kafka Offsets"
 date: 2020-07-25 23:55:12
-tags: [flink-1.9]
+tags: flink
 ---
 
 [上篇学习笔记](https://izualzhy.cn/flink-source-kafka-checkpoint-init)通过 Kafka Offsets 以及用户 Count 函数分别介绍了 OperatorState 以及 KeyedState，但当我们使用 flink-SQL 时无法[Assigning Operator IDs
@@ -292,7 +292,7 @@ version:2 checkpointId:191
 ... DEBUG org.apache.flink.streaming.api.graph.StreamGraphHasherV2      - Generated hash 'f0bb9ed0d20321fef7413e1942e21550' for node 'Sink: Print to Std. Out-5' {id: 5, parallelism: 1, user function: org.apache.flink.streaming.api.functions.sink.PrintSinkFunction}
 ```
 
-因此下一篇笔记，我们接着[浅谈 Flink - JobGraph ](https://izualzhy.cn/flink-source-job-graph)再看看 flink 认为哪些元素会影响到生成这些唯一 ID。
+因此下一篇笔记，我们接着[谈谈 Flink - JobGraph ](https://izualzhy.cn/flink-source-job-graph)再看看 flink 认为哪些元素会影响到生成这些唯一 ID。
 
 ## 5. Ref
 

@@ -2,7 +2,7 @@
 title:  "protobuf反射详解"
 date: 2016-04-22 15:19:03
 excerpt: "protobuf反射详解"
-tags: protobuf  reflection
+tags: protobuf
 ---
 
 本文主要介绍protobuf里的反射功能，使用的pb版本为2.6.1，同时为了简洁，对repeated/extension字段的处理方法没有说明。
@@ -18,7 +18,7 @@ tags: protobuf  reflection
 
 例如定义了pb messge类型Person如下：
 
-```
+```cpp
 Person person;
 person.set_name("yingshin");
 person.set_age(21);
@@ -41,7 +41,7 @@ person.set_age(21);
 
 我们的目标是提供这样两个接口：  
 
-```
+```cpp
 //从给定的message对象序列化为固定格式的字符串
 void serialize_message(const google::protobuf::Message& message, std::string* serialized_string);
 //从给定的字符串按照固定格式还原为原message对象
@@ -72,7 +72,7 @@ Descriptor是对message类型定义的描述，包括message的名字、所有�
 1. 获取所有字段的个数：`int field_count() const`  
 2. 获取单个字段描述类型`FieldDescriptor`的接口有很多个，例如
 
-```
+```cpp
 const FieldDescriptor* field(int index) const;//根据定义顺序索引获取
 const FieldDescriptor* FindFieldByNumber(int number) const;//根据tag值获取
 const FieldDescriptor* FindFieldByName(const string& name) const;//根据field name获取
@@ -83,14 +83,14 @@ const FieldDescriptor* FindFieldByName(const string& name) const;//根据field n
 FieldDescriptor描述message中的单个字段，例如字段名，字段属性(optional/required/repeated)等。  
 对于proto定义里的每种类型，都有一种对应的C++类型，例如：  
 
-```
+```cpp
 enum CppType {
 	CPPTYPE_INT32 = 1, //TYPE_INT32, TYPE_SINT32, TYPE_SFIXED32
 }
 ```
 获取类型的label属性： 
 
-```
+```cpp
 enum Label {
 	LABEL_OPTIONAL = 1, //optional
 	LABEL_REQUIRED = 2, //required
@@ -107,7 +107,7 @@ Reflection主要提供了动态读写pb字段的接口，对pb对象的自动读
 
 例如对于读操作：
 
-```
+```cpp
   virtual int32  GetInt32 (const Message& message,
                            const FieldDescriptor* field) const = 0;
   virtual int64  GetInt64 (const Message& message,
@@ -115,7 +115,7 @@ Reflection主要提供了动态读写pb字段的接口，对pb对象的自动读
 ```
 特殊的，对于枚举和嵌套的message：
 
-```
+```cpp
   virtual const EnumValueDescriptor* GetEnum(
       const Message& message, const FieldDescriptor* field) const = 0;
   // See MutableMessage() for the meaning of the "factory" parameter.
@@ -133,7 +133,7 @@ Reflection主要提供了动态读写pb字段的接口，对pb对象的自动读
 其中Person是自定义的protobuf message类型，用于设置一些字段验证我们的程序。  
 单纯的序列化/反序列化功能可以通过pb自带的SerializeToString/ParseFromString接口完成。这里主要是为了同时展示**自动从pb对象里提取field/value，自动根据field/value来还原pb对象**这个功能。
 
-```
+```cpp
 int main() {
     std::string serialized_string;
     {
@@ -159,7 +159,7 @@ int main() {
 
 其中Person定义是对example里的addressbook.proto做了少许修改(修改的原因是本文没有涉及pb里数组的处理)
 
-```
+```cpp
 package tutorial;
 
 message Person {
@@ -189,7 +189,7 @@ serialize_message遍历提取message中各个字段以及对应的值，序列�
 主要思路就是通过Descriptor得到每个字段的描述符：字段名、字段的cpp类型。  
 通过Reflection的GetX接口获取对应的value。  
 
-```
+```cpp
 void serialize_message(const google::protobuf::Message& message, std::string* serialized_string) {
     const google::protobuf::Descriptor* descriptor = message.GetDescriptor();
     const google::protobuf::Reflection* reflection = message.GetReflection();
@@ -269,7 +269,7 @@ void serialize_message(const google::protobuf::Message& message, std::string* se
 parse_message通过读取field/value，还原message对象。  
 主要思路跟serialize_message很像，通过Descriptor得到每个字段的描述符FieldDescriptor，通过Reflection的SetX填充message。  
 
-```
+```cpp
 void parse_message(const std::string& serialized_string, google::protobuf::Message* message) {
     const google::protobuf::Descriptor* descriptor = message->GetDescriptor();
     const google::protobuf::Reflection* reflection = message->GetReflection();

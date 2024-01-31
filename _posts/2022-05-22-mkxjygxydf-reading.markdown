@@ -1,7 +1,7 @@
 ---
 title: "愿我们都在白底黑字中读懂自己-读《麦肯锡精英高效阅读法》"
 date: 2022-05-22 11:55:44
-tags: [read]
+tags: read
 ---
 
 ![麦肯锡精英高效阅读法](https://img1.doubanio.com/lpic/s32318249.jpg)

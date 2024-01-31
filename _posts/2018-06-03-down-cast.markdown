@@ -1,7 +1,7 @@
 ---
 title: protobuf之down_cast
 date: 2018-06-03 09:47:27
-tags: [protobuf]
+tags: protobuf
 ---
 
 C++ 提供了多种 cast 的方式:`static_cast/dynamic_cast/const_cast/interpret_cast`。

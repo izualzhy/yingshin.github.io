@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之11:LRUCache的实现"
 date: 2019-02-07 22:08:35
-tags: [leveldb]
+tags: leveldb
 ---
 
 之前介绍[multi_index_container](https://izualzhy.cn/boost-multi-index-performance#2-lru%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C)时，使用了 LRU Cache 作为一个简单测试的例子。本文介绍下 LRU Cache 的原理以及 leveldb 里的实现。

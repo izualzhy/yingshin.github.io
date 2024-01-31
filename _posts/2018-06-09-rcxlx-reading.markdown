@@ -1,7 +1,7 @@
 ---
 title: "往前看、往后看 - 评《那些怪诞又实用的日常心理学》"
 date: 2018-06-09 09:17:29
-tags: [read]
+tags: read
 ---
 
 ![那些怪诞又实用的日常心理学](assets/images/richangxinlixue.jpeg)

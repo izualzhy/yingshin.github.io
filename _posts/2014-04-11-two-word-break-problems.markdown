@@ -2,12 +2,12 @@
 title:  "two word break problems"
 date:   2014-04-11 18:19:03
 excerpt: "Word Break"
-tags: dp  leetcode
+tags: algorithm
 ---
 
-关于DP的两道很有意思的题目，发现leetcode真的很不错。  
-之前有些类似的题目，只能自己尽可能想些测试用例。leetcode上提交可以不用担心这个，包括运行时间的问题。  
-言归正传，题目链接如下：   
+关于DP的两道很有意思的题目
+
+题目链接如下：   
 [Word Break](http://oj.leetcode.com/problems/word-break/)  
 > 给定一个字符串s和一个单词表dict,检查dict的单词是否可以组成s,成功返回true,否则false.
 > 例如,s="leetcode",dict=["leet", "code"],返回true,因为s可以分成"leet code".
