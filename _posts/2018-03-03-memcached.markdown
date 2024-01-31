@@ -2,7 +2,7 @@
 title: "memcache十分钟入门"
 date: 2018-03-03 12:49:21
 excerpt: "memcache"
-tags: [memcache]
+tags: distribute
 ---
 
 ## 1. 简介

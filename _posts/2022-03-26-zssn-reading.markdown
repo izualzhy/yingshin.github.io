@@ -1,7 +1,7 @@
 ---
 title: "事莫明于有效，论莫定于有证-读《置身事内》"
 date: 2022-03-26 09:34:05
-tags: [read]
+tags: read
 ---
 
 ![置身事内](https://img1.doubanio.com/lpic/s33956867.jpg)

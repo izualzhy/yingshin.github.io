@@ -1,7 +1,7 @@
 ---
 title: "《Scala实用指南》读书笔记五：递归和惰性求值"
 date: 2019-06-30 11:10:00
-tags: [scala]
+tags: scala
 ---
 
 ## 1. 递归

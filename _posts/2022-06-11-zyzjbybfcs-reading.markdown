@@ -1,7 +1,7 @@
 ---
 title: "社会这所大学-读《高智商犯罪》"
 date: 2022-07-02 6:42:05
-tags: [read]
+tags: read
 ---
 
 ![高智商犯罪](https://img9.doubanio.com/lpic/s26997555.jpg)

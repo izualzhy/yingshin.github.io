@@ -1,7 +1,7 @@
 ---
 title: "《Scala实用指南》读书笔记三：集合"
 date: 2019-06-29 23:47:57
-tags: [scala]
+tags: scala
 ---
 
 ## 1. 集合

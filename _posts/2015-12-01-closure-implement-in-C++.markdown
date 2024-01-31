@@ -2,7 +2,7 @@
 title:  "C++中闭包的简单实现"
 date: 2015-12-01 15:07:28
 excerpt: "C++中闭包的简单实现"
-tags: [closure]
+tags: cpp
 ---
 
 这个问题的起源是想把成员函数封装为回调函数，众所周知一个比较好的选择是tr1里的function和bind。  

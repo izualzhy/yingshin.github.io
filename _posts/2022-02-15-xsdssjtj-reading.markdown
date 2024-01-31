@@ -1,7 +1,7 @@
 ---
 title: "人、社会、法律-读《消失的13级台阶》"
 date: 2022-02-15 18:02:01
-tags: [read]
+tags: read
 ---
 
 ![消失的13级台阶](https://img1.doubanio.com/lpic/s34070178.jpg)

@@ -2,7 +2,7 @@
 title:  "glog简介"
 date: 2016-01-21 00:05:47
 excerpt: "glog简介"
-tags: [glog]
+tags: glog
 ---
 
 glog是google的的一个C++轻量日志库，支持常用的日志功能：例如日志级别，自定义级别，条件输出，DEBUG日志等，同时支持gflag的参数配置方式。  

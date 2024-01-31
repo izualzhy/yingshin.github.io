@@ -1,7 +1,7 @@
 ---
 title: "Calcite笔记之一：Tutorial"
 date: 2022-04-30 08:19:06
-tags: [Calcite]
+tags: calcite
 ---
 
 最开始了解 Calcite 的时候，印象最深的是众多名词。而由于 Calcite 的定位，其应用方式又多种多样，所以有一种以为看懂了，却还是不知道如何应用的感觉。这篇笔记，记录下我对 Calcite 的理解。
@@ -14,15 +14,13 @@ tags: [Calcite]
 
 2015年，Julian Hyde 在 XLDB 上做了一次演讲，题为**Apache Calcite: One planner fits all**.这个题目可以理解成对上述论文的进一步阐述。
 
-在数据库百花齐放时，也有一些是不变的，比如 SQL 的需求。SQL 的一大价值是用户的熟悉程度，即关系型数据库积累的经验和习惯。所以各种数据库都会提供 SQL(SQL-Like) 的交互方式。除了查询，流式数据处理也会有 SQL 需求，比如现在的 KSQL、SparkStreamingSQL、FlinkSQL.
+在数据库百花齐放时，也有一些是不变的，比如 SQL 的需求。SQL 的一大价值是用户的熟悉程度，即关系型数据库积累的经验和习惯。所以各种数据库都会提供 SQL(或者 SQL Like) 的交互方式。除了查询，流式数据处理也会有 SQL 需求，比如现在的 KSQL、SparkStreamingSQL、FlinkSQL.
 
 那如何能够抽象出不变的部分，而通过接口/插件的形式支持异构的部分？Apache Calcite 正是预见了这一点，所以从 Hive 项目里独立出来，为更多的计算和存储提供统一的 SQL 查询解决方案。
 
 在 Calcite 的 github 主页和论文里，这么一句话概括了 Calcite 的定位：
 
 > Apache Calcite is a dynamic data management framework.
-
-> Apache Calcite is a foundational software framework ...
 
 ## 2. Tutorial - 一个极简例子
 
@@ -65,7 +63,7 @@ sqlline> !connect jdbc:calcite:model=src/test/resources/model.json admin admin
 +-----------+--------+
 ```
 
-上面的例子里，calcite 提供的功能：connect model.json，然后使用 SQL 查询数据。
+上面的例子里，calcite 支持了先`connect model.json`，然后使用 SQL 查询数据。
 
 看下 model.json 文件：
 
@@ -172,6 +170,8 @@ sqlline> !connect jdbc:calcite:model=src/test/resources/smart.json admin admin
 | CsvTableScan(table=[[SALES, EMPS]], fields=[[1]])  |
 +----------------------------------------------------+
 ```
+
+SQL 解析部分，Calcite 是使用 JavaCC 实现的，将 SQL 语句转化为 Java 代码，然后进一步转化为 AST.后续执行部分，则是使用了 Janino 支持运行时编译 Java 代码。
 
 文档接下来用了比较短的篇幅介绍了跟`CsvProjectTableScanRule`有关，但是我看到这儿的时候还是有很多疑问，比如：
 

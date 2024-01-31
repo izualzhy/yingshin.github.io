@@ -1,7 +1,7 @@
 ---
-title: "浅谈 Flink - State 之 Kafka Offsets"
+title: "漫谈 Flink - State 之 Kafka Offsets"
 date: 2020-07-18 19:09:52
-tags: [flink-1.9]
+tags: flink
 ---
 
 ## 1. 概念

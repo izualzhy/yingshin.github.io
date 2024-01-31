@@ -1,7 +1,7 @@
 ---
-title: "浅谈 Flink - StreamGraph"
+title: "漫谈 Flink - StreamGraph"
 date: 2020-05-01 22:06:45
-tags: [flink-1.9]
+tags: flink
 ---
 
 上一篇笔记介绍由 API 生成`StreamExecutionEnvironment.transformations`，接下来就是生成 StreamGraph.
@@ -10,7 +10,7 @@ tags: [flink-1.9]
 
 具体在`StreamGraphGenerator.generate`:
 
-```
+```java
 StreamGraph generate() {
   streamGraph = new StreamGraph(executionConfig, checkpointConfig);
   ...
@@ -33,7 +33,7 @@ StreamGraph generate() {
 
 `StreamGraphGenerator.transform`就是对前一篇笔记里介绍的不同的 Transformation 类型调用不同的方法。
 
-```
+```java
   private Collection<Integer> transform(Transformation<?> transform) {
 
     if (alreadyTransformed.containsKey(transform)) {
@@ -84,14 +84,14 @@ StreamGraph generate() {
 
 StreamGraph 最主要的是由一系列节点(StreamNode)组成的，StreamNode 内部又记录了当前节点输入与输出的边。
 
-```
+```java
 class StreamGraph
   Map<Integer, StreamNode> streamNodes
 ```
 
 每个 StreamNode 记录了其输入边、输出边，以及该节点需要真正执行的操作函数(封装在operatorFactory，其内部即 AbstractUdfStreamOperator、StreamSource 等)
 
-```
+```java
 StreamNode
   // 节点 id，即对应的 transform.id
   private final int id;
@@ -103,7 +103,7 @@ StreamNode
 
 StreamEdge 起到了连接两个 StreamNode 的作用，自然的，记录了输入及输出节点的 id
 
-```
+```java
 class StreamEdge
   private final int sourceId;
   private final int targetId;
@@ -116,7 +116,7 @@ class StreamEdge
 
 这些临时节点在 StreamGraph 称为虚拟节点，使用 virtualXXXXNodes 存储：
 
-```
+```java
 class StreamGraph
   private Map<Integer, Tuple2<Integer, List<String>>> virtualSelectNodes;
   private Map<Integer, Tuple2<Integer, OutputTag>> virtualSideOutputNodes;
@@ -139,7 +139,7 @@ class StreamGraph
 
 ### 4.1. transformOneInputTransform(id = 2)
 
-```
+```java
   private <IN, OUT> Collection<Integer> transformOneInputTransform(OneInputTransformation<IN, OUT> transform) {
     // 先查找输入对应的 StreamNode.id，即 transform.id = 1 对应的 StreamNode
     Collection<Integer> inputIds = transform(transform.getInput());
@@ -159,7 +159,7 @@ class StreamGraph
 
 注意第一行是一个递归操作，先需要 transform id = 1 的元素，即 SourceTransformation：
 
-```
+```java
 // 创建输入 Transformation 对应的 StreamNode，并且返回对应的 StreamNode.id
 private <T> Collection<Integer> transformSource(SourceTransformation<T> source) {
   // 传入了 sourceId = 1，source.getOperatorFactory 即包装了 AbstractUdfStreamOperator
@@ -170,7 +170,7 @@ private <T> Collection<Integer> transformSource(SourceTransformation<T> source) 
 
 接着上一段代码第一行，返回的 id = 1 存储到了`inputIds`，之后 id = (1, 2) 对应的 StreamNode 都已经构建完成，接下来就是创建两个节点间边的关系，当前先忽略处理 virutalxxxxNodes 的相关代码，关注最后一个 else ：
 
-```
+```java
 StreamGraph.addEdge
   // 处理各种 virtualXXXXNodes
   if ...
@@ -214,7 +214,7 @@ StreamGraph.addEdge
 
 接下来处理 id = 4，跟 id = 2 一样，入口为`transformOneInputTransform`，区别是其上游元素 id = 3 对应的是一个 VirtualPartitionNode，因此 addEdge 时会有区别
 
-```
+```java
   private <IN, OUT> Collection<Integer> transformOneInputTransform(OneInputTransformation<IN, OUT> transform) {
     // 先查找输入对应的 StreamNode.id，即 transform.id = 3 对应的 StreamNode
     // 返回的 StreamNode.id = 6
@@ -236,7 +236,7 @@ StreamGraph.addEdge
 
 代码第一行，id = 3 的元素类型为`PartitionTransformation`，因此调用`transformPartition`转换为节点
 
-```
+```java
   private <T> Collection<Integer> transformPartition(PartitionTransformation<T> partition) {
     // 先获取 transform 的input，即 id = 2 的 OneInputTransformation
     Transformation<T> input = partition.getInput();
@@ -258,7 +258,7 @@ StreamGraph.addEdge
 
 可以看到这里没有添加 StreamNode，而是记录到了 virtualPartitonNodes，同时该节点记录了其上游节点 ID(=2)。同时注意这里指定了`partitioner`
 
-```
+```java
 addVirtualPartitionNode
   记录到 virtualPartitionNodes:
   含义为 6 的上游是 2 节点，partition 方式为 HASH
@@ -273,7 +273,7 @@ addVirtualPartitionNode
 
 对应的是`transformedIds = transformSink((SinkTransformation<?>) transform);`
 
-```
+```java
   private <T> Collection<Integer> transformSink(SinkTransformation<T> sink) {
     streamGraph.addSink(sink.getId(),
 
@@ -309,7 +309,7 @@ addVirtualPartitionNode
 + 为什么 transformations 只记录了 3 个节点？
 首先可以看到这 3 个节点是足够用于生成 streamgraph 了，事实上我理解可能只传入尾节点元素也足够了，因为生成 streamgraph 的过程中也是一个先构建其上一个节点的过程。大概是代码的设计需要，或者当有多个输入边时的复杂情况。
 + 如果打开 flink 的 DEBUG 日志，就会看到这个 transform 的过程
-```
+```java
 2020-05-02 18:05:11,108 DEBUG org.apache.flink.streaming.api.graph.StreamGraphGenerator     - Transforming OneInputTransformation{id=2, name='Flat Map', outputType=scala.Tuple2(_1: String, _2: Integer), parallelism=1}
 2020-05-02 18:05:11,108 DEBUG org.apache.flink.streaming.api.graph.StreamGraphGenerator     - Transforming SourceTransformation{id=1, name='Socket Stream', outputType=String, parallelism=1}
 2020-05-02 18:05:11,116 DEBUG org.apache.flink.streaming.api.graph.StreamGraph              - Vertex: 1

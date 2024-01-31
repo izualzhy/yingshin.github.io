@@ -2,7 +2,7 @@
 title: "leveldb笔记之6:block读取"
 date: 2018-12-16 21:53:59
 excerpt: "leveldb笔记之6:block读取"
-tags: [leveldb]
+tags: leveldb
 ---
 
 ## 1. 简介

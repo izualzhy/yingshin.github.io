@@ -1,7 +1,7 @@
 ---
 title: "boost容器之multi_index"
 date: 2018-02-03 23:14:21
-tags: boost  multi_index
+tags: boost
 ---
 
 之前介绍过[bimap](http://izualzhy.cn/boost-bimap)用于解决双向map的需求，类似于关系数据库里对多列建立索引。boost里的**multi_index_container**则继续扩充了这个特性，支持将多种container的接口合并到一块，想象下将`std::vector`和`std::map`合并到一个容器里组成一个新的容器，既支持数据的顺序写入，也支持k-v映射。

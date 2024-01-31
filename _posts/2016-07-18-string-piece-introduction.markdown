@@ -2,7 +2,7 @@
 title: StringPiece介绍
 date: 2016-7-18 21:12:11
 excerpt: "StringPiece介绍"
-tags: chrome  StringPiece
+tags: cpp
 ---
 
 记得最开始使用StringPiece的时候直接上手就用了，场景大概是这样子的：一个线程写StringPiece并放到队列里，另外一个线程从队列读取StringPiece，结果可想而知。后来发现很多项目源码里都会有这个类的类似实现，于是仔细看了下这个类的设计目的、实现。

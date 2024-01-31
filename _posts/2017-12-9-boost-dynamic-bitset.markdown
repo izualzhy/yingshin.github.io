@@ -2,7 +2,7 @@
 title: "boost容器之dynamic_bitset"
 date: 2017-12-09 21:39:48
 excerpt: "boost容器之dynamic_bitset"
-tags: boost  dynamic_bitset
+tags: boost
 ---
 
 boost提供了很多非常有用的容器及数据结构，是对stl的一个极大的增强。本文主要介绍二进制数值处理的**boost::dynamic_bitset**
@@ -21,7 +21,7 @@ C++标准提供了两个二进制数值处理工具:`vector<bool>` 和 `bitset`
 
 `dynamic_bitset`是一个模板类
 
-```
+```cpp
 template <typename Block, typename Allocator>
 class dynamic_bitset
 ```
@@ -30,7 +30,7 @@ Block是一个类型参数，表示以什么类型存储二进制位，必须是
 
 构造函数可以直接传入01字符串，也可以传入一个整数。
 
-```
+```cpp
 #include <iostream>
 #include "boost/dynamic_bitset.hpp"
 #include "boost/utility/binary.hpp"
@@ -57,7 +57,7 @@ int main() {
 
 注意字符串构造时传入01字符串，否则会在运行时报错。同时不能直接传入C字符串，否则编译报错
 
-```
+```cpp
         // error: invalid conversion from 'const char*' to 'boost::dynamic_bitset<>::size_type {aka long unsigned int}' [-fpermissive]
 ```
 
@@ -71,7 +71,7 @@ int main() {
 
 `resize/clear size/empty`接口用于调整和获取大小
 
-```
+```cpp
     boost::dynamic_bitset<> db(0x16, BOOST_BINARY(10101));;
     std::cout << db << "\t" << db.size() << std::endl;//0000000000000000010101  22
 
@@ -88,7 +88,7 @@ int main() {
 
 `push_back`用于向**高位**添加数据
 
-```
+```cpp
     boost::dynamic_bitset<> db(0x16, BOOST_BINARY(10101));;
     std::cout << db << "\t" << db.size() << std::endl;//0000000000000000010101  22
 
@@ -98,7 +98,7 @@ int main() {
 
 `append`用于追加一个整数，不过注意整数会转化为一整个Block，在64位系统上占64bits.
 
-```
+```cpp
     boost::dynamic_bitset<> db(0x16, BOOST_BINARY(10101));;
     db.append(5);//append 101
     std::cout << db << std::endl;//00000000000000000000000000000000000000000000000000000000000001010000000000000000010101
@@ -108,7 +108,7 @@ int main() {
 
 如果读写已知的位，也可以直接使用`operator[]`。
 
-```
+```cpp
     boost::dynamic_bitset<> db(5, BOOST_BINARY(10100));
     std::cout << db << std::endl;
     //test检验第n位是否是1
@@ -124,7 +124,7 @@ int main() {
 
 `set/reset/flip`用于操作所有的二进制位
 
-```
+```cpp
     boost::dynamic_bitset<> db(5, BOOST_BINARY(10100));
     std::cout << db << std::endl;
     //flip反转
@@ -140,7 +140,7 @@ int main() {
 
 当然也可以使用带参数的版本修改某个位
 
-```
+```cpp
     // basic bit operations
     dynamic_bitset& set(size_type n, bool val = true);
     dynamic_bitset& set();
@@ -152,7 +152,7 @@ int main() {
 
 也可以转为`unsigned long`或者`std::string`
 
-```
+```cpp
     boost::dynamic_bitset<> db;
     db.push_back(false);
     db.push_back(false);
@@ -170,13 +170,13 @@ int main() {
 `find_first`从下标0开始，查找第一个值为1的位置。  
 `find_next(pos)`从下标pos开始，查找第一个值为1的位置。  
 
-```
+```cpp
     // lookup
     size_type find_first() const;
     size_type find_next(size_type pos) const;
 ```
 
-```
+```cpp
     boost::dynamic_bitset<> db(std::string("110100"));
     std::cout << db << std::endl;
 
@@ -188,7 +188,7 @@ int main() {
 
 ### 2.5 集合操作
 
-```
+```cpp
     boost::dynamic_bitset<> db1(5, BOOST_BINARY(10101));
     boost::dynamic_bitset<> db2(5, BOOST_BINARY(10010));
 

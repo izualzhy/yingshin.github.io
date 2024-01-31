@@ -2,7 +2,7 @@
 title: zookeeper C API介绍
 date: 2016-10-2 21:28:08
 excerpt: "zookeeper C API介绍"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 整体上，zookeeper提供的C API可以分为三种：

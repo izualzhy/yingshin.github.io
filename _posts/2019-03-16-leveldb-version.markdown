@@ -1,7 +1,7 @@
 ---
 title: "leveldb笔记之14:version"
 date: 2019-03-16 12:12:25
-tags: [leveldb]
+tags: leveldb
 ---
 
 [上一篇笔记](https://izualzhy.cn/leveldb-compaction)开始讲 minor compaction，对于 memtable 转化为 sstable 这个过程，在之前的笔记里都做了很多的铺垫，例如 MemTable/SSTable 的数据结构，写入/读取的整个流程等，因此理解起来应该不算复杂。不过其中涉及版本的操作，例如`versions_->LogAndApply(&edit, &mutex_);`，如果没有抓住 leveldb 里 version 相关的关键结构，很容易被绕晕。

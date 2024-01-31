@@ -2,7 +2,7 @@
 title: zookeeper c客户端源码分析一：数据结构与线程
 date: 2016-10-22 21:32:49
 excerpt: "zookeeper c客户端源码分析一：数据结构与线程"
-tags: [zookeeper]
+tags: zookeeper
 ---
 
 之前的几篇文章介绍了zookeeper的使用。周末稍微看了下zookeeper c客户端的代码，还是比较有意思的。虽然用纯C写成，实现复杂度会高一些，但是丝毫不影响可读性，代码量也不大。（我都不好意思说升级一个接手模块支持gcc4编译踩了无数个坑o(╯□╰)o）

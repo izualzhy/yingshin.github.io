@@ -2,7 +2,7 @@
 title: "boost容器之unordered"
 date: 2017-12-14 23:21:45
 excerpt: "boost容器之unordered"
-tags: boost  unordered
+tags: boost
 ---
 
 boost里unordered容器由集合(unordered_set)与映射(unordered_map)组成。

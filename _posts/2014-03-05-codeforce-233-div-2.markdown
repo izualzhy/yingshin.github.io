@@ -1,8 +1,8 @@
 ---
-title:  "Codeforec Contest 233Div.2"
+title:  "codeforces Contest 233Div.2"
 date:   2014-03-05 17:09:53
 excerpt: "submissions for codeforce contest 233Div.2#A.Pages B.Red and Blue Balls C.Cards"
-tags: [codeforce]
+tags: codeforces
 ---
 
 只做了一下ABC三道题目，比较简单，欢迎指出错误。

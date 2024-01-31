@@ -1,7 +1,7 @@
 ---
 title: "数据湖笔记之一：Z-Order"
 date: 2022-04-09 22:15:03
-tags: [DataLake]
+tags: bigdata
 ---
 
 [Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve)，1966年就已经在应用了。但是在大数据崭露头角，似乎才是这几年的事情。最近看了数据湖的一些技术，想从细处着手，介绍下我理解的 Z-Order.

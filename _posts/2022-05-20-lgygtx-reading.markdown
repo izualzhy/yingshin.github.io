@@ -1,7 +1,7 @@
 ---
 title: "青梅煮酒论英雄-读《李光耀观天下》"
 date: 2022-05-20 22:11:38
-tags: [read]
+tags: read
 ---
 
 ![李光耀观天下](https://img1.doubanio.com/lpic/s33687518.jpg)

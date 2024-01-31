@@ -2,7 +2,7 @@
 title: glog源码解析三：glog功能扩展：如何按天切割、自定义日志输出等
 date: 2017-06-04 22:50:14
 excerpt: "glog源码解析"
-tags: [glog]
+tags: glog
 ---
 
 [上篇笔记:glog源码解析二：从LOG(INFO)到写入日志的代码分析](http://izualzhy.cn/glog-source-reading-notes-whole-process)介绍了glog的部分源码，这篇笔记尝试从实用角度看下如何修改和扩展glog的功能。我在实际工作中想尝试解决以下几个问题：

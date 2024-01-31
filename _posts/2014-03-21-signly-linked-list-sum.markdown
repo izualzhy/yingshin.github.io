@@ -1,7 +1,7 @@
 ---
 title:  "单链表之和"
 date:   2014-03-21 17:23:03
-tags: list  interview
+tags: algorithm
 ---
 
 [@陈利人](http://weibo.com/p/1005051915548291/home?from=page_100505&mod=TAB#place)在微博上发布了很多有意思的题目，建议大家关注下。  
