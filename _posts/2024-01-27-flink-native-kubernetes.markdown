@@ -1,15 +1,13 @@
 ---
-title: "漫谈 Flink - Native Flink On Kubernetes JobManager"
+title: "漫谈 Flink - Native Flink On Kubernetes 集群启动流程"
 date: 2024-01-27 11:17:16
 tags: flink
 ---
 
 这篇笔记主要介绍 Flink 任务使用 Application Mode 提交到 K8S 集群的流程，使用 flink 1.12 版本说明。
 
-由于工作上基本以验证效果为主，大部分代码只能在周末速读，难免有疏漏之处欢迎指出。
-
 Flink 任务的启动流程，简言之分为三步:    
-1. 提交任务：不同 Mode(Application/PerJob/Session)在这一步的区别主要是用户代码是否在这一步执行.      
+1. 提交任务：不同 Mode(Application/PerJob/Session)的区别主要是用户代码是否在这一步执行.      
 2. 启动 JobManager: 跟 Resource Provider(YARN/K8S)申请资源、运行用户代码、初始化 TM 等。
 3. 启动 TaskManager：执行 JM 指定的具体算子，与 JM 保持心跳。
 
@@ -120,7 +118,7 @@ public class PackagedProgram {
 }
 ```
 
-Per-Job Mode，`PackagedProgram`是在 client 端生成的。 Application Mode，`PackagedProgram·在 JM 生成。
+Per-Job Mode，`PackagedProgram`是在 client 端生成的。 Application Mode，`PackagedProgram`在 JM 生成。
 
 `invokeInteractiveModeForExecution`即调用用户的入口类 main 方法。
 
@@ -143,7 +141,7 @@ public abstract class ClusterEntrypoint implements AutoCloseableAsync, FatalErro
 
 `create`主要做了3件事情：
 1. 创建 webMonitorEndpoint，提供 Restful API 响应
-2. 创建 ResourceManager，负责跟 RP(YARN/K8S) 申请资源
+2. 创建 ResourceManager，负责跟 RP(YARN/K8S) 申请资源、管理及释放
 3. 创建 DispatcherRunner，负责启动 Dispatcher，该类提供了`submitJob(JobGraph jobGraph, Time timeout)`负责作业的启动和分发
 
 ```java
@@ -195,11 +193,15 @@ public final class DefaultDispatcherRunner implements DispatcherRunner, LeaderCo
 }
 ```
 
-对于 ResourceManager，`grantLeadership`主要做两件事情：
+对于 ResourceManager，`grantLeadership`主要做两件事情：  
 1. startHeartbeatServices: 开启 jm tm 心跳
 2. slotManager.start: 申请 TaskManager 资源
 
-Dispatcher 的封装比较复杂，封装的层次很深，各类 Driver Factory Gateway 的名词层出不穷。 
+注：   
+1. SlotManager JobLeaderIdService 是在 class ResourceManagerRuntimeServices 管理的。
+2. LeaderElectionDriver 有两个子类 ZooKeeperLeaderElectionDriver KubernetesLeaderElectionDriver，对应 HA 的两种实现。
+
+Dispatcher 的封装比较复杂，封装的层次很深，各类 Driver Factory Gateway 的类命名层出不穷。 
 
 核心的调用链路终点统一到`PackagedProgram.invokeInteractiveModeForExecution`:
 
@@ -256,6 +258,20 @@ public class EmbeddedExecutor implements PipelineExecutor {
 
 提交之后，就回到了`Dispatcher`最重要的一个方法`submitJob(JobGraph jobGraph, Time timeout)`了。
 
+不同提交方式有不同的实现，`DispatcherGateway`统一定义了接口:
+
+```java
+public interface DispatcherGateway extends FencedRpcGateway<DispatcherId>, RestfulGateway {
+    CompletableFuture<Acknowledge> submitJob(JobGraph jobGraph, @RpcTimeout Time timeout);
+    CompletableFuture<Collection<JobID>> listJobs(@RpcTimeout Time timeout);
+    CompletableFuture<Integer> getBlobServerPort(@RpcTimeout Time timeout);
+    CompletableFuture<ArchivedExecutionGraph> requestJob(JobID jobId, @RpcTimeout Time timeout);
+    default CompletableFuture<Acknowledge> shutDownCluster(ApplicationStatus applicationStatus) {
+        return shutDownCluster();
+    }
+}
+```
+
 `submitJob`启动`JobManagerRunnerImpl`
 
 ```java
@@ -279,6 +295,15 @@ public class JobManagerRunnerImpl
 `jobMasterService.start`里开始调度任务 DAG，主要实现是在
 
 ```java
+public class JobMaster extends FencedRpcEndpoint<JobMasterId>
+        implements JobMasterGateway, JobMasterService {
+    private final JobGraph jobGraph;
+    private SchedulerNG schedulerNG;
+    // ...
+}
+```
+
+```java
 public abstract class SchedulerBase implements SchedulerNG {
     private final JobGraph jobGraph;
 
@@ -289,6 +314,64 @@ public abstract class SchedulerBase implements SchedulerNG {
 ```
 也就是在这里，JobGraph 转换为真正可以执行的 ExecutionGraph，JobMaster 以此将 DAG 调度到不同的 TaskManager 上。
 
-## 3. 参考资料
+## 3. 运行 TaskManager
+
+JobManager 的`SlotManagerImpl.start`方法里，会调用`ActiveResourceManager.requestNewWork`，进而使用对应的`ResourceManagerDriver`启动 TaskManager.
+
+对于 K8S 环境，/docker-entrypoint.sh 的入口类是`KubernetesTaskExecutorRunner`
+
+```java
+public class JavaCmdTaskManagerDecorator extends AbstractKubernetesStepDecorator {
+    private String getTaskManagerStartCommand() {
+
+        // ...
+        return getTaskManagerStartCommand(
+                kubernetesTaskManagerParameters.getFlinkConfiguration(),
+                kubernetesTaskManagerParameters.getContaineredTaskManagerParameters(),
+                confDirInPod,
+                logDirInPod,
+                kubernetesTaskManagerParameters.hasLogback(),
+                kubernetesTaskManagerParameters.hasLog4j(),
+                KubernetesTaskExecutorRunner.class.getCanonicalName(),
+                mainClassArgs);
+    }
+}
+```
+
+对 TaskManager，核心功能有：
+1. 接收 JobManager 分配的任务算子，执行
+2. 保持跟 JobManager 的心跳，汇报当前状态
+
+重点看下执行算子这部分，FLIP-6<sup>2</sup>里的图描述了这个交互过程：
+
+![Slot Allocation with Requesting a New TaskManager](/assets/images/flink/Slot Allocation with Requesting a New TaskManager.png)
+
+`TaskManagerRunner`负责启动 akka system、metrics reporter、blobCacheService 等服务，同时启动`TaskExecutor`，整个交互流程的核心逻辑也都通过该类实现。
+
+1. 连接 ResourceManager，注册自身`TaskExecutorRegistration`：`connectToResourceManager`
+2. 连接成功后，发送 SlotReport 到 RM 汇报 slot 情况：`establishResourceManagerConnection`
+3. RM 收到请求后，在 class SlotManagerImpl 的方法里 RPC 调用 gateway.requestSlot  
+4. TM 在 requestSlot 方法里，连接 JobMaster，发送 SlotOffer 到 JM：`registerNewJobAndCreateServices`  
+5. JM 收到 SlotOffer 后，调用`taskManagerGateway.submitTask(deployment)`给 TM 分配任务  
+6. TM 在 submitTask 方法里，解析出 JobInformation TaskInformation，比如这里的入口类可能是`org.apache.flink.streaming.runtime.tasks.SourceStreamTask`，创建`Task` 对象，启动工作线程`task.startTaskThread`
+
+至此，TaskManager 开始执行用户代码的实现。
+
+注：`RpcTaskManagerGateway`在 RPC 的接口实现里，基本都是调用`TaskExecutor`的方法，典型的方法：    
+1. 资源管理: requestSlot、freeSlot
+2. 任务管理: submitTask、cancelTask、requestStackTraceSample
+3. Checkpoint: triggerCheckpoint、confirmCheckpoint
+4. 连接: heartbeatFromJobManager、heartbeatFromResourceManager
+
+## 4. 总结
+
+JobManager TaskManager 是典型的 Master-Worker 架构，进程入口类固定。
+
+启动了多个服务，用于支持任务提交、Rest接口、文件服务、metrics监控等等。用户的代码，在经过 transformation -> stream graph -> job graph -> execute graph 的多次转换后，包装成了不同算子的逻辑实现部分。
+
+JobManager 负责跟 Resource Provider 申请资源，分配给 TaskManager 执行，这里通过多次 RPC 交互完成。JobManager 同时负责执行过程中的协调、容错、资源回收等。
+
+## 5. 参考资料
 1. [fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client)
+2. [FLIP-6](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65147077)  
 
