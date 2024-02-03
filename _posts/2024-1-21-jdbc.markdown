@@ -211,6 +211,11 @@ client = newSynchronizedClient(client);
 
 Hive-16172<sup>5</sup>通过引入`ReentrantLock`公平锁解决了这个问题。 
 
+### 3.3. 其他
+
+1. `ResultSet`是单线程遍历，因此拉取数据的效率不高。对于较大的数据量，应当充分利用集群并行的能力，将数据写到目标存储或者分布式文件系统上。
+2. `HiveConnection`初始化时，使用了`DriverManager.getLoginTimeout`作为 socket Connect/Read/Write 的超时时间，但是这个值是全局的，需要注意issue<sup>6</sup>。
+
 ## 参考资料
 
 1. [Java Database Connectivity](https://en.wikipedia.org/wiki/Java_Database_Connectivity)  
@@ -218,4 +223,4 @@ Hive-16172<sup>5</sup>通过引入`ReentrantLock`公平锁解决了这个问题�
 3. [org.slf4j.spi.SLF4JServiceProvider](https://github.com/qos-ch/logback/blob/master/logback-classic/src/main/resources/META-INF/services/org.slf4j.spi.SLF4JServiceProvider)     
 4. [beeline.java](https://github.com/apache/hive/blob/master/beeline/src/java/org/apache/hive/beeline/BeeLine.java)    
 5. [HIVE-16172](https://issues.apache.org/jira/browse/HIVE-16172)
-
+6. [Socket timeouts happen when other drivers set DriverManager.loginTimeout](https://issues.apache.org/jira/browse/HIVE-22196)
