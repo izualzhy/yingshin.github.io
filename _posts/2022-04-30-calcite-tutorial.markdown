@@ -1,5 +1,5 @@
 ---
-title: "Calcite笔记之一：Tutorial"
+title: "Calcite笔记之1：Tutorial"
 date: 2022-04-30 08:19:06
 tags: calcite
 ---
