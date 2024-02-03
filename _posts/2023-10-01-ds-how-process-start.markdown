@@ -55,7 +55,7 @@ tags: dolphin
 
 `workflowExecuteRunnable::call`提交到`WorkflowExecuteThreadPool`这个线程池去执行，真正开始一个工作流。生成DAG、构造TaskInstance对象，都是在这个方法里实现的。运行在`WorkflowExecuteThreadPool`线程池，线程前缀名为"WorkflowExecuteThread-".
 
-DAG 的概念很常见，例如 Flink 里的 [JobGrap](https://izualzhy.cn/flink-source-job-graph)。虽然跟 Dolphin 里的 DAG 在需求和实现上都相差巨大，但是两者都有一个共同点，就是要构建**具体运行的算子实例及其关系**。
+DAG 的概念很常见，例如 Flink 里的 [JobGraph](https://izualzhy.cn/flink-source-job-graph)。虽然跟 Dolphin 里的 DAG 在需求和实现上都相差巨大，但是两者都有一个共同点，就是要构建**具体运行的算子实例及其关系**。
 
 Process 定义了算子及其依赖关系，而算子的真正执行是在 Task，例如 Shell、SQL、MapReduce、Flink 等任务类型。因此这一步主要是：  **读取这个 ProcessInstance 下的所有 Task 实现，确定本次都需要启动哪些 Task，其先后顺序是什么。**
 
