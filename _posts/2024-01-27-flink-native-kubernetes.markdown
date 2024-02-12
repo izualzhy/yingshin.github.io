@@ -17,7 +17,9 @@ Flink 任务的启动流程，简言之分为三步:
 
 无论是 PerJob 还是 Application 模式提交到 YARN/K8S，都是通过 bin/flink 脚本，该脚本的入口类即`org.apache.flink.client.cli.CliFrontend`.
 
-`parseAndRun`方法解析参数，run 对应 PerJob ，本地生成[StreamGraph](https://izualzhy.cn/flink-source-stream-graph) [JobGraph](https://izualzhy.cn/flink-source-job-graph)，提交到资源调度中心。
+main 首先调用`logEnvironmentInfo`打印当前用户、JVM内存、hadoop等信息，该方法在 JM TM 启动时都会调用，以输出当前的基础信息。
+
+然后调用`parseAndRun`方法解析参数，run 对应 PerJob ，本地生成[StreamGraph](https://izualzhy.cn/flink-source-stream-graph) [JobGraph](https://izualzhy.cn/flink-source-job-graph)，提交到资源调度中心。
 
 run-application 对应 Application，用户`main`在 JobManager 执行。因此本地流程非常简单，仅调用`runApplication`方法部署。
 
@@ -50,6 +52,8 @@ public class CliFrontend {
 `ApplicationClusterDeployer.run`调用`clusterDescriptor.deployApplicationCluster`.
 
 `clusterDescriptor`由不同的`ClusterClientFactory`创建，这里实际创建的子类对象是`KubernetesClusterDescriptor`.Flink 里大量使用了 factory 模式，比如不同的 Resource-Provider-Client(YARN/K8S/Standalone)。
+
+Flink在官方文档里，ApplicationMode 不支持用户传入外部文件，只能使用镜像里的 jar.<sup>3</sup>在 `KubernetesUtils.checkJarFileForApplicationMode` 这一步的提交检查里会给出提示。这点我觉得对于从 Yarn 迁移到 K8S 的用户是很不方便的，有用户提过issue-and-pr<sup>4</sup>，在高版本里得到了解决。
 
 `KubernetesClusterDescriptor.deployClusterInternal`构造 JobManager 的 Specification，通过fabric8io/kubernetes-client<sup>1</sup>提交到对应的 K8S 集群。
 
@@ -374,4 +378,5 @@ JobManager 负责跟 Resource Provider 申请资源，分配给 TaskManager 执�
 ## 5. 参考资料
 1. [fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client)
 2. [FLIP-6](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65147077)  
-
+3. [Application Mode](https://nightlies.apache.org/flink/flink-docs-release-1.12/zh/deployment/resource-providers/native_kubernetes.html#application-mode)
+4. [FLINK-21289](https://issues.apache.org/jira/browse/FLINK-21289)
