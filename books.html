@@ -73,7 +73,6 @@ title: 在读和读过的书
 <body>
 <h3>愿我们在白底黑字中读懂自己</h3>
 {% assign previous_year = '' %}
-{% assign state = 'warning' %}
 <div class="timeline">
 {% for book in site.data.books %}
     {% assign current_year = book.start_date | split: '.' | first %}
@@ -88,6 +87,8 @@ title: 在读和读过的书
     {% endif %}
     {%- if book.finish_date -%}
         {% assign state = 'success' %}
+    {% else %}
+        {% assign state = 'warning' %}
     {% endif %}
     <div class="book">
         <div class="book-info">
