@@ -16,7 +16,7 @@ SQL 往往需要在不同执行计算引擎间变更，比如：
 
 SparkSQL 和 HiveSQL 间语法差异很多，诸如 order by 别名、hash方法、返回值、grouping sets、时间函数、ambiguous的语义等。HiveSQL 和 PrestoSQL 也是如此。
 
-另外，笔者看到的实际情况，往往是一份数据多处存储。例如对于一份数据，ClickHouse 以宽表的形式存在，Hive 则定义成多张表(或者 join 成 view)。如果想要统一 SQL，就需要建立 access layer:
+除了 SQL 重写，另外一种解决思路，是一份数据多处存储，由单个计算引擎统一SQL。例如对于一份数据，ClickHouse 以宽表的形式存在，Hive 则定义成多张表(或者 join 成 view)。如果想要统一 SQL，就需要建立 access layer:
 
 ```
                ┌──────────────┐
