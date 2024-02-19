@@ -1,14 +1,24 @@
-{%- if site.analytics.google.tracking_id -%}
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.google.tracking_id }}"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+<!--{%- if site.analytics.google.tracking_id -%}-->
+	<!--[> Global site tag (gtag.js) - Google Analytics <]-->
+	<!--<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.google.tracking_id }}"></script>-->
+	<!--<script>-->
+		<!--window.dataLayer = window.dataLayer || [];-->
+		<!--function gtag(){dataLayer.push(arguments);}-->
+		<!--gtag('js', new Date());-->
 
-		gtag('config', '{{ site.analytics.google.tracking_id }}');
-		{% if site.analytics.google.anonymize_ip == true %}
-			gtag('config', '{{ site.analytics.google.tracking_id }}', { 'anonymize_ip': true });
-		{% endif %}
-	</script>
-{%- endif -%}
+		<!--gtag('config', '{{ site.analytics.google.tracking_id }}');-->
+		<!--{% if site.analytics.google.anonymize_ip == true %}-->
+			<!--gtag('config', '{{ site.analytics.google.tracking_id }}', { 'anonymize_ip': true });-->
+		<!--{% endif %}-->
+	<!--</script>-->
+<!--{%- endif -%}-->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X22ZWR34N0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X22ZWR34N0');
+</script>
