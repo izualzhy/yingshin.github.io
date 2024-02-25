@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之9: 容错"
+title: "DolphinScheduler-9: 容错"
 date: 2023-10-22 08:39:46
 tags: dolphin
 ---

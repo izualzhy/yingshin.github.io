@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - JobGraph"
+title: "Flink - JobGraph"
 date: 2020-05-04 13:24:31
 tags: flink
 ---

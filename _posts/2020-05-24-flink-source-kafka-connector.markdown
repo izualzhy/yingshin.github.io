@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - KafkaTable 解析"
+title: "Flink - KafkaTable 解析"
 date: 2020-05-24 13:14:21
 tags: flink
 ---

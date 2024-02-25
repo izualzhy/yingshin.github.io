@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - StreamGraph"
+title: "Flink - StreamGraph"
 date: 2020-05-01 22:06:45
 tags: flink
 ---
