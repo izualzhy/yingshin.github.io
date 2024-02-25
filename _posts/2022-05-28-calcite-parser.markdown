@@ -1,5 +1,5 @@
 ---
-title: "Calcite笔记之5：SQL解析"
+title: "Calcite-5：SQL解析"
 date: 2022-05-23 01:28:21
 tags: calcite
 ---
@@ -167,7 +167,7 @@ package ${parser.package};
 
 ## 3. 总结
 
-[Calcite笔记之三：处理流程的代码例子](https://izualzhy.cn/calcite-example)里创建的`SqlParser`，默认的 config 里使用的是`SqlParserImplFactory`：
+[Calcite-3：处理流程的代码例子](https://izualzhy.cn/calcite-example)里创建的`SqlParser`，默认的 config 里使用的是`SqlParserImplFactory`：
 
 ```java
 public class SqlParser {

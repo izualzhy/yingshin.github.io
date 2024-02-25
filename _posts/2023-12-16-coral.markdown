@@ -45,7 +45,7 @@ Coral 的核心思路是将 HiveSQL 转为 calcite 的 RelNode(文档里的Coral
 
 ![coral-hive-to-IR](/assets/images/coral/coral-hive-to-IR.png)
 
-由于存在 views 这一层，因此 coral-hive 需要负责读取其中的元信息：database/table/view(schema)、字段信息(例如 select * 提取出字段) 等。使用 Hive 的能力将 sql 转为 AST(Abstract Syntax Tree)，然后遍历转换为 calcite 的 RelNode.(_注：关于 RelNode 介绍[Calcite笔记之三：处理流程的代码例子](https://izualzhy.cn/calcite-example)_)
+由于存在 views 这一层，因此 coral-hive 需要负责读取其中的元信息：database/table/view(schema)、字段信息(例如 select * 提取出字段) 等。使用 Hive 的能力将 sql 转为 AST(Abstract Syntax Tree)，然后遍历转换为 calcite 的 RelNode.(_注：关于 RelNode 介绍[Calcite-3：处理流程的代码例子](https://izualzhy.cn/calcite-example)_)
 
 ![coral-IR-to-presto](/assets/images/coral/coral-IR-to-presto.png)
 
@@ -251,7 +251,7 @@ SqlSelect =(SELECT CARDINALITY(ARRAY[1,2])
 
 第三步，`ToRelConverter.toRel`转化为 SqlNode 到 RelNode。
 
-`org.apache.calcite.sql2rel.SqlToRelConverter`在之前笔记[Calcite笔记之三：处理流程的代码例子](https://izualzhy.cn/calcite-example#3-sqltorelconverter)介绍过，coral 使用了自定义的`HiveSqlToRelConverter`:
+`org.apache.calcite.sql2rel.SqlToRelConverter`在之前笔记[Calcite-3：处理流程的代码例子](https://izualzhy.cn/calcite-example#3-sqltorelconverter)介绍过，coral 使用了自定义的`HiveSqlToRelConverter`:
 
 ```java
     if (sqlToRelConverter == null) {

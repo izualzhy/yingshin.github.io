@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - Transformations"
+title: "Flink - Transformations"
 date: 2020-05-01 17:41:02
 tags: flink
 ---

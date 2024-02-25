@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之8: 状态"
+title: "DolphinScheduler-8: 状态"
 date: 2023-10-04 05:52:30
 tags: dolphin
 ---
@@ -111,7 +111,7 @@ public class TaskExecuteResponseProcessor implements NettyRequestProcessor {
 
 可以看到`TaskEvent`对象放到了 taskEventService 里。
 
-注：RPC的过程参考上篇笔记[DolphinScheduler笔记之7: 网络模型](https://izualzhy.cn/ds-net-model)
+注：RPC的过程参考上篇笔记[DolphinScheduler-7: 网络模型](https://izualzhy.cn/ds-net-model)
 
 ### 3.2. 事件分发   
 
@@ -179,7 +179,7 @@ public class TaskResultEventHandler implements TaskEventHandler {
 
 可以看到这里比较有意思，任务状态处理后，发送了触发工作流状态变化的事件。
 
-`EventExecuteService`收到该事件后，交给`TaskStateEventHandler`处理，该方法会调用[DolphinScheduler笔记之4：工作流的启动](https://izualzhy.cn/ds-how-process-start)里的`submitPostNode`继续提交下游任务。
+`EventExecuteService`收到该事件后，交给`TaskStateEventHandler`处理，该方法会调用[DolphinScheduler-4：工作流的启动](https://izualzhy.cn/ds-how-process-start)里的`submitPostNode`继续提交下游任务。
 
 ## 4. 总结
 
