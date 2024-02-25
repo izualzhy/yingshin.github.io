@@ -30,8 +30,8 @@ key: page-about
 ### 工作经历
 
 + 2019 ~ : 作业帮
-  + 离线调度 
-  + 实时计算 : 基于 Flink 的实时数仓构建方案、搭建实时计算平台   
+  + 离线调度 : [作业帮基于 DolphinScheduler 的数据开发平台实践](https://mp.weixin.qq.com/s/smsNDH2MYpoys-qWz4O0Sg)
+  + 实时计算 : 基于 Flink 的实时数仓构建方案、搭建实时计算平台,[作业帮基于 Flink 的实时计算平台实践](https://mp.weixin.qq.com/s/Bjc6TYwO8ZpY3wJZrX2xIA)   
 + 2014 ~ 2019 : 百度，做项目的方法论、工作习惯的养成，对我影响最大的一家公司。
   + Spider 架构 : 全网链接库、抓取调度相关架构，稳定性提升
   + Aladdin 架构 : 搜索后端，数据流同步

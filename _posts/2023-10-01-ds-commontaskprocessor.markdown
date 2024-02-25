@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之5: 普通任务CommonTaskProcessor"
+title: "DolphinScheduler-5: 普通任务CommonTaskProcessor"
 date: 2023-10-01 23:52:37
 tags: dolphin
 ---
@@ -152,7 +152,7 @@ public class ProcessServiceImpl implements ProcessService {
 
 ### 3.3. dispatchTask
 
-这一步将待分发任务放到了`TaskPriorityQueueImpl`队列，也就是[DolphinScheduler笔记之4：工作流的启动](https://izualzhy.cn/ds-how-process-start)图里的`TaskPriorityQueue`
+这一步将待分发任务放到了`TaskPriorityQueueImpl`队列，也就是[DolphinScheduler-4：工作流的启动](https://izualzhy.cn/ds-how-process-start)图里的`TaskPriorityQueue`
 
 该队列通过 Bean 装配：
 
@@ -283,7 +283,7 @@ public class ExecutorDispatcher implements InitializingBean {
 ### 3.6. NettyExecutorManager.execute
 
 dolphin 使用 Netty 收发数据，可以看到发送的数据只有`context.command`，如果发送失败，则尝试发送到其他 host.   
-`doExecute`方法通过 channel 发送数据，失败时重试，这块具体可以参考笔记[DolphinScheduler笔记之7: 网络模型](http://izualzhy.cn/ds-net-model)。  
+`doExecute`方法通过 channel 发送数据，失败时重试，这块具体可以参考笔记[DolphinScheduler-7: 网络模型](http://izualzhy.cn/ds-net-model)。  
 
 ```java
 public class NettyExecutorManager extends AbstractExecutorManager<Boolean> {

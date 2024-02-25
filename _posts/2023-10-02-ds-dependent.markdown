@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之6: 依赖任务DependentTaskProcessor"
+title: "DolphinScheduler-6: 依赖任务DependentTaskProcessor"
 date: 2023-10-02 09:35:52
 tags: dolphin
 ---
