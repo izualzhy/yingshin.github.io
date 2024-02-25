@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - Why Checkpoint"
+title: "Flink - Why Checkpoint"
 date: 2022-01-08 20:12:38
 tags: flink
 ---

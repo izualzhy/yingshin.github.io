@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之4: 工作流的启动"
+title: "DolphinScheduler-4: 工作流的启动"
 date: 2023-10-01 06:46:03
 tags: dolphin
 ---
@@ -16,7 +16,7 @@ tags: dolphin
 
 当我们深入思考进去，类似的问题就会变得越来越多，比如任务的扩展性、Failover、数据库的优化、系统的可观察性等等。
 
-然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler笔记之3：工作流的生命周期](https://izualzhy.cn/ds-process-life-cycle)的任务状态的第一步：
+然而千里之行始于足下，要讲清楚上述问题。我们不妨从最普遍、最正常的场景入手，即[DolphinScheduler-3：工作流的生命周期](https://izualzhy.cn/ds-process-life-cycle)的任务状态的第一步：
 
 **工作流是如何初始化和运行的？**
 

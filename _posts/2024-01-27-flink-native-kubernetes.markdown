@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - Native Flink On Kubernetes 集群启动流程"
+title: "Flink - Native Flink On Kubernetes 集群启动流程"
 date: 2024-01-27 14:17:16
 tags: flink
 ---
@@ -375,7 +375,7 @@ JobManager TaskManager 是典型的 Master-Worker 架构，进程入口类固定
 
 JobManager 负责跟 Resource Provider 申请资源，分配给 TaskManager 执行，这里通过多次 RPC 交互完成。JobManager 同时负责执行过程中的协调、容错、资源回收等。
 
-Flink 使用 Fabric8 跟 Kubernetes 集群交互创建 JobManager TaskManager，相关代码分析在[漫谈 Flink - fabric8 的使用](https://izualzhy.cn/flink-native-kubernetes-code)
+Flink 使用 Fabric8 跟 Kubernetes 集群交互创建 JobManager TaskManager，相关代码分析在[Flink - fabric8 的使用](https://izualzhy.cn/flink-native-kubernetes-code)
 
 ## 5. 参考资料
 1. [fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client)

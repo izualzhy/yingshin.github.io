@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - fabric8 的使用"
+title: "Flink - fabric8 的使用"
 date: 2024-02-17 06:13:37
 tags: flink
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Calcite笔记之6：使用 SQL 分析博客文章"
+title: "Calcite-6：使用 SQL 分析博客文章"
 date: 2024-02-03 04:04:12
 tags: calcite
 ---
@@ -70,7 +70,7 @@ object BlogPostMetaExtractor {
 
 ## 2. calcite 实现
 
-参考之前的例子[Calcite笔记之1：Tutorial](https://izualzhy.cn/calcite-tutorial)，也是官网的 CsvTable，整体结构上需要定义：
+参考之前的例子[Calcite-1：Tutorial](https://izualzhy.cn/calcite-tutorial)，也是官网的 CsvTable，整体结构上需要定义：
 
 1. BlogSchemaFactory: Schema 工厂类，构造对应的 Schema
 2. BlogSchema: Schema 类，定义了表的结构，以及表的字段名和类型

@@ -1,5 +1,5 @@
 ---
-title: "DolphinScheduler笔记之7: 网络模型"
+title: "DolphinScheduler-7: 网络模型"
 date: 2023-10-03 09:31:43
 tags: dolphin
 ---

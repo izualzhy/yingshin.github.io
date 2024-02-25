@@ -1,10 +1,10 @@
 ---
-title: "Calcite笔记之3：处理流程的代码例子"
+title: "Calcite-3：处理流程的代码例子"
 date: 2022-05-01 10:33:20
 tags: calcite
 ---
 
-单纯看[Calcite笔记之二](https://izualzhy.cn/calcite-arch)里的架构图理解不深，这篇笔记通过代码示例补充下 SqlParser、SqlValiator、SqlToRelConverter 等的处理流程。
+单纯看[Calcite-2](https://izualzhy.cn/calcite-arch)里的架构图理解不深，这篇笔记通过代码示例补充下 SqlParser、SqlValiator、SqlToRelConverter 等的处理流程。
 
 实现主要参考了<sup>1</sup>和源码单测里的`CsvTest`，使用 Book & Author 表，查询 SQL 跟[关系代数](https://izualzhy.cn/calcite-arch#1-relational-algebra)里基本一致以方便前后对比，完整的代码可以参考[CalciteProcessSteps.scala](https://github.com/yingshin/BigData-Systems/blob/main/calcite/src/main/scala/cn/izualzhy/CalciteProcessSteps.scala)
 

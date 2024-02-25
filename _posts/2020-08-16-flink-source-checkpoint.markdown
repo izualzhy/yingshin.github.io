@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - State 之 Kafka 写入 HBase"
+title: "Flink - State 之 Kafka 写入 HBase"
 date: 2020-08-16 10:28:51
 tags: flink
 ---

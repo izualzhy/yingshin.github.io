@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - State 之 Checkpoint 流程"
+title: "Flink - State 之 Checkpoint 流程"
 date: 2020-08-30 10:52:17
 tags: flink
 ---

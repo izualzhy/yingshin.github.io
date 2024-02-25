@@ -1,5 +1,5 @@
 ---
-title: "漫谈 Flink - State 之读取 Kafka Offsets"
+title: "Flink - State 之读取 Kafka Offsets"
 date: 2020-07-25 23:55:12
 tags: flink
 ---
