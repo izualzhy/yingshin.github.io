@@ -1,9 +1,9 @@
 - name: Kubernetes修炼手册
   cover: https://izualzhy.cn/assets/images/book/s34078881.jpg
   start_date: 2024.02.03
-  finish_date:
+  finish_date: 2024.03.10
   douban_link: https://book.douban.com/subject/35486781/
-  note:
+  note: <a href="https://izualzhy.cn/k8s-xlsc-reading">《Kubernetes修炼手册》读书笔记</a>
 
 - name: 智慧的疆界
   cover: https://izualzhy.cn/assets/images/book/s29923729.jpg
