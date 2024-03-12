@@ -5,7 +5,7 @@ tags: read
 ---
 ![Kubernetes修炼手册](https://izualzhy.cn/assets/images/book/s34078881.jpg)
 
-由于最近开始落地 Native Flink On Kubernetes，但是公司的容器团队支持力度很小。因此开始看 Kubernetes 相关书籍，这本书是从春节前开始看的，早上、周末、陆陆续续持续了一个月左右，收获很大。适合入门，非常推荐。
+最近要落地 Native Flink On Kubernetes，但是公司的容器团队支持力度很小。因此开始看 Kubernetes 相关书籍，这本书是从春节前看的，早上、周末、陆陆续续持续了一个月左右，收获很大。适合入门，非常推荐。
 
 ## 1. Kubernetes系统
 
@@ -106,8 +106,7 @@ options ndots:5
 
 ## 4. 存储
 
-kind=PersistentVolumen kind=PersistentVolumeClaim
-
+kind=PersistentVolumen kind=PersistentVolumeClaim   
 挂载外部存储的方式，预计当前阶段用的不多，没有细看。后续实践里，打算用于挂载用户 Flink 任务未打包到镜像里的文件。
 
 ## 5. ConfigMap
@@ -123,6 +122,7 @@ ConfigMap 包含了多个 key/value 格式的数据。具体创建和使用的�
 通过卷导入ConfigMap：
 1. 创建 ConfigMap: 名为 multimap，具体略   
 2. 创建基于 ConfigMap multimap 的名为 volmap 的卷   
+
 ```
 spec:
   volumes:
@@ -130,7 +130,9 @@ spec:
       configMap:
         name:multimap
 ```
+
 3.将 volmap 挂载到 /etc/name
+
 ```
 spec:
   containers:
@@ -142,7 +144,7 @@ spec:
 ```
 这样的效果，就是 /etc/name 目录下有了文件，文件名是 multimap 的 key，文件内容是对应的 value
 
-再看看在 flink jobmanager 是如何使用 ConfigMap 的：   
+再看看实际场景里，flink jobmanager 是如何使用 ConfigMap 的：   
 ```
 spec:
   containers:
