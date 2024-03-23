@@ -157,15 +157,20 @@ Master 实例的容错实现在`MasterFailoverService.failoverMaster`:
 主要流程：
 ![MasterFailover](/assets/images/dolphin/dolphin/master-failover.png)
 
-流程里的重点说明：  
-1. 所有正常的 Master 都会**抢锁`/dolphinscheduler/lock/failover/master/$masterPort`，抢到锁后尝试 failover 该 master 的工作流实例**
-2. recover 的工作流实例，设置 host = null 的同时会插入一条 command，这一步是通过事务完成的。确保了单个工作流实例只会 recover 一次。
-3. 如果 master 已经恢复，可能已经开始调度新的工作流实例，这部分新实例需要避免误 recover.  
-4. `checkProcessInstanceNeedFailover`方法里，234判断是连贯的，**感觉5应该在2之前，代码逻辑上更好一些**
+流程里的重点说明：
+
+1. 所有正常的 Master 都会**抢锁`/dolphinscheduler/lock/failover/master/$masterPort`，抢到锁后尝试 failover 该 master 的工作流实例**    
+2. recover 的工作流实例，设置 host = null 的同时会插入一条 command，这一步是通过事务完成的。确保了单个工作流实例只会 recover 一次。   
+3. 如果 master 已经恢复，可能已经开始调度新的工作流实例，这部分新实例需要避免误 recover.    
+4. `checkProcessInstanceNeedFailover`方法里，234判断是连贯的，**感觉5应该在2之前，代码逻辑上更好一些**   
+5. `failoverTaskInstance`会 kill 所有的 taskInstance，这点是比较暴力的，即 master failover，运行中的任务也会重新执行一遍。   
+6. 整个流程处理完成后，需要 failover 的 processInstance 会写入到 Command，经过正常流程由合适的 Master 实例选出。    
 
 `failoverMaster`入口，除了 zk watch 触发，还有一个定时线程`FailoverExecuteThread`，用于 master 重启后恢复自身之前的工作流实例。如果所有 master都在同一时刻宕机过，就依赖该线程触发而不是 zk REMOVE 事件了。   
 
-不过定时 failover 也有风险，一旦判断逻辑有问题，正常的工作流就会不断被 failover 。
+注：    
+1. 定时 failover 也有风险，一旦判断逻辑有问题，正常的工作流就会不断被 failover.       
+2. 一个优化项是 master failover 不停止运行中的任务，只是通知 worker 新的 master 地址。worker 转而向该地址汇报，当然额外要处理的 corner case 也会多一些。
 
 ### 3.4. watch Worker节点状态
 
