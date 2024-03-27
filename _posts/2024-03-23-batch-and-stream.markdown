@@ -1,5 +1,5 @@
 ---
-title: "实时和离线"
+title: "批处理和流处理"
 date: 2024-03-23 02:53:32
 tags: Pensieve
 ---
