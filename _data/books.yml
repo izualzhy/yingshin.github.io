@@ -1,9 +1,9 @@
 - name: Stream Processing with Apache Flink
   cover: https://izualzhy.cn/assets/images/book/s32278655.jpg
   start_date: 2024.03.26
-  finish_date: 
+  finish_date: 2024.05.03
   douban_link: https://book.douban.com/subject/30152777/
-  note: <a href="https://izualzhy.cn/stream-processing-with-apache-flink-reading-1st">Reading《Stream Processing with Apache Flink》-1st</a>
+  note: Flink 变化挺大的，诸如 scala、querable state 的支持力度等，在最新的版本里已经逐渐看不到了，不过整体上这本书不算过时。特别是前半部分，主要介绍对流计算的思考和解决方式，仍然值得借鉴。读这本书，一方面是从最开始看 Flink PR 里什么都能做，到实践时发现很多不成熟的点，再到看这本书逐渐理解，收获很大；二方面则是系统性的看看英文技术书籍。笔记记录到了：<a href="https://izualzhy.cn/stream-processing-with-apache-flink-reading-1st">Reading《Stream Processing with Apache Flink》-1st</a> , <a href="https://izualzhy.cn/stream-processing-with-apache-flink-reading-2nd">Reading《Stream Processing with Apache Flink》-2nd</a>
 
 - name: 在工作中，看到中国
   cover: https://izualzhy.cn/assets/images/book/s34251685.jpg
