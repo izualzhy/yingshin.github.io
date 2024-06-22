@@ -77,6 +77,9 @@ h5,
 h6,
 strong {
   font-weight: map-get($base, font-weight-bold);
+  font-size: 1.2em; /* 增加字体大小 */
+  color: CornflowerBlue; /* 改变字体颜色 */
+  padding: 2px; /* 增加内边距 */
 }
 
 h1 {
