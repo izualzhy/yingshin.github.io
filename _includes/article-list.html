@@ -5,7 +5,20 @@
 {%- include snippets/get-locale-string.html key='READMORE' -%}
 {%- assign _locale_readmore = __return -%}
 
-{%- assign _sorted_list = include.articles -%}
+{%- assign _filtered_list = include.articles -%}
+ {% comment %}# 初始化一个空数组 #{% endcomment %}
+{%- assign _new_filtered_list = '' | split: ',' -%}
+{%- for item in _filtered_list -%}
+  {%- if item.tags contains 'read' -%}
+    {%- continue -%}
+  {%- else -%}
+    {%- assign _new_filtered_list = _new_filtered_list | push: item -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign _filtered_list = _new_filtered_list -%}
+
+{%- assign _sorted_list = _filtered_list -%}
+
 {%- if include.group_by == 'year' -%}
   {%- assign _sorted_list = _sorted_list | sort: 'date' -%}
 {%- endif -%}
