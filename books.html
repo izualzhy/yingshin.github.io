@@ -66,6 +66,7 @@ full_width: true
             border-left: 2px solid #008000;
             padding-left: 15px;
             max-width: 100%;
+            transition: all 0.3s;
         }
 
         .book-cover {
@@ -81,6 +82,7 @@ full_width: true
             flex-direction: column;
             justify-content: flex-start;
             max-width: calc(100% - 140px);
+            transition: all 0.3s;
         }
 
         .book-details {
@@ -90,6 +92,12 @@ full_width: true
         .book-details p {
             margin: 0;
             word-wrap: break-word;
+            font-size: 1em; /* 默认字体大小 */
+        }
+
+        .book-dates {
+            font-size: 0.8em; /* 调小的字体大小 */
+            color: #555; /* 可选：调整颜色以区分日期 */
         }
 
         .book-note {
@@ -119,6 +127,11 @@ full_width: true
         .year.collapsed .books-container {
             display: none;
         }
+
+        .expanded {
+            grid-column: 1 / -1; /* 占据整行 */
+            width: 100%; /* 最大宽度 */
+        }
     </style>
 </head>
 <body>
@@ -136,16 +149,19 @@ full_width: true
             {% for book in year.items %}
             {%- if book.finish_date -%}
                 {% assign state = 'success' %}
-            {% else %}
+            {%- else -%}
                 {% assign state = 'warning' %}
-            {% endif %}
+            {%- endif -%}
             <div class="book">
                 <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}"/>
                 <div class="book-info">
                     <div class="book-details">
-                        <p class="{{ state }}"><a href="{{ book.douban_link }}">{{ book.name }}</a><br>{{ book.start_date }} -> {{ book.finish_date }}</p>
+                        <p class="{{ state }}">
+                            <a href="{{ book.douban_link }}">{{ book.name }}</a><br>
+                            <span class="book-dates">{{ book.start_date }} -> {{ book.finish_date }}</span>
+                        </p>
                     </div>
-                    <div class="book-note collapsed" onclick="toggleNote(this)">
+                    <div class="book-note collapsed">
                         <p class="info">{{ book.note }}</p>
                     </div>
                 </div>
@@ -161,9 +177,13 @@ full_width: true
         const notes = document.querySelectorAll('.book-note p.info');
         notes.forEach(note => {
             const noteText = note.textContent.trim();
+            const parent = note.parentElement;
             if (noteText.length <= 150) {
-                const parent = note.parentElement;
                 parent.classList.remove('collapsed');
+                parent.removeAttribute('onclick'); // 移除点击事件
+            } else {
+                parent.classList.add('collapsed');
+                parent.setAttribute('onclick', 'toggleNoteIfNecessary(this)'); // 添加点击事件
             }
         });
     });
@@ -173,8 +193,14 @@ full_width: true
         yearElement.classList.toggle('collapsed');
     }
 
-    function toggleNote(element) {
-        element.classList.toggle('collapsed');
+    function toggleNoteIfNecessary(element) {
+        const note = element.querySelector('p.info');
+        const isCollapsed = element.classList.contains('collapsed');
+        if (isCollapsed) {
+            element.classList.remove('collapsed');
+        } else {
+            element.classList.add('collapsed');
+        }
     }
 </script>
 </body>
