@@ -240,7 +240,7 @@ window 的作用，即将 events 归到一个 bucket，然后基于 bucket 内�
 自定义 window 由三部分组成：assigner, trigger, evictor
 
 1. incremental aggregation function(记录 aggregation 值):![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240423095653.png){:width="300"}  
-2. full window function(记录全部 event，使用 ListState): ![]/assets/images/stream_processing_with_apache_flink/Pasted image 20240423095748.png)){:width="300"}   
+2. full window function(记录全部 event，使用 ListState): ![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240423095748.png)){:width="300"}   
 3. mix: ![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240423095809.png){:width="300"}   
 
 可以通过   
