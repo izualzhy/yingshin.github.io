@@ -1,5 +1,5 @@
 ---
-title: "Flink - 窗口理论、实现和应用"
+title: "Flink - 窗口理论、实现"
 date: 2024-06-30 06:36:47
 tags: flink
 ---
@@ -242,7 +242,7 @@ public class TumblingEventTimeWindows extends WindowAssigner<Object, TimeWindow>
 `windowAssigner`即上一小节的`TumblingEventTimeWindows`，`getDefaultTrigger`的实现也已经给出，即返回了`EventTimeTrigger`(windowAssigner 和 trigger 是解耦的，`EventTimeSessionWindows`也使用的该 trigger)。
 
 `EventTimeTrigger`的实现，重点关注：
-1. `onElement`: 窗口每新增一条数据调用，返回结果有 FIRE CONTINUE PURGE FIRE_AND_PURGE，这里如果超过了窗口，则返回 FIRE，否则注册 eventtimer，返回 CONTINUE，注册的时间为窗口的结束时间  
+1. `onElement`: 窗口每新增一条数据调用，返回结果有 FIRE, CONTINUE, PURGE, FIRE_AND_PURGE，这里如果超过了窗口，则返回 FIRE，否则注册 eventtimer，返回 CONTINUE，注册的时间为窗口的结束时间  
 2. `onEventTime`: 注册的时间服务回调函数
 3. `clear`: 清理回调
 
@@ -277,7 +277,7 @@ public class EventTimeTrigger extends Trigger<Object, TimeWindow> {
 }
 ```
 
-之前最开始看到的时候，对官网解释的 FIRE PURGE 非常不解，比如上述代码实现没有 PURGE，难道数据就不清理了？实际不是这样，当窗口周期结束后，也会清理数据。
+之前最开始看到的时候，对官网解释的 FIRE, PURGE 非常不解，比如上述代码实现没有 PURGE，难道数据就不清理了？实际不是这样，当窗口周期结束后，也会清理数据。
 
 我们也可以自定义实现同时根据 key 的个数或者 EventTime 触发的窗口，来观察其调用栈及枚举值的含义([完整例子](https://github.com/izualzhy/Bigdata-Systems/blob/main/flink/flink_1_14/src/main/scala/cn/izualzhy/SingleStreamWindowSample.scala))：
 
@@ -341,7 +341,7 @@ class KeyedStream
     }
 ```
 
-`onElement onProcessingTime onEventTime` 对应窗口不同的触发模式，可以组合按照时间、个数等各种维度触发窗口。
+`onElement onProcessingTime onEventTime` 对应窗口不同的触发模式，可以组合按照事件时间、处理时间、数据本身等各种维度触发窗口。
 
 ### 2.5. Evictor
 
@@ -483,7 +483,7 @@ class WindowOperator {
     D --> E("StatusWatermarkValve.inputWatermark") --> F("StatusWatermarkValve.findAndOutputNewMinWatermarkAcrossAlignedChannels") --> G("OneInputStreamTask$StreamTaskNetworkOutput.emitWatermark") --> H("AbstractStreamOperator.processWatermark") --> I("InternalTimeServiceManagerImpl.advanceWatermark") --> J("InternalTimerServiceImpl.advanceWatermark") --> K("WindowOperator.onEventTime") --> L("WindowOperator$Context.onEventTime")
 ```
 
-`onProcessingTime`略有不同，因为不是靠数据触发的，所以需要单独线程`ScheduledThreadPoolExecutor`触发。
+`onProcessingTime`略有不同，因为不是靠数据触发的，所以需要单独线程`ScheduledThreadPoolExecutor`触发，具体实现在 `SystemProcessingTimeService`.
 
 这段代码也对应到了 2.1 小节图片里的流程。
 
@@ -552,7 +552,8 @@ object UseTimerAsWindowApp extends App {
 }
 ```
 
-使用自定义 timer，可以设计出更加灵活的逻辑，比如不同 key 指定不同的统计时间，根据 key 的不同值指定不同时间等。阿里云的[DataStream的Timer使用最佳实践](https://help.aliyun.com/zh/flink/use-cases/best-practices-for-using-timers-in-datastream)里也提到了用于发送无数据的心跳，不过我觉得云厂商这种文档不够严谨。这个例子恰好呼应了论文里的考量点，没有数据是上游异常还是确实无数据，此时我们是应当尽快发送心跳包触发计算还是继续等待水位线？心跳包应当是数据源发送还是可以在处理函数里发送？都是值得进一步考虑的设计。
+使用自定义 timer，可以设计出更加灵活的逻辑，比如不同 key 指定不同的统计时间，根据 key 的不同值指定不同时间等。阿里云的[DataStream的Timer使用最佳实践](https://help.aliyun.com/zh/flink/use-cases/best-practices-for-using-timers-in-datastream)里也提到了用于发送无数据的心跳。      
+不过我觉得云厂商这种文档不够严谨。这个例子恰好呼应了论文里的考量点，没有数据是上游异常还是确实无数据，此时我们是应当尽快发送心跳包触发计算还是继续等待水位线？心跳包应当是数据源发送还是可以在处理函数里发送？都是值得进一步考虑的设计。
 
 
 ## 5. Summary
