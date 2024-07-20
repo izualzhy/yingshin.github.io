@@ -241,6 +241,7 @@ InternalTimerServiceImpl implements InternalTimerService
         // 从 processingTimeTimerQueue 取出 timer，直到未达到触发时间
         // 调用 triggerTarget.onProcessingTime
         // 这里 InternalTimerServiceImpl.triggerTarget 即为 KeyedProcessOperator
+        // 继续注册最近的一个 timer
         while ((timer = processingTimeTimersQueue.peek()) != null && timer.getTimestamp() <= time) {
             processingTimeTimersQueue.poll();
             keyContext.setCurrentKey(timer.getKey());
