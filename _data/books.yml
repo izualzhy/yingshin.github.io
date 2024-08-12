@@ -1,16 +1,30 @@
+- name: Airflow实战
+  cover: https://izualzhy.cn/assets/images/book/s34706033.jpg
+  start_date: 2024.08.11
+  finish_date: 
+  douban_link: https://book.douban.com/subject/36657175/
+  note: 
+
 - name: 英雄无泪
   cover: https://izualzhy.cn/assets/images/book/s33871158.jpg
-  start_date: 2024.08.02
-  finish_date: 
+  start_date: 2024.08.10
+  finish_date: 2024.08.10
   douban_link: https://book.douban.com/subject/24760707/
-  note: 
+  note: 英雄无泪有情，结局的两次反转非常精彩。
+
+- name: 大数据平台基础架构指南
+  cover: https://izualzhy.cn/assets/images/book/s29814424.jpg
+  start_date: 2024.08.02
+  finish_date: 2024.08.08
+  douban_link: https://book.douban.com/subject/30269326/
+  note: 很多关于平台的思考，非常建议大数据平台架构的 RD 和 PM 都读一遍。<a href="https://izualzhy.cn/dsjptjcjgzn-reading">《大数据平台基础架构指南》- 笔记</a>
 
 - name: 数据密集型应用系统设计
   cover: https://izualzhy.cn/assets/images/book/s34186559.jpg
   start_date: 2024.06.21
   finish_date: 2024.08.02
   douban_link: https://book.douban.com/subject/30329536/
-  note: 酣畅淋漓的读完同时想重读的一本书，感觉自己也就读懂了一般。串联起来之前很多散落的知识点，逐渐看清楚系统的全貌和边界。<br/><a href="https://izualzhy.cn/DDIA-reading-1st">1. DDIA-数据系统基础-笔记</a><br/><a href="https://izualzhy.cn/DDIA-reading-2nd">2. DDIA-分布式数据系统-笔记</a><br/><a href="https://izualzhy.cn/DDIA-reading-3rd">3. DDIA-派生数据-笔记</a>
+  note: 酣畅淋漓的读完同时想重读的一本书，感觉自己也就读懂了一半。串联起来之前很多散落的知识点，逐渐看清楚系统的全貌和边界。<br/><a href="https://izualzhy.cn/DDIA-reading-1st">1. DDIA-数据系统基础-笔记</a><br/><a href="https://izualzhy.cn/DDIA-reading-2nd">2. DDIA-分布式数据系统-笔记</a><br/><a href="https://izualzhy.cn/DDIA-reading-3rd">3. DDIA-派生数据-笔记</a>
 
 - name: 深度学习入门
   cover: https://izualzhy.cn/assets/images/book/s29815955.jpg
