@@ -132,13 +132,24 @@ full_width: true
             grid-column: 1 / -1; /* 占据整行 */
             width: 100%; /* 最大宽度 */
         }
+        div.book-info.read_finished {
+            background-color: #dfffd6 !important;
+            <!--font-weight: bold;-->
+        }
+
+        div.book-info.reading {
+            background-color: #fff9d6 !important;
+            <!--font-style: italic;-->
+        }
+
     </style>
 </head>
 <body>
 {% assign previous_year = '' %}
 <div class="timeline">
 愿我们在白底黑字中读懂自己
-{% assign books_by_year = site.data.books | group_by_exp:"book", "book.start_date | split: '.' | first" %}
+<!--{% assign books_by_year = site.data.books | group_by_exp:"book", "book.start_date | split: '.' | first" %}-->
+{% assign books_by_year = site.data.books | group_by_exp: "book", "(book.finish_date | default: book.start_date) | split: '.' | first" %}
 {% assign sorted_books_by_year = books_by_year | sort: "name" | reverse %}
 {% for year in sorted_books_by_year %}
     {% assign current_year = year.name %}
@@ -148,18 +159,18 @@ full_width: true
         <div class="books-container">
             {% for book in year.items %}
             {%- if book.finish_date -%}
-                {% assign state = 'success' %}
+                {% assign state = 'read_finished' %}
             {%- else -%}
-                {% assign state = 'warning' %}
+                {% assign state = 'reading' %}
             {%- endif -%}
             <div class="book">
                 <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}"/>
-                <div class="book-info">
+                <div class="book-info {{ state }}">
                     <div class="book-details">
-                        <p class="{{ state }}">
+                        <!--<p class="{{ state }}">-->
                             <a href="{{ book.douban_link }}">{{ book.name }}</a><br>
                             <span class="book-dates">{{ book.start_date }} -> {{ book.finish_date }}</span>
-                        </p>
+                        <!--</p>-->
                     </div>
                     <div class="book-note collapsed">
                         <p class="info">{{ book.note }}</p>
