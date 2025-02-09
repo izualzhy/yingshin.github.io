@@ -78,7 +78,7 @@ tags: read
 
 以[tensorflow/serving](https://github.com/tensorflow/serving)为例，其推理服务架构如图：
 
-![serving_architecture](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/g3doc/images/serving_architecture.svg)
+![serving_architecture](https://raw.githubusercontent.com/tensorflow/serving/refs/heads/master/tensorflow_serving/g3doc/images/serving_architecture.svg)
 
 例如运行一个推理服务：
 
