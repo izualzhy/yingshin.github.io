@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant Client
+    participant DispatcherHandler
+    participant RoutePredicateHandlerMapping
+    participant SimpleHandlerAdapter
+    participant FilteringWebHandler
+    participant X-Filter
+    participant NettyWriteResponseFilter
+    participant GatewayMetricsFilter
+    participant AddRequestHeader(Factory)
+    participant NettyRoutingFilter
+    participant DownstreamService
+
+    Client->>DispatcherHandler: WebFlux请求入口
+    DispatcherHandler->>RoutePredicateHandlerMapping: 查找可以处理该请求的HandlerMapping
+    RoutePredicateHandlerMapping->>SimpleHandlerAdapter: 调用HandlerAdapter
+    SimpleHandlerAdapter->>FilteringWebHandler: 适配到 SCG 实现的该类
+    FilteringWebHandler->>X-Filter: 依次调用 chain 上各个 Filter
+    X-Filter->>NettyWriteResponseFilter: 依次调用
+    NettyWriteResponseFilter->>GatewayMetricsFilter: 依次调用, NWRFilter不处理
+    GatewayMetricsFilter->>AddRequestHeader(Factory): 依次调用，记录starttime
+    AddRequestHeader(Factory)->>NettyRoutingFilter: 依次调用，修改 header
+    NettyRoutingFilter->>DownstreamService: 调用 HttpClient 发起请求
+    DownstreamService-->>NettyRoutingFilter: 返回响应头（不含 body）
+    NettyRoutingFilter-->>AddRequestHeader(Factory): 依次调用
+    AddRequestHeader(Factory)-->>GatewayMetricsFilter: 依次调用
+    GatewayMetricsFilter-->>NettyWriteResponseFilter: 依次调用，记录 stoptime，生成 metrics  
+    NettyWriteResponseFilter-->>X-Filter: 依次调用
+    activate NettyWriteResponseFilter
+    Note right of NettyWriteResponseFilter: pre阶段不处理,post阶段写回response到Client Session
+    X-Filter-->>Client: 响应写回完成
