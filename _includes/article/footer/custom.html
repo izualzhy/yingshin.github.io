@@ -1,3 +1,25 @@
 <!-- start custom article footer snippet -->
+<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/lightbox2/2.11.3/js/lightbox-plus-jquery.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox-plus-jquery.min.js"></script>-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll("img");
+    images.forEach((img, index) => {
+      // 如果已经被 <a> 包裹就跳过
+      if (img.closest('a')) return;
+
+      const src = img.src;
+      const alt = img.alt || '';
+      const wrapper = document.createElement("a");
+
+      wrapper.href = src;
+      wrapper.setAttribute("data-lightbox", "blog-images");
+      wrapper.setAttribute("data-title", alt);
+
+      img.parentNode.insertBefore(wrapper, img);
+      wrapper.appendChild(img);
+    });
+  });
+</script>
 
 <!-- end custom article footer snippet -->
