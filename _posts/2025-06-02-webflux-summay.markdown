@@ -303,6 +303,8 @@ SCG 里用的不多，不过编程模型是 谈 WebFlux 时绕不开的，主要
 
 同时这里已经有点声明式语法那味了，只有`subscribe`之后，定义的各个方法才会真正执行。到了第三类，即大数据里的流式处理，典型的如 flink spark。类似于`subscribe`，只有调用`execute`才会生成算子拓扑图，分发任务启动，不只是线程不同，算子已经是通过 YARN K8S 部署在 Container 里了。比如在[之前的笔记](https://izualzhy.cn/bigdata-and-backend#2-%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BD%BF%E7%94%A8%E4%B8%8A%E6%9B%B4%E5%8A%A0%E7%AE%80%E5%8D%95)里，刚接触大数据时，还是非常诧异的。  
 
+回到 WebFlux，之所以有这篇笔记，也是缘于 Spring Cloud Gateway。响应式编程，相比原来性能提升有多少，我没有太多实际项目经验。不过从网关的角度，每个连接一个线程的做法，毫无疑问是不合理的。
+
 # 8. 参考
 
 1. [reactive-streams-jvm/README.md](https://github.com/reactive-streams/reactive-streams-jvm/blob/v1.0.4/README.md)
