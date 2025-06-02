@@ -4,9 +4,11 @@ date: 2025-05-31 01:47:22
 tags: microservice
 ---
 
+这篇笔记总结当我们通过网关转发一条 http 请求时，网关的处理流程。
+
 # 1. 什么时候需要网关？
 
-简单的系统并不需要网关，只有当系统变得越来越复杂，就不得不面临以下问题：
+简单的系统不需要网关，只有当系统变得越来越复杂，就不得不面临以下问题：
 1. 流量难以控制：系统里有多个模块，每个模块都对系统外部开放了入口。入口多导致系统频出问题；为了控制流量，每个模块都不得不做重复的工作。  
 2. 外部调用成本高：久而久之，内部单个模块迁移，也需要协调大量外部工作。更别说系统级别的重构了。
 3. 重复工作：除了流量控制，重复工作还有安全认证、服务鉴权、日志监控、协议转换与统一等基础能力。
@@ -302,6 +304,8 @@ FilterC -> FilterB -> FilterA
 Filter 的顺序则是通过`Order`设置的。  
 > All “pre” filter logic is executed. Then the proxy request is made. After the proxy request is made, the “post” filter logic is run.<sup>3</sup>
 
+*注: 测试用例参考<https://github.com/izualzhy/Microservice-Systems/blob/main/webflux/src/main/java/cn/izualzhy/webflux/controller/TestGatewayFilterChain.java>*
+
 Filter 按照生效范围，可以分为`GlobalFilter`和`GatewayFilter`，效果相同，只是后者只作用的对应的 route 上。
 
 按照流程，我觉得 Filter 也可以分为如下两类：  
@@ -314,7 +318,7 @@ Filter 按照生效范围，可以分为`GlobalFilter`和`GatewayFilter`，效�
 
 ### 3.6.1. NettyRoutingFilter(Order=2147483647)
 
-这里取到转发的`GATEWAY_REQUEST_URL_ATTR`(即用户设置的目标 uri)，通过`reactor.netty.http.client.HttpClient`发起请求。downstream 返回响应后，响应头存到`CLIENT_RESPONSE_ATTR`, connection 存到`CLIENT_RESPONSE_CONN_ATTR`.
+这里取到转发的`GATEWAY_REQUEST_URL_ATTR`(即用户设置的目标 uri)，通过 reactor.netty 的 HttpClient发起请求。downstream 返回响应后，响应头存到`CLIENT_RESPONSE_ATTR`, connection 存到`CLIENT_RESPONSE_CONN_ATTR`.
 
 注意`chain.filter(exchange)`是在`then`里调用，也就是从这个 filter 开始处理响应。
 {:.warning}
