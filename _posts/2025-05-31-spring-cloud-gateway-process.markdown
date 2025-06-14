@@ -540,6 +540,8 @@ SCG 内置的 predicates、filters 很多，这篇笔记并不想一一罗列，
 
 而之所以强调 Gateway，是因为 WebFlux 也提供了诸多默认的 HandlerMapping WebHandler.   
 
+`Order`决定了 runtime 阶段的执行顺序，这个概念围绕着 Gateway 自始至终存在。比如`DispatcherHandler.handle`里通过`next`取出第一个匹配的 handler、`Route`的`Order`、`Filter`的`Order`等等。在生产环境，应当统一管理和规划。
+
 这些 Bean 的注册都是在`GatewayAutoConfiguration`注册的，根据配置决定是否开启。      
 关于自定义的 Filter 实现，我也还有诸多疑问，比如 Filter 是链式执行的，那么自定义的 Filter，是否可以执行耗时的比如 IO 操作，IO 超时时，是否会耗尽线程池 hang 住其他转发请求。这些问题，大概需要到 WebFlux 里寻找答案了。
 
