@@ -9,7 +9,7 @@
  {% comment %}# 初始化一个空数组 #{% endcomment %}
 {%- assign _new_filtered_list = '' | split: ',' -%}
 {%- for item in _filtered_list -%}
-  {%- if item.tags contains 'read' -%}
+  {%- if item.tags.size == 1 and item.tags[0] == 'read' -%}
     {%- continue -%}
   {%- else -%}
     {%- assign _new_filtered_list = _new_filtered_list | push: item -%}
