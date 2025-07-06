@@ -7,9 +7,27 @@ tags: read ai
 总结我对几篇 LLM 论文的理解，论文来源是在在读《大模型应用开发 动手做AI Agent》时，书里推荐的几篇。  
 这篇文章主要是 COT 和 REACT , 论文大多抽象，文章里尽量用代码实际验证来说明我的个人理解。
 
-# 1. [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
+# 1. 思维链（Chain-of-Thought, CoT）
+
+教会模型“一步一步想”。
+
+## 1.1. 什么是 CoT？
+
+思维链（Chain-of-Thought）是一种提示（Prompting）技术，它通过在提示中加入一些“逐步思考”的范例（Few-shot），来引导 LLM 在回答问题时，模仿范例，输出一个详细的、循序渐进的推理过程，并最终给出答案。
+
+这个过程就像我们人类解决复杂问题时，会把问题分解成若干个小步骤，然后逐一解决。CoT 的核心思想就是将这种“思考过程”显式地展示出来。
+
+详细论文参考：[Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
+
+## 1.2. 为什么需要 CoT？
+
+标准 LLM 在处理复杂问题，尤其是数学应用题、逻辑推理题时，很容易因为“一步到位”的思考模式而得出错误结论。它们往往只关注表面的关联，而缺乏深度的逻辑演绎。
+
+CoT 的出现，恰好弥补了这一点。它强迫模型放慢脚步，关注过程而非仅仅是结果，从而显著提升了在推理任务上的准确性。
 
 注意论文是在 2022年1月 发表的，之所以笔记标题叫做炒冷饭，原因也在于此。虽然只隔了三年时间，但是大模型的发展迅速，有些例子已经不适用。之前说“一日不见如隔三秋”，放在 AI 领域真是太合适不过，三年已过，如同上个世纪。
+
+## 1.3. 实践
 
 文章里的这个图现在引用已经非常广泛了：
 
@@ -107,11 +125,39 @@ The answer is 9.
 
 *相关代码放在 <https://github.com/izualzhy/AI-Systems/blob/main/misc/read_paper_cot.py>*
 
-# 2. [REACT: SYNERGIZING REASONING AND ACTING IN LANGUAGE MODELS](https://arxiv.org/abs/2210.03629)
+# 2. ReAct
+
+从“思考”到“行动”的进化。
+
+## 2.1. 什么是 ReAct？
+
+ReAct 范式可以看作是 CoT 的一个强大演进。它不仅包含了 CoT 的“推理”能力，更引入了“行动”（Acting）的概念。
+
+ReAct 的核心机制是一个 `Thought -> Action -> Observation` 的循环：
+
+1.  **Thought (思考):** 模型根据当前任务和已有信息，分析现状，并规划出下一步需要做什么。
+2.  **Action (行动):** 模型决定执行一个具体的“行动”。这个行动通常是调用外部工具（API），例如进行网络搜索、查询数据库、执行代码等。
+3.  **Observation (观察):** 模型获取“行动”返回的结果。这个结果会作为新的信息，融入到下一轮的“思考”中。
+
+通过这个循环，LLM 能够与外部世界进行交互，获取实时、准确的信息，从而克服其自身知识库静态、可能过时的缺点。
+
+详细论文参考：[REACT: SYNERGIZING REASONING AND ACTING IN LANGUAGE MODELS](https://arxiv.org/abs/2210.03629)
+
+## 2.2. 为什么需要 ReAct？
+
+CoT 极大地增强了模型的推理能力，但它的推理过程是“封闭”的，完全依赖于模型内部的知识。如果遇到以下场景，CoT 就会力不从心：
+
+*   **知识过时：** LLM 的知识截止于其训练日期。
+*   **需要精确计算：** LLM 在数学计算上并不可靠。
+*   **需要与外部服务交互：** 例如订票、发邮件等。
+
+ReAct 通过引入“行动”，将 LLM 从一个“封闭大脑”变成了一个能够主动探索和获取信息的“智能代理”（Agent），极大地拓展了其应用边界。
 
 ![react_figure_1](/assets/images/ai-paper/react_figure_1.png)
 
-到了这个阶段(2022年10月)，开始在 COT 的思想上引入工具。这篇论文主要提出了如何结合推理和工具，以引导大模型返回更好的结果。
+这套“思考-行动-观察”的循环，就是 ReAct Agent 的基本工作模式。
+
+## 2.3. 实践
 
 那学术界的这个论文应该如何应用？
 
@@ -198,7 +244,7 @@ Final Answer: 上海 今天天气晴，25°C.
 
 可以看到函数被调用，且返回了预期的最终答案。
 
-## 2.1. Prompt
+### 2.3.1. Prompt
 
 `print(agent.agent.llm_chain.prompt.template)`可以获取内置的 Prompt：
 
@@ -226,7 +272,7 @@ Thought:{agent_scratchpad}
 
 `Question -> Thought -> Action -> ActionInput -> Observation -> Thought -> ... -> Final Answer`引导大模型按照这个过程推理和输出，也是 REACT 的标准方式。
 
-## 2.2. 循环
+### 2.3.2. 循环
 
 ```python
 class AgentExecutor(Chain):
@@ -322,7 +368,7 @@ Tool._run ->
 
 由于大模型的框架都在快速迭代(换句话说不成熟😄)，就不深入开展了。这篇笔记的目的也是主要用来理解 REACT 的过程。
 
-## 2.3. 我不理解的
+## 2.4. 我不理解的
 
 实际上上述代码，我第一次花了几个小时都没有跑通（不得不吐槽搜到的很多文章，包括一些课程文章，基本都是复读机一样挑着 REACT 的概念在讲）。
 
@@ -342,3 +388,12 @@ Tool._run ->
 </p>
 *注：相关代码在 <https://github.com/izualzhy/AI-Systems/blob/main/misc/read_paper_react.py>*
 
+# 3. 总结：从思想到行动的演进
+
+回顾这两篇论文，我们可以看到一条清晰的演进路径：
+
+1.  **Standard Prompting**：直接问答，依赖模型自身知识。
+2.  **Chain-of-Thought (CoT)**：通过引导模型思考中间步骤，提升复杂推理的可靠性。这是**内部思维**的优化。
+3.  **ReAct**：将 CoT 的“思考”与“行动”（使用工具）相结合，让模型能与外部世界交互。这是**思维与实践**的结合。
+
+这个过程，是从一个封闭的“知识库”到一个能够进行“研究”和“实践”的初级 Agent 的演变。我在实践中遇到的问题，或许也是当前 Agent 开发领域正在努力解决的核心问题：**如何在给予模型强大推理能力的同时，确保它能可靠、可控地遵循我们设计的流程和规则，在需要时放下“身段”，谦虚地使用工具**
