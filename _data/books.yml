@@ -1,9 +1,10 @@
 - name: 大模型应用开发 动手做AI Agent
   cover: https://izualzhy.cn/assets/images/book/s34857089.jpg
   start_date: 2025.6.8
-  finish_date: 
+  finish_date: 2025.7.5
   douban_link: https://book.douban.com/subject/36884058/k
-  note: 
+  note: AI很有意思，但是无论是 AI 本身需要的数据，还是关于 AI 的文章，鱼龙混杂，这本书我觉得值得一读，而且“纸上觉来终觉浅，绝知此事要躬行”。书里推荐了一些论文，我觉得也是非常值得一读的<a href="https://izualzhy.cn/llm-paper-read">炒冷饭之 LLM 论文: CoT、REACT</a>
+
 
 - name: GPT图解-大模型是怎样构建的
   cover: https://izualzhy.cn/assets/images/book/s34713534.jpg
