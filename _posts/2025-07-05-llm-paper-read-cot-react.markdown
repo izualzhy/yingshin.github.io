@@ -1,11 +1,12 @@
 ---
-title: "炒冷饭之 LLM 论文: CoT、REACT"
+title: "LLM Paper&Practice：从 CoT 到 ReAct"
 date: 2025-07-05 11:42:17
 tags: read ai
 ---
 
-总结我对几篇 LLM 论文的理解，论文来源是在在读《大模型应用开发 动手做AI Agent》时，书里推荐的几篇。  
-这篇文章主要是 COT 和 REACT , 论文大多抽象，文章里尽量用代码实际验证来说明我的个人理解。
+本文是我在阅读《大模型应用开发 动手做AI Agent》时，对书中推荐的几篇核心论文的理解与总结，主要聚焦于**思维链（Chain-of-Thought, CoT）**和 **ReAct** 这两种范式。
+
+学术论文往往较为抽象，本文尽量做到理论与实践相结合，通过阅读论文和代码实践，来验证和剖析这些技术背后的思想，并分享我在此过程中的一些思考与困惑。
 
 # 1. 思维链（Chain-of-Thought, CoT）
 
@@ -21,7 +22,7 @@ tags: read ai
 
 ## 1.2. 为什么需要 CoT？
 
-标准 LLM 在处理复杂问题，尤其是数学应用题、逻辑推理题时，很容易因为“一步到位”的思考模式而得出错误结论。它们往往只关注表面的关联，而缺乏深度的逻辑演绎。
+标准的 LLM 在处理复杂问题，尤其是数学应用题、逻辑推理题时，很容易因为“一步到位”的思考模式而得出错误结论。它们往往只关注表面的关联，而缺乏深度的逻辑演绎。
 
 CoT 的出现，恰好弥补了这一点。它强迫模型放慢脚步，关注过程而非仅仅是结果，从而显著提升了在推理任务上的准确性。
 
@@ -29,25 +30,27 @@ CoT 的出现，恰好弥补了这一点。它强迫模型放慢脚步，关注�
 
 ## 1.3. 实践
 
-文章里的这个图现在引用已经非常广泛了：
+论文中这个被广泛引用的图例，直观地展示了 CoT 的作用：
 
 ![cot_figure_1](/assets/images/ai-paper/cot_figure_1.png)
 
-我使用代码实际测试了下：
+我使用代码进行了实际测试：
 
 ```python
 def testCOT(llm: ChatOpenAI):
-    question = """Q: Roger has 5 tennis balls. He buys 2 more cans of
+    # Standard Prompting
+    question_standard = """Q: Roger has 5 tennis balls. He buys 2 more cans of
 tennis balls. Each can has 3 tennis balls. How many
 tennis balls does he have now?
 A: The answer is 11.
 Q: The cafeteria had 23 apples. If they used 20 to
 make lunch and bought 6 more, how many apples
 do they have?"""
-    print('-'*32 + ' not cot ' + '-'*32)
-    print(invokeLLM(llm, question))
+    print('-'*32 + ' Standard Prompting ' + '-'*32)
+    print(invokeLLM(llm, question_standard))
 
-    question = """"Q: Roger has 5 tennis balls. He buys 2 more cans of
+    # Chain-of-Thought Prompting
+    question_cot = """"Q: Roger has 5 tennis balls. He buys 2 more cans of
 tennis balls. Each can has 3 tennis balls. How many
 tennis balls does he have now?
 A: Roger started with 5 balls. 2 cans of 3 tennis balls
@@ -55,34 +58,34 @@ each is 6 tennis balls. 5 + 6 = 11. The answer is 11.
 Q: The cafeteria had 23 apples. If they used 20 to
 make lunch and bought 6 more, how many apples
 do they have?"""
-    print('-'*32 + ' cot ' + '-'*32)
-    print(invokeLLM(llm, question))
+    print('-'*32 + ' CoT Prompting ' + '-'*32)
+    print(invokeLLM(llm, question_cot))
 ```
 
 这是用 doubaoseed1.6 某次输出的效果：
 
 ```
--------------------------------- not cot --------------------------------
+-------------------------------- Standard Prompting --------------------------------
 The cafeteria starts with 23 apples. They use 20, so subtract 20: 23 - 20 = 3. Then they buy 6 more, so add 6: 3 + 6 = 9. The answer is 9.
--------------------------------- cot --------------------------------
+-------------------------------- CoT Prompting --------------------------------
 A: The cafeteria started with 23 apples. They used 20 apples, so 23 - 20 = 3 apples left. Then they bought 6 more, so 3 + 6 = 9. The answer is 9.
 ```
 
 doubao1.5visionlite 某次输出的效果：
 
 ```
--------------------------------- not cot --------------------------------
+-------------------------------- Standard Prompting --------------------------------
 First, find out how many apples are left after using some:
 The cafeteria had 23 apples and used 20, so the number of apples left is \(23 - 20= 3\).
 Then, they bought 6 more apples. So the total number of apples now is \(3 + 6 = 9\).
 The answer is 9.
--------------------------------- cot --------------------------------
+-------------------------------- CoT Prompting --------------------------------
 The cafeteria started with 23 apples. They used 20 apples, so they had 23 - 20 = 3 apples left. Then they bought 6 more apples. 3 + 6 = 9. The answer is 9.
 ```
 
 用 deepseek-r1 某次输出的效果：
 ```
--------------------------------- not cot --------------------------------
+-------------------------------- Standard Prompting --------------------------------
 
 The cafeteria started with 23 apples.  
 They used 20 apples to make lunch, which means they have 23 - 20 = 3 apples left.  
@@ -94,7 +97,7 @@ Regardless of the order of operations, the result is consistent: 23 - 20 + 6 = 9
 Thus, the cafeteria now has 9 apples.
 
 \boxed{9}
--------------------------------- cot --------------------------------
+-------------------------------- CoT Prompting --------------------------------
 
 The cafeteria started with 23 apples.  
 They used 20 apples for lunch, so they had 23 - 20 = 3 apples left.  
@@ -115,13 +118,14 @@ The answer is 9.
 
 <p class="success">
     我的理解是大模型的效果就像是一个 V 字型，左边是训练生成模型，右边是查询模型，两边都会影响推理效果：<br/>
-1. 现在的很多大模型，在左边就已经使用更精确的数据、调优解决了我测试的这些 query，因此即使不使用 COT ，效果也非常好了。<br/>
-2. 为了更大概率的拿到想要的输出，还是应当尽量使用 COT<br/>
-3. 相比后续出现的策略，COT 最为基础和直接。因为 COT 只使用了 Prompt 来提升效果，因此也是 Prompt Engine 的一种体现。(注：我查了下似乎提出 PE 只比 COT 早了半年)<br/>
-4. COT 的本质是要引导大模型的推理过程，现在看其实已经是比较普遍的思想了。<br/>
+1. <strong>模型自身已进化</strong>: 现在的很多大模型，在左边就已经使用更精确的数据、调优解决了我测试的这些 query，因此即使不使用 COT ，效果也非常好了。<br/>
+2. <strong>CoT 提升稳定性</strong>: 为了更大概率的拿到想要的输出，还是应当尽量使用 COT<br/>
+3. <strong>CoT 的历史定位</strong>: 相比后续出现的策略，COT 最为基础和直接。因为 COT 只使用了 Prompt 来提升效果，因此也是 Prompt Engine 的一种体现。(注：我查了下似乎提出 PE 只比 COT 早了半年)<br/>
 </p>
 
-现在想想也是合理的。就像我们自己计算错误后，会跟自己说“你再仔细想想”。“多想想，按照已知情况演绎/推理几遍，就会少犯错”，放在大模型这里用了一个新名词，即 COT.
+COT 的本质是要引导大模型的推理过程，现在看其实已经是比较普遍的思想了。
+
+现在想想，这也非常符合直觉。就像我们自己计算出错后，会下意识地告诉自己“再仔细想想”。“多想想，按部就班地推演一遍，就会少犯错”——这个简单的道理，在大模型领域被赋予了一个专门的术语：CoT。
 
 *相关代码放在 <https://github.com/izualzhy/AI-Systems/blob/main/misc/read_paper_cot.py>*
 
@@ -131,7 +135,7 @@ The answer is 9.
 
 ## 2.1. 什么是 ReAct？
 
-ReAct 范式可以看作是 CoT 的一个强大演进。它不仅包含了 CoT 的“推理”能力，更引入了“行动”（Acting）的概念。
+**ReAct** 范式可以看作是 CoT 的一个强大演进。它不仅包含了 CoT 的“推理”（Reasoning）能力，更引入了“行动”（Acting）的概念。
 
 ReAct 的核心机制是一个 `Thought -> Action -> Observation` 的循环：
 
@@ -155,18 +159,16 @@ ReAct 通过引入“行动”，将 LLM 从一个“封闭大脑”变成了一
 
 ![react_figure_1](/assets/images/ai-paper/react_figure_1.png)
 
-这套“思考-行动-观察”的循环，就是 ReAct Agent 的基本工作模式。
+这套“思考-行动-观察”的循环，正是 ReAct Agent 的基本工作模式。
 
 ## 2.3. 实践
 
-那学术界的这个论文应该如何应用？
+那么，这篇学术论文的思想在工程实践中是如何应用的呢？主要体现在两个方面：
 
-主要有两处：
+1.  **精心设计的 Prompt**：构建一个能引导模型输出“Thought, Action, Action Input”等结构化文本的提示。
+2.  **外部控制循环**：在代码中实现一个循环，用于解析模型输出、调用相应工具、并将工具结果返回给模型，直到任务完成。
 
-1. 设计 Prompt，以及解析大模型返回的结果  
-2. 循环：调用工具、根据工具输出继续调用大模型，直到达到次数阈值
-
-我们用 LangChain 实际测试看看：
+我们用 LangChain 框架来直观感受一下：
 ```python
 def get_current_weather(location: str):
     print(f"\n** [函数被调用] location = {location} **\n")
@@ -246,7 +248,7 @@ Final Answer: 上海 今天天气晴，25°C.
 
 ### 2.3.1. Prompt
 
-`print(agent.agent.llm_chain.prompt.template)`可以获取内置的 Prompt：
+`ZERO_SHOT_REACT_DESCRIPTION` 这个 Agent 内置的 Prompt 模板，完美诠释了 ReAct 的思想：
 
 ```
 Answer the following questions as best you can. You have access to the following tools:
@@ -269,8 +271,7 @@ Begin!
 Question: {input}
 Thought:{agent_scratchpad}
 ```
-
-`Question -> Thought -> Action -> ActionInput -> Observation -> Thought -> ... -> Final Answer`引导大模型按照这个过程推理和输出，也是 REACT 的标准方式。
+这个模板通过清晰的指令和格式要求，引导模型遵循 `Thought -> Action -> Observation` 的路径进行思考和输出。
 
 ### 2.3.2. 循环
 
@@ -366,34 +367,34 @@ Tool._run ->
 自定义函数
 ```
 
-由于大模型的框架都在快速迭代(换句话说不成熟😄)，就不深入开展了。这篇笔记的目的也是主要用来理解 REACT 的过程。
+由于大模型的框架都在快速迭代(换句话说不成熟😄)，就不深入展开代码了。理解概念吧。-_-||
 
-## 2.4. 我不理解的
+## 2.4. 实践中的困惑
 
-实际上上述代码，我第一次花了几个小时都没有跑通（不得不吐槽搜到的很多文章，包括一些课程文章，基本都是复读机一样挑着 REACT 的概念在讲）。
+理论很丰满，但现实很骨感。实际上，我第一次运行上述代码时，花费了数小时也未能成功。
 
-直到我从 Doubao-Seed-1.6 DeepSeek-R1 换成了 Doubao-1.5-vision-lite 模型。使用前两者的话，返回结果上问题很多，比如：
+我发现，代码能否跑通，**极度依赖所选择的 LLM**。当我使用 `Doubao-Seed-1.6` 或 `DeepSeek-R1` 时，遇到了各种问题：
+1.  模型返回结果格式错乱，比如同时输出了 `Final Answer` 和 `Action`，导致框架无法判断是否应结束循环。
+2.  模型“自作主张”，不调用我定义的 `get_current_weather` 工具，反而直接输出一段它自己“知道”的关于上海天气的陈旧信息。
 
-1. 既输出了 Final Answer，又输出了 Action，LangChain 不知道是否应该结束循环  
-2. 没有调用我定义的 tool，反而输出了一堆自认为的关于上海天气的语句（训练中加入的？）
-
-随着模型变高级，返回结果反而不遵守 Prompt 了？
+直到我换成了 `Doubao-1.5-vision-lite` 模型，一切才顺利运行。这引人深思：难道模型越高级，反而越不听话，越不遵守 Prompt 的指令了？
 
 <p class="success">
-    我的理解是
-1. 大模型靠概率输出下一个字符，本质上不能保证答案100%准确。而人们却希望获取100%准确的答案，怎么解决？答案就是引入工具。怎么让模型调用工具？答案就是 REACT.<br/>
-2. 根据我不理解的那些内容，可以看到效果对 模型+Prompt 的依赖还是非常大的，换个模型就导致结果错乱。<br/>
-3. 这让我想到接触 Agent 之后最初的疑问，我们现在通过 Prompt 控制大模型的返回，只是靠观察到这种现象得到的结论。像极了农场鸡舍的科学家。<br/>
-4. REACT 引入工具的目的，最开始是为了获取更准确的答案。而推动工具发展的同时，我们想象力进一步放大，开始希望用 Agent 去做更多事情。<br/>
+    这让我产生了更深层次的理解：<br/>
+1. <strong>ReAct 的本质</strong>：大模型本质是概率性的，无法保证100%准确。而现实世界需要确定性。ReAct 的出现，就是为了解决这个��盾：通过引入“工具”这个确定性组件，来弥补大模型的短板。而 Prompt 就是我们让模型学会使用工具的“说明书”。<br/>
+2. <strong>脆弱的控制链</strong>：目前的 Agent 实现对 `模型 + Prompt` 的组合高度敏感。更换一个模型，或者稍微修改一下 Prompt，都可能导致整个控制链条的崩溃。这暴露了当前 Agent 技术的脆弱性。<br/>
+3. <strong>农场里的科学家</strong>：我们现在通过精心设计的 Prompt 来控制大模型的行为，其原理更像是通过大量实验观察到的经验规律，而非精确的理论指导。这让我感觉，我们就像一群“农场鸡舍里的科学家”，试图理解并引导一群我们并未完全掌握其内在机理的“鸡”。<br/>
+4. <strong>工具的演进</strong>：ReAct 引入工具，最初可能只是为了获取更准确、更实时的信息。但这个思想一旦被打开，我们的想象力便不再局限于此，而是希望用 Agent 去完成更复杂、更主动的任务，这催生了当前百花齐放的 Agent ��术浪潮。
 </p>
 *注：相关代码在 <https://github.com/izualzhy/AI-Systems/blob/main/misc/read_paper_react.py>*
 
 # 3. 总结：从思想到行动的演进
 
-回顾这两篇论文，我们可以看到一条清晰的演进路径：
+回顾这两篇里程碑式的论文，我们可以看到一条清晰的技术演进路径：
 
-1.  **Standard Prompting**：直接问答，依赖模型自身知识。
+1.  **Standard Prompting**：直接问答，完全依赖模型自身知识。
 2.  **Chain-of-Thought (CoT)**：通过引导模型思考中间步骤，提升复杂推理的可靠性。这是**内部思维**的优化。
-3.  **ReAct**：将 CoT 的“思考”与“行动”（使用工具）相结合，让模型能与外部世界交互。这是**思维与实践**的结合。
+3.  **ReAct**：将 CoT 的“思考”与“行动”（使用工具）相结合，让模型能与外部世界交互，从“思考者”进化为“行动者”。这是**思维与实践**的结合。
 
-这个过程，是从一个封闭的“知识库”到一个能够进行“研究”和“实践”的初级 Agent 的演变。我在实践中遇到的问题，或许也是当前 Agent 开发领域正在努力解决的核心问题：**如何在给予模型强大推理能力的同时，确保它能可靠、可控地遵循我们设计的流程和规则，在需要时放下“身段”，谦虚地使用工具**
+这个过程，是从一个封闭的“知识库”到一个能够进行“研究”和“实践”的初级 Agent 的演变。我在实践中遇到的问题，或许也是当前 Agent 开发领域正在努力解决的核心问题：
+**如何在给予模型强大推理能力的同时，确保它能可靠、可控地遵循我们设计的流程和规则，在需要时放下“身段”，谦虚地使用工具**
