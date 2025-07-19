@@ -1,3 +1,10 @@
+- name: 老舍谈写作
+  cover: https://izualzhy.cn/assets/images/book/s33937374.jpg
+  start_date: 2025.7.19
+  finish_date: 
+  douban_link: https://book.douban.com/subject/34457493/
+  note: 
+
 - name: 大模型应用开发 动手做AI Agent
   cover: https://izualzhy.cn/assets/images/book/s34857089.jpg
   start_date: 2025.6.8
