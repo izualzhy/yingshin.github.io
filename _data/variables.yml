@@ -53,7 +53,7 @@ sources:
       css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
     valine: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/valine/1.4.16/Valine.min.js' # bootcdn not available
     #valine: 'https://unpkg.com/valine/dist/Valine.min.js' # bootcdn not available
-    mathjax: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML'
+    mathjax: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-600-M/mathjax/2.7.4/config/TeX-MML-AM_CHTML.js'
     #mathjax: 'https://cdn.bootcdn.net/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML'
     mermaid: 'https://cdn.bootcdn.net/ajax/libs/mermaid/9.2.2/mermaid.min.js'
   unpkg:
