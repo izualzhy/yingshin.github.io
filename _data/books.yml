@@ -1,12 +1,12 @@
-- name: 老舍谈写作
-  cover: https://izualzhy.cn/assets/images/book/s33937374.jpg
-  start_date: 2025.7.19
-  finish_date: 
-  douban_link: https://book.douban.com/subject/34457493/
-  note: 
+- name: AI Agent开发与应用：基于大模型的智能体构建
+  cover: https://izualzhy.cn/assets/images/book/s35150148.jpg
+  start_date: 2025.8.9
+  finish_date: 2025.8.9 
+  douban_link: https://book.douban.com/subject/37304100/
+  note: 看过一天 LangChain 官方文档的话，就没必要看这本书了。作者 4 月份写了这本，6 月份写了 MCP 的一本。看完这本的质量，我直接放弃看 MCP 那本的计划。全书充满了 demo 和糊弄。
 
 - name: 大模型应用开发 动手做AI Agent
-  cover: https://izualzhy.cn/assets/images/book/s34857089.jpg
+  cover: 
   start_date: 2025.6.8
   finish_date: 2025.7.5
   douban_link: https://book.douban.com/subject/36884058
