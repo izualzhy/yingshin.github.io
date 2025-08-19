@@ -142,6 +142,23 @@ full_width: true
             <!--font-style: italic;-->
         }
 
+        div.book-info.dropped {
+            background-color: #ffe6e6 !important;
+            border-left: 4px solid #ff4d4f;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        div.book-info.dropped::after {
+            content: "已放弃";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.8em;
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
@@ -157,27 +174,33 @@ full_width: true
         <div class="year-dot"></div>
         <div class="year-number" onclick="toggleYear(this)">{{ current_year }} <span class="book-count">({{ year.items | size }})</span></div>
         <div class="books-container">
-            {% for book in year.items %}
-            {%- if book.finish_date -%}
-                {% assign state = 'read_finished' %}
-            {%- else -%}
-                {% assign state = 'reading' %}
-            {%- endif -%}
+        {% for book in year.items %}
+            {% if book.status == "hidden" %}
+                {% continue %}  {# 不显示这本书 #}
+            {% endif %}
+
+            {% if book.status == "dropped" %}
+                {% assign state = "dropped" %}
+            {% elsif book.finish_date %}
+                {% assign state = "read_finished" %}
+            {% else %}
+                {% assign state = "reading" %}
+            {% endif %}
+
             <div class="book">
                 <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}"/>
                 <div class="book-info {{ state }}">
                     <div class="book-details">
-                        <!--<p class="{{ state }}">-->
-                            <a href="{{ book.douban_link }}">{{ book.name }}</a><br>
-                            <span class="book-dates">{{ book.start_date }} -> {{ book.finish_date }}</span>
-                        <!--</p>-->
+                        <a href="{{ book.douban_link }}">{{ book.name }}</a><br>
+                        <span class="book-dates">{{ book.start_date }} -> {{ book.finish_date }}</span>
                     </div>
                     <div class="book-note collapsed">
                         <p class="info">{{ book.note }}</p>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+        {% endfor %}
+
         </div>
     </div>
 {% endfor %}
