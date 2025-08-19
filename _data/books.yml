@@ -39,6 +39,7 @@
   finish_date: 
   douban_link: https://book.douban.com/subject/36158483/ 
   note: 
+  status: dropped   # 新增字段，可选值：hidden / dropped / normal
 
 - name: 生成式人工智能
   cover: https://izualzhy.cn/assets/images/book/s34519911.jpg
@@ -53,6 +54,7 @@
   finish_date: 
   douban_link: https://book.douban.com/subject/35492898/
   note: 
+  status: dropped   # 新增字段，可选值：hidden / dropped / normal
 
 - name: 英雄无泪
   cover: https://izualzhy.cn/assets/images/book/s33871158.jpg
