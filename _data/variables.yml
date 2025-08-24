@@ -42,7 +42,7 @@ default:
 sources:
   bootcdn:
     font_awesome: 'https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css'
-    jquery: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.1.1/jquery.min.js'
+    jquery: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-10-y/jquery/3.1.1/jquery.min.js'
     #jquery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js'
     leancloud_js_sdk: '//cdn.iocdn.cc/npm/leancloud-storage@4.5.3/dist/av-min.js'
     #leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@4.5.3/dist/av-min.js'
@@ -51,9 +51,9 @@ sources:
     gitalk:
       js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js'
       css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
-    valine: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/valine/1.4.16/Valine.min.js' # bootcdn not available
+    valine: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-10-y/valine/1.4.16/Valine.min.js' # bootcdn not available
     #valine: 'https://unpkg.com/valine/dist/Valine.min.js' # bootcdn not available
-    mathjax: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-600-M/mathjax/2.7.4/config/TeX-MML-AM_CHTML.js'
+    mathjax: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-10-y/mathjax/3.2.0/es5/tex-mml-chtml.min.js'
     #mathjax: 'https://cdn.bootcdn.net/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML'
     mermaid: 'https://cdn.bootcdn.net/ajax/libs/mermaid/9.2.2/mermaid.min.js'
   unpkg:
