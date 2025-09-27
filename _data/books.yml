@@ -1,9 +1,9 @@
-- name: AI Agent开发与应用：基于大模型的智能体构建
+- name: 图解大模型-生成式AI原理与实战
   cover: https://izualzhy.cn/assets/images/book/s35144211.jpg
   start_date: 2025.8.16
-  finish_date:  
+  finish_date: 2025.9.27
   douban_link: https://book.douban.com/subject/37339504/
-  note: 
+  note: 涵盖了从训练、调优到智能体的各部分，今年读了几本 AI 的书了，这本书明显比其他书水平高很多。我的一些疑问，终于在这本书里得到了启示或者答案。由于最近对记忆和向量比较感兴趣，专门做了一篇笔记， <a href="http://izualzhy.cn/hands-on-LLM-reading">记忆和向量-读《图解大模型》</a>
 
 - name: AI Agent开发与应用：基于大模型的智能体构建
   cover: https://izualzhy.cn/assets/images/book/s35150148.jpg
