@@ -32,7 +32,7 @@ LangChain 框架使用`ConversationBufferMemory` `ConversationBufferWindowMemory
 
 即将历史对话转为摘要。提取摘要的过程，依赖 LLM 参与，例如可能的提示词：
 
-```
+```python
 # 创建摘要提示词模板
 summary_prompt_template = """<s><|user|>Summarize the conversations and update
 with the new lines.
@@ -63,7 +63,7 @@ summary_prompt = PromptTemplate(
 
 通过 RAG 里的知识库，解决了 LLM 知识过时、没有专业知识的问题。
 
-![](/assets/images/hands-on-llm/compare_memory.jpg){:width="500"}
+![](/assets/images/hands-on-llm/rag.jpg){:width="500"}
 
 ### 2.1. 向量化
 
@@ -93,7 +93,7 @@ summary_prompt = PromptTemplate(
 
 目前看到的大部分智能体平台，都是丢给用户一个页面，让用户输入分隔符、分段长度、是否重叠等等，而这里对最后的召回效果影响极大，如何能够提早针对搜索效果，优化这个建库的过程，应该是非常值得做的方向。
 
-未来可能是上述两种思路的结合：
-- 即使是单文档多向量，也需要先采用单文档提取的方式，过滤低质、提取重点，然后再经过不同方式分段。对每个分段，也保留文章的核心信息，这样才能避免分段后缺失整体文章重点的问题。    
-- “随着稠密检索技术的持续演进，更多创新的分块策略正在涌现——部分方案已开始利用LLM实现动态智能分块，以生成语义连贯的文本单元。”
+实际应用到生产，很可能是上述两种思路的结合：
+1. 即使是单文档多向量，也需要先采用单文档提取的方式，过滤低质、提取重点，然后再经过不同方式分段。对每个分段，也保留文章的核心信息，这样才能避免分段后缺失整体文章重点的问题。    
+2. 作者的观点：“随着稠密检索技术的持续演进，更多创新的分块策略正在涌现——部分方案已开始利用LLM实现动态智能分块，以生成语义连贯的文本单元。”
 
