@@ -31,8 +31,9 @@ tags: bigdata
 ![jd_stream_union_batch](/assets/images/jd_stream_union_batch.png)
 
 可以看到这类探索和应用的核心，是引入统一的逻辑表、SQL面向逻辑表开发的思路。只需要一套 SQL，开发效率自然高了。但是会有两个疑问：
-**1. 统一逻辑层的困难：面对不同计算模型(全量/增量)、不同存储(Kafka/Hive)时，底层所有表是否能够统一？  **
-**2. 底层终究是两条链路，链路自身的复杂度还在  **
+
+**1. 统一逻辑层的困难：面对不同计算模型(全量/增量)、不同存储(Kafka/Hive)时，底层所有表是否能够统一？  **  
+**2. 底层终究是两条链路，链路自身的复杂度还在  **   
 
 回过头去看的话，Kappa 架构的提出，也是源于对 Lambda 架构重复计算的质疑：Questioning the Lambda Architecture<sup>5</sup>.其思路不是依赖逻辑表，而是统一存储解决，只是从成本、吞吐上，Kafka 都不是 Kappa 架构下的理想存储。
 
