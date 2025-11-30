@@ -1,9 +1,16 @@
+- name: 从零构建大模型
+  cover: https://izualzhy.cn/assets/images/book/s35123575.jpg
+  start_date: 2025.11.24
+  finish_date: 
+  douban_link: https://book.douban.com/subject/37305124/
+  note: 
+
 - name: 为什么不能多印点钱
   cover: https://izualzhy.cn/assets/images/book/s35114855.jpg
   start_date: 2025.10.26
   finish_date: 2025.11.23
   douban_link: https://book.douban.com/subject/37467536/
-  note: <a href="http://izualzhy.cn/wsmbndydq-reading">自我实现的语言-读《为什么不能多印点钱》</a>
+  note: <a href="http://izualzhy.cn/wsmbndydq-reading">自我实现的预言-读《为什么不能多印点钱》</a>
 
 - name: 以日为鉴
   cover: https://izualzhy.cn/assets/images/book/s35260224.jpg
