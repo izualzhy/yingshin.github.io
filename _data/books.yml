@@ -75,13 +75,13 @@
   douban_link: https://book.douban.com/subject/35220391/
   note: 2025读完的第一本书，<a href="http://izualzhy.cn/AI-arch-reading">AI时代，AI 中台需要提早设计和思考</a>
 
-- name: PyTorch自然语言处理入门与实战
-  cover: https://izualzhy.cn/assets/images/book/s34354120.jpg
-  start_date: 2024.11.24
-  finish_date: 
-  douban_link: https://book.douban.com/subject/36158483/ 
-  note: 
-  status: dropped   # 新增字段，可选值：hidden / dropped / normal
+#- name: PyTorch自然语言处理入门与实战
+  #cover: https://izualzhy.cn/assets/images/book/s34354120.jpg
+  #start_date: 2024.11.24
+  #finish_date: 
+  #douban_link: https://book.douban.com/subject/36158483/ 
+  #note: 
+  #status: dropped   # 新增字段，可选值：hidden / dropped / normal
 
 - name: 生成式人工智能
   cover: https://izualzhy.cn/assets/images/book/s34519911.jpg
@@ -90,13 +90,13 @@
   douban_link: https://book.douban.com/subject/36368084/
   note: 两三个小时读完，适合泛泛阅读。
 
-- name: 凤凰架构:构建可靠的大型分布式系统
-  cover: https://izualzhy.cn/assets/images/book/s33966407.jpg
-  start_date: 2024.08.15
-  finish_date: 
-  douban_link: https://book.douban.com/subject/35492898/
-  note: 
-  status: dropped   # 新增字段，可选值：hidden / dropped / normal
+#- name: 凤凰架构:构建可靠的大型分布式系统
+  #cover: https://izualzhy.cn/assets/images/book/s33966407.jpg
+  #start_date: 2024.08.15
+  #finish_date: 
+  #douban_link: https://book.douban.com/subject/35492898/
+  #note: 
+  #status: dropped   # 新增字段，可选值：hidden / dropped / normal
 
 - name: 英雄无泪
   cover: https://izualzhy.cn/assets/images/book/s33871158.jpg
