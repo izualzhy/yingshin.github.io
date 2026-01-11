@@ -10,7 +10,7 @@ Celery 是一个分布式任务队列系统，用于在多个工作进程和机�
 
 异步任务的需求很多，特别是耗时且需要平滑处理的场景。比如文件格式转换、数据统计、调用第三方耗时的 api 等，就需要任务入队，然后逐批出队处理。
 
-有些情况下，异步任务还往往伴随着延迟或者定时处理的需求，例如统计网站使用量、文件个数大小等，Celery 也还支持了**定时及延迟任务**。
+有些情况下，异步任务还往往伴随着延迟或者周期处理的需求，例如统计网站使用量、文件个数大小等，Celery 也还支持了**周期及延迟任务**。
 
 ## 2. 思考：如果自己实现
 
@@ -165,9 +165,9 @@ sequenceDiagram
 
 从任务的生命周期看，各个阶段参与的角色、职责非常清晰。
 
-开始使用 Celery，用来对比的是大数据的任务调度系统，比如 Airflow DolphinScheduler 等，而 Celery 做到了**真正的去中心化**。我觉得核心原因在于定时任务，如果考虑任务调度，就需要引入 master 角色来实现准时且唯一的调度能力，而 Celery 的定位是任务队列，天然就避免了这一层。
+开始使用 Celery，用来对比的是大数据的任务调度系统，比如 Airflow DolphinScheduler 等，而 Celery 做到了**真正的去中心化**。我觉得核心原因在于周期任务，如果考虑任务调度，就需要引入 master 角色来实现准时且唯一的调度能力，而 Celery 的定位是任务队列，天然就避免了这一层。
 
-当 Celery 通过 Celery Beat 支持定时任务后，这个问题就再次暴露出来，结果就是 Celery Beat 的单点风险。
+当 Celery 通过 Celery Beat 支持周期任务后，这个问题就再次暴露出来，结果就是 Celery Beat 的单点风险。
 
 同时通过任务生命周期可以看到，任务提交是在`Client`，而执行是在`Pool`，也就意味着：
 1. `Client`至少需要看到 task 的声明
@@ -177,7 +177,7 @@ sequenceDiagram
 
 这种使用方式让我想到 RPC 里 Client Server 的关系，比如 protobuffer 以及 proto 定义，两者都会用到，因此 RPC 的消息可以仅包含各类方法、实体名字即可，通过 PB 的兼容性确保了处理不会因为升级出错。
 
-对应的经验，就是要**注意升级任务定义的兼容性**。比如`Client`里提交的 task 定义是`def task(file_path: str, type: int)`，而`Pool`执行的 task 在升级时变成了`def task(file_content: str, type: str)`，自然也就会带来问题了。
+对应的经验，就是要**注意升级任务定义的兼容性**。比如`Client`里提交的 task 定义是`def task(file_path: str, type: int)`，而`Pool`执行的 task 在升级时变成了`def task(file_content: str, type: str)`，就会有问题，需要避免。
 
 ## 5. 参考资料
 
