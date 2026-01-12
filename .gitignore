@@ -1,3 +1,4 @@
 _site
 **/.DS_Store
 **/.jekyll-cache
+\n# Ignore obsidian vault\n.obsidian/\n\n# Ignore backup files\n*.bak\n\n# Ignore test scripts\ntest.sh
