@@ -8,7 +8,7 @@ tags: microservice
 
 ## 1. 例子
 
-我从 xxx 几个方面，完整的例子放在了 github 上
+文章从基础、重试、ack、周期任务等几个方面说明，完整的运行例子放在了 [github](https://github.com/izualzhy/AI-Systems/tree/main/py3_journey/demo_celery) 上
 
 ### 1.1. Hello World
 
