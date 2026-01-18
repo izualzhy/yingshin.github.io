@@ -4,6 +4,7 @@ date: 2016-05-09 09:53:27
 excerpt: "生活感悟"
 tags: Patronum
 notebook: blog article notes
+published: false
 ---
 
 4月里，因为家人身体不舒服，在医院忙碌了大半个月，白天夜里都在医院呆着，深感生活不容易。热爱工作，更要热爱生活，注意身体。  
