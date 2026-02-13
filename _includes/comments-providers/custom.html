@@ -1,15 +1,12 @@
 <!-- start custom comments snippet -->
-<script src='https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js'></script>
-<!--<script src='https://unpkg.com/valine/dist/Valine.min.js'></script>-->
+<script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet' />
 
-<div class="comment"></div>
+<div id="waline"></div>
 <script>
-    new Valine({
-        av: AV,
-        el: '.comment',
-        app_id: 'RgaWITKzSWasjlhUC82B1HbI-gzGzoHsz',
-        app_key: 'vWRQj2yuk6kLdgFFOh5SXvI5',
-        placeholder: 'Welcome.'
+    Waline.init({
+        el: '#waline',
+        serverURL: 'https://waline-comment-izualzhys-projects.vercel.app/'
     });
 </script>
 <!-- end custom comments snippet -->
