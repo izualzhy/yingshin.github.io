@@ -3,6 +3,7 @@ layout: page
 title: 在读和读过的书
 sidebar: false
 full_width: true
+hide_title: true
 ---
 
 <html>
@@ -10,14 +11,32 @@ full_width: true
     <title>读书记录</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
         }
 
         .timeline {
             position: relative;
-            width: 90%;
-            margin: 0 auto;
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
             padding-top: 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: #6c757d;
+            margin-bottom: 40px;
         }
 
         .year {
@@ -27,82 +46,104 @@ full_width: true
 
         .year-dot {
             position: absolute;
-            top: 0;
-            left: -20px;
-            width: 12px;
-            height: 12px;
+            top: 15px;
+            left: -24px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background-color: #008000;
+            background-color: #007bff;
+            border: 2px solid white;
         }
 
         .year-number {
             position: relative;
             font-weight: bold;
-            font-size: 2.1em;
-            color: #8b4513;
-            background-color: #ff8c00;
+            font-size: 2.5em;
+            color: #343a40;
+            background-color: transparent;
             padding: 5px 10px;
             border-radius: 5px;
             display: inline-block;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .year-number:hover {
+            color: #007bff;
         }
 
         .year-number .book-count {
             font-size: 0.5em;
-            color: #ffffff;
+            color: #6c757d;
         }
 
         .books-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 30px;
             margin-top: 20px;
+            border-left: 2px solid #e9ecef;
+            padding-left: 30px;
         }
 
         .book {
             display: flex;
-            flex-direction: row;
-            border-left: 2px solid #008000;
-            padding-left: 15px;
-            max-width: 100%;
-            transition: all 0.3s;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+
+        .book:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
         .book-cover {
             flex-shrink: 0;
-            width: 100px;
-            height: 150px;
+            width: 120px;
+            height: 180px;
             object-fit: cover;
-            margin-right: 20px;
         }
 
         .book-info {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            max-width: calc(100% - 140px);
-            transition: all 0.3s;
+            justify-content: center;
+            padding: 20px;
+            flex-grow: 1;
+            max-width: calc(100% - 120px);
         }
 
         .book-details {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .book-details p {
-            margin: 0;
-            word-wrap: break-word;
-            font-size: 1em; /* 默认字体大小 */
+        .book-details a {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .book-details a:hover {
+            color: #007bff;
         }
 
         .book-dates {
-            font-size: 0.8em; /* 调小的字体大小 */
-            color: #555; /* 可选：调整颜色以区分日期 */
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
         }
 
         .book-note {
             position: relative;
             word-wrap: break-word;
+            font-size: 0.95em;
+            line-height: 1.6;
         }
 
         .book-note p {
@@ -112,59 +153,59 @@ full_width: true
         }
 
         .book-note.collapsed p {
-            white-space: nowrap;
+            max-height: 4.8em; /* 3 lines approx */
             overflow: hidden;
-            text-overflow: ellipsis;
+            position: relative;
         }
 
         .book-note.collapsed p::after {
             content: '...查看更多';
-            color: blue;
+            color: #007bff;
             cursor: pointer;
-            display: inline;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: white;
+            padding-left: 5px;
         }
 
         .year.collapsed .books-container {
             display: none;
         }
 
-        .expanded {
-            grid-column: 1 / -1; /* 占据整行 */
-            width: 100%; /* 最大宽度 */
-        }
         div.book-info.read_finished {
-            background-color: #dfffd6 !important;
-            <!--font-weight: bold;-->
+            border-left: 5px solid #28a745;
         }
 
         div.book-info.reading {
-            background-color: #fff9d6 !important;
-            <!--font-style: italic;-->
+            border-left: 5px solid #ffc107;
         }
 
         div.book-info.dropped {
-            background-color: #ffe6e6 !important;
-            border-left: 4px solid #ff4d4f;
-            opacity: 0.7;
+            border-left: 5px solid #dc3545;
+            opacity: 0.8;
             position: relative;
         }
 
         div.book-info.dropped::after {
-            content: "dropped";
+            content: "DROPPED";
             position: absolute;
-            bottom: 5px;
+            top: 10px;
             right: 10px;
-            font-size: 0.8em;
-            color: #ff4d4f;
+            font-size: 0.7em;
+            color: #dc3545;
             font-weight: bold;
+            background-color: #f8d7da;
+            padding: 2px 5px;
+            border-radius: 3px;
         }
-
     </style>
 </head>
 <body>
 {% assign previous_year = '' %}
 <div class="timeline">
-愿我们在白底黑字中读懂自己
+<h1 class="page-title">在读和读过的书</h1>
+<p class="page-subtitle">愿我们在白底黑字中读懂自己</p>
 <!--{% assign books_by_year = site.data.books | group_by_exp:"book", "book.start_date | split: '.' | first" %}-->
 {% assign books_by_year = site.data.books | group_by_exp: "book", "(book.finish_date | default: book.start_date) | split: '.' | first" %}
 {% assign sorted_books_by_year = books_by_year | sort: "name" | reverse %}
