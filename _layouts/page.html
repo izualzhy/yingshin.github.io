@@ -201,12 +201,14 @@ layout: base
                   <article>
                 {%- endif -%}
 
-                {%- if _article_header_type == 'overlay' or page.article_header == false -%}
-                  {%- include article-header.html article=page html=false -%}
-                  {%- include article-info.html article=page html=false -%}
-                {%- else -%}
-                  {%- include article-header.html article=page -%}
-                  {%- include article-info.html article=page -%}
+                {%- if page.hide_title != true -%}
+                  {%- if _article_header_type == 'overlay' or page.article_header == false -%}
+                    {%- include article-header.html article=page html=false -%}
+                    {%- include article-info.html article=page html=false -%}
+                  {%- else -%}
+                    {%- include article-header.html article=page -%}
+                    {%- include article-info.html article=page -%}
+                  {%- endif -%}
                 {%- endif -%}
 
                     <div class="js-article-content">{{ content }}</div>
