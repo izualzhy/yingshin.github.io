@@ -8,14 +8,14 @@ tags: leveldb
 
 leveldb 在 MemTable 里使用 skiplist 高效的插入与查找数据。
 
-```
+```cpp
 typedef SkipList<const char*, KeyComparator> Table;
 Table table_;
 ```
 
 存储的数据类型为`const char*`，`KeyComparator`定义如下，主要起到比较 key 的作用：
 
-```
+```cpp
   struct KeyComparator {
     const InternalKeyComparator comparator;
     explicit KeyComparator(const InternalKeyComparator& c) : comparator(c) { }
@@ -27,7 +27,7 @@ Table table_;
 
 SkipList 是一个模板类
 
-```
+```cpp
 template<typename Key, class Comparator>
 class SkipList
 ```
@@ -36,7 +36,7 @@ class SkipList
 
 提供了两个接口`Insert` && `Contains`，即插入与查找，没有`Delete`接口。
 
-```
+```cpp
   // Insert key into the list.
   // REQUIRES: nothing that compares equal to key is currently in the list.
   void Insert(const Key& key);
@@ -47,7 +47,7 @@ class SkipList
 
 包含以下几个成员变量
 
-```
+```cpp
   // Immutable after construction
   Comparator const compare_;
   //leveldb内存池
@@ -70,7 +70,7 @@ class SkipList
 
 先看下构造函数
 
-```
+```cpp
 template<typename Key, class Comparator>
 SkipList<Key,Comparator>::SkipList(Comparator cmp, Arena* arena)
     : compare_(cmp),
@@ -92,7 +92,7 @@ SkipList<Key,Comparator>::SkipList(Comparator cmp, Arena* arena)
 
 Node 对应 skiplist 里的节点，包含了 key 以及 若干层的后继节点地址。定义如下：
 
-```
+```cpp
 // Implementation details follow
 template<typename Key, class Comparator>
 struct SkipList<Key,Comparator>::Node {
@@ -138,7 +138,7 @@ struct SkipList<Key,Comparator>::Node {
 
 所有的 Node 对象都通过`NewNode`构造出来：先通过`arena_`分配内存，然后通过 placement new 的方式调用 Node 的构造函数。
 
-```
+```cpp
 template<typename Key, class Comparator>
 typename SkipList<Key,Comparator>::Node*
 SkipList<Key,Comparator>::NewNode(const Key& key, int height) {
@@ -157,7 +157,7 @@ SkipList<Key,Comparator>::NewNode(const Key& key, int height) {
 
 ### 3.1. Insert
 
-```
+```cpp
 template<typename Key, class Comparator>
 void SkipList<Key,Comparator>::Insert(const Key& key) {
   // TODO(opt): We can use a barrier-free variant of FindGreaterOrEqual()
@@ -203,7 +203,7 @@ void SkipList<Key,Comparator>::Insert(const Key& key) {
 
 `RandomHeight`就是通过抛硬币的方法随机决定该节点高度
 
-```
+```cpp
 template<typename Key, class Comparator>
 int SkipList<Key,Comparator>::RandomHeight() {
   // Increase height with probability 1 in kBranching
@@ -221,7 +221,7 @@ int SkipList<Key,Comparator>::RandomHeight() {
 
 对比上篇笔记的`search`伪代码可以比较容易看懂`FindGreaterOrEqual`，注意这里是查找 >= 而不是 = .
 
-```
+```cpp
 template<typename Key, class Comparator>
 typename SkipList<Key,Comparator>::Node* SkipList<Key,Comparator>::FindGreaterOrEqual(const Key& key, Node** prev)
     const {
@@ -248,7 +248,7 @@ typename SkipList<Key,Comparator>::Node* SkipList<Key,Comparator>::FindGreaterOr
 
 ### 3.2. Contains
 
-```
+```cpp
 template<typename Key, class Comparator>
 bool SkipList<Key,Comparator>::Contains(const Key& key) const {
   //x记录第一个>= key的Node
@@ -270,7 +270,7 @@ bool SkipList<Key,Comparator>::Contains(const Key& key) const {
 1. `FindLessThan`查找最大一个`< key`的节点
 2. `FindLast`查找最后一个节点
 
-```
+```cpp
 template<typename Key, class Comparator>
 typename SkipList<Key,Comparator>::Node*
 SkipList<Key,Comparator>::FindLessThan(const Key& key) const {
@@ -293,7 +293,7 @@ SkipList<Key,Comparator>::FindLessThan(const Key& key) const {
 }
 ```
 
-```
+```cpp
 template<typename Key, class Comparator>
 typename SkipList<Key,Comparator>::Node* SkipList<Key,Comparator>::FindLast()
     const {
@@ -323,7 +323,7 @@ typename SkipList<Key,Comparator>::Node* SkipList<Key,Comparator>::FindLast()
 
 定义如下:
 
-```
+```cpp
   // Iteration over the contents of a skip list
   class Iterator {
    public:
