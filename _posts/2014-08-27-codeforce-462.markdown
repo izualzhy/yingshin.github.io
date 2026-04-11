@@ -18,7 +18,7 @@ tags: codeforces
 
 分析： 对每个格子计算一遍即可
 
-```
+```cpp
 int main()
 {
     int n;
@@ -66,7 +66,7 @@ int main()
 
 分析：对于一个字母B有a张，这a张得分为a<sup>2</sup>，假设要取10张，10<sup>2</sup> &gt; a<sup>2</sup> + (10 - a)<sup>2</sup>，因此能多取就多取，贪心算法即可。  
 
-```
+```cpp
 int main()
 {
     LL n, k, ans = 0;
@@ -109,7 +109,7 @@ int main()
 分析：使得最大的数字能够最晚丢弃，最开始丢弃的都是最小的，贪心算法，可以参考Huffman的思想。  
 
 
-```
+```cpp
 int main()
 {
     LL n, a[300001], ans = 0;
@@ -160,7 +160,7 @@ int main()
 第一次解决树形DP的题目，如有不对还请指出。    
 另外注意mod操作在每次子树操作时都要做，否则会溢出。   
 
-```
+```cpp
 const LL MOD = 1e9 + 7;
 const int N = 1e5;
 LL dp[N][2];

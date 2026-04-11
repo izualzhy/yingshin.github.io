@@ -15,7 +15,7 @@ tags: codeforces
 
 分析： 分情况输出即可
 
-```
+```cpp
 int main()
 {
     ios::sync_with_stdio(0);
@@ -48,7 +48,7 @@ int main()
 
 分析： 注意到个位数是2个，十位数是4个，百位数是8个，其实就是前面的数字列表按递增顺序末尾补上4,7，结果序列仍满足递增。例如4474，容易计算的是2<sup>0</sup> + 2<sup>1</sup> + 2<sup>2</sup>，然后就是需要知道在4位数里的位置。将4444看成二进制0000,4447&rarr;0001，4474&rarr;0010，即再加上对应的二进制+1。
 
-```
+```cpp
 int main()
 {
     ios::sync_with_stdio(0);
@@ -79,7 +79,7 @@ int main()
 
 分析：因为m-bite operation可以对任意元素操作，假设对范围[l,r]，只要满足高度和&le;m&middot;B，s<sub>r</sub>&le;t即可。同时注意范围:1&le;A,B&le;10<sup>6</sup>,1&le;n&le;10<sup>5</sup>,1&le;l,t,m&le;10<sup>6</sup>，如果对每个query，从l向右搜索找到最后一个满足条件的r，复杂度是O(n&middot;l or r)，可能超时，因此采用二分查找。
 
-```
+```cpp
 LL A, B, n;
 LL l, t, m, sl;
 int r[100000] = {0};
@@ -126,7 +126,7 @@ int main()
 2. 如果前后两个位置重叠,那么需要确认下是否可以重叠,如果可以占用多少长度.  
 举例说明2,假设p为"ababab",y<sub>i</sub>为1,那么接下来y<sub>i+1</sub>可以为3,也可以为5,但不能是其他数字.    
 
-```
+```cpp
 1 2 3 4 5 6 7 8 9 . . .
 a b a b a b
     a b a b a b
@@ -137,7 +137,7 @@ a b a b a b
 由next[6] = 4可以推出可以推进长度2得到L3 = 2.    
 由next[4] = 2可以推进长度2,加上之前的长度可以得到L4 = 4.  
 
-```
+```cpp
 LL M = 1000000007;
 const int len = 1000000;
 
