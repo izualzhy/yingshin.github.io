@@ -15,7 +15,7 @@ tags: codeforces
 
 分析： 有三种坐车的方式, a, b, a&b，找个最小值即可。
 
-```
+```cpp
 int main()
 {
     ios::sync_with_stdio(0);
@@ -38,7 +38,7 @@ int main()
 
 分析： 注意范围：1&ge;n, a, b&le;10<sup>9</sup>，因此理论上讲a的范围是[a, 6xn/b]，b的范围是[b, 6n/a]，在这个范围里搜索会超时。可以发现其中会有一些重复对。如果目标是构造6xn的面积，可以想到是短边&le;sqrt(6xn)，长边&ge;sqrt(6xn)，刚好&ge;6xn也可以类似的思路。即短边的范围&le;sqrt(6xn)。这样就可以避免重复对了。
 
-```
+```cpp
 int main()
 {
     ios::sync_with_stdio(0);
@@ -94,7 +94,7 @@ int main()
 3. 1分点后面至少要有两个元素，2分点前面至少要有1个元素，后面至少要有一个元素。  
 否则就没法分成3份了。  
 
-```
+```cpp
 int main()
 {
     ios::sync_with_stdio(0);
@@ -155,7 +155,7 @@ int main()
 // []   :      i,j = i-1,j          : j+1  
 // N    :      i,j = i-1,j          : j  
 
-```
+```cpp
 int main()
 {
     ios::sync_with_stdio(0);

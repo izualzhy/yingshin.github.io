@@ -15,7 +15,7 @@ tags: codeforces
 
 分析： 每件物品求一遍即可，注意y=0时，不会找零，同时需要判断买的起。
 
-```
+```cpp
 int main()
 {
     int n, s;
@@ -48,7 +48,7 @@ int main()
 
 分析： 贪心模拟，如果有能量就使用能量，不够的话补上还需要的高度就可以了。
 
-```
+```cpp
 int main()
 {
     LL h[100001], n, ans = 0, e = 0;
@@ -95,7 +95,7 @@ topleft与bottomright的对角线下标为i + j - 1, topright与bottomleft的对
 同时注意，cin会超时。   
 
 
-```
+```cpp
 int main()
 {
     ios::sync_with_stdio(0);
@@ -160,7 +160,7 @@ int main()
 dp[i]为到第i个数字的公共子字符串长度    
 比如对第i个数字，查看从0&rarr;(i - 1)的数字，如果其中某个数字(索引为j)在前面n-1个排列里与第i个数字相对顺序都一致，那么j到i是一个公共子字符串，长度等于到dp[j] + 1,比较是否可以更新dp[i]。
 
-```
+```cpp
 int main()
 {
     int n,k,t;
@@ -205,7 +205,7 @@ int main()
 
 第二种思路是看做图，每个序列表示了一条路径，首先更新出图的正确路径，即这条路径在所有序列都存在。然后计算最长路径即可。   
 
-```
+```cpp
 int n, k, t, ans;
 int orders[5][1005];
 vector<int> edge[1005];

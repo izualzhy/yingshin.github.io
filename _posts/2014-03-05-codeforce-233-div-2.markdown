@@ -12,7 +12,7 @@ tags: codeforces
 
 <!--more-->
 
-```
+```cpp
 //http://codeforces.com/contest/399/problem/A
 #include <iostream>
 using namespace std;
@@ -50,13 +50,13 @@ int main()
 
 不妨假设第一个BlueBall在第i个位置，那么一次操作的结果就是前面i-1个位置的RedBall变为Blue.  
 即  
-```
+```cpp
 f[i] = 1 + f[0] + f[1] + ... + f[i - 1];
 ```
 
 f[0] = 1, f[1] = 2, f[3] = 4,写下式子就可以发现是二进制形式。  
 
-```
+```cpp
 //http://codeforces.com/contest/399/problem/B
 #include <iostream>
 #include <string>
@@ -102,7 +102,7 @@ m = b%q;
 前m堆，每堆放d+1张，剩下的放d张。  
 (d+1)<sup>2</sup>\*m + d<sup>2</sup>\*(q-m);  
 
-```
+```cpp
 //http://codeforces.com/contest/399/problem/C
 #include <algorithm>
 #include <iostream>
