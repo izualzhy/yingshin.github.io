@@ -13,7 +13,7 @@ tags: codeforces
 
 按照要求打印就可以了。
 
-```
+```cpp
 //http://codeforces.com/contest/454/problem/A
 #include <stdio.h>
 #include <iostream>
@@ -71,7 +71,7 @@ int main()
 因此最多只能有个两个递增序列区间，同时前面的区间最小值要大于后面的最大值。  
 即a1 > a(n-1)  
 
-```
+```cpp
 //http://codeforces.com/contest/454/problem/B
 #include <stdio.h>
 #include <iostream>
@@ -150,7 +150,7 @@ int main()
 即p[m]为n次全都不出现m的概率，同理   
 `p[m] + p[m - 1]= (1 - pow((m-2)/m, n)`   
 
-```
+```cpp
 //http://codeforces.com/contest/454/problem/A
 #include <iostream>
 #include <algorithm>
@@ -219,7 +219,7 @@ int main()
 
 对状态压缩还不熟悉，欢迎留言指出错误。
 
-```
+```cpp
 //http://codeforces.com/contest/454/problem/A
 #include <string.h>
 #include <iostream>

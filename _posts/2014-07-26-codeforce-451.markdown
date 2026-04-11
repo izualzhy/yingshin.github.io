@@ -15,7 +15,7 @@ tags: codeforces
 
 每拿一次就是去掉一根横线和一根竖线，因此判断直到一个方向变为0即可。
 
-```
+```cpp
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -53,7 +53,7 @@ int main()
 当时为了满足2，3多花了很多时间调试，后来才看到有人说这个数组个数比较少。     
 找到区间后反转，再遍历一边查看是否递增即可。    
 
-```
+```cpp
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -149,7 +149,7 @@ int main()
 同时`x1 + x2 + x3 = k`     
 可知有四种情况，满足一个即可。最后需要使得`x1 = x2 = x3 = n/3`则构成平局。
 
-```
+```cpp
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -219,7 +219,7 @@ int main()
 遍历到该位置时，加上对应的substring即可。   
 同时注意字符本身即为一个Good string，奇数结果+1.   
 
-```
+```cpp
 #include <iostream>
 #include <algorithm>
 #include <string>
