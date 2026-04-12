@@ -2,6 +2,7 @@
 title: "LLM Paper&Practice: CAMEL 和 AutoGen"
 date: 2025-07-12 12:31:21
 tags: read AI
+cover: /assets/images/ai-paper/camel_figure_1.png
 ---
 
 本文是我在阅读《大模型应用开发 动手做AI Agent》时，对书中推荐的几篇核心论文的理解与总结，主要聚焦于**CAMEL**和 **AutoGen** 这两种范式，都是用来实现 MultiAgent 的。  

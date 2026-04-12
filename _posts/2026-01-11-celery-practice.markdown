@@ -2,6 +2,7 @@
 title: "任务队列 Celery 实践"
 date: 2026-01-11 11:09:51
 tags: microservice
+cover: /assets/images/celery/flower_web.png
 ---
 
 [上一篇](https://izualzhy.cn/celery-arch)介绍了 Celery 架构，这篇我们实战看看。

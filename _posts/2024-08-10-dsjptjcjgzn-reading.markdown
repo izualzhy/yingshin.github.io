@@ -2,6 +2,7 @@
 title: "《大数据平台基础架构指南》-笔记"
 date: 2024-08-10 16:36:21
 tags: read
+cover: /assets/images/book/s29814424.jpg
 ---
 ![大数据平台基础架构指南](https://izualzhy.cn/assets/images/book/s29814424.jpg)
 

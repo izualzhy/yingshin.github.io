@@ -2,6 +2,7 @@
 title: "Calcite-5：SQL解析"
 date: 2022-05-23 01:28:21
 tags: calcite
+cover: /assets/images/calcite/calcite/parser.jj.simple.png
 ---
 
 C 代码编译时要经过词法分析、语法分析：比如提取关键字(int/for/#define, ETC.)，判断语法是否正确。

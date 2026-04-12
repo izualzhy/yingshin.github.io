@@ -2,6 +2,7 @@
 title: "leveldb笔记之3:skiplist实现"
 date: 2018-12-15 19:27:49
 tags: leveldb
+cover: /assets/images/multilist-search.png
 ---
 
 上篇笔记[ skiplist 简介](https://izualzhy.cn/skiplist-intro)里从理论上介绍了 skiplist，本文对照[ leveldb 的 C++ 源码](https://github.com/google/leveldb)看下 skiplist 的实现，同时介绍下 leveldb 里的实现技巧。

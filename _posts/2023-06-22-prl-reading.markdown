@@ -2,6 +2,7 @@
 title: "不算笔记的笔记-读《品人录》"
 date: 2023-06-22 09:55:22
 tags: read
+cover: https://img1.doubanio.com/lpic/s1670160.jpg
 ---
 
 ![品人录](https://img1.doubanio.com/lpic/s1670160.jpg)

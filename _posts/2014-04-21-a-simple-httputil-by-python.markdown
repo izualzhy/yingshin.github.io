@@ -3,6 +3,7 @@ title:  "一个简易的GET/POST工具"
 date: 2014-04-21 11:03:18
 excerpt: "一个简易的GET/POST工具，可以设置request参数，类型，cookie等，使用python。"
 tags: python
+cover: /assets/images/simple_httputil_python.jpg
 ---
 
 经常需要测试某个服务器的API，无外乎以下几种需求：    

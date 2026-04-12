@@ -2,6 +2,7 @@
 title: "linkedin/coral 代码速读"
 date: 2023-12-16 15:24:02
 tags: coral
+cover: /assets/images/coral/coral-hive-to-IR.png
 ---
 前几天纷飞的大雪还未消融，周末又赶上降温。于是踏实关在屋里，快速读了一遍 linkedin/coral<sup>1</sup> 的代码，这篇笔记记录下整体流程。
 ## 1. 背景：SQL 重写的需求

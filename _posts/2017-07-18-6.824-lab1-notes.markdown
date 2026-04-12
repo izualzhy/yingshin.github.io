@@ -3,6 +3,7 @@ title: MIT 6.824 Distributed Systems Lab-1 笔记
 date: 2017-07-18 19:50:32
 excerpt: "MIT 6.824 Distributed Systems Lab-1 笔记"
 tags: 6.824
+cover: https://hadooptutorial.wikispaces.com/file/view/MRExecution.png/235669280/800x519/MRExecution.png
 ---
 
 MIT的6.824这门课程放在收藏夹里很久了，最近终于趁着周末学习了下。

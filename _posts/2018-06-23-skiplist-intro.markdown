@@ -2,6 +2,7 @@
 title: "skiplist简介"
 date: 2018-06-23 23:38:08
 tags: leveldb
+cover: /assets/images/analysis_of_two_linked_lists.png
 ---
 
 [skiplist，即跳表](https://en.wikipedia.org/wiki/Skip_list)是由[William Pugh](https://en.wikipedia.org/wiki/William_Pugh)在1989年发明的，允许快速查询一个有序连续元素的数据链表，搜索、插入、删除的平均时间复杂度均为O(lgn)。

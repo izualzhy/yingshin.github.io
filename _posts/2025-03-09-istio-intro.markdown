@@ -2,6 +2,7 @@
 title: "网关之 Istio 初探"
 date: 2025-03-09 06:25:45
 tags: microservice
+cover: /assets/images/istio/istio-arch.svg
 ---
 
 这篇笔记是对 Istio 文档<sup>1</sup>的一个初步总结。

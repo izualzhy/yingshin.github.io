@@ -2,6 +2,7 @@
 title: "DolphinScheduler-3: 工作流的生命周期"
 date: 2023-09-30 22:24:40
 tags: dolphin
+cover: /assets/images/dolphin/dolphin/state machine.png
 ---
 
 ## 1. 任务状态

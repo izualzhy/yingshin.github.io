@@ -2,6 +2,7 @@
 title: "Calcite-4：代码生成与编译"
 date: 2022-05-14 10:33:20
 tags: calcite
+cover: /assets/images/calcite/calcite/Statement.executeQuery.png
 ---
 
 ## 1. Csv表

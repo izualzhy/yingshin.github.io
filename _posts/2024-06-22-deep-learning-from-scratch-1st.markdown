@@ -2,6 +2,7 @@
 title: "What I cannot create, I do not understand-读《深度学习入门》"
 date: 2024-06-22 01:31:50
 tags: read
+cover: /assets/images/book/s29815955.jpg
 ---
 ![Deep Learning from Scratch](https://izualzhy.cn/assets/images/book/s29815955.jpg)
 

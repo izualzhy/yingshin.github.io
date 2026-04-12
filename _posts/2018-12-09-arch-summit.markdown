@@ -3,6 +3,7 @@ title: "参加ArchSummit的感受"
 date: 2018-12-09 11:06:17
 excerpt: "参加ArchSummit的感受"
 tags: Patronum
+cover: /assets/images/arch_summit.jpeg
 ---
 
 ![ArchSummit](/assets/images/arch_summit.jpeg)

@@ -3,6 +3,7 @@ title: std::streambuf从示例到应用
 date: 2017-5-14 17:34:05
 excerpt: "std::streambuf从示例到应用"
 tags: cpp
+cover: http://www.cplusplus.com/img/iostream.gif
 ---
 
 关于`streambuf`的资料并不多，IO Streams作者Jerry Schwarz这样说道

@@ -2,6 +2,7 @@
 title: "Flink - KafkaTable 解析"
 date: 2020-05-24 13:14:21
 tags: flink
+cover: https://ci.apache.org/projects/flink/flink-docs-master/fig/levels_of_abstraction.svg
 ---
 
 flink 提供多种消费 Kafka 数据的方式，由于不同层级接口支持的功能范围、粒度不同，同时 flink 版本迭代频繁，接口也在不断发生变化，因此使用起来容易混淆。
