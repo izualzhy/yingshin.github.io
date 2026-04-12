@@ -2,6 +2,7 @@
 title: "《Scala谜题》读书笔记"
 date: 2019-10-05 20:07:25
 tags: scala
+cover: /assets/images/scala-class-relations.jpeg
 ---
 
 有些问题还没有完全搞懂，不过先记录下来。

@@ -2,6 +2,7 @@
 title: "Calcite-3：处理流程的代码例子"
 date: 2022-05-01 10:33:20
 tags: calcite
+cover: /assets/images/calcite/ast.png
 ---
 
 单纯看[Calcite-2](https://izualzhy.cn/calcite-arch)里的架构图理解不深，这篇笔记通过代码示例补充下 SqlParser、SqlValiator、SqlToRelConverter 等的处理流程。

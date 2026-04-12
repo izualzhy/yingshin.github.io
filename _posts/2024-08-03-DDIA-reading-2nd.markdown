@@ -2,6 +2,7 @@
 title: "2. DDIA-分布式数据系统-笔记"
 date: 2024-08-03 12:16:21
 tags: read
+cover: /assets/images/book/s34186559.jpg
 ---
 ![数据密集型应用系统设计](https://izualzhy.cn/assets/images/book/s34186559.jpg)
 

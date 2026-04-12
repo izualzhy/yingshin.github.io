@@ -2,6 +2,7 @@
 title: "自我实现的预言-读《为什么不能多印点钱》"
 date: 2025-11-23 09:42:16
 tags: read
+cover: /assets/images/book/s35114855.jpg
 ---
 
 ![为什么不能多印点钱](https://izualzhy.cn/assets/images/book/s35114855.jpg)

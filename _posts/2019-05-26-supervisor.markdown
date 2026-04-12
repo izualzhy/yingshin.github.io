@@ -2,6 +2,7 @@
 title: "我是一个 op 之 supervisor"
 date: 2019-05-26 10:09:01
 tags: linux
+cover: /assets/images/supervisor/starting.png
 ---
 
 ## 1. 简介

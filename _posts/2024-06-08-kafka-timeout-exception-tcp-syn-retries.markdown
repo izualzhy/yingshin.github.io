@@ -2,6 +2,7 @@
 title: "一个环境导致读取 Kakfa TimeoutException 的问题"
 date: 2024-06-08 06:50:26
 tags: bigdata
+cover: /assets/images/tcp_syn_retry.webp
 ---
 
 最近遇到一个比较奇怪的现象：相同 Flink 任务，换个运行环境就会报读取 kafka 失败，但是排查环境跟 Kafka 源的连通性又没有问题。

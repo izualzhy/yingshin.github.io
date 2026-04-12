@@ -2,6 +2,7 @@
 title: "Spring Cloud Gateway : WebFlux "
 date: 2025-06-02 01:06:21
 tags: microservice
+cover: https://docs.spring.io/spring-framework/reference/_images/spring-mvc-and-webflux-venn.png
 ---
 
 这篇笔记，继续沿着 Spring Cloud Gateway，来聊一聊 WebFlux.

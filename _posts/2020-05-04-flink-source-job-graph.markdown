@@ -2,6 +2,7 @@
 title: "Flink - JobGraph"
 date: 2020-05-04 13:24:31
 tags: flink
+cover: /assets/images/flink-source-code/jobgraph.png
 ---
 
 生成[StreamGraph](https://izualzhy.cn/flink-source-stream-graph)后，接下来就是构造 JobGraph 了，这一步主要的变化是将尽可能合并多个相邻的 StreamNode.

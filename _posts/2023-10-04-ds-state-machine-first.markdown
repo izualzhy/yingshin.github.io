@@ -2,6 +2,7 @@
 title: "DolphinScheduler-8: 状态"
 date: 2023-10-04 05:52:30
 tags: dolphin
+cover: /assets/images/dolphin/dolphin/flink-task-state.png
 ---
 
 在[工作流的生命周期](https://izualzhy.cn/ds-process-lifecycle)里，初步介绍过工作流的各种状态。

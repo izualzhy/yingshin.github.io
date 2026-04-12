@@ -2,6 +2,7 @@
 title: "世事洞明皆学问，人情练达即文章-读《伊索寓言》"
 date: 2022-02-26 09:03:58
 tags: read
+cover: https://img1.doubanio.com/lpic/s23007179.jpg
 ---
 
 ![伊索寓言](https://img1.doubanio.com/lpic/s23007179.jpg)

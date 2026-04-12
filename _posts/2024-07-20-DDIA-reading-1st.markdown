@@ -2,6 +2,7 @@
 title: "1. DDIA-数据系统基础-笔记"
 date: 2024-07-20 12:16:21
 tags: read
+cover: /assets/images/book/s34186559.jpg
 ---
 ![数据密集型应用系统设计](https://izualzhy.cn/assets/images/book/s34186559.jpg)
 

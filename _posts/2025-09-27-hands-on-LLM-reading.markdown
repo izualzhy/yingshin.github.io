@@ -2,6 +2,7 @@
 title: "记忆和向量-读《图解大模型》"
 date: 2025-09-27 09:05:26
 tags: book read
+cover: /assets/images/hands-on-llm/memory.jpg
 ---
 
 ## 1. 记忆

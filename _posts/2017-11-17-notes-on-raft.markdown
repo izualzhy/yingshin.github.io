@@ -3,6 +3,7 @@ title: 菜鸟读Raft论文
 date: 2017-11-17 17:04:51
 excerpt: "菜鸟读Raft论文"
 tags: 6.824
+cover: /assets/images/raft-role.png
 ---
 
 本文是一篇分布式菜鸟阅读Raft论文过程中的一些心得。

@@ -2,6 +2,7 @@
 title: "Spring Cloud Gateway : 一条请求的处理流程"
 date: 2025-05-31 01:47:22
 tags: microservice
+cover: /assets/images/SpringCloudGateway/AddRequestHeader-combined-filters.png
 ---
 
 这篇笔记总结当我们通过网关转发一条 http 请求时，网关的处理流程。

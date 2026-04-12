@@ -2,6 +2,7 @@
 title: "Flink - Native Flink On Kubernetes 集群启动流程"
 date: 2024-01-27 14:17:16
 tags: flink
+cover: /assets/images/flink/Slot Allocation with Requesting a New TaskManager.png
 ---
 
 这篇笔记主要介绍 Flink 任务使用 Application Mode 提交到 K8S 集群的流程，使用 flink 1.12 版本说明。

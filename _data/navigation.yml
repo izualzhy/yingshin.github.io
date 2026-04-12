@@ -1,7 +1,8 @@
 header:
   - titles:
       # @start locale config
-      en      : &EN       <i class="fas fa-archive"></i> Archive
+      en      : &EN       Archive
+      #en      : &EN       <i class="fas fa-archive"></i> Archive
       en-GB   : *EN
       en-US   : *EN
       en-CA   : *EN
@@ -26,7 +27,8 @@ header:
 
   - titles:
       # @start locale config
-      en      : &EN       <i class="fas fa-info-circle"></i> About
+      en      : &EN       About
+      #en      : &EN       <i class="fas fa-info-circle"></i> About
       en-GB   : *EN
       en-US   : *EN
       en-CA   : *EN
@@ -48,9 +50,12 @@ header:
       fr-LU   : *FR
       # @end locale config
     url: /about.html
-  - title: <i class="fas fa-book"></i> Books
+  - title: Books
+  #- title: <i class="fas fa-book"></i> Books
     url: /books.html
-  - title: <i class="fas fa-gem"></i> Pearls
+  - title: Pearls
+  #- title: <i class="fas fa-gem"></i> Pearls
     url: /pearls.html
-  - title: <i class="fas fa-user-friends"></i> Friends
+  #- title: <i class="fas fa-user-friends"></i> Friends
+  - title: Friends
     url: /friends.html

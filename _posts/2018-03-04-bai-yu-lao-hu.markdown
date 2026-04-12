@@ -3,6 +3,7 @@ title: "人在江湖，身不由己 - 评《白玉老虎》"
 date: 2018-03-04 12:31:19
 excerpt: "白玉老虎"
 tags: read
+cover: /assets/images/baiyulaohu.jpg
 ---
 
 ![白玉老虎](assets/images/baiyulaohu.jpg)

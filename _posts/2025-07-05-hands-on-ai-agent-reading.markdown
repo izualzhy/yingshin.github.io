@@ -2,6 +2,7 @@
 title: "Read & Practice-读《大模型应用开发 动手做AI Agent》"
 date: 2025-07-05 12:18:18
 tags: read
+cover: /assets/images/book/s34857089.jpg
 ---
 ![大模型应用开发 动手做AI Agent](https://izualzhy.cn/assets/images/book/s34857089.jpg)
 

@@ -3,6 +3,7 @@ title: github博客绑定域名
 date: 2017-3-31 16:35:32
 excerpt: "github博客绑定域名"
 tags: blog
+cover: /assets/images/cloud_baidu_domain.png
 ---
 
 终于开通自己的域名啦！[izualzhy.cn/

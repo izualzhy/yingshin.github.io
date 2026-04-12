@@ -2,6 +2,7 @@
 title: "LLM Paper&Practice：从 CoT 到 ReAct"
 date: 2025-07-05 11:42:17
 tags: read AI
+cover: /assets/images/ai-paper/cot_figure_1.png
 ---
 
 本文是我在阅读《大模型应用开发 动手做AI Agent》时，对书中推荐的几篇核心论文的理解与总结，主要聚焦于**思维链（Chain-of-Thought, CoT）**和 **ReAct** 这两种范式。

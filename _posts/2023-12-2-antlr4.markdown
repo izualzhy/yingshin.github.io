@@ -2,6 +2,7 @@
 title: "如何用 ANTLR 解析和重写SQL"
 date: 2023-12-02 06:16:33
 tags: antlr
+cover: /assets/images/antlr/lexer-and-parser.jpg
 ---
 
 ## 1. 简介

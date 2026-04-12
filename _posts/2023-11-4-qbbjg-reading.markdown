@@ -2,6 +2,7 @@
 title: "《窦占龙憋宝 - 七宝八金刚》书摘"
 date: 2023-11-04 01:52:19
 tags: read
+cover: /assets/images/book/s34016059.jpeg
 ---
 ![窦占龙憋宝 - 七宝八金刚](https://izualzhy.cn/assets/images/book/s34016059.jpeg)
 
