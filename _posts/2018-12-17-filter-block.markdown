@@ -2,6 +2,7 @@
 title: "leveldb笔记之7:filter block"
 date: 2018-12-17 22:18:26
 tags: leveldb
+cover: /assets/images/leveldb/filter_block.png
 ---
 
 ## 1. 简介

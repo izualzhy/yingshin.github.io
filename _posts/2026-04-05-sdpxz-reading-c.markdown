@@ -2,6 +2,7 @@
 title: "一肚皮不合时宜-读《苏东坡新传》-3"
 date: 2026-04-05 00:57:41
 tags: read
+cover: /assets/images/book/book-sudongpoxinzhuan/xihu-1.JPG
 ---
 
 此为：书斋内外、杭州去来、颍州·扬州·定州、惠州流人，共四章的笔记。

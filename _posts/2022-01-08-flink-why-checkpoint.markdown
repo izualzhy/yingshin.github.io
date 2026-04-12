@@ -2,6 +2,7 @@
 title: "Flink - Why Checkpoint"
 date: 2022-01-08 20:12:38
 tags: flink
+cover: /assets/images/why-checkpoints/single-thread.png
 ---
 
 [上篇笔记](https://izualzhy.cn/flink-source-checkpoint-process)介绍了 Checkpoint 相关的代码， 关于源码的分析网上文章很多，通过断点调试也能大概了解 Checkpoint 的实现。

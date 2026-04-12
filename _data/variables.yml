@@ -22,7 +22,7 @@ default:
       align: left
       theme: light
     articles:
-      show_cover: true
+      show_cover: false
       show_excerpt: false
       show_readmore: false
       show_info: false

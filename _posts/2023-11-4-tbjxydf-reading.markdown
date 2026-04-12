@@ -2,6 +2,7 @@
 title: "《太白金星有点烦》书摘"
 date: 2023-11-04 02:45:28
 tags: read
+cover: /assets/images/book/s34544956.jpeg
 ---
 ![太白金星有点烦](https://izualzhy.cn/assets/images/book/s34544956.jpeg)
 

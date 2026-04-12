@@ -2,6 +2,7 @@
 title: "AI 时代的平台设计-读《人工智能工程化》"
 date: 2025-02-02 12:18:18
 tags: read
+cover: /assets/images/book/s33733919.jpg
 ---
 ![人工智能工程化](https://izualzhy.cn/assets/images/book/s33733919.jpg)
 

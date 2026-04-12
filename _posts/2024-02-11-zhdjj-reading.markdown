@@ -2,6 +2,7 @@
 title: "潜艇会游泳吗？读《智慧的疆界》"
 date: 2024-02-11 20:38:08
 tags: read
+cover: /assets/images/book/s29923729.jpg
 ---
 ![智慧的疆界](https://izualzhy.cn/assets/images/book/s29923729.jpg)
 

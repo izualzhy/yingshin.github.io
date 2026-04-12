@@ -2,6 +2,7 @@
 title: "漫谈数据血缘系统"
 date: 2023-12-09 06:16:33
 tags: antlr
+cover: /assets/images/atlas/hive-hook-atlas.png
 ---
 
 微服务间调用链路要清晰，才能方便的进行后续的架构升级、核心链路演练等。大数据里的表/任务之间也是如此，同时由于任务量大，血缘系统的设计更加重要。

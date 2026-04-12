@@ -2,6 +2,7 @@
 title: "DolphinScheduler-6: 依赖任务DependentTaskProcessor"
 date: 2023-10-02 09:35:52
 tags: dolphin
+cover: /assets/images/dolphin/DependTask Example.png
 ---
 
 ## 1. 为什么要有任务依赖？

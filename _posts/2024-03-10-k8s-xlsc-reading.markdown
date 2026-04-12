@@ -2,6 +2,7 @@
 title: "《Kubernetes修炼手册》读书笔记"
 date: 2024-03-10 01:05:45
 tags: read
+cover: /assets/images/book/s34078881.jpg
 ---
 ![Kubernetes修炼手册](https://izualzhy.cn/assets/images/book/s34078881.jpg)
 

@@ -2,6 +2,7 @@
 title: "Flink - 窗口理论、实现"
 date: 2024-06-30 06:36:47
 tags: flink
+cover: /assets/images/flink/TheDataflowModel-WindowAssignment.png
 ---
 
 ## 1. Theory - Dataflow Model

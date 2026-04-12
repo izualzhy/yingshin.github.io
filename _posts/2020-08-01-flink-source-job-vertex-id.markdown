@@ -2,6 +2,7 @@
 title: "Flink - JobGraph 之 JobVertexID"
 date: 2020-08-01 00:56:34
 tags: flink
+cover: /assets/images/flink-source-code/StreamWithStateSample_running.jpg
 ---
 
 [上一篇笔记](https://izualzhy.cn/flink-source-kafka-checkpoint-read)看到 restore state 时找不到 operator id 的问题：

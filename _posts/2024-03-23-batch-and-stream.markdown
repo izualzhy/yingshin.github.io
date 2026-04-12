@@ -2,6 +2,7 @@
 title: "批处理和流处理的思考"
 date: 2024-03-23 02:53:32
 tags: Pensieve
+cover: /assets/images/pensieve/offline-task.png
 ---
 
 ## 1.时间的边界

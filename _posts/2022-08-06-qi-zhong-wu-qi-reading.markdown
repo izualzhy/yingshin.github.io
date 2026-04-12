@@ -2,6 +2,7 @@
 title: "最高贵的品质-读《七种武器》"
 date: 2022-08-06 09:56:14
 tags: read
+cover: //img1.doubanio.com/lpic/s29550057.jpg
 ---
 
 ![七种武器](//img1.doubanio.com/lpic/s29550057.jpg)

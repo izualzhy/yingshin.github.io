@@ -3,6 +3,7 @@ title: "单线程的习惯 - 评《单核工作法图解》"
 date: 2018-12-22 21:43:08
 excerpt: "单线程的习惯 - 评《单核工作法图解》"
 tags: read
+cover: /assets/images/monotasking/monotasking.jpeg
 ---
 
 《单核工作法图解》这本书的作者即《番茄工作法》的作者，在我看来是番茄的升级版。

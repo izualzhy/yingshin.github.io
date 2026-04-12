@@ -2,6 +2,7 @@
 title: "《Scala实用指南》读书笔记一：处理对象与善用类型"
 date: 2019-06-29 09:50:51
 tags: scala
+cover: /assets/images/scala/Nothing_Any.png
 ---
 
 ## 1. 处理对象

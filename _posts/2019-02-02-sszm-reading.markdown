@@ -2,6 +2,7 @@
 title: "诗和远方 - 评《四时之美》"
 date: 2019-02-02 07:44:45
 tags: read
+cover: https://img3.doubanio.com/lpic/s29715045.jpg
 ---
 
 ![四时之美](https://img3.doubanio.com/lpic/s29715045.jpg)

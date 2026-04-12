@@ -2,6 +2,7 @@
 title: "大数据列存储文件格式"
 date: 2024-01-01 08:06:21
 tags: bigdata
+cover: /assets/images/column/run-length-encoding.png
 ---
 
 文件存储格式，即数据在磁盘上是如何组织的，比如 [leveldb](https://izualzhy.cn/assets/images/leveldb/architecture-detail.png) 的 sst 文件由 DataBlock、FilterBlock、IndexBlock、Footer 等组成。这种格式的设计，适应了单机写多读少、读取新写入数据的场景。

@@ -2,6 +2,7 @@
 title: "Reading《Stream Processing with Apache Flink》-2nd"
 date: 2024-05-03 09:07:21
 tags: read
+cover: /assets/images/book/s32278655.jpg
 ---
 ![Stream Processing with Apache Flink](https://izualzhy.cn/assets/images/book/s32278655.jpg)
 

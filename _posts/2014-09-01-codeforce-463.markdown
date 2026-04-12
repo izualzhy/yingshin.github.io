@@ -3,6 +3,7 @@ title:  "codeforces Contest 463"
 date:   2014-09-01 19:55:02
 excerpt: "submissions for codeforce contest 463"
 tags: codeforces
+cover: /assets/images/chessboard.jpg
 ---
 
 题目链接在[这里](http://codeforces.com/contest/463)

@@ -2,6 +2,7 @@
 title: "见人，亦见己-读《在工作中，看到中国》"
 date: 2024-03-30 10:27:42
 tags: read
+cover: /assets/images/book/s34251685.jpg
 ---
 ![在工作中，看到中国](https://izualzhy.cn/assets/images/book/s34251685.jpg)
 

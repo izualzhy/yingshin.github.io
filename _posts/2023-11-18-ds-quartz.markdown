@@ -2,6 +2,7 @@
 title: "DolphinScheduler-10: quartz"
 date: 2023-11-18 13:10:51 
 tags: dolphin
+cover: /assets/images/dolphin/dolphin/quartz-uml.png
 ---
 之前讲[工作流的启动](https://izualzhy.cn/ds-how-process-start)，源头是`t_ds_command`表，这篇笔记讲讲该表数据是如何写入的，也就是 Crontab 的生效过程。
 
