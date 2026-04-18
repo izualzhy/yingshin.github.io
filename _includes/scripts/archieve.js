@@ -79,12 +79,28 @@
       var result = {}, $articles;
       var i, j, k, _tag;
 
-      for (i = 0; i < sectionArticles.length; i++) {
-        $articles = sectionArticles[i];
+      // 先显示$result，确保能够找到所有文章
+      $result.removeClass('d-none');
+
+      // 重新选择$sections元素，确保能够找到所有的section
+      var updatedSections = $result.find('section');
+
+      // 重新初始化sectionArticles数组，确保能够找到所有文章
+      var updatedSectionArticles = [];
+      updatedSections.each(function() {
+        updatedSectionArticles.push($(this).find('.item'));
+      });
+
+      for (i = 0; i < updatedSectionArticles.length; i++) {
+        $articles = updatedSectionArticles[i];
         for (j = 0; j < $articles.length; j++) {
           if (tag === '' || tag === undefined) {
-            result[i] || (result[i] = {});
-            result[i][j] = true;
+            // 当没有选中标签时，过滤掉只有read标签的文章
+            var tags = $articles.eq(j).data('tags').split(',');
+            if (!(tags.length === 1 && tags[0] === 'read')) {
+              result[i] || (result[i] = {});
+              result[i][j] = true;
+            }
           } else {
             var tags = $articles.eq(j).data('tags').split(',');
             for (k = 0; k < tags.length; k++) {
@@ -97,19 +113,19 @@
         }
       }
 
-      for (i = 0; i < sectionArticles.length; i++) {
-        result[i] && $sections.eq(i).removeClass('d-none');
-        result[i] || $sections.eq(i).addClass('d-none');
-        for (j = 0; j < sectionArticles[i].length; j++) {
+      for (i = 0; i < updatedSectionArticles.length; i++) {
+        result[i] && updatedSections.eq(i).removeClass('d-none');
+        result[i] || updatedSections.eq(i).addClass('d-none');
+        for (j = 0; j < updatedSectionArticles[i].length; j++) {
           if (result[i] && result[i][j]) {
-            sectionArticles[i].eq(j).removeClass('d-none');
+            updatedSectionArticles[i].eq(j).removeClass('d-none');
           } else {
-            sectionArticles[i].eq(j).addClass('d-none');
+            updatedSectionArticles[i].eq(j).addClass('d-none');
           }
         }
       }
 
-      hasInit || ($result.removeClass('d-none'), hasInit = true);
+      hasInit = true;
 
 
       if (target) {
@@ -126,7 +142,14 @@
     }
 
     var query = queryString(), _tag = query.tag;
-    init(); tagSelect(_tag);
+    init(); 
+    // 如果URL中包含tag=read，先显示$result，然后再调用tagSelect
+    if (_tag === 'read') {
+      $result.removeClass('d-none');
+      tagSelect(_tag);
+    } else {
+      tagSelect(_tag);
+    }
     $tags.on('click', 'button', function() {
       tagSelect($(this).data('encode'), $(this));
     });
