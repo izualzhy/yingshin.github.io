@@ -6,16 +6,25 @@
 {%- assign _locale_readmore = __return -%}
 
 {%- assign _filtered_list = include.articles -%}
- {% comment %}# 初始化一个空数组 #{% endcomment %}
-{%- assign _new_filtered_list = '' | split: ',' -%}
-{%- for item in _filtered_list -%}
-  {%- if item.tags.size == 1 and item.tags[0] == 'read' -%}
-    {%- continue -%}
-  {%- else -%}
-    {%- assign _new_filtered_list = _new_filtered_list | push: item -%}
+
+{% comment %}
+  归档页需要显示所有文章，包括只有read标签的文章
+  首页需要过滤掉只有read标签的文章
+{% endcomment %}
+{%- if include.type != 'brief' or include.group_by != 'year' -%}
+  {%- assign _filter_read = include.filter_read | default: true -%}
+  {%- if _filter_read -%}
+    {%- assign _new_filtered_list = '' | split: ',' -%}
+    {%- for item in _filtered_list -%}
+      {%- if item.tags.size == 1 and item.tags[0] == 'read' -%}
+        {%- continue -%}
+      {%- else -%}
+        {%- assign _new_filtered_list = _new_filtered_list | push: item -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign _filtered_list = _new_filtered_list -%}
   {%- endif -%}
-{%- endfor -%}
-{%- assign _filtered_list = _new_filtered_list -%}
+{%- endif -%}
 
 {%- assign _sorted_list = _filtered_list -%}
 
