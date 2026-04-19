@@ -41,7 +41,7 @@ graph TB
 
 调用上述 agent 查看链路：
 
-![](/assets/images/adk/invocation-google_adk_Jaeger-UI.png)
+![](/assets/images/adk/jaeger_adk.png)
 
 可以看到：
 1. 一次 QA 的**完整流程**：例如从`root_agent` transfer 到`weather_agent`，以及调用 LLM(call_llm)、tool(execute_tool) 在哪个阶段发生  
@@ -94,7 +94,7 @@ def get_weather(city: str) -> dict:
     return {"city": city, "weather": "晴天", "temperature": "25°C"}
 ```
 
-![](/assets/images/adk/invocation-google_adk_Jaeger-UI_custom_attr.png)
+![](/assets/images/adk/jaeger_custom_attr.png)
 
 如果放到生产环境，可能还要考虑两点：
 1. 不丢数据：Jaeger 提供了 Via Kafka<sup>2</sup>的方式
