@@ -94,7 +94,7 @@ def get_weather(city: str) -> dict:
     return {"city": city, "weather": "晴天", "temperature": "25°C"}
 ```
 
-![](/assets/images/adk/jaeger_custom_attr.png)
+![](/assets/images/ADK/jaeger_adk.png)
 
 如果放到生产环境，可能还要考虑两点：
 1. 不丢数据：Jaeger 提供了 Via Kafka<sup>2</sup>的方式
@@ -108,7 +108,7 @@ def get_weather(city: str) -> dict:
 2. 调用时：例如 agent `run_async`调用的实现，会首先用`with tracer.start_as_current_span(...)`记录下来，即人工埋点   
 如果是 adk web 的使用场景，也可以直接使用其 trace 能力
 
-![](/assets/images/adk/adk_web_traces_sample.png){:width="300"}
+![](/assets/images/ADK/adk_web_traces_sample.png){:width="300"}
 
 ## 3. 参考资料
 
