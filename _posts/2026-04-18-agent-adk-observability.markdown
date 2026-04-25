@@ -1,5 +1,5 @@
 ---
-title: "Google ADK: 可观测性"
+title: "Google ADK 是如何实现可观测的？"
 date: 2026-04-18 06:18:16
 tags: AI
 ---
@@ -33,8 +33,8 @@ graph TB
     root_agent[主 Agent: root_agent<br/>协调调用子Agent] --> agent_a[Agent A: weather_agent<br/>查询城市天气]
     root_agent --> agent_b[Agent B: clothing_agent<br/>提供穿衣建议]
     
-    agent_a --> get_weather[工具: get_weather<br/>返回固定天气数据<br/>延迟3秒 + 自定义trace属性]
-    agent_b --> get_clothing_advice[工具: get_clothing_advice<br/>返回固定穿衣建议<br/>延迟1秒]
+    agent_a --> get_weather[工具: get_weather<br/>返回固定天气数据<br/>延迟2.5秒 + 自定义trace属性]
+    agent_b --> get_clothing_advice[工具: get_clothing_advice<br/>返回固定穿衣建议<br/>延迟1.5秒]
     
     style root_agent fill:#e1f5fe
 ```
@@ -94,11 +94,11 @@ def get_weather(city: str) -> dict:
     return {"city": city, "weather": "晴天", "temperature": "25°C"}
 ```
 
-![](/assets/images/adk/jaeger_adk.png)
+![](/assets/images/adk/jaeger_custom_attr.png)
 
 如果放到生产环境，可能还要考虑两点：
 1. 不丢数据：Jaeger 提供了 Via Kafka<sup>2</sup>的方式
-2. ADK 还提供了发送 log 的能力，如果不存在 log 端点会报错`Failed to export logs batch code: 404, reason: 404 page not found`，可能需要引入 OpenTeLemetry Collector 的中转组件。
+2. ADK 还集成了发送 log 的能力，如果不存在 log 端点会报错`Failed to export logs batch code: 404, reason: 404 page not found`，可能需要引入 OpenTeLemetry Collector 作为中转组件。
 
 测试代码放到了 github<sup>3</sup> 上
 
@@ -106,8 +106,8 @@ def get_weather(city: str) -> dict:
 
 1. 启动时：初始化各类 provider,例如`TracerProvider LoggerProvider MeterProvider`，读取环境变量并初始化对应的处理器(`maybe_set_otel_providers`)  
 2. 调用时：例如 agent `run_async`调用的实现，会首先用`with tracer.start_as_current_span(...)`记录下来，即人工埋点   
-如果是 adk web 的使用场景，也可以直接使用其 trace 能力
 
+如果是 adk web 的使用场景，也可以直接使用其 trace 能力
 ![](/assets/images/adk/adk_web_traces_sample.png){:width="300"}
 
 ## 3. 参考资料
