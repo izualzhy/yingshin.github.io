@@ -1,6 +1,6 @@
 ---
 title: "从 ADK 看 Google 眼里的 MCP&A2A&Skill"
-date: 2026-04-25 07:18:16
+date: 2026-04-25 10:18:16
 tags: AI
 ---
 
