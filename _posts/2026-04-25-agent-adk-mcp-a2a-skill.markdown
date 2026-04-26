@@ -212,6 +212,11 @@ class SkillToolset(BaseToolset):
 
 其他跟普通 Agent 实现区别不大，该调用嘛调用嘛。
 
+ADK 里是这么介绍跟 Skill 的区别的：
+
+> What is the difference between ADK skills and tools?
+Tools give agents the ability to take actions — call APIs, read files, query databases. Skills teach agents when and how to use those tools effectively. A tool is “call the weather API.” A skill is “when the user asks about travel, check weather for each destination, compare results, and format as an itinerary.” Skills compose on top of tools — see Part 1’s explanation for the full distinction.
+
 详细代码可以参考：adk-python/contributing/samples skills_agent
 
 ## 4. 总结
