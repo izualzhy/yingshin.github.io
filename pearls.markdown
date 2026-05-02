@@ -38,16 +38,18 @@ title: Programming Pearls
 }
 
 .pearl-card {
-  background: var(--background-color, #fff);
+  background: transparent;
   border-left: 4px solid #fd7e14;
   border-radius: 6px;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 .pearl-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
 }
 
 .pearl-header {

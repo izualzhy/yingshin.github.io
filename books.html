@@ -11,8 +11,8 @@ hide_title: true
     <style>
         .timeline {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f8f9fa;
             color: #333;
+            background-color: transparent;
         }
 
         .timeline {
@@ -87,18 +87,18 @@ hide_title: true
         .book {
             position: relative; /* For note overlay */
             display: flex;
-            background-color: white;
+            background-color: transparent;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.05);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
             overflow: hidden;
-            border: 1px solid #e9ecef;
+            border: 1px solid rgba(0,0,0,0.08);
         }
 
         .book:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-            border-color: #007bff;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15), 0 12px 24px rgba(0,0,0,0.1);
+            border-color: rgba(0,123,255,0.3);
         }
 
         .book-note-overlay {
@@ -107,7 +107,7 @@ hide_title: true
             left: 120px; /* Start after cover */
             right: 0;
             bottom: 0;
-            background: rgba(255, 255, 255, 0.92);
+            background: transparent;
             padding: 20px;
             box-sizing: border-box;
             overflow-y: auto;
@@ -196,14 +196,16 @@ hide_title: true
         }
 
         .book-note.collapsed p::after {
-            content: '...查看更多';
-            color: #007bff;
-            cursor: pointer;
+            content: '……';
             position: absolute;
             bottom: 0;
             right: 0;
-            background: white;
-            padding-left: 5px;
+            padding-left: 25px;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.2em;
+            letter-spacing: 3px;
             transition: opacity 0.3s ease-in-out;
         }
 
@@ -221,6 +223,23 @@ hide_title: true
 
         div.book-info.reading {
             border-left: 5px solid #ffc107;
+            position: relative;
+            background: rgba(255, 193, 7, 0.08);
+        }
+
+        div.book-info.reading::after {
+            content: "READING";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.75em;
+            color: #856404;
+            font-weight: bold;
+            background-color: #ffc107;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         div.book-info.dropped {
