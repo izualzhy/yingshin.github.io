@@ -1,7 +1,7 @@
 ---
 title: "《GPT 图解》笔记：N-Gram、NPLM、LSTM"
 date: 2026-05-10 08:00:35
-tags: read AI
+tags: read
 ---
 
 统计语言模型的发展路线：
