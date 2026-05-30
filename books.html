@@ -15,6 +15,10 @@ hide_title: true
             background-color: transparent;
         }
 
+        :root {
+            --book-cover-width: clamp(100px, 10vw, 160px);
+        }
+
         .timeline {
             position: relative;
             margin: 30px auto;
@@ -75,6 +79,24 @@ hide_title: true
             color: #6c757d;
         }
 
+        .year-number::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #6c757d;
+            border-bottom: 2px solid #6c757d;
+            margin-left: 8px;
+            transform: rotate(45deg);
+            transition: transform 0.2s;
+            vertical-align: middle;
+            margin-bottom: 2px;
+        }
+
+        .year.collapsed .year-number::after {
+            transform: rotate(-45deg);
+        }
+
         .books-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -85,7 +107,6 @@ hide_title: true
         }
 
         .book {
-            position: relative; /* For note overlay */
             display: flex;
             background-color: transparent;
             border-radius: 8px;
@@ -101,42 +122,10 @@ hide_title: true
             border-color: rgba(0,123,255,0.3);
         }
 
-        .book-note-overlay {
-            position: absolute;
-            top: 0;
-            left: 120px; /* Start after cover */
-            right: 0;
-            bottom: 0;
-            background: transparent;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            z-index: 10;
-            font-size: 0.95em;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .book-note-overlay p {
-            margin: 0;
-        }
-
-        .book.has-note:hover .book-note-overlay {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .book.has-note:hover .book-info {
-            opacity: 0; /* Hide book-info on hover */
-        }
-
         .book-cover {
             flex-shrink: 0;
-            width: 120px;
-            height: 180px;
+            width: var(--book-cover-width);
+            aspect-ratio: 2 / 3;
             object-fit: cover;
         }
 
@@ -146,8 +135,7 @@ hide_title: true
             justify-content: center;
             padding: 20px;
             flex-grow: 1;
-            max-width: calc(100% - 120px);
-            transition: opacity 0.3s ease-in-out; /* Add transition */
+            max-width: calc(100% - var(--book-cover-width));
         }
 
         .book-details {
@@ -172,45 +160,56 @@ hide_title: true
         }
 
         .book-note {
-            position: relative;
-            word-wrap: break-word;
             font-size: 0.95em;
             line-height: 1.6;
         }
 
         .book-note p {
             margin: 0;
-            overflow: hidden;
-            white-space: normal;
+            word-wrap: break-word;
         }
 
-        .book-note.collapsed p {
-            max-height: 4.8em; /* 3 lines approx */
+        .book-note .note-body {
+            max-height: 4.8em;
             overflow: hidden;
             position: relative;
-            transition: max-height 0.3s ease-in-out;
+            transition: max-height 0.4s ease;
         }
 
-        .book:hover .book-note.collapsed p {
-            max-height: 50em; /* Enough for long notes */
-        }
-
-        .book-note.collapsed p::after {
-            content: '……';
+        .book-note .note-body::after {
+            content: '';
             position: absolute;
             bottom: 0;
+            left: 0;
             right: 0;
-            padding-left: 25px;
-            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
-            color: #007bff;
-            font-weight: bold;
-            font-size: 1.2em;
-            letter-spacing: 3px;
-            transition: opacity 0.3s ease-in-out;
+            height: 2em;
+            background: linear-gradient(to bottom, transparent, var(--page-bg, #fff));
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.3s;
         }
 
-        .book:hover .book-note.collapsed p::after {
+        .book-note.expanded .note-body {
+            overflow: hidden;
+        }
+
+        .book-note.expanded .note-body::after {
             opacity: 0;
+        }
+
+        .book-note .expand-link {
+            display: block;
+            text-align: right;
+            font-size: 0.85em;
+            color: #007bff;
+            cursor: pointer;
+            padding-top: 2px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .book-note .expand-link:hover {
+            opacity: 1;
         }
 
         .year.collapsed .books-container {
@@ -304,15 +303,13 @@ hide_title: true
                         <a href="{{ book.douban_link }}">{{ book.name }}</a><br>
                         <span class="book-dates">{{ book.start_date }} -> {{ book.finish_date }}</span>
                     </div>
-                    <div class="book-note collapsed">
-                        <p class="info">{{ book.note }}</p>
+                    <div class="book-note">
+                        <div class="note-body">
+                            <p class="info">{{ book.note }}</p>
+                        </div>
+                        <span class="expand-link">展开</span>
                     </div>
                 </div>
-                {% if has_note %}
-                <div class="book-note-overlay">
-                    <p>{{ book.note }}</p>
-                </div>
-                {% endif %}
             </div>
         {% endfor %}
 
@@ -322,34 +319,66 @@ hide_title: true
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const notes = document.querySelectorAll('.book-note p.info');
-        notes.forEach(note => {
-            const noteText = note.textContent.trim();
-            const parent = note.parentElement;
-            if (noteText.length <= 150) {
-                parent.classList.remove('collapsed');
-                parent.removeAttribute('onclick'); // 移除点击事件
+    function initNotes(container) {
+        container.querySelectorAll('.book-note:not([data-init])').forEach(note => {
+            note.dataset.init = '1';
+            const body = note.querySelector('.note-body');
+            const link = note.querySelector('.expand-link');
+            if (!body) return;
+            if (body.scrollHeight <= body.clientHeight) {
+                note.classList.add('expanded');
+                if (link) link.style.display = 'none';
             } else {
-                parent.classList.add('collapsed');
-                parent.setAttribute('onclick', 'toggleNoteIfNecessary(this)'); // 添加点击事件
+                note.setAttribute('onclick', 'toggleNote(this)');
             }
         });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const bg = getComputedStyle(document.body).backgroundColor;
+        if (bg && bg !== 'rgba(0, 0, 0, 0)') {
+            document.documentElement.style.setProperty('--page-bg', bg);
+        }
+        document.querySelectorAll('.year:not(.collapsed)').forEach(y => initNotes(y));
     });
 
     function toggleYear(element) {
-        const yearElement = element.parentNode;
-        yearElement.classList.toggle('collapsed');
+        const year = element.parentNode;
+        year.classList.toggle('collapsed');
+        if (!year.classList.contains('collapsed')) initNotes(year);
     }
 
-    function toggleNoteIfNecessary(element) {
-        const note = element.querySelector('p.info');
-        const isCollapsed = element.classList.contains('collapsed');
-        if (isCollapsed) {
-            element.classList.remove('collapsed');
+    function toggleNote(el) {
+        const body = el.querySelector('.note-body');
+        const link = el.querySelector('.expand-link');
+        if (!body) return;
+        const isExpanding = !el.classList.contains('expanded');
+        if (isExpanding) {
+            const target = body.scrollHeight;
+            el.classList.add('expanded');
+            body.style.maxHeight = '4.8em';
+            requestAnimationFrame(() => {
+                body.style.maxHeight = target + 'px';
+                const done = () => {
+                    body.removeEventListener('transitionend', done);
+                    body.style.maxHeight = 'none';
+                };
+                body.addEventListener('transitionend', done);
+            });
         } else {
-            element.classList.add('collapsed');
+            const current = body.scrollHeight;
+            body.style.maxHeight = current + 'px';
+            requestAnimationFrame(() => {
+                body.style.maxHeight = '4.8em';
+                const done = () => {
+                    body.removeEventListener('transitionend', done);
+                    el.classList.remove('expanded');
+                    body.style.maxHeight = '';
+                };
+                body.addEventListener('transitionend', done);
+            });
         }
+        if (link) link.textContent = isExpanding ? '收起' : '展开';
     }
 </script>
 </body>
