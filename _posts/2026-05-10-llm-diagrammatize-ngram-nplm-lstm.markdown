@@ -12,7 +12,7 @@ tags: read
 
 这篇笔记主要记录：
 
-1. **N-Gram**: 统计前 n-1 个词出现的概率，计算`P(word_n | word_(n-1), word_(n-2))`，不具备泛化能力。  
+1. **N-Gram**: 统计前 n-1 个词出现的概率，计算 \\( P(\text{word}_n \mid \text{word}_{n-1}, \text{word}_{n-2}) \\)，不具备泛化能力。  
 2. **NPLM**: 引入 embedding（词向量），具备了 泛化 能力，但仍然是固定窗口
 3. **RNN/LSTM**: 引入 hidden state 递归，支持了 变长 序列，不再是固定 n_step 的前文词长度
 
@@ -164,9 +164,11 @@ m = 词汇表大小（voc_size）
 **总结：NPLM 是 固定窗口 + 全连接 的.**    
 - **核心思想: 前面 n_step 个词组成一个固定长度特征向量**    
 - **代码: 对前 n_step 个 token 做 embedding，然后 flatten 成一个大向量， 再送入 MLP(Linear)。n_step 决定了能利用的前面词的个数，因此无法处理长距离依赖。也是固定窗口(n_step)和全连接(flatten)的由来**    
-- **形状变化：[batch_size, n_step] -&gt; [batch_size, n_step, embedding_size] -&gt; [batch_size, n_step * embedding_size] -&gt; Linear层**    
+- **形状变化：\\( [\text{batch\_size}, n\_{step}] \rightarrow [\text{batch\_size}, n\_{step}, e] \rightarrow [\text{batch\_size}, n\_{step} \times e] \rightarrow \text{Linear层} \\)**
 
-循环神经网络（Recurrent Neural Network）可以看作一个具有“记忆”的神经网络，RNN 通过 hidden state 递归传递历史信息， 从而支持变长序列(NPLM 里固定 n_step)； 但普通 RNN 仍然存在长期依赖困难， 因此后来出现了 LSTM。
+循环神经网络（Recurrent Neural Network）可以看作一个具有“记忆”的神经网络，RNN 通过 hidden state 递归传递历史信息， 从而支持变长序列(NPLM 里固定 n_step)。之所以叫做**循环**，是指当前时间步会使用上一个时间步的隐藏状态（hidden state）作为输入的一部分。
+
+但普通 RNN 仍然存在长期依赖困难， 因此后来出现了 LSTM。
 
 这里使用 LSTM 作为 RNN 的一种实现:
 
@@ -194,7 +196,7 @@ class RNNLM(nn.Module):
 **总结: RNN/LSTM 语言模型是基于递归状态传递的序列建模**    
 - **核心思想: 当前 token + 历史 hidden state 逐步更新上下文表示。注意区别，不再是“完整无损地保存所有 token”，而是整个历史的压缩表示**     
 - **代码：按时间顺序逐 token 输入， hidden state 递归携带历史信息， 最后使用最后时间步 hidden state 预测下一个词**    
-- **形状变化：[batch_size, n_step] -&gt; [batch_size, n_step, embedding_size] -&gt; [batch_size, n_step, n_hidden] -&gt; [batch_size, n_hidden] -&gt; Linear层**    
+- **形状变化：\\( [\text{batch\_size}, n\_{step}] \rightarrow [\text{batch\_size}, n\_{step}, e] \rightarrow [\text{batch\_size}, n\_{step}, h] \rightarrow [\text{batch\_size}, h] \rightarrow \text{Linear层} \\)**
 
 当然，因为 token_t 依赖 token_(t-1)，RNN/LSTM 无法像 Transformer 那样完全并行计算，
 这也是 Transformer 希望解决的问题： 既提升并行计算能力， 又增强长距离依赖建模能力。
