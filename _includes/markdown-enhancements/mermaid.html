@@ -3,8 +3,10 @@
 <script>
   window.Lazyload.js('{{ _sources.mermaid }}', function() {
     mermaid.initialize({
-      startOnLoad: true
+      startOnLoad: false
     });
-    mermaid.init(undefined, '.language-mermaid');
+    mermaid.run({
+      querySelector: '.language-mermaid'
+    });
   });
 </script>
