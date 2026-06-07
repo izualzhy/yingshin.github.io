@@ -11,7 +11,7 @@ tags: read
 
 ## 1. 注意力机制中的 Q K V
 
-以[Seq2Seq及点积注意力](https://izualzhy.cn/llm-diagrammatize-seq2seq-attention)第 3 节的流程图为例: rnn_output<=>Query  enc_output<=>Key enc_output<=>Value 
+以[Seq2Seq及点积注意力](https://izualzhy.cn/llm-diagrammatize-seq2seq-attention)第 3 节的流程图为例: **rnn_output → Query**，**enc_output → Key**，**enc_output → Value**
 
 逻辑上这么理解：  
 1. Query: 找什么，作为搜索条件    
