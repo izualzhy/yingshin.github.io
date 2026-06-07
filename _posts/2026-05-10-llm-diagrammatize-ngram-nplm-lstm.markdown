@@ -194,9 +194,10 @@ class RNNLM(nn.Module):
 ```
 
 **总结: RNN/LSTM 语言模型是基于递归状态传递的序列建模**    
-- **核心思想: 当前 token + 历史 hidden state 逐步更新上下文表示。注意区别，不再是“完整无损地保存所有 token”，而是整个历史的压缩表示**     
-- **代码：按时间顺序逐 token 输入， hidden state 递归携带历史信息， 最后使用最后时间步 hidden state 预测下一个词**    
-- **形状变化：\\( [\text{batch\_size}, n\_{step}] \rightarrow [\text{batch\_size}, n\_{step}, e] \rightarrow [\text{batch\_size}, n\_{step}, h] \rightarrow [\text{batch\_size}, h] \rightarrow \text{Linear层} \\)**
+- **核心思想**: 当前 token + 历史 hidden state 逐步更新上下文表示。注意区别，不再是“完整无损地保存所有 token”，而是整个历史的压缩表示     
+- **代码**：按时间顺序逐 token 输入， hidden state 递归携带历史信息， 最后使用最后时间步 hidden state 预测下一个词    
+- **形状变化**：\\( [\text{batch\_size}, n\_{step}] \rightarrow [\text{batch\_size}, n\_{step}, e] \rightarrow [\text{batch\_size}, n\_{step}, h] \rightarrow [\text{batch\_size}, h] \rightarrow \text{Linear层} \\)    
+- **循环(Recurrent)的含义**：当前时间步会使用上一个时间步的隐藏状态（hidden state）作为输入的一部分     
 
 当然，因为 token_t 依赖 token_(t-1)，RNN/LSTM 无法像 Transformer 那样完全并行计算，
 这也是 Transformer 希望解决的问题： 既提升并行计算能力， 又增强长距离依赖建模能力。

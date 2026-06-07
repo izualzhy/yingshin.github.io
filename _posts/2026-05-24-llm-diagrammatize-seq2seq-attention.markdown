@@ -107,15 +107,15 @@ train_seq2seq(model, criterion, optimizer, epochs) # 调用函数训练模型
 flowchart TD
 
 subgraph Encoder
-    A["enc_input<br/>(B, T)"]
+    A["enc_input<br/>(B, S)"]
 
     A
     -- "nn.Embedding(input_size, H)" -->
-    B["embedded<br/>(B, T, H)"]
+    B["embedded<br/>(B, S, H)"]
 
     B
     -- "nn.RNN(H, H)" -->
-    C["encoder_output<br/>(B, T, H)"]
+    C["encoder_output<br/>(B, S, H)"]
 
     C
     --> D["encoder_hidden<br/>(L, B, H)<br/>Encoder 对整个输入序列的压缩上下文表示"]
@@ -133,7 +133,8 @@ subgraph Decoder
     G["embedded<br/>(B, T, H)"]
 
     G
-    --> E["nn.RNN(H, H)"]
+    -- "nn.RNN(H, H)" -->
+    E["decoder_rnn_output<br/>(B, T, H)"]
 
     E
     --> H["decoder_output<br/>(B, T, H)"]
@@ -149,7 +150,8 @@ end
 | 名称 | 含义 |
 |---|---|
 | B: batch_size | 一次并行处理多少个样本（通常是一批句子） |
-| T: seq_len | 每个序列包含多少个 token（同一个 batch 里，所有句子会被 padding 成相同长度） |
+| S: seq_len | 每个序列包含多少个 token（同一个 batch 里，所有句子会被 padding 成相同长度） |
+| T: target_seq_len | decoder 输入/输出序列长度（训练时=label长度，推理时=生成长度） |
 | H: hidden_size | RNN hidden state 维度（本例中 embedding 维度与其相同） |
 | V: vocab_size | 输出词汇表大小 |
 | L: num_layers | RNN 堆叠层数 |
@@ -236,15 +238,15 @@ Decoder 不再只能依赖单个 encoder_hidden，
 flowchart TD
 
 subgraph Encoder
-    A["enc_input<br/>(B, T)"]
+    A["enc_input<br/>(B, S)"]
 
     A
     -- "nn.Embedding(input_size, H)" -->
-    B["embedded<br/>(B, T, H)"]
+    B["embedded<br/>(B, S, H)"]
 
     B
     -- "nn.RNN(H, H)" -->
-    C["encoder_output<br/>(B, T, H)"]
+    C["encoder_output<br/>(B, S, H)"]
 
     C
     --> D["encoder_hidden<br/>(L, B, H)<br/>Encoder 对整个输入序列的压缩上下文表示"]
@@ -280,7 +282,7 @@ subgraph Decoder
     --> K["新增：context<br/>(B, T, H)"]
 
     J
-    --> L["新增：attn_weights<br/>(B, T, T)"]
+    --> L["新增：attn_weights<br/>(B, T, S)"]
 
     %% concat 新增
     H

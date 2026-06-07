@@ -56,6 +56,17 @@ hide_title: true
             border: 2px solid white;
         }
 
+        .year-header {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .year-header:hover .year-number {
+            color: #007bff;
+        }
+
         .year-number {
             position: relative;
             font-weight: bold;
@@ -64,14 +75,7 @@ hide_title: true
             background-color: transparent;
             padding: 5px 10px;
             border-radius: 5px;
-            display: inline-block;
-            cursor: pointer;
-            margin-bottom: 20px;
             transition: color 0.3s;
-        }
-
-        .year-number:hover {
-            color: #007bff;
         }
 
         .year-number .book-count {
@@ -278,8 +282,10 @@ hide_title: true
 {% for year in sorted_books_by_year %}
     {% assign current_year = year.name %}
     <div class="year{% if forloop.first == false %} collapsed{% endif %}">
-        <div class="year-dot"></div>
-        <div class="year-number" onclick="toggleYear(this)">{{ current_year }} <span class="book-count">({{ year.items | size }})</span></div>
+        <div class="year-header" onclick="toggleYear(this)">
+            <div class="year-dot"></div>
+            <div class="year-number">{{ current_year }} <span class="book-count">({{ year.items | size }})</span></div>
+        </div>
         <div class="books-container">
         {% for book in year.items %}
             {% if book.status == "hidden" %}
@@ -343,7 +349,7 @@ hide_title: true
     });
 
     function toggleYear(element) {
-        const year = element.parentNode;
+        const year = element.closest('.year');
         year.classList.toggle('collapsed');
         if (!year.classList.contains('collapsed')) initNotes(year);
     }
