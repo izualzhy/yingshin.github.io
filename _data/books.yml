@@ -1,8 +1,8 @@
-- name: 别让猴子跳回背上
-  cover: https://izualzhy.cn/assets/images/book/s34322046.jpg
-  start_date: 2026.6.7
+- name: 说服力：工作型PPT该这样做
+  cover: https://izualzhy.cn/assets/images/book/s33645278.jpg
+  start_date: 2026.6.12
   finish_date:
-  douban_link: https://book.douban.com/subject/36103994/
+  douban_link: https://book.douban.com/subject/35044078/
   note:
 
 - name: 被讨厌的勇气
@@ -101,7 +101,7 @@
   start_date: 2025.3.23
   finish_date: 
   douban_link: https://book.douban.com/subject/36668702/
-  note: 1. <a href="http://izualzhy.cn/llm-diagrammatize-ngram-nplm-lstm">《GPT 图解》笔记：N-Gram、NPLM、LSTM</a><br/>2. <a href="http://izualzhy.cn/llm-diagrammatize-seq2seq-attention">《GPT 图解》笔记：Seq2Seq及点积注意力</a><br/>3. <a href="http://izualzhy.cn/llm-diagrammatize-attention-qkv-multi-mask">《GPT 图解》笔记：QKV、多头注意力及掩码</a><br/>4. <a href="http://izualzhy.cn/llm-diagrammatize-transformer">《GPT 图解》笔记：Transformer</a>
+  note: 1. <a href="http://izualzhy.cn/llm-diagrammatize-ngram-nplm-lstm">《GPT 图解》笔记：N-Gram、NPLM、LSTM</a><br/>2. <a href="http://izualzhy.cn/llm-diagrammatize-seq2seq-attention">《GPT 图解》笔记：Seq2Seq及点积注意力</a><br/>3. <a href="http://izualzhy.cn/llm-diagrammatize-attention-qkv-multi-mask">《GPT 图解》笔记：QKV、多头注意力及掩码</a><br/>4. <a href="http://izualzhy.cn/llm-diagrammatize-transformer">《GPT 图解》笔记：Transformer</a><br/>5. <a href="http://izualzhy.cn/llm-diagrammatize-gpt">《GPT 图解》笔记：GPT</a>
 
 - name: 人工智能工程化：应用落地与中台构建
   cover: https://izualzhy.cn/assets/images/book/s33733919.jpg

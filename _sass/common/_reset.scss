@@ -74,12 +74,15 @@ h2,
 h3,
 h4,
 h5,
-h6,
+h6 {
+  font-weight: map-get($base, font-weight-bold);
+}
+
 strong {
   font-weight: map-get($base, font-weight-bold);
-  font-size: 1.2em; /* 增加字体大小 */
-  color: CornflowerBlue; /* 改变字体颜色 */
-  padding: 2px; /* 增加内边距 */
+  color: #d35400;
+  background: linear-gradient(transparent 60%, rgba(211, 84, 0, 0.12) 60%);
+  padding: 0 2px;
 }
 
 h1 {
@@ -140,7 +143,7 @@ pre, code {
 }
 
 code {
-  font-size: map-get($base, font-size-xs);
+  font-size: map-get($base, font-size-sm);
   line-height: map-get($base, line-height-sm);
 }
 
