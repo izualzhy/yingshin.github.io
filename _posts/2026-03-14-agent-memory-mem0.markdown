@@ -48,7 +48,7 @@ class Memory:
 ```
 
 messages 写入存储是在`_add_to_vector_store`，处理流程共四步：
-1. **LLM 提取本次记忆**：prompts<sup>3</sup> + messages，返回`{{"facts" : []}}`结构的数据。如果有自定义prompt，也是在该阶段生效。  
+1. **LLM 提取本次记忆**：prompts<sup>3</sup> + messages，返回`{ { "facts" : [] } }`结构的数据。如果有自定义prompt，也是在该阶段生效。  
 2. **相似记忆检索**：根据本次提取出的记忆查询向量库，找到已经存在的相似记忆。  
 3. **LLM 决策记忆更新内容**：prompts<sup>3</sup> + 新记忆 + 旧的相似记忆，返回`{"memory": [{"id": , "text": , "event": }]}`的数据结构，其中 event 有 ADD UPDATE DELETE NONE，对应后续不同的向量库操作  
 4. **向量化及存储**：调用 Embeddings 服务生成向量，执行向量库操作  

@@ -5,167 +5,341 @@ sidebar: false
 hide_title: true
 ---
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+
 <html>
 <head>
     <title>读书记录</title>
     <style>
-        .timeline {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            color: #333;
-            background-color: transparent;
-        }
-
         :root {
-            --book-cover-width: clamp(100px, 10vw, 160px);
+            --book-cover-width: clamp(100px, 10vw, 150px);
+            --bg-card: #fff;
+            --text-primary: #222;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --accent: #fc4d50;
+            --accent-hover: #e04447;
+            --shelf-line: #ddd;
+            --shelf-shadow: rgba(0,0,0,0.08);
+            --card-shadow: rgba(0,0,0,0.06);
+            --status-reading: #fca24d;
+            --status-reading-bg: rgba(252, 162, 77, 0.08);
+            --status-finished: #52c41a;
+            --status-dropped: #888;
+            --status-dropped-bg: rgba(136, 136, 136, 0.06);
+            --serif: 'Noto Serif SC', 'Noto Serif CJK SC', 'Bitter', 'Songti SC', serif;
         }
 
-        .timeline {
-            position: relative;
-            margin: 30px auto;
-            padding-top: 20px;
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-card: #2a2a2a;
+                --text-primary: rgba(255,255,255,.95);
+                --text-secondary: rgba(255,255,255,.7);
+                --text-muted: rgba(255,255,255,.5);
+                --accent: #ff6b6d;
+                --accent-hover: #ff8587;
+                --shelf-line: #444;
+                --shelf-shadow: rgba(0,0,0,0.3);
+                --card-shadow: rgba(0,0,0,0.2);
+                --status-reading: #fca24d;
+                --status-reading-bg: rgba(252, 162, 77, 0.12);
+                --status-finished: #73d13d;
+                --status-dropped: #666;
+                --status-dropped-bg: rgba(102, 102, 102, 0.1);
+            }
         }
 
-        .page-title {
+        .bookshelf-page {
+            font-family: 'Bitter', 'Noto Serif CJK SC', 'PingFang SC', 'Hiragino Sans GB', serif;
+            color: var(--text-primary);
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === Header === */
+        .page-header {
             text-align: center;
-            font-size: 2.8em;
-            font-weight: bold;
-            color: #343a40;
-            margin-bottom: 10px;
+            padding: 50px 0 40px;
+        }
+
+        .page-header h1 {
+            font-family: var(--serif);
+            font-size: 2.6em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 16px;
+            letter-spacing: 0.06em;
+        }
+
+        .header-flourish {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 0 0 18px;
+        }
+
+        .header-flourish .line {
+            width: 60px;
+            height: 1px;
+            background: var(--shelf-line);
+        }
+
+        .header-flourish .diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            transform: rotate(45deg);
+            flex-shrink: 0;
         }
 
         .page-subtitle {
-            text-align: center;
-            font-size: 1.2em;
-            color: #6c757d;
-            margin-bottom: 40px;
+            font-family: var(--serif);
+            font-size: 1.05em;
+            color: var(--text-muted);
+            font-style: italic;
+            letter-spacing: 0.08em;
+            margin: 0;
         }
 
-        .year {
-            position: relative;
-            padding-bottom: 20px;
-        }
-
-        .year-dot {
-            position: absolute;
-            top: 15px;
-            left: -24px;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background-color: #007bff;
-            border: 2px solid white;
+        /* === Year / Shelf === */
+        .year-section {
+            margin-bottom: 20px;
         }
 
         .year-header {
             display: flex;
             align-items: center;
             cursor: pointer;
-            margin-bottom: 20px;
-        }
-
-        .year-header:hover .year-number {
-            color: #007bff;
+            padding: 18px 0 14px;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .year-number {
-            position: relative;
-            font-weight: bold;
-            font-size: 2.5em;
-            color: #343a40;
-            background-color: transparent;
-            padding: 5px 10px;
-            border-radius: 5px;
+            font-family: var(--serif);
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-right: 14px;
+            line-height: 1;
             transition: color 0.3s;
         }
 
-        .year-number .book-count {
-            font-size: 0.5em;
-            color: #6c757d;
+        .year-header:hover .year-number {
+            color: var(--accent);
         }
 
-        .year-number::after {
+        .year-count {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            margin-right: 16px;
+        }
+
+        .year-line {
+            flex: 1;
+            height: 1px;
+            background: var(--shelf-line);
+        }
+
+        .year-arrow {
+            margin-left: 16px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .year-arrow svg {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: var(--text-muted);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .year-section.collapsed .year-arrow {
+            transform: rotate(-90deg);
+        }
+
+        /* Shelf base */
+        .books-shelf {
+            position: relative;
+            padding-left: 30px;
+            margin: 0 0 10px;
+        }
+
+        .books-shelf::before {
             content: '';
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-right: 2px solid #6c757d;
-            border-bottom: 2px solid #6c757d;
-            margin-left: 8px;
-            transform: rotate(45deg);
-            transition: transform 0.2s;
-            vertical-align: middle;
-            margin-bottom: 2px;
-        }
-
-        .year.collapsed .year-number::after {
-            transform: rotate(-45deg);
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--shelf-line), transparent);
+            border-radius: 1px;
         }
 
         .books-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 30px;
-            margin-top: 20px;
-            border-left: 2px solid #e9ecef;
-            padding-left: 30px;
+            gap: 22px;
         }
 
+        .year-section.collapsed .books-shelf {
+            display: none;
+        }
+
+        /* === Book Card === */
         .book {
             display: flex;
-            background-color: transparent;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            background: var(--bg-card);
+            border-radius: 6px;
             overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 1px 3px var(--card-shadow), 0 4px 12px var(--shelf-shadow);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.35s ease;
+            position: relative;
         }
 
         .book:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15), 0 12px 24px rgba(0,0,0,0.1);
-            border-color: rgba(0,123,255,0.3);
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: 0 4px 12px var(--card-shadow), 0 12px 28px var(--shelf-shadow);
+        }
+
+        /* Cover with spine effect */
+        .book-cover-wrap {
+            flex-shrink: 0;
+            width: var(--book-cover-width);
+            position: relative;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .book-cover-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(0,0,0,0.18) 0%,
+                rgba(0,0,0,0.06) 4%,
+                rgba(255,255,255,0.08) 4.5%,
+                transparent 12%
+            );
+            pointer-events: none;
         }
 
         .book-cover {
-            flex-shrink: 0;
-            width: var(--book-cover-width);
+            width: 100%;
             aspect-ratio: 2 / 3;
             object-fit: cover;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        .book:hover .book-cover {
+            transform: scale(1.04);
+        }
+
+        /* Info area */
         .book-info {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 20px;
+            padding: 20px 24px;
             flex-grow: 1;
             max-width: calc(100% - var(--book-cover-width));
+            position: relative;
         }
 
         .book-details {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .book-details a {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
+            font-family: var(--serif);
+            font-size: 1.15em;
+            font-weight: 600;
+            color: var(--text-primary);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.25s;
+            line-height: 1.5;
         }
+
         .book-details a:hover {
-            color: #007bff;
+            color: var(--accent-hover);
         }
 
         .book-dates {
-            font-size: 0.9em;
-            color: #6c757d;
-            margin-top: 5px;
+            font-size: 0.82em;
+            color: var(--text-muted);
+            margin-top: 4px;
+            letter-spacing: 0.03em;
         }
 
+        /* Status indicators */
+        .book-info.read_finished {
+            border-left: 3px solid var(--status-finished);
+        }
+
+        .book-info.reading {
+            border-left: 3px solid var(--status-reading);
+            background: var(--status-reading-bg);
+        }
+
+        .book-info.reading::after {
+            content: "在读";
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            font-size: 0.7em;
+            color: var(--status-reading);
+            font-weight: 600;
+            background: var(--status-reading-bg);
+            border: 1px solid var(--status-reading);
+            padding: 2px 8px;
+            border-radius: 3px;
+            letter-spacing: 0.1em;
+        }
+
+        .book-info.dropped {
+            border-left: 3px solid var(--status-dropped);
+            background: var(--status-dropped-bg);
+            opacity: 0.75;
+        }
+
+        .book-info.dropped::after {
+            content: "搁置";
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            font-size: 0.7em;
+            color: var(--status-dropped);
+            font-weight: 600;
+            background: var(--status-dropped-bg);
+            border: 1px solid var(--status-dropped);
+            padding: 2px 8px;
+            border-radius: 3px;
+            letter-spacing: 0.1em;
+        }
+
+        /* === Notes === */
         .book-note {
-            font-size: 0.95em;
-            line-height: 1.6;
+            font-size: 0.9em;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            position: relative;
         }
 
         .book-note p {
@@ -174,10 +348,10 @@ hide_title: true
         }
 
         .book-note .note-body {
-            max-height: 4.8em;
+            max-height: 5.25em;
             overflow: hidden;
             position: relative;
-            transition: max-height 0.4s ease;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .book-note .note-body::after {
@@ -186,15 +360,11 @@ hide_title: true
             bottom: 0;
             left: 0;
             right: 0;
-            height: 2em;
-            background: linear-gradient(to bottom, transparent, var(--page-bg, #fff));
+            height: 2.5em;
+            background: linear-gradient(to bottom, transparent, var(--bg-card));
             pointer-events: none;
             opacity: 1;
-            transition: opacity 0.3s;
-        }
-
-        .book-note.expanded .note-body {
-            overflow: hidden;
+            transition: opacity 0.35s;
         }
 
         .book-note.expanded .note-body::after {
@@ -202,66 +372,59 @@ hide_title: true
         }
 
         .book-note .expand-link {
-            display: block;
-            text-align: right;
-            font-size: 0.85em;
-            color: #007bff;
+            display: inline-block;
+            margin-top: 4px;
+            font-size: 0.8em;
+            color: var(--accent);
             cursor: pointer;
-            padding-top: 2px;
             opacity: 0.7;
             transition: opacity 0.2s;
+            letter-spacing: 0.05em;
         }
 
         .book-note .expand-link:hover {
             opacity: 1;
         }
 
-        .year.collapsed .books-container {
-            display: none;
+        /* Note links blend in */
+        .book-note a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(252, 77, 80, 0.2);
+            transition: border-color 0.2s;
         }
 
-        div.book-info.read_finished {
-            border-left: 5px solid #28a745;
+        .book-note a:hover {
+            border-bottom-color: var(--accent);
         }
 
-        div.book-info.reading {
-            border-left: 5px solid #ffc107;
-            position: relative;
-            background: rgba(255, 193, 7, 0.08);
+        /* === Footer stats === */
+        .page-footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: var(--text-muted);
+            font-size: 0.85em;
         }
 
-        div.book-info.reading::after {
-            content: "READING";
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.75em;
-            color: #856404;
-            font-weight: bold;
-            background-color: #ffc107;
-            padding: 4px 10px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .page-footer .flourish {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
-        div.book-info.dropped {
-            border-left: 5px solid #dc3545;
-            opacity: 0.8;
-            position: relative;
+        .page-footer .flourish .line {
+            width: 40px;
+            height: 1px;
+            background: var(--shelf-line);
         }
 
-        div.book-info.dropped::after {
-            content: "DROPPED";
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.7em;
-            color: #dc3545;
-            font-weight: bold;
-            background-color: #f8d7da;
-            padding: 2px 5px;
-            border-radius: 3px;
+        .page-footer .flourish .dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--shelf-line);
         }
 
         .page__comments {
@@ -269,59 +432,108 @@ hide_title: true
             max-width: 900px;
             margin: 30px auto;
         }
+
+        /* === Animations === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .book {
+            animation: fadeInUp 0.5s ease both;
+        }
+
+        .year-section:nth-child(2) .book:nth-child(1) { animation-delay: 0.05s; }
+        .year-section:nth-child(2) .book:nth-child(2) { animation-delay: 0.1s; }
+        .year-section:nth-child(2) .book:nth-child(3) { animation-delay: 0.15s; }
+        .year-section:nth-child(2) .book:nth-child(4) { animation-delay: 0.2s; }
+        .year-section:nth-child(2) .book:nth-child(5) { animation-delay: 0.25s; }
     </style>
 </head>
 <body>
 {% assign previous_year = '' %}
-<div class="timeline">
-<h1 class="page-title">在读和读过的书</h1>
-<p class="page-subtitle">愿我们在白底黑字中读懂自己</p>
-<!--{% assign books_by_year = site.data.books | group_by_exp:"book", "book.start_date | split: '.' | first" %}-->
+<div class="bookshelf-page">
+
+<div class="page-header">
+    <h1>在读和读过的书</h1>
+    <div class="header-flourish">
+        <span class="line"></span>
+        <span class="diamond"></span>
+        <span class="line"></span>
+    </div>
+    <p class="page-subtitle">白底黑字间，读懂自己</p>
+</div>
+
 {% assign books_by_year = site.data.books | group_by_exp: "book", "(book.finish_date | default: book.start_date) | split: '.' | first" %}
 {% assign sorted_books_by_year = books_by_year | sort: "name" | reverse %}
 {% for year in sorted_books_by_year %}
     {% assign current_year = year.name %}
-    <div class="year{% if forloop.first == false %} collapsed{% endif %}">
+    <div class="year-section{% if forloop.first == false %} collapsed{% endif %}">
         <div class="year-header" onclick="toggleYear(this)">
-            <div class="year-dot"></div>
-            <div class="year-number">{{ current_year }} <span class="book-count">({{ year.items | size }})</span></div>
+            <span class="year-number">{{ current_year }}</span>
+            <span class="year-count">{{ year.items | size }} 本</span>
+            <span class="year-line"></span>
+            <span class="year-arrow">
+                <svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg>
+            </span>
         </div>
-        <div class="books-container">
-        {% for book in year.items %}
-            {% if book.status == "hidden" %}
-                {% continue %}  {# 不显示这本书 #}
-            {% endif %}
+        <div class="books-shelf">
+            <div class="books-container">
+            {% for book in year.items %}
+                {% if book.status == "hidden" %}
+                    {% continue %}
+                {% endif %}
 
-            {% if book.status == "dropped" %}
-                {% assign state = "dropped" %}
-            {% elsif book.finish_date %}
-                {% assign state = "read_finished" %}
-            {% else %}
-                {% assign state = "reading" %}
-            {% endif %}
+                {% if book.status == "dropped" %}
+                    {% assign state = "dropped" %}
+                {% elsif book.finish_date %}
+                    {% assign state = "read_finished" %}
+                {% else %}
+                    {% assign state = "reading" %}
+                {% endif %}
 
-            {% assign note_content = book.note | strip_html | strip %}
-            {% assign has_note = note_content | size > 0 %}
-            <div class="book{% if has_note %} has-note{% endif %}">
-                <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}"/>
-                <div class="book-info {{ state }}">
-                    <div class="book-details">
-                        <a href="{{ book.douban_link }}">{{ book.name }}</a><br>
-                        <span class="book-dates">{{ book.start_date }} -> {{ book.finish_date }}</span>
+                {% assign note_content = book.note | strip_html | strip %}
+                {% assign has_note = note_content | size > 0 %}
+                <div class="book{% if has_note %} has-note{% endif %}">
+                    <div class="book-cover-wrap">
+                        <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}" loading="lazy"/>
                     </div>
-                    <div class="book-note">
-                        <div class="note-body">
-                            <p class="info">{{ book.note }}</p>
+                    <div class="book-info {{ state }}">
+                        <div class="book-details">
+                            <a href="{{ book.douban_link }}">{{ book.name }}</a><br>
+                            <span class="book-dates">{{ book.start_date }}{% if book.finish_date %} &mdash; {{ book.finish_date }}{% endif %}</span>
                         </div>
-                        <span class="expand-link">展开</span>
+                        {% if has_note %}
+                        <div class="book-note">
+                            <div class="note-body">
+                                <p class="info">{{ book.note }}</p>
+                            </div>
+                            <span class="expand-link">展开</span>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
+            {% endfor %}
             </div>
-        {% endfor %}
-
         </div>
     </div>
 {% endfor %}
+
+<div class="page-footer">
+    <div class="flourish">
+        <span class="line"></span>
+        <span class="dot"></span>
+        <span class="line"></span>
+    </div>
+    <p>书卷多情似故人</p>
+</div>
+
 </div>
 
 <script>
@@ -341,17 +553,13 @@ hide_title: true
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-        const bg = getComputedStyle(document.body).backgroundColor;
-        if (bg && bg !== 'rgba(0, 0, 0, 0)') {
-            document.documentElement.style.setProperty('--page-bg', bg);
-        }
-        document.querySelectorAll('.year:not(.collapsed)').forEach(y => initNotes(y));
+        document.querySelectorAll('.year-section:not(.collapsed)').forEach(y => initNotes(y));
     });
 
     function toggleYear(element) {
-        const year = element.closest('.year');
-        year.classList.toggle('collapsed');
-        if (!year.classList.contains('collapsed')) initNotes(year);
+        const section = element.closest('.year-section');
+        section.classList.toggle('collapsed');
+        if (!section.classList.contains('collapsed')) initNotes(section);
     }
 
     function toggleNote(el) {
@@ -362,7 +570,7 @@ hide_title: true
         if (isExpanding) {
             const target = body.scrollHeight;
             el.classList.add('expanded');
-            body.style.maxHeight = '4.8em';
+            body.style.maxHeight = '5.25em';
             requestAnimationFrame(() => {
                 body.style.maxHeight = target + 'px';
                 const done = () => {
@@ -375,7 +583,7 @@ hide_title: true
             const current = body.scrollHeight;
             body.style.maxHeight = current + 'px';
             requestAnimationFrame(() => {
-                body.style.maxHeight = '4.8em';
+                body.style.maxHeight = '5.25em';
                 const done = () => {
                     body.removeEventListener('transitionend', done);
                     el.classList.remove('expanded');
