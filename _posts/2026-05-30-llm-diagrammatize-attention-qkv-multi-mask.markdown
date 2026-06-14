@@ -58,7 +58,10 @@ $$
 
 ## 2. 多头注意力、掩码
 
-![](/assets/images/gpt-diagrammatize/5-12.jpg)
+<figure>
+  <img src="/assets/images/gpt-diagrammatize/5-12.jpg"/>
+  <figcaption class="img-source">图源：《GPT图解-大模型是怎样构建的》</figcaption>
+</figure>
 
 多头注意力，就是先分成多个子空间再合并。其中每个子空间有单独的 QKV，本质上还是刚才的注意力代码。  
 
@@ -69,9 +72,12 @@ $$
 2. 过高维度不容易梯度优化   
 当然也可能出现多个子空间最后都学成一样的情况，叫做 attention head collapse，但通常不会，因为初始参数完全是随机的。  
 
-![](/assets/images/gpt-diagrammatize/5-14.jpg)
+<figure>
+  <img src=”/assets/images/gpt-diagrammatize/5-14.jpg”/>
+  <figcaption class=”img-source”>图源：《GPT图解-大模型是怎样构建的》</figcaption>
+</figure>
 
-掩码，则是把不需要关注的信息权重设为近似“0”
+掩码，则是把不需要关注的信息权重设为近似”0”
 
 **为什么这么做？** 有些位置不重要，比如 &lt;pad&gt; ，可能也还有其他 mask       
 **怎么做的：**：在 softmax 前人为降低某些位置分数（接近负无穷），softmax 后接近 0    

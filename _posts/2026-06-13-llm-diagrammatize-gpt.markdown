@@ -109,7 +109,10 @@ Encoder 只计算一次，Decoder + Projection 重复计算 T 次。
 
 ### 2.1. 组件
 
-![](/assets/images/gpt-diagrammatize/7-5.jpg)
+<figure>
+  <img src="/assets/images/gpt-diagrammatize/7-5.jpg"/>
+  <figcaption class="img-source">图源：《GPT图解-大模型是怎样构建的》</figcaption>
+</figure>
 
 图里各组件的作用:   
 <ol>
@@ -245,7 +248,10 @@ E -. repeat .-> A
 
 ### 3.2. 集束搜索
 
-![](/assets/images/gpt-diagrammatize/7-8.jpg)
+<figure>
+  <img src="/assets/images/gpt-diagrammatize/7-8.jpg"/>
+  <figcaption class="img-source">图源：《GPT图解-大模型是怎样构建的》</figcaption>
+</figure>
 
 集束搜索是一种启发式搜索策略。
 
