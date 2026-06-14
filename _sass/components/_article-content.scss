@@ -4,6 +4,14 @@
   @media print {
     line-height: map-get($base, line-height);
   }
+  a:not(.anchor) {
+    text-decoration: underline;
+    background: linear-gradient(transparent 60%, rgba(#fc4d50, 0.15) 60%);
+    padding: 0 1px;
+    @include hover() {
+      background: linear-gradient(transparent 60%, rgba(#fc4d50, 0.3) 60%);
+    }
+  }
   @include block-elements() {
     margin: map-get($spacers, 3) 0;
     @media print {
@@ -43,10 +51,12 @@
     @include horizontal-rules();
   }
   blockquote {
-    padding-left: map-get($spacers, 3);
+    padding: map-get($spacers, 2) map-get($spacers, 3);
     font-size: map-get($base, font-size-sm);
     color: $text-color-l;
-    @include split-line(left, 4px, $border-color);
+    background-color: rgba(#d35400, .04);
+    border-radius: 0 map-get($base, border-radius) map-get($base, border-radius) 0;
+    @include split-line(left, 4px, #d35400);
     p {
       margin: map-get($spacers, 2) 0;
     }
@@ -57,6 +67,7 @@
   img:not(.emoji) {
     max-width: 100%;
     vertical-align: middle;
+    border-radius: map-get($base, border-radius);
   }
   .emoji {
     display: inline-block;
