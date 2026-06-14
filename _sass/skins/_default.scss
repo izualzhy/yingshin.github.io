@@ -33,7 +33,7 @@ $text-color-d:     $text-color-theme-light-d;
 $text-color:       $text-color-theme-light;
 $text-color-l:     $text-color-theme-light-l;
 
-$text-background-color: rgba(#000, .05);
+$text-background-color: rgba(#000, .08);
 
 // header and footer colors
 $header-text-color: $text-color-3;
@@ -47,7 +47,7 @@ $border-color:     mix(#000, $background-color, 20%);
 $border-color-l:   mix(#000, $background-color, 10%);
 $decorate-color:   rgba(#000, .1);
 $mask-color:       rgba(#000, .9);
-$select-color:     rgba($main-color-1, .5);
+$select-color:     rgba(#d35400, .25);
 
 // function colors
 $green:           #52c41a;

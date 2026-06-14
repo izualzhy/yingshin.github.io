@@ -142,7 +142,7 @@
     }
 
     var query = queryString(), _tag = query.tag;
-    init(); 
+    init();
     // 如果URL中包含tag=read，先显示$result，然后再调用tagSelect
     if (_tag === 'read') {
       $result.removeClass('d-none');
