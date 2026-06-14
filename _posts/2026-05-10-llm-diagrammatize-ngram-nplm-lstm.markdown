@@ -6,7 +6,10 @@ tags: read
 
 统计语言模型的发展路线：
 
-![](/assets/images/gpt-diagrammatize/0-13.jpg)
+<figure>
+  <img src="/assets/images/gpt-diagrammatize/0-13.jpg"/>
+  <figcaption class="img-source">图源：《GPT图解-大模型是怎样构建的》</figcaption>
+</figure>
 
 核心：N-Gram → NPLM → RNN → LSTM/GRU → Transformer → BERT/GPT
 
@@ -60,7 +63,10 @@ Word2Vec 里主要有两种实现方式：
 1. **Skip-Gram**：输入中心词，预测上下文  
 2. **Continuous Bag of Words**：输入上下文，预测中心词  
 
-![](/assets/images/gpt-diagrammatize/2-7.jpg)
+<figure>
+  <img src="/assets/images/gpt-diagrammatize/2-7.jpg"/>
+  <figcaption class="img-source">图源：《GPT图解-大模型是怎样构建的》</figcaption>
+</figure>
 
 Skip-Gram 模型示例代码：
 

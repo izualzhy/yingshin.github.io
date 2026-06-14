@@ -1,3 +1,21 @@
 /* start custom scss snippet */
 
+.article__content figure {
+  margin: 1.5em 0;
+  text-align: center;
+
+  > img {
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+  figcaption.img-source {
+    margin-top: 0.5em;
+    font-size: map-get($base, font-size-sm);
+    color: $text-color-l;
+    text-align: right;
+    font-style: italic;
+  }
+}
+
 /* end custom scss snippet */
