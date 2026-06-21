@@ -20,21 +20,54 @@ cover: /assets/images/book/s33990103.jpg
 
 图不在于画的好看，而是在于清楚，有取舍、有重点。节取一些架构图：
 
-**大数据平台架构**: ![bigdata-platform](/assets/images/ZhongTaiLuoDiShouJi/bigdata-platform.jpeg)
+**大数据平台架构**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/bigdata-platform.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
 
-**数据质量**: ![data-quality](/assets/images/ZhongTaiLuoDiShouJi/data-quality.jpeg) 看这张图的时候，我一直在想数据质量平台应该是先验还是后验平台？
+**数据质量**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/data-quality.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
+看这张图的时候，我一直在想数据质量平台应该是先验还是后验平台？
 
-**Spark各阶段**: ![spark-stage](/assets/images/ZhongTaiLuoDiShouJi/spark-stage.jpeg)
+**Spark各阶段**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/spark-stage.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
 
-**ServiceMesh**: ![service-mesh](/assets/images/ZhongTaiLuoDiShouJi/service-mesh.jpeg)
+**ServiceMesh**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/service-mesh.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
 
-**MyCat**: ![mycat](/assets/images/ZhongTaiLuoDiShouJi/mycat.jpeg)
+**MyCat**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/mycat.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
 
-**Consul**: ![consul](/assets/images/ZhongTaiLuoDiShouJi/consul.jpeg)
+**Consul**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/consul.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
 
-**Apache Atlas**: ![apache atlas](/assets/images/ZhongTaiLuoDiShouJi/apache-atlas.jpeg)
+**Apache Atlas**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/apache-atlas.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
 
-**Apache Griffin**: ![apache atlas](/assets/images/ZhongTaiLuoDiShouJi/apache-griffin.jpeg)
+**Apache Griffin**:
+<figure>
+  <img src="/assets/images/ZhongTaiLuoDiShouJi/apache-griffin.jpeg"/>
+  <figcaption class="img-source">图源：《中台落地手记》</figcaption>
+</figure>
 
 ## 2. 速成
 

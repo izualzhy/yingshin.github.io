@@ -9,7 +9,10 @@ cover: /assets/images/hands-on-llm/memory.jpg
 
 大模型是无状态，不会记住任何先前的对话内容。
 
-![](/assets/images/hands-on-llm/memory.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/memory.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 *注意书里介绍的是短期记忆*
 
@@ -19,7 +22,10 @@ cover: /assets/images/hands-on-llm/memory.jpg
 
 ### 1.1. 对话缓冲区
 
-![](/assets/images/hands-on-llm/conversation_buffer_memory.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/conversation_buffer_memory.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 LangChain 框架使用`ConversationBufferMemory` `ConversationBufferWindowMemory`实现，原理上就是将每轮对话的`user` `system`都发给大模型，上限则通过对话轮数或者 tokens 个数控制。
 
@@ -29,7 +35,10 @@ LangChain 框架使用`ConversationBufferMemory` `ConversationBufferWindowMemory
 
 对话摘要用来解决这个问题。
 
-![](/assets/images/hands-on-llm/prompt_summary_memory.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/prompt_summary_memory.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 即将历史对话转为摘要。提取摘要的过程，依赖 LLM 参与，例如可能的提示词：
 
@@ -51,12 +60,18 @@ summary_prompt = PromptTemplate(
 
 输入是`Nth 轮之前的 summary、N 轮之后的对话`，输出则是`新的 summary`
 
-![](/assets/images/hands-on-llm/llm_with_summary_memory.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/llm_with_summary_memory.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 
 ### 1.3. 记忆总结
 
-![](/assets/images/hands-on-llm/compare_memory.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/compare_memory.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 实际工程里用到的记忆框架，例如 Mem0、MemOS 等，要复杂的多，但是我觉得本质还是一回事，区别是给自己扩大了 scope.
 
@@ -64,11 +79,17 @@ summary_prompt = PromptTemplate(
 
 通过 RAG 里的知识库，解决了 LLM 知识过时、没有专业知识的问题。
 
-![](/assets/images/hands-on-llm/rag.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/rag.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 ### 2.1. 向量化
 
-![](/assets/images/hands-on-llm/knowledge_embedding.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/knowledge_embedding.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 1. 文档分块  
 2. 各分块通过嵌入模型转化为向量表示  
@@ -82,7 +103,10 @@ summary_prompt = PromptTemplate(
 1. 单文档单向量  
 2. 单文档多向量  
 
-![](/assets/images/hands-on-llm/single_multi_doc.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/single_multi_doc.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 单文档单向量，需要能够提取出代表性的段落，忽略剩余内容。例如标题、文章前几段等。这里让我想起来构建搜索系统时，spider 系统抓取到网页后，需要能够基于模型提取标题、过滤低质的广告内容等。基于加工后的数据建库，才能起到好的搜索效果。
 
@@ -90,7 +114,10 @@ summary_prompt = PromptTemplate(
 
 常见的分段方式有：
 
-![](/assets/images/hands-on-llm/multi_doc.jpg){:width="500"}
+<figure>
+  <img src="/assets/images/hands-on-llm/multi_doc.jpg" width="500"/>
+  <figcaption class="img-source">图源：《图解大模型-生成式AI原理与实战》</figcaption>
+</figure>
 
 目前看到的大部分智能体平台，都是丢给用户一个页面，让用户输入分隔符、分段长度、是否重叠等等，而这里对最后的召回效果影响极大，如何能够提早针对搜索效果，优化这个建库的过程，应该是非常值得做的方向。
 

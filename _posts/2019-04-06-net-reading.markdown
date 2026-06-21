@@ -9,12 +9,24 @@ cover: /assets/images/HowNetworksWork/outline.png
 
 列下书籍大纲，权且备忘：
 
-![outline](assets/images/HowNetworksWork/outline.png)
+<figure>
+  <img src="assets/images/HowNetworksWork/outline.png"/>
+  <figcaption class="img-source">图源：《网络是怎样连接的》</figcaption>
+</figure>
 
-![outline2](assets/images/HowNetworksWork/outline-2.png)
+<figure>
+  <img src="assets/images/HowNetworksWork/outline-2.png"/>
+  <figcaption class="img-source">图源：《网络是怎样连接的》</figcaption>
+</figure>
 
 网络包的旅程：
 
-![net-1](assets/images/HowNetworksWork/net-1.png)
+<figure>
+  <img src="assets/images/HowNetworksWork/net-1.png"/>
+  <figcaption class="img-source">图源：《网络是怎样连接的》</figcaption>
+</figure>
 
-![net-2](assets/images/HowNetworksWork/net-2.png)
+<figure>
+  <img src="assets/images/HowNetworksWork/net-2.png"/>
+  <figcaption class="img-source">图源：《网络是怎样连接的》</figcaption>
+</figure>

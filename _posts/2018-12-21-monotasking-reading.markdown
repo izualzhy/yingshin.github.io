@@ -36,7 +36,10 @@ cover: /assets/images/monotasking/monotasking.jpeg
 
 **按照重要程度，把当前至多5项重要任务写到快捷清单上，然后基于当前时间设置下一个全景闹钟(至少间隔25分钟)，开启自己的单核时段，专注做清单上的一件事。**
 
-![monotasking](/assets/images/monotasking/monotasking.jpeg)
+<figure>
+  <img src="/assets/images/monotasking/monotasking.jpeg"/>
+  <figcaption class="img-source">图源：《单核工作法图解》</figcaption>
+</figure>
 
 接下来，就是把这些概念，分开了揉碎了翻来覆去的讲，分为6个章节。
 
@@ -53,7 +56,10 @@ cover: /assets/images/monotasking/monotasking.jpeg
 
 该退出时退出，不要浪费时间，原因仅仅是为了让利益关系人满意，还是给自己一个心安理得的慰藉？
 
-![monotasking](/assets/images/monotasking/done_todo.jpeg)
+<figure>
+  <img src="/assets/images/monotasking/done_todo.jpeg"/>
+  <figcaption class="img-source">图源：《单核工作法图解》</figcaption>
+</figure>
 
 ## 3. 现在专注一件事
 
@@ -77,7 +83,10 @@ cover: /assets/images/monotasking/monotasking.jpeg
 
 听点镇静型音乐，最好别带歌词的，有助于专注。
 
-![focus](/assets/images/monotasking/focus.jpeg)
+<figure>
+  <img src="/assets/images/monotasking/focus.jpeg"/>
+  <figcaption class="img-source">图源：《单核工作法图解》</figcaption>
+</figure>
 
 ## 4. 永不拖延
 
@@ -86,7 +95,10 @@ cover: /assets/images/monotasking/monotasking.jpeg
 >造成拖延的原因多种多样。别人想让我做这件事，但是对我有什么好处？这个任务太庞大，我应该从哪里开始？我担心结果不够好，所以就不交付。我太累了，需要休息。我的事太多，分身乏术。
 
 
-![never_delay](/assets/images/monotasking/never_delay.jpeg)
+<figure>
+  <img src="/assets/images/monotasking/never_delay.jpeg"/>
+  <figcaption class="img-source">图源：《单核工作法图解》</figcaption>
+</figure>
 
 ## 5. 循序渐进
 
@@ -106,7 +118,10 @@ cover: /assets/images/monotasking/monotasking.jpeg
 
 我发现我经常陷入完成优先级，而实际上大佬们思考的总是满溢优先级。（读这本书之前，真的没有想过优先级可以这么细分，而且很有道理）
 
-![step_by_step](/assets/images/monotasking/step_by_step.jpeg)
+<figure>
+  <img src="/assets/images/monotasking/step_by_step.jpeg"/>
+  <figcaption class="img-source">图源：《单核工作法图解》</figcaption>
+</figure>
 
 ## 6. 简化协作
 
@@ -126,7 +141,10 @@ cover: /assets/images/monotasking/monotasking.jpeg
 
 数字越大信息越丰富但是花的力气也越大，我厂的会议室经常订不到，可见大家现在做事情都接受不了信息太少。面对面的问题是有时候根本找不到对方，这个时候只能找管理层协助了。而管理层常犯的一个错误是：当看到这个问题时，找很多人到会议室，集中对清楚，case study等，会认为事情为什么没有这样早点解决。殊不知这种形式的沟通，普通一线员工想要这么做，花的力气很大。
 
-![cooperation](/assets/images/monotasking/cooperation.jpeg)
+<figure>
+  <img src="/assets/images/monotasking/cooperation.jpeg"/>
+  <figcaption class="img-source">图源：《单核工作法图解》</figcaption>
+</figure>
 
 ## 7. 给创意充电
 
@@ -136,7 +154,10 @@ cover: /assets/images/monotasking/monotasking.jpeg
 
 我之前总是想找到一种笔记方式，能够随时随地满足需求，但是发现很难，因为有时候需要发散去思考，有时候需要线性去总结。书里说我们的大脑喜欢在概念之间建立连接，可惜顺序结构的笔记和线性思维方式都做不到这一点。
 
-![creativity](/assets/images/monotasking/creativity.jpeg)
+<figure>
+  <img src="/assets/images/monotasking/creativity.jpeg"/>
+  <figcaption class="img-source">图源：《单核工作法图解》</figcaption>
+</figure>
 
 ## 8. 总结
 

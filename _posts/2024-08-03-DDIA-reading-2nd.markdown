@@ -18,8 +18,12 @@ cover: /assets/images/book/s34186559.jpg
 1. 低延迟：选择地理位置更接近请求的副本  
 2. 高吞吐：多个副本同时提供服务  
 
-mysql 的主从复制最为经典，也容易理解：  
-![master_slave_backup_dataflow](/assets/images/DDIA/master_slave_backup_dataflow.jpeg)  
+mysql 的主从复制最为经典，也容易理解：
+
+<figure>
+  <img src="/assets/images/DDIA/master_slave_backup_dataflow.jpeg"/>
+  <figcaption class="img-source">图源：《数据密集型应用系统设计》</figcaption>
+</figure>
 实际应用时，往往还会在用户和 mysql 实例间架一层 proxy，以实现连接复用、代理、SQL 语句路由等  
 
 kafka 的做法是提供了 ack<sup>1</sup> 配置让用户选择: ![kafka_backup_dataflow](/assets/images/DDIA/kafka_backup_dataflow.webp){:width="300"}      

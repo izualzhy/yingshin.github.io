@@ -185,6 +185,7 @@ highlighter : rouge
 permalink: /:title
 
 exclude:
+  - "*.bak.*"
   - CHANGELOG.md
   - HOW_TO_RELEASE.md
   - Gemfile

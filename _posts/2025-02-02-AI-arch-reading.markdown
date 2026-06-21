@@ -43,22 +43,37 @@ cover: /assets/images/book/s33733919.jpg
 ## 3. 产品能力
 
 人工智能中台的产品能力：  
-![一个成熟的人工智能中台的产品能力](/assets/images/book/book-人工智能工程化/一个成熟的人工智能中台的产品能力.jpeg)
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/一个成熟的人工智能中台的产品能力.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 
 从使用流程看，可以分为`标注 -> 建模 -> 部署`环节，这三个核心步骤之间的产品能力：
 
-![几个核心平台系统之间的产品功能架构](/assets/images/book/book-人工智能工程化/几个核心平台系统之间的产品功能架构.jpeg)
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/几个核心平台系统之间的产品功能架构.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 
 数据标注平台的功能架构：  
-![数据标注平台的功能架构](/assets/images/book/book-人工智能工程化/数据标注平台的功能架构.jpeg)
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/数据标注平台的功能架构.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 
 如果要设计一个门户，那么统一门户的整体功能应当包含：  
-![一个典型的人工智能统一门户平台的功能架构](/assets/images/book/book-人工智能工程化/一个典型的人工智能统一门户平台的功能架构.jpeg)
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/一个典型的人工智能统一门户平台的功能架构.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 ## 4. 架构设计
 
 作者将模块分为 SAAS PAAS IAAS 三层：  
 
-![人工智能内部的系统模块图](/assets/images/book/book-人工智能工程化/人工智能内部的系统模块图.jpeg)
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/人工智能内部的系统模块图.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 
 这几层分别的作用：
 
@@ -67,13 +82,22 @@ cover: /assets/images/book/s33733919.jpg
 3. IAAS: GPU、DOCKER+CUDA，基于Docker+CUDA技术实现GPU资源的虚拟化  
 
 对于 PAAS 这一层，三个平台之间的联动方式如上图。
-![数据标注平台、算法训练平台和服务部署平台之间的联动](/assets/images/book/book-人工智能工程化/数据标注平台、算法训练平台和服务部署平台之间的联动.jpeg)	
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/数据标注平台、算法训练平台和服务部署平台之间的联动.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 
 标注、训练、服务、建模系统之间的用例图:  
-![几个核心平台系统之间的用例图](/assets/images/book/book-人工智能工程化/几个核心平台系统之间的用例图.jpeg)
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/几个核心平台系统之间的用例图.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 
 对训练平台而言，一个典型的算法训练平台的服务架构：  
-![一个典型的算法训练平台的服务架构](/assets/images/book/book-人工智能工程化/一个典型的算法训练平台的服务架构.jpeg)
+<figure>
+  <img src="/assets/images/book/book-人工智能工程化/一个典型的算法训练平台的服务架构.jpeg"/>
+  <figcaption class="img-source">图源：《人工智能工程化：应用落地与中台构建》</figcaption>
+</figure>
 
 ## 5. 推理服务架构
 

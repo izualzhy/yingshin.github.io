@@ -29,6 +29,8 @@ hide_title: true
             --status-reading: #fca24d;
             --status-reading-bg: rgba(252, 162, 77, 0.1);
             --status-finished: #52c41a;
+            --status-pending: #5b8ff9;
+            --status-pending-bg: rgba(91, 143, 249, 0.08);
             --status-dropped: #888;
             --status-dropped-bg: rgba(136, 136, 136, 0.08);
             --serif: 'Noto Serif SC', 'Noto Serif CJK SC', 'Bitter', 'Songti SC', serif;
@@ -52,6 +54,8 @@ hide_title: true
                 --status-reading: #fca24d;
                 --status-reading-bg: rgba(252, 162, 77, 0.15);
                 --status-finished: #73d13d;
+                --status-pending: #7ea8ff;
+                --status-pending-bg: rgba(126, 168, 255, 0.12);
                 --status-dropped: #666;
                 --status-dropped-bg: rgba(102, 102, 102, 0.12);
             --year-bg: rgba(255,255,255,0.06);
@@ -64,6 +68,25 @@ hide_title: true
             max-width: 860px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            background: var(--bg-page);
+        }
+
+        .bookshelf-page::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .bookshelf-page::before {
+                opacity: 0.08;
+            }
         }
 
         /* === Header === */
@@ -112,9 +135,55 @@ hide_title: true
             margin: 0;
         }
 
+        /* === Reading Stats === */
+        .reading-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            padding: 36px 0 0;
+            border-top: 1px solid var(--shelf-line);
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-family: var(--serif);
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-number.accent {
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.82em;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
         /* === Year Section === */
         .year-section {
             margin-bottom: 20px;
+            padding: 6px 14px;
+            border-radius: 8px;
+        }
+
+        .year-section:nth-child(even) {
+            background: rgba(0,0,0,0.05);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .year-section:nth-child(even) {
+                background: rgba(255,255,255,0.04);
+            }
         }
 
         .year-header {
@@ -204,7 +273,16 @@ hide_title: true
         .books-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+            grid-auto-flow: dense;
             gap: 14px;
+        }
+
+        .book[data-status="reading"] {
+            grid-column: span 2;
+        }
+
+        .book[data-status="reading"] .book-cover {
+            aspect-ratio: 3 / 4;
         }
 
         .year-section.collapsed .books-shelf {
@@ -221,8 +299,12 @@ hide_title: true
         }
 
         .book:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) rotate(-1.5deg) scale(1.03);
             filter: brightness(1.02);
+        }
+
+        .book:nth-child(even):hover {
+            transform: translateY(-4px) rotate(1.5deg) scale(1.03);
         }
 
         .book:active {
@@ -232,8 +314,9 @@ hide_title: true
 
         .book:hover .book-cover-wrap {
             box-shadow:
-                0 12px 32px rgba(0,0,0,0.15),
-                0 4px 12px rgba(0,0,0,0.08);
+                0 8px 20px rgba(0,0,0,0.12),
+                0 16px 40px rgba(0,0,0,0.1),
+                inset 3px 0 6px -2px rgba(0,0,0,0.15);
         }
 
         .book-cover-wrap {
@@ -242,7 +325,11 @@ hide_title: true
             overflow: hidden;
             border-radius: var(--card-radius);
             background: #f0f0f0;
-            box-shadow: 1px 2px 4px rgba(0,0,0,0.12), 3px 4px 8px rgba(0,0,0,0.06);
+            box-shadow:
+                0 1px 2px rgba(0,0,0,0.08),
+                0 4px 12px rgba(0,0,0,0.06),
+                inset 3px 0 6px -2px rgba(0,0,0,0.15);
+            transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .book-cover {
@@ -272,10 +359,10 @@ hide_title: true
             height: 100%;
             background: linear-gradient(
                 to right,
-                rgba(0,0,0,0.15) 0%,
-                rgba(0,0,0,0.04) 3%,
-                rgba(255,255,255,0.06) 3.5%,
-                transparent 10%
+                rgba(0,0,0,0.25) 0%,
+                rgba(0,0,0,0.12) 4%,
+                rgba(255,255,255,0.08) 4.5%,
+                transparent 12%
             );
             pointer-events: none;
             z-index: 4;
@@ -316,7 +403,8 @@ hide_title: true
 
         .book[data-status="reading"] .book-status-dot { background: var(--status-reading); }
         .book[data-status="read_finished"] .book-status-dot { background: var(--status-finished); }
-        .book[data-status="dropped"] .book-status-dot { display: none; }
+        .book[data-status="pending"] .book-status-dot { background: var(--status-pending); }
+        .book[data-status="dropped"] .book-status-dot { background: var(--status-dropped); }
 
         /* Shine effect on hover */
         .book-shine {
@@ -347,13 +435,21 @@ hide_title: true
             to { left: 150%; }
         }
 
-        .book[data-status="dropped"] {
-            opacity: 0.6;
+        .book-status-line {
+            position: absolute;
+            right: 0;
+            top: 8%;
+            bottom: 8%;
+            width: 4px;
+            border-radius: 2px;
+            z-index: 5;
+            pointer-events: none;
         }
 
-        .book[data-status="dropped"] .book-cover {
-            filter: saturate(0.3);
-        }
+        .book[data-status="reading"] .book-status-line { background: var(--status-reading); }
+        .book[data-status="read_finished"] .book-status-line { background: var(--status-finished); }
+        .book[data-status="pending"] .book-status-line { background: var(--status-pending); }
+        .book[data-status="dropped"] .book-status-line { background: var(--status-dropped); }
 
         /* === Modal === */
         .book-modal-overlay {
@@ -402,6 +498,7 @@ hide_title: true
 
         .modal-top-bar.reading { background: var(--status-reading); }
         .modal-top-bar.finished { background: var(--status-finished); }
+        .modal-top-bar.pending { background: var(--status-pending); }
         .modal-top-bar.dropped { background: var(--status-dropped); }
 
         .book-modal-overlay.active .book-modal {
@@ -429,6 +526,7 @@ hide_title: true
 
         .modal-status-dot.reading { background: var(--status-reading); }
         .modal-status-dot.finished { background: var(--status-finished); }
+        .modal-status-dot.pending { background: var(--status-pending); }
         .modal-status-dot.dropped { background: var(--status-dropped); }
 
         .modal-cover img {
@@ -510,6 +608,12 @@ hide_title: true
             color: var(--status-reading);
             background: var(--status-reading-bg);
             border: 1px solid var(--status-reading);
+        }
+
+        .modal-status.pending {
+            color: var(--status-pending);
+            background: var(--status-pending-bg);
+            border: 1px solid var(--status-pending);
         }
 
         .modal-status.dropped {
@@ -652,16 +756,84 @@ hide_title: true
             }
         }
 
+        @keyframes headerFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes lineExpand {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+
+        @keyframes subtitleFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page-header h1 {
+            opacity: 0;
+            animation: headerFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+        }
+
+        .header-flourish .line {
+            width: 0;
+            animation: lineExpand 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+        }
+
+        .header-flourish .diamond {
+            opacity: 0;
+            animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+        }
+
+        .page-subtitle {
+            opacity: 0;
+            animation: subtitleFadeIn 0.5s ease 0.8s forwards;
+        }
+
+        .reading-stats {
+            opacity: 0;
+            animation: subtitleFadeIn 0.5s ease 1s forwards;
+        }
+
         .book {
             opacity: 0;
             animation: fadeInUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .page-header h1,
+            .header-flourish .diamond,
+            .page-subtitle,
+            .reading-stats,
+            .book {
+                opacity: 1;
+                animation: none;
+            }
+
+            .header-flourish .line {
+                width: 60px;
+                animation: none;
+            }
+        }
+
         /* === Responsive === */
         @media (max-width: 768px) {
+            .reading-stats {
+                gap: 28px;
+            }
+
+            .stat-number {
+                font-size: 2.2em;
+            }
+
             .books-container {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 12px;
+            }
+
+            .book[data-status="reading"] {
+                grid-column: span 2;
             }
 
             .modal-cover {
@@ -678,6 +850,19 @@ hide_title: true
         }
 
         @media (max-width: 480px) {
+            .reading-stats {
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+
+            .stat-item {
+                flex: 0 0 calc(50% - 8px);
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+
             .books-container {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
@@ -694,15 +879,23 @@ hide_title: true
             .book-modal {
                 flex-direction: column;
                 max-height: 85vh;
+                overflow: hidden;
             }
 
             .modal-cover {
                 width: 100%;
-                height: 220px;
+                max-height: 35vh;
+                flex-shrink: 0;
+            }
+
+            .modal-cover img {
+                object-fit: contain;
             }
 
             .modal-info {
                 padding: 20px 18px;
+                overflow-y: auto;
+                min-height: 0;
             }
         }
     </style>
@@ -720,6 +913,23 @@ hide_title: true
     </div>
     <p class="page-subtitle">白底黑字间，读懂自己</p>
 </div>
+
+{% assign total_finished = 0 %}
+{% assign total_reading = 0 %}
+{% assign this_year_finished = 0 %}
+{% assign this_year_reading = 0 %}
+{% for book in site.data.books %}
+    {% if book.status == "hidden" %}{% continue %}{% endif %}
+    {% if book.finish_date %}
+        {% assign total_finished = total_finished | plus: 1 %}
+        {% assign finish_year = book.finish_date | split: '.' | first %}
+        {% if finish_year == '2026' %}{% assign this_year_finished = this_year_finished | plus: 1 %}{% endif %}
+    {% elsif book.status == nil or book.status == '' %}
+        {% assign total_reading = total_reading | plus: 1 %}
+        {% assign start_year = book.start_date | split: '.' | first %}
+        {% if start_year == '2026' %}{% assign this_year_reading = this_year_reading | plus: 1 %}{% endif %}
+    {% endif %}
+{% endfor %}
 
 {% assign books_by_year = site.data.books | group_by_exp: "book", "(book.finish_date | default: book.start_date) | split: '.' | first" %}
 {% assign sorted_books_by_year = books_by_year | sort: "name" | reverse %}
@@ -741,16 +951,15 @@ hide_title: true
                     {% continue %}
                 {% endif %}
 
-                {% if book.status == "dropped" %}
-                    {% assign state = "dropped" %}
-                {% elsif book.finish_date %}
+                {% if book.finish_date %}
                     {% assign state = "read_finished" %}
+                {% elsif book.status %}
+                    {% assign state = book.status %}
                 {% else %}
                     {% assign state = "reading" %}
                 {% endif %}
 
                 {% assign note_content = book.note | strip_html | strip %}
-                {% assign has_note = note_content | size > 0 %}
 
                 <div class="book"
                      data-name="{{ book.name | xml_escape }}"
@@ -764,6 +973,7 @@ hide_title: true
                         <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}" loading="lazy"/>
                         <span class="book-shine"></span>
                         <span class="book-status-dot"></span>
+                        <span class="book-status-line"></span>
                     </div>
                     <div class="book-title">{{ book.name }}</div>
                     <div class="book-date">{{ book.start_date }}{% if book.finish_date %} — {{ book.finish_date }}{% endif %}</div>
@@ -773,6 +983,25 @@ hide_title: true
         </div>
     </div>
 {% endfor %}
+
+<div class="reading-stats">
+    <div class="stat-item">
+        <span class="stat-number">{{ total_finished }}</span>
+        <span class="stat-label">本书读完</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">{{ total_reading }}</span>
+        <span class="stat-label">本在读</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number accent">{{ this_year_finished }}</span>
+        <span class="stat-label">今年读完</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number accent">{{ this_year_reading }}</span>
+        <span class="stat-label">今年在读</span>
+    </div>
+</div>
 
 <div class="page-footer">
     <div class="flourish">
@@ -859,25 +1088,17 @@ hide_title: true
             if (finish) dateText += ' — ' + finish;
             modalDates.textContent = dateText;
 
-            if (status === 'reading') {
-                modalStatus.textContent = '在读';
-                modalStatus.className = 'modal-status reading';
-                modalStatus.style.display = '';
-                modalTopBar.className = 'modal-top-bar reading';
-                modalDot.className = 'modal-status-dot reading';
-            } else if (status === 'dropped') {
-                modalStatus.textContent = '搁置';
-                modalStatus.className = 'modal-status dropped';
-                modalStatus.style.display = '';
-                modalTopBar.className = 'modal-top-bar dropped';
-                modalDot.className = 'modal-status-dot dropped';
-            } else {
-                modalStatus.textContent = '读完';
-                modalStatus.className = 'modal-status finished';
-                modalStatus.style.display = '';
-                modalTopBar.className = 'modal-top-bar finished';
-                modalDot.className = 'modal-status-dot finished';
-            }
+            const statusMap = {
+                reading:     { text: '在读', cls: 'reading' },
+                pending:     { text: '搁置', cls: 'pending' },
+                dropped:     { text: '弃读', cls: 'dropped' },
+            };
+            const s = statusMap[status] || { text: '读完', cls: 'finished' };
+            modalStatus.textContent = s.text;
+            modalStatus.className = 'modal-status ' + s.cls;
+            modalStatus.style.display = '';
+            modalTopBar.className = 'modal-top-bar ' + s.cls;
+            modalDot.className = 'modal-status-dot ' + s.cls;
 
             if (note && note.trim()) {
                 modalNote.innerHTML = '<p>' + note + '</p>';
@@ -888,12 +1109,14 @@ hide_title: true
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            history.replaceState(null, '', '#' + encodeURIComponent(name));
         });
     });
 
     function closeBookModal() {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        history.replaceState(null, '', window.location.pathname);
     }
 
     modal.addEventListener('click', (e) => {
@@ -905,6 +1128,23 @@ hide_title: true
             closeBookModal();
         }
     });
+
+    // Open modal from URL hash
+    function openBookByHash() {
+        const hash = decodeURIComponent(window.location.hash.slice(1));
+        if (!hash) return;
+        const target = document.querySelector('.book[data-name="' + CSS.escape(hash) + '"]');
+        if (target) {
+            target.click();
+            // expand parent year section if collapsed
+            const section = target.closest('.year-section');
+            if (section && section.classList.contains('collapsed')) {
+                section.classList.remove('collapsed');
+            }
+        }
+    }
+    openBookByHash();
+    window.addEventListener('hashchange', openBookByHash);
 </script>
 </body>
 </html>
