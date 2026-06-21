@@ -2,10 +2,10 @@
 title: "想明白，写出来-读《麦肯锡教我的协作武器》"
 date: 2022-08-28 12:11:53
 tags: read
-cover: https://img2.doubanio.com/lpic/s26863863.jpg
+cover: https://izualzhy.cn/assets/images/book/s26863863.jpg
 ---
 
-![麦肯锡教我的协作武器](https://img2.doubanio.com/lpic/s26863863.jpg)
+![麦肯锡教我的协作武器](https://izualzhy.cn/assets/images/book/s26863863.jpg)
 
 最近在找基本麦肯锡的书籍看，上一本是[愿我们都在白底黑字中读懂自己-读《麦肯锡精英高效阅读法》](http://izualzhy.cn/mkxjygxydf-reading)，教我们如何读书的。今天读完的这本则是《麦肯锡教我的写作武器》。
 
@@ -20,11 +20,18 @@ cover: https://img2.doubanio.com/lpic/s26863863.jpg
 
 不过我们还是来看看，作者认为如何写出一篇合格的文档：
 
-![](/assets/images/mkxjwdxzwq/1.jpeg)
+<figure>
+  <img src="/assets/images/mkxjwdxzwq/1.jpeg"/>
+  <figcaption class="img-source">图源：《麦肯锡教我的写作武器》</figcaption>
+</figure>
 
 1. 思路上，要明确 **主要信息 - 次要信息 - 次次要信息** 的分层
 2. 同层之间可以是并列，也可以递进的关系
-3. 善用逻辑连接词以实现起承转合，比如「追加」可以用 “还有”、“并且”、“再加上”，「归结」可以用 “因此”、“正因为”、“由于”，等等。更多的词汇，可以参考这张图 ![](/assets/images/mkxjwdxzwq/2.jpeg)
+3. 善用逻辑连接词以实现起承转合，比如「追加」可以用 “还有”、”并且”、”再加上”，「归结」可以用 “因此”、”正因为”、”由于”，等等。更多的词汇，可以参考这张图
+<figure>
+  <img src="/assets/images/mkxjwdxzwq/2.jpeg"/>
+  <figcaption class="img-source">图源：《麦肯锡教我的写作武器》</figcaption>
+</figure>
 
 ## 2. 勤于思考
 

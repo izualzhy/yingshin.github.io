@@ -2,10 +2,10 @@
 title: "诗和远方 - 评《四时之美》"
 date: 2019-02-02 07:44:45
 tags: read
-cover: https://img3.doubanio.com/lpic/s29715045.jpg
+cover: https://izualzhy.cn/assets/images/book/s29715045.jpg
 ---
 
-![四时之美](https://img3.doubanio.com/lpic/s29715045.jpg)
+![四时之美](https://izualzhy.cn/assets/images/book/s29715045.jpg)
 
 上次看完了[无所畏](https://izualzhy.cn/wsw-reading)，最后一节说“天用云作字”，想想就感觉意境很美。公司的楼顶是一圈跑道，视野很好。我想起来很多个爬到楼顶的中午，天高云淡，极目远眺，近处看到百望山，远望能看到盘古。不过憋半天，也想不出别的词儿，每次都是一句“真TM蓝啊”，“真TM远啊”🏙
 
