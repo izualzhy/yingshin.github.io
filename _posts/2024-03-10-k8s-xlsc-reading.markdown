@@ -66,7 +66,10 @@ Events:
 每个 Service 对象维护了一个 Endpoint 对象，Endpoint 内部维护了会变化的 Pod IP，这个列表是通过 selector 筛选的。
 
 每一个节点上都运行着一个 kube-proxy，它能够为新的 Service 和 Endpoint 创建 IPVS 规则，从而到达 Service 的 ClusterIP 的流量会被转发至匹配 Label 筛选器的某一个 Pod 上：
-![kubeprox-service](/assets/images/kubernetes-xlsc/kubeprox-service.jpeg)
+<figure>
+  <img src="/assets/images/kubernetes-xlsc/kubeprox-service.jpeg"/>
+  <figcaption class="img-source">图源：《Kubernetes修炼手册》</figcaption>
+</figure>
 
 Kubernetes 将集群 DNS 作为服务注册中心使用，几个重要的组件:   
 1. Pod：由coredns Deployment管理   

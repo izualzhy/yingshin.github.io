@@ -1,17 +1,43 @@
-{%- include snippets/get-sources.html -%}
-{%- assign _sources = __return -%}
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" as="style">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" as="script">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" as="script">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+	.katex-loading::before {
+		content: "📐 公式加载中...";
+		color: #999;
+		font-size: 0.9em;
+		font-style: italic;
+	}
+	.katex-loading > * {
+		visibility: hidden;
+	}
+</style>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// 给包含数学公式的元素添加 loading 类
+		var mathElements = document.querySelectorAll('p, div, span, td, li');
+		mathElements.forEach(function(el) {
+			if (el.textContent.match(/\$[^$]+\$|\\[\(\[].*?\\[\)\]]/)) {
+				el.classList.add('katex-loading');
+			}
+		});
 
-{%- include snippets/assign.html target=site.data.variables.default.mathjax_autoNumber
-  source0=site.mathjax_autoNumber source1=page.mathjax_autoNumber -%}
-{%- assign _mathjax_autoNumber = __return -%}
+		// 渲染数学公式
+		renderMathInElement(document.body, {
+			delimiters: [
+				{left: "$$", right: "$$", display: true},
+				{left: "\\[", right: "\\]", display: true},
+				{left: "\\(", right: "\\)", display: false},
+				{left: "$", right: "$", display: false}
+			]
+		});
 
-<script type="text/x-mathjax-config">
-	var _config = { tex2jax: {
-		inlineMath: [['$','$'], ['\\(','\\)']]
-	}};
-	{%- if _mathjax_autoNumber == true -%}
-		_config.TeX = { equationNumbers: { autoNumber: "all" } };
-	{%- endif -%}
-	MathJax.Hub.Config(_config);
+		// 移除 loading 状态
+		document.querySelectorAll('.katex-loading').forEach(function(el) {
+			el.classList.remove('katex-loading');
+		});
+	});
 </script>
-<script type="text/javascript" src="{{ _sources.mathjax }}" async></script>

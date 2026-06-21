@@ -5,7 +5,7 @@ tags: read
 cover: https://img2.doubanio.com/lpic/s29636101.jpg
 ---
 
-![只管去做](https://img2.doubanio.com/lpic/s29636101.jpg)
+![只管去做](https://izualzhy.cn/assets/images/book/s29636101.jpg)
 
 用4个番茄钟就能看完，非常推荐的一本小书。
 
@@ -30,7 +30,10 @@ cover: https://img2.doubanio.com/lpic/s29636101.jpg
 
 这就是本书的重点了。
 
-![zgqz_gongzuozhuangtai](/assets/images/reading/epub_25375806_9.jpeg)
+<figure>
+  <img src="/assets/images/reading/epub_25375806_9.jpeg"/>
+  <figcaption class="img-source">图源：《只管去做》</figcaption>
+</figure>
 
 按照单核工作法，可以成为一个很好的微观管理者/执行者，好处是事情都能有条理的交付，做到井井有条。缺点是本人的状态并不轻松，经常会陷入自我怀疑，孔子说“一日三省吾身”的这种状态。但不适合工作，工作就应该是想清楚了，“只管去做”。
 

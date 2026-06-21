@@ -2,10 +2,10 @@
 title: "大数据中台，利润中心还是成本中心？-读《云原生数据中台：架构、方法论与实践》"
 date: 2022-06-10 06:21:48
 tags: read
-cover: https://img9.doubanio.com/lpic/s33891535.jpg
+cover: https://izualzhy.cn/assets/images/book/s33891535.jpg
 ---
 
-![云原生数据中台：架构、方法论与实践](https://img9.doubanio.com/lpic/s33891535.jpg)
+![云原生数据中台：架构、方法论与实践](https://izualzhy.cn/assets/images/book/s33891535.jpg)
 
 最开始在作业帮做实时计算的时候，我经常会类比之前的经验来指导如何做系统，比如数据如何产出、数据的规范格式、运维的基础保障(监控、报警、日志三件套)等
 
@@ -34,7 +34,10 @@ cover: https://img9.doubanio.com/lpic/s33891535.jpg
 
 印象特别深刻的是这张图：
 
-![o(╯□╰)o](/assets/images/alibaba-2.jpeg)
+<figure>
+  <img src="/assets/images/alibaba-2.jpeg"/>
+  <figcaption class="img-source">图源：《云原生数据中台：架构、方法论与实践》</figcaption>
+</figure>
 
 直到聚划算出现，天猫、淘宝都纷纷要求接入，阿里决策层强势要求必须通过中台，算是给了中台一个强力的政策扶持。
 

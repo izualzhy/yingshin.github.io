@@ -6,7 +6,10 @@ tags: read
 cover: /assets/images/alibaba-1.jpeg
 ---
 
-![中台](assets/images/alibaba-1.jpeg)
+<figure>
+  <img src="assets/images/alibaba-1.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 ## 1. 阿里巴巴集团中台战略引发的思考 && 构建业务中台的基础-共享服务体系
 
@@ -16,7 +19,10 @@ cover: /assets/images/alibaba-1.jpeg
 
 于是，2009年，这部分淘宝技术团队划分开来，单独成为一个与淘宝、天猫同样级别的共享业务事业部，同时支持淘宝与天猫的业务。集团原有的目的自然是希望交集的技术能够在这里统一提供、支持、梳理和沉淀，然而事与愿违，共享业务事业部在两大业务部门需求下，不断被压缩，很多需求业务方自己就实现了。导致的结果是这样的：
 
-![中台](assets/images/alibaba-2.jpeg)
+<figure>
+  <img src="assets/images/alibaba-2.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 这个现状非常难解，业务部门对共享事业部不满意，共享事业部则是有苦说不出。
 
@@ -34,7 +40,10 @@ cover: /assets/images/alibaba-1.jpeg
 
 亚马逊有个著名的披萨团队理论，这本书里也提到了7人团队协同效率是最高的。依靠完善的业务中台，可以让一个小团队基于中台的核心服务在两周的时间内建设一个系统并推向市场。这对于需要小步快跑，不断试错的互联网，是一个极大的优势。商场如战场，书中引用了美军作战阵型的演变的例子，因为有强大的中后台能力，能够支持几个人的小团队快速做判断，并且引领整个进攻完成：
 
-![american-army](assets/images/american-army.jpeg)
+<figure>
+  <img src="assets/images/american-army.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 ## 2. 分布式服务框架的选择
 
@@ -66,7 +75,10 @@ cover: /assets/images/alibaba-1.jpeg
 
 中台作为前台后台的枢纽，边界定义非常重要。服务中心也在不断变化：
 
-![service-center](assets/images/service-center.jpeg)
+<figure>
+  <img src="assets/images/service-center.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 可以看到是随着业务变化的一个过程。
 
@@ -99,9 +111,15 @@ cover: /assets/images/alibaba-1.jpeg
 
 业务流程异步化更多是一个梳理的过程，串联改串并联，例如这么一个转变:
 
-![async-1](assets/images/async-1.jpeg)
+<figure>
+  <img src="assets/images/async-1.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
-![async-2](assets/images/async-2.jpeg)
+<figure>
+  <img src="assets/images/async-2.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 数据库事务异步化相对复杂一些，牵扯到CAP/BASE理论，而架构上要做到高可用。
 
@@ -119,8 +137,14 @@ cover: /assets/images/alibaba-1.jpeg
 
 关于缓存，阿里内部有Tair，开源有Redis/Memcache等，在阿里特有的秒杀场景下，缓存发挥了极大作用。当然，秒杀这个活动，其实是产品设计、架构设计、平台稳定性、系统扩展能力的统一考验。对于小库存商品以及大库存商品，订单处理流程是不同的：
 
-![小库存](assets/images/l-miaosha.jpeg)
-![大库存](assets/images/l-miaosha.jpeg)
+<figure>
+  <img src="assets/images/l-miaosha.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
+<figure>
+  <img src="assets/images/l-miaosha.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 ## 6. 打造数字化运营能力
 
@@ -133,13 +157,19 @@ cover: /assets/images/alibaba-1.jpeg
 
 这个有多复杂？看下淘宝平台的服务调用关系图：
 
-![services](assets/images/services.jpeg)
+<figure>
+  <img src="assets/images/services.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 阿里使用鹰眼平台解决分布式服务调用链跟踪的问题，类似的还有例如Twitter的Zipkin，都起源于Google的Dapper论文。
 
 鹰眼平台架构：
 
-![鹰眼平台架构](assets/images/eagle-eye.jpeg)
+<figure>
+  <img src="assets/images/eagle-eye.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 其中有两个唯一ID：
 1. TraceID: IP、创建时间、顺序数等  
@@ -159,7 +189,10 @@ cover: /assets/images/alibaba-1.jpeg
 3. 服务调用链分析  
 4. 业务全息排查  
 5. 业务实时监控  
-![realtime-monitor](assets/images/realtime-monitor.jpeg)
+<figure>
+  <img src="assets/images/realtime-monitor.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 ## 7. 打造平台稳定性能力
 
@@ -196,7 +229,10 @@ cover: /assets/images/alibaba-1.jpeg
 
 共享服务平台(Shared Platform as Service, SPAS)目的对共享服务中心的服务能力在线化、数据化，是一个协作的平台，有三个角色参与其中：服务共享品台、服务提供者、服务消费者
 
-![SPAS](assets/images/SPAS.jpeg)
+<figure>
+  <img src="assets/images/SPAS.jpeg"/>
+  <figcaption class="img-source">图源：《企业IT架构转型之道》</figcaption>
+</figure>
 
 而从人的角度，紧密沟通、分歧升级、轮岗、建立绩效考核指标等，防止中心惰性化，以推动共享服务中心的发展。
 

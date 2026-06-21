@@ -186,7 +186,7 @@ end
   <figcaption class="img-source">图源：《GPT图解-大模型是怎样构建的》</figcaption>
 </figure>
 
-第 3 步： attn_weights.shape = (2, 3, 5), 矩阵表示 x1 x2 之间两两 token 的关注程度，其中一行表示 x1 的 1 个 token 对 x2 所有 token 的关注程度
+第 3 步： 对相似度矩阵每一行做 **softmax**，得到 attn_weights.shape = (2, 3, 5), 矩阵表示 x1 x2 之间两两 token 的关注程度，其中一行表示 x1 的 1 个 token 对 x2 所有 token 的关注程度
 例如：
 ```python
 attn_weights =

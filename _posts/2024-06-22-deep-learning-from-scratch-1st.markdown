@@ -11,11 +11,17 @@ cover: /assets/images/book/s29815955.jpg
 ## 1. 感知机
 
 感知机的想法很直白：
-![perceptron.jpeg](assets/images/deep-learning-from-scratch/perceptron.jpeg){:width="300"}
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/perceptron.jpeg" width="300"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
 
 其中 x 是输入，w 是权重，θ是阈值。y 是输出，大于阈值输出 1，小于阈值输出 0.
 
-![perceptron_formula.jpeg](assets/images/deep-learning-from-scratch/perceptron_formula.jpeg)
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/perceptron_formula.jpeg"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
 
 通过设置不同的权重和阈值，我们可以使用感知机实现与门(两个输入均为 1 时输出1，其他时候则输出 0)、与非门(跟与门相反)、或门(输入有 1 个是 1，输出就为 1)。
 
@@ -29,7 +35,10 @@ cover: /assets/images/book/s29815955.jpg
 实现与门需要手动配置权重，神经网络相比感知机，最核心的目标是自动生成权重值
 {:.success}
 
-![manual_to_neural_networks](assets/images/deep-learning-from-scratch/manual_to_neural_networks.jpeg){:width="600"}
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/manual_to_neural_networks.jpeg" width="600"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
 
 因此引入了几个概念：    
 **激活函数**：y=σ(W⋅x+b) ，表示神经元的输出，常见的例如 Sigmoid 函数。跟阶跃函数相比，相同点是其 y 轴取值范围、函数曲线的趋势都是一致的，不同点在于平滑程度，因此当微调权重的时候，函数值也会发生变化。      
@@ -52,9 +61,19 @@ $$\mathbf{W} \leftarrow \mathbf{W} - \eta \frac{\partial L}{\partial \mathbf{W}}
 {:.success}
 
 **链式法则**：如果某个函数由复合函数表示，则该复合函数的导数可以用构成复合函数的各个函数的导数的乘积表示。
-**反向传播**：即由输出来反推输入，计算输入多大程度上会影响输出 ![backward](assets/images/deep-learning-from-scratch/backward.jpeg){:width="600"}
+**反向传播**：即由输出来反推输入，计算输入多大程度上会影响输出
 
-sigmoid 的反向传播公式：![sigmoid_backward](assets/images/deep-learning-from-scratch/sigmoid_backward.jpeg){:width="600"}
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/backward.jpeg" width="600"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
+
+sigmoid 的反向传播公式：
+
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/sigmoid_backward.jpeg" width="600"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
 
 神经网络的学习步骤：
 1. mini-batch: 从训练数据中随机选择一部分数据  
@@ -70,13 +89,24 @@ sigmoid 的反向传播公式：![sigmoid_backward](assets/images/deep-learning-
 
 SGD 方法对于呈延伸状的图形，比如：  
 
-![SGD_failed_1](assets/images/deep-learning-from-scratch/SGD_failed_1.jpeg){:width="600"}   
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/SGD_failed_1.jpeg" width="600"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
 
-搜索时，呈“之”字形朝最小值 (0, 0) 移动: ![SGD_failed_2](assets/images/deep-learning-from-scratch/SGD_failed_2.jpeg){:width="200"}   
+搜索时，呈”之”字形朝最小值 (0, 0) 移动:
+
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/SGD_failed_2.jpeg" width="200"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
 
 为了改正SGD的缺点，Momentum 公式引入了速度的概念，AdaGard 公式则引入学习率衰减，Adam 公式则融合了以上两者：
 
-![SGD_Momentum_AdaGard_Adam](assets/images/deep-learning-from-scratch/SGD_Momentum_AdaGard_Adam.jpeg){:width="500"}     
+<figure>
+  <img src="assets/images/deep-learning-from-scratch/SGD_Momentum_AdaGard_Adam.jpeg" width="500"/>
+  <figcaption class="img-source">图源：《深度学习入门》</figcaption>
+</figure>
 
 这 4 种方法各有各的特点，都有各自擅长解决的问题和不擅长解决的问题。
 
