@@ -194,7 +194,25 @@ $$
 具体值套用到该公式：
 
 $$
-\frac{\partial L}{\partial a} = \frac{2}{11} * (0 + 9 + 362. + ... + 900) = \frac{2}{11} * 3464.7 = 629.94
+\begin{aligned}
+\frac{\partial L}{\partial a}
+=
+\frac{2}{11}\Big(
+&(10\times0-0.1)\times0 \\
++&(10\times1-1)\times1 \\
++&(10\times2-1.9)\times2 \\
++&(10\times3-3.1)\times3 \\
++&(10\times4-4)\times4 \\
++&(10\times5-4.9)\times5 \\
++&(10\times6-6.1)\times6 \\
++&(10\times7-7)\times7 \\
++&(10\times8-7.9)\times8 \\
++&(10\times9-9.1)\times9 \\
++&(10\times10-10)\times10
+\Big) \\
+= \frac{2}{11} * (0 + 9 + 36.2 + ... + 728.1 + 900) \\
+= \frac{2}{11} * 3464.7 = 629.94
+\end{aligned}
 $$
 
 取单次移动的距离 η=0.01, 因为当前梯度为正，增大 a 会让 Loss 增大，因此沿着负梯度方向更新，即减去梯度：$$ a = a - η * 629.94 = 3.7005 $$，继续循环，a 会持续变小，直到 L 达到可以接受的误差值，此时 a 就已经非常接近于 1 了。
