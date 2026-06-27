@@ -3,128 +3,31 @@ layout: article
 title: Programming Pearls
 ---
 
-很喜欢《Programming Pearls》这本书，因此用了这个名字。这里记录一些我看到的优质编程资源：slides、技术文章、paper、视频等，以及我觉得值得推荐的理由。
+很喜欢《Programming Pearls》这本书，因此用了这个名字。介绍一些好看好玩的编程 paper、slides、video 等。
 
-<div class="pearls-container">
-{% for pearl in site.data.pearls %}
-<article class="pearl-card">
-  <header class="pearl-header">
-    <h3 class="pearl-title">
-      <a href="{{ pearl.url }}" target="_blank" rel="noopener noreferrer">
-        {{ pearl.title }}
-      </a>
-    </h3>
-    <span class="pearl-tag">{{ pearl.tag }}</span>
-  </header>
-  
-  <div class="pearl-content">
-    <p class="pearl-note">{{ pearl.note }}</p>
+<div class="pearl-card-list grid--p-3">
+{% for pearls in site.data.pearls %}
+  <div class="cell">
+    <div class="card pearl-card">
+      <div class="card__content">
+        <h3 class="card__header">
+          <i class="fas fa-gem pearl-icon"></i>
+          <a href="{{ pearls.url }}" target="_blank" rel="noopener noreferrer">
+            {{ pearls.title }}
+          </a>
+        </h3>
+        
+        <div class="card__meta">
+          <a class="tag-button" href="{{ '/tags.html' | relative_url }}#{{ pearls.tag | url_encode }}">
+            <i class="fas fa-tag fa-xs"></i> {{ pearls.tag }}
+          </a>
+        </div>
+
+        <div class="card__note">
+          {{ pearls.note | markdownify }}
+        </div>
+      </div>
+    </div>
   </div>
-  
-  <footer class="pearl-footer">
-    <a href="{{ pearl.url }}" class="pearl-link" target="_blank" rel="noopener noreferrer">
-      阅读原文 →
-    </a>
-  </footer>
-</article>
 {% endfor %}
 </div>
-
-<style>
-.pearls-container {
-  display: grid;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.pearl-card {
-  background: transparent;
-  border-left: 4px solid #fd7e14;
-  border-radius: 6px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0,0,0,0.08);
-}
-
-.pearl-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1);
-  transform: translateY(-3px);
-}
-
-.pearl-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  gap: 1rem;
-}
-
-.pearl-title {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.4;
-  flex: 1;
-}
-
-.pearl-title a {
-  color: var(--text-color, #24292e);
-  text-decoration: none;
-}
-
-.pearl-title a:hover {
-  color: var(--primary-color, #0366d6);
-}
-
-.pearl-tag {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  background: var(--accent-color, #f1f8ff);
-  color: var(--primary-color, #0366d6);
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.pearl-content {
-  margin-bottom: 1rem;
-}
-
-.pearl-note {
-  margin: 0;
-  line-height: 1.8;
-  color: var(--text-color-light, #586069);
-}
-
-.pearl-footer {
-  border-top: 1px solid var(--border-color, #eaecef);
-  padding-top: 1rem;
-}
-
-.pearl-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--primary-color, #0366d6);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.pearl-link:hover {
-  gap: 0.5rem;
-  color: #0256c7;
-}
-
-@media (max-width: 768px) {
-  .pearl-header {
-    flex-direction: column;
-  }
-  
-  .pearl-tag {
-    align-self: flex-start;
-  }
-}
-</style>

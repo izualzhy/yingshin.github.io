@@ -345,6 +345,111 @@ hide_title: true
             opacity: 1;
         }
 
+        .book-cover-fallback {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle paper texture via noise grain */
+        .book-cover-fallback::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Double-line border frame — classic bookplate style */
+        .book-cover-fallback::after {
+            content: '';
+            position: absolute;
+            top: 8%;
+            left: 8%;
+            right: 8%;
+            bottom: 8%;
+            border: 1.5px solid rgba(255,255,255,0.18);
+            box-shadow: 0 0 0 3px transparent,
+                        inset 0 0 0 3px transparent;
+            outline: 1px solid rgba(255,255,255,0.08);
+            outline-offset: 3px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .fallback-text {
+            font-family: var(--serif);
+            font-size: 1.25em;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.8;
+            letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.9);
+            word-break: break-all;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+            padding: 0 12px;
+            position: relative;
+            z-index: 2;
+            writing-mode: vertical-rl;
+            max-height: 55%;
+            overflow: hidden;
+        }
+
+        .fallback-author {
+            display: block;
+            font-family: var(--serif);
+            font-size: 0.65em;
+            font-weight: 400;
+            text-align: center;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.55);
+            writing-mode: vertical-rl;
+            padding: 0 4px;
+            position: relative;
+            z-index: 2;
+            max-height: 30%;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .book[data-status="reading"] .book-cover-fallback {
+            aspect-ratio: 3 / 4;
+        }
+
+        .modal-cover .book-cover-fallback {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: auto;
+        }
+
+        .modal-cover .fallback-text {
+            font-size: 1.6em;
+            max-height: 65%;
+        }
+
+        .modal-cover .fallback-author {
+            font-size: 0.9em;
+            max-height: 25%;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .book-cover-fallback::after {
+                border-color: rgba(255,255,255,0.12);
+                outline-color: rgba(255,255,255,0.05);
+            }
+            .fallback-author {
+                color: rgba(255,255,255,0.45);
+            }
+        }
+
         .book:hover .book-cover {
             transform: scale(1.05);
         }
@@ -963,6 +1068,7 @@ hide_title: true
 
                 <div class="book"
                      data-name="{{ book.name | xml_escape }}"
+                     data-author="{{ book.author | xml_escape }}"
                      data-cover="{{ book.cover }}"
                      data-start="{{ book.start_date }}"
                      data-finish="{{ book.finish_date | default: '' }}"
@@ -970,7 +1076,14 @@ hide_title: true
                      data-link="{{ book.douban_link }}"
                      data-status="{{ state }}">
                     <div class="book-cover-wrap">
+                      {% if book.cover %}
                         <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}" loading="lazy"/>
+                      {% else %}
+                        <div class="book-cover-fallback" data-name="{{ book.name | xml_escape }}" data-author="{{ book.author | xml_escape }}">
+                          <span class="fallback-text">{{ book.name }}</span>
+                          {% if book.author %}<span class="fallback-author">{{ book.author }}</span>{% endif %}
+                        </div>
+                      {% endif %}
                         <span class="book-shine"></span>
                         <span class="book-status-dot"></span>
                         <span class="book-status-line"></span>
@@ -1023,6 +1136,10 @@ hide_title: true
         </button>
         <div class="modal-cover">
             <img id="modalCover" src="" alt=""/>
+            <div class="book-cover-fallback" id="modalFallback" style="display:none">
+                <span class="fallback-text" id="modalFallbackText"></span>
+                <span class="fallback-author" id="modalFallbackAuthor"></span>
+            </div>
             <span class="modal-status-dot" id="modalDot"></span>
         </div>
         <div class="modal-info">
@@ -1052,6 +1169,25 @@ hide_title: true
         }
     });
 
+    // Generate fallback cover colors from book name hash
+    function nameToColor(name) {
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        // Warm, muted palette evoking traditional book cloth / indigo dye
+        const hues = [15, 25, 35, 195, 210, 225, 240, 280, 340];
+        const hue = hues[((hash % hues.length) + hues.length) % hues.length] + (Math.abs(hash >> 4) % 15 - 7);
+        const sat = 30 + (Math.abs(hash >> 8) % 20);   // 30-50%
+        const lit = 22 + (Math.abs(hash >> 16) % 14);   // 22-36%
+        return `linear-gradient(160deg, hsl(${hue}, ${sat}%, ${lit + 6}%) 0%, hsl(${hue + 8}, ${sat - 4}%, ${lit - 3}%) 100%)`;
+    }
+
+    document.querySelectorAll('.book-cover-fallback').forEach(el => {
+        if (el.id === 'modalFallback') return;
+        el.style.background = nameToColor(el.dataset.name);
+    });
+
     // Staggered animation for book cards
     document.querySelectorAll('.books-container').forEach(container => {
         container.querySelectorAll('.book').forEach((book, i) => {
@@ -1062,16 +1198,20 @@ hide_title: true
     // Modal
     const modal = document.getElementById('bookModal');
     const modalCover = document.getElementById('modalCover');
+    const modalFallback = document.getElementById('modalFallback');
+    const modalFallbackText = document.getElementById('modalFallbackText');
     const modalLink = document.getElementById('modalLink');
     const modalDates = document.getElementById('modalDates');
     const modalStatus = document.getElementById('modalStatus');
     const modalNote = document.getElementById('modalNote');
     const modalTopBar = document.getElementById('modalTopBar');
     const modalDot = document.getElementById('modalDot');
+    const modalFallbackAuthor = document.getElementById('modalFallbackAuthor');
 
     document.querySelectorAll('.book').forEach(book => {
         book.addEventListener('click', () => {
             const name = book.dataset.name;
+            const author = book.dataset.author;
             const cover = book.dataset.cover;
             const start = book.dataset.start;
             const finish = book.dataset.finish;
@@ -1079,8 +1219,23 @@ hide_title: true
             const link = book.dataset.link;
             const status = book.dataset.status;
 
-            modalCover.src = cover;
             modalCover.alt = name;
+            if (cover) {
+                modalCover.src = cover;
+                modalCover.style.display = '';
+                modalFallback.style.display = 'none';
+            } else {
+                modalCover.style.display = 'none';
+                modalFallback.style.display = 'flex';
+                modalFallbackText.textContent = name;
+                modalFallback.style.background = nameToColor(name);
+                if (author) {
+                    modalFallbackAuthor.textContent = author;
+                    modalFallbackAuthor.style.display = '';
+                } else {
+                    modalFallbackAuthor.style.display = 'none';
+                }
+            }
             modalLink.href = link;
             modalLink.textContent = name;
 
