@@ -1,10 +1,34 @@
-- name: 北京的春节
-  author: 老舍
-  cover: https://cdn.weread.qq.com/weread/cover/38/cpplatform_ovskwghn8d2bxch4pdh3ye/t8_cpplatform_ovskwghn8d2bxch4pdh3ye1764925799.jpg
-  start_date: 2026.7.3
+- name: 反脆弱
+  author: 纳西姆·尼古拉斯·塔勒布
+  cover: https://izualzhy.cn/assets/images/book/s27196248.jpg
+  start_date: 2026.7.26
   finish_date:
-  douban_link: https://weread.qq.com/web/reader/5b9329f0813abae32g01803e
+  douban_link: https://book.douban.com/subject/25782902/
   note:
+
+- name: 掌控边界
+  author: 特里·科尔
+  cover: https://izualzhy.cn/assets/images/book/s34899445.jpg
+  start_date: 2026.7.24
+  finish_date:
+  douban_link: https://book.douban.com/subject/36948750/
+  note:
+
+- name: 长安十二时辰（全2册）
+  author: 马伯庸
+  cover: https://izualzhy.cn/assets/images/book/s35236032.jpg
+  start_date: 2026.7.19
+  finish_date: 2026.7.27
+  douban_link: https://book.douban.com/subject/37495123/
+  note: 十年西域兵，九年不良帅。且待万灯明，只身入尘埃。
+
+#- name: 北京的春节
+  #author: 老舍
+  #cover: https://cdn.weread.qq.com/weread/cover/38/cpplatform_ovskwghn8d2bxch4pdh3ye/t8_cpplatform_ovskwghn8d2bxch4pdh3ye1764925799.jpg
+  #start_date: 2026.7.3
+  #finish_date:
+  #douban_link: https://weread.qq.com/web/reader/5b9329f0813abae32g01803e
+  #note:
 
 - name: 烟火市井：老舍的幽默生存智慧
   author: 老舍
@@ -14,12 +38,12 @@
   douban_link: https://weread.qq.com/web/reader/ada32ec0813aba19eg0106b2
   note: 写的生动又生活，贩卖烟火气的老舍先生。
 
-- name: 当下的力量
-  cover: https://izualzhy.cn/assets/images/book/s28807248.jpg
-  start_date: 2026.6.19
-  finish_date:
-  douban_link: https://book.douban.com/subject/26815948/
-  note:
+#- name: 当下的力量
+  #cover: https://izualzhy.cn/assets/images/book/s28807248.jpg
+  #start_date: 2026.6.19
+  #finish_date:
+  #douban_link: https://book.douban.com/subject/26815948/
+  #note:
 
 - name: 说服力：工作型PPT该这样做
   cover: https://izualzhy.cn/assets/images/book/s33645278.jpg
