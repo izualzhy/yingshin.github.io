@@ -1,18 +1,34 @@
-- name: 反脆弱
-  author: 纳西姆·尼古拉斯·塔勒布
-  cover: https://izualzhy.cn/assets/images/book/s27196248.jpg
-  start_date: 2026.7.26
+- name: 也许你该找个人聊聊
+  author: "[美]洛莉·戈特利布"
+  cover: https://izualzhy.cn/assets/images/book/s33944153.jpg
+  start_date: 2026.7.28
   finish_date:
-  douban_link: https://book.douban.com/subject/25782902/
+  douban_link: https://book.douban.com/subject/35481512/
   note:
 
-- name: 掌控边界
-  author: 特里·科尔
-  cover: https://izualzhy.cn/assets/images/book/s34899445.jpg
-  start_date: 2026.7.24
-  finish_date:
-  douban_link: https://book.douban.com/subject/36948750/
-  note:
+#- name: 幸福的勇气
+  #author: "[日] 岸见一郎, 古贺史健"
+  #cover: https://izualzhy.cn/assets/images/book/s34269484.jpg
+  #start_date: 2026.7.27
+  #finish_date:
+  #douban_link: https://book.douban.com/subject/27039296/
+  #note:
+
+#- name: 反脆弱
+  #author: 纳西姆·尼古拉斯·塔勒布
+  #cover: https://izualzhy.cn/assets/images/book/s27196248.jpg
+  #start_date: 2026.7.26
+  #finish_date:
+  #douban_link: https://book.douban.com/subject/25782902/
+  #note:
+
+#- name: 掌控边界
+  #author: 特里·科尔
+  #cover: https://izualzhy.cn/assets/images/book/s34899445.jpg
+  #start_date: 2026.7.24
+  #finish_date:
+  #douban_link: https://book.douban.com/subject/36948750/
+  #note:
 
 - name: 长安十二时辰（全2册）
   author: 马伯庸
@@ -95,11 +111,11 @@
   note: 琐碎杂事凌乱狼藉满地鸡毛蒜皮天上飞，成年人有时幼稚的像个孩子，孩子有时成熟的像个成年人。 以为是怀才不遇，实际是自欺欺人；以为是才思泉涌，实际全是yy。啼笑皆非感慨万千间，突然觉得这不就是中年人么？ 看到最后，发现一切终究是跟自我、跟关系的一场和解。真难以想象这是一本 90 年代写成的书籍。
 
 - name: 从零构建大模型
+  author: "[美]塞巴斯蒂安·拉施卡"
   cover: https://izualzhy.cn/assets/images/book/s35123575.jpg
   start_date: 2025.11.24
   finish_date:
   douban_link: https://book.douban.com/subject/37305124/
-  status: pending
   note:
 
 - name: 为什么不能多印点钱
