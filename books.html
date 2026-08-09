@@ -14,18 +14,14 @@ hide_title: true
     <title>读书记录</title>
     <style>
         :root {
-            --bg-page: #fafaf8;
-            --bg-card: #fff;
-            --bg-modal: #fff;
-            --text-primary: #222;
-            --text-secondary: #555;
-            --text-muted: #888;
-            --accent: #fc4d50;
-            --accent-hover: #e04447;
-            --shelf-line: #ddd;
-            --shelf-shadow: rgba(0,0,0,0.08);
-            --modal-overlay: rgba(0,0,0,0.45);
             --modal-shadow: 0 24px 80px rgba(0,0,0,0.25);
+            --bg-modal: #fafafa;
+            --modal-overlay: rgba(0,0,0,0.45);
+            --shelf-line: #e0e0e0;
+            --text-muted: #999;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --accent: #d53a47;
             --status-reading: #fca24d;
             --status-reading-bg: rgba(252, 162, 77, 0.1);
             --status-finished: #52c41a;
@@ -39,18 +35,14 @@ hide_title: true
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-page: #1a1a1a;
-                --bg-card: #2a2a2a;
-                --bg-modal: #2a2a2a;
-                --text-primary: rgba(255,255,255,.95);
-                --text-secondary: rgba(255,255,255,.7);
-                --text-muted: rgba(255,255,255,.5);
-                --accent: #ff6b6d;
-                --accent-hover: #ff8587;
-                --shelf-line: #444;
-                --shelf-shadow: rgba(0,0,0,0.3);
-                --modal-overlay: rgba(0,0,0,0.65);
                 --modal-shadow: 0 24px 80px rgba(0,0,0,0.5);
+                --bg-modal: #2a2a2a;
+                --modal-overlay: rgba(0,0,0,0.6);
+                --shelf-line: #444;
+                --text-muted: #888;
+                --text-primary: #ddd;
+                --text-secondary: #aaa;
+                --accent: #f0625a;
                 --status-reading: #fca24d;
                 --status-reading-bg: rgba(252, 162, 77, 0.15);
                 --status-finished: #73d13d;
@@ -58,7 +50,6 @@ hide_title: true
                 --status-pending-bg: rgba(126, 168, 255, 0.12);
                 --status-dropped: #666;
                 --status-dropped-bg: rgba(102, 102, 102, 0.12);
-            --year-bg: rgba(255,255,255,0.06);
             }
         }
 
@@ -139,7 +130,8 @@ hide_title: true
         .reading-stats {
             display: flex;
             justify-content: center;
-            gap: 48px;
+            align-items: stretch;
+            gap: 0;
             padding: 36px 0 0;
             border-top: 1px solid var(--shelf-line);
             margin-top: 10px;
@@ -147,12 +139,25 @@ hide_title: true
 
         .stat-item {
             text-align: center;
+            padding: 0 28px;
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .stat-item + .stat-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 18%;
+            bottom: 18%;
+            width: 1px;
+            background: var(--shelf-line);
         }
 
         .stat-number {
             display: block;
             font-family: var(--serif);
-            font-size: 2.8em;
+            font-size: 2.6em;
             font-weight: 700;
             color: var(--text-primary);
             line-height: 1.1;
@@ -164,9 +169,11 @@ hide_title: true
         }
 
         .stat-label {
-            font-size: 0.82em;
+            font-size: 0.78em;
             color: var(--text-muted);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
+            margin-top: 6px;
+            display: block;
         }
 
         /* === Year Section === */
@@ -494,6 +501,27 @@ hide_title: true
             letter-spacing: 0.03em;
         }
 
+        /* === Note Preview (题跋式) === */
+        .book-note-preview {
+            font-size: 0.7em;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-top: 8px;
+            padding-left: 9px;
+            border-left: 2px solid var(--shelf-line);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: border-color 0.25s ease, color 0.25s ease;
+        }
+
+        .book:hover .book-note-preview {
+            border-left-color: var(--accent);
+            color: var(--text-primary);
+        }
+
         /* Status: dot on cover corner */
         .book-status-dot {
             position: absolute;
@@ -581,9 +609,9 @@ hide_title: true
             background: var(--bg-modal);
             border-radius: 10px;
             box-shadow: var(--modal-shadow);
-            max-width: 560px;
-            width: 90vw;
-            max-height: 80vh;
+            max-width: 680px;
+            width: 92vw;
+            max-height: 85vh;
             display: flex;
             overflow: hidden;
             position: relative;
@@ -612,7 +640,7 @@ hide_title: true
 
         .modal-cover {
             flex-shrink: 0;
-            width: 200px;
+            width: 260px;
             position: relative;
             overflow: hidden;
             background: #f0f0f0;
@@ -659,7 +687,7 @@ hide_title: true
 
         .modal-info {
             flex: 1;
-            padding: 28px 28px 24px;
+            padding: 32px 32px 28px;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -668,7 +696,7 @@ hide_title: true
 
         .modal-title {
             font-family: var(--serif);
-            font-size: 1.35em;
+            font-size: 1.5em;
             font-weight: 700;
             color: var(--text-primary);
             line-height: 1.5;
@@ -924,8 +952,8 @@ hide_title: true
 
         /* === Responsive === */
         @media (max-width: 768px) {
-            .reading-stats {
-                gap: 28px;
+            .stat-item {
+                padding: 0 18px;
             }
 
             .stat-number {
@@ -942,26 +970,35 @@ hide_title: true
             }
 
             .modal-cover {
-                width: 150px;
+                width: 180px;
             }
 
             .modal-info {
-                padding: 22px 20px;
+                padding: 26px 24px;
             }
 
             .modal-title {
-                font-size: 1.15em;
+                font-size: 1.25em;
             }
         }
 
         @media (max-width: 480px) {
             .reading-stats {
-                gap: 16px;
                 flex-wrap: wrap;
+                justify-content: center;
             }
 
             .stat-item {
-                flex: 0 0 calc(50% - 8px);
+                flex: 0 0 calc(50% - 1px);
+                padding: 12px 8px;
+            }
+
+            .stat-item + .stat-item::before {
+                display: none;
+            }
+
+            .stat-item:nth-child(odd) {
+                border-right: 1px solid var(--shelf-line);
             }
 
             .stat-number {
@@ -971,6 +1008,10 @@ hide_title: true
             .books-container {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
+            }
+
+            .book[data-status="reading"] {
+                grid-column: span 2;
             }
 
             .bookshelf-page {
@@ -998,7 +1039,7 @@ hide_title: true
             }
 
             .modal-info {
-                padding: 20px 18px;
+                padding: 24px 20px;
                 overflow-y: auto;
                 min-height: 0;
             }
@@ -1021,29 +1062,32 @@ hide_title: true
 
 {% assign total_finished = 0 %}
 {% assign total_reading = 0 %}
-{% assign this_year_finished = 0 %}
-{% assign this_year_reading = 0 %}
+{% assign finished_books = site.data.books | where_exp: "book", "book.finish_date" %}
+{% assign unfinished_books = site.data.books | where_exp: "book", "book.finish_date == nil" %}
+{% assign latest_sorted = finished_books | group_by_exp: "book", "book.finish_date | split: '-' | first" | sort: "name" | reverse %}
+{% assign latest_year = latest_sorted.first.name %}
 {% for book in site.data.books %}
     {% if book.status == "hidden" %}{% continue %}{% endif %}
     {% if book.finish_date %}
         {% assign total_finished = total_finished | plus: 1 %}
-        {% assign finish_year = book.finish_date | split: '.' | first %}
-        {% if finish_year == '2026' %}{% assign this_year_finished = this_year_finished | plus: 1 %}{% endif %}
     {% elsif book.status == nil or book.status == '' %}
         {% assign total_reading = total_reading | plus: 1 %}
-        {% assign start_year = book.start_date | split: '.' | first %}
-        {% if start_year == '2026' %}{% assign this_year_reading = this_year_reading | plus: 1 %}{% endif %}
     {% endif %}
 {% endfor %}
+{% comment %} finish_date 已存在才算读完；status=pending/dropped 未在读计数，也不进「在读」区块 {% endcomment %}
 
-{% assign books_by_year = site.data.books | group_by_exp: "book", "(book.finish_date | default: book.start_date) | split: '.' | first" %}
+{% assign books_by_year = finished_books | group_by_exp: "book", "book.finish_date | split: '-' | first" %}
 {% assign sorted_books_by_year = books_by_year | sort: "name" | reverse %}
 {% for year in sorted_books_by_year %}
     {% assign current_year = year.name %}
-    <div class="year-section{% if forloop.first == false %} collapsed{% endif %}">
+    <div class="year-section">
         <div class="year-header" onclick="toggleYear(this)">
             <span class="year-number">{{ current_year }}</span>
-            <span class="year-count">{{ year.items | size }} 本</span>
+            {% if current_year == latest_year and unfinished_books.size > 0 %}
+                <span class="year-count">{{ year.items | size | plus: unfinished_books.size }} 本</span>
+            {% else %}
+                <span class="year-count">{{ year.items | size }} 本</span>
+            {% endif %}
             <span class="year-line"></span>
             <span class="year-arrow">
                 <svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg>
@@ -1051,18 +1095,49 @@ hide_title: true
         </div>
         <div class="books-shelf">
             <div class="books-container">
-            {% for book in year.items %}
+            {% if current_year == latest_year and unfinished_books.size > 0 %}
+                {% assign unfinished_sorted = unfinished_books | sort: "start_date" | reverse %}
+                {% for book in unfinished_sorted %}
+                    {% if book.status == "hidden" %}{% continue %}{% endif %}
+                    {% if book.status %}{% assign state = book.status %}{% else %}{% assign state = "reading" %}{% endif %}
+                    {% assign note_content = book.note | strip_html | strip %}
+                    <div class="book"
+                         data-name="{{ book.name | xml_escape }}"
+                         data-author="{{ book.author | xml_escape }}"
+                         data-cover="{{ book.cover }}"
+                         data-start="{{ book.start_date }}"
+                         data-finish=""
+                         data-note="{{ book.note | xml_escape }}"
+                         data-link="{{ book.douban_link }}"
+                         data-status="{{ state }}">
+                        <div class="book-cover-wrap">
+                          {% if book.cover %}
+                            <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}" loading="lazy"/>
+                          {% else %}
+                            <div class="book-cover-fallback" data-name="{{ book.name | xml_escape }}" data-author="{{ book.author | xml_escape }}">
+                              <span class="fallback-text">{{ book.name }}</span>
+                              {% if book.author %}<span class="fallback-author">{{ book.author }}</span>{% endif %}
+                            </div>
+                          {% endif %}
+                            <span class="book-shine"></span>
+                            <span class="book-status-dot"></span>
+                            <span class="book-status-line"></span>
+                        </div>
+                        <div class="book-title">{{ book.name }}</div>
+                        <div class="book-date">{{ book.start_date }}</div>
+                        {% if note_content != blank %}
+                            <div class="book-note-preview">{{ note_content }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% assign year_items = year.items | sort: "finish_date" | reverse %}
+            {% for book in year_items %}
                 {% if book.status == "hidden" %}
                     {% continue %}
                 {% endif %}
 
-                {% if book.finish_date %}
-                    {% assign state = "read_finished" %}
-                {% elsif book.status %}
-                    {% assign state = book.status %}
-                {% else %}
-                    {% assign state = "reading" %}
-                {% endif %}
+                {% assign state = "read_finished" %}
 
                 {% assign note_content = book.note | strip_html | strip %}
 
@@ -1089,7 +1164,10 @@ hide_title: true
                         <span class="book-status-line"></span>
                     </div>
                     <div class="book-title">{{ book.name }}</div>
-                    <div class="book-date">{{ book.start_date }}{% if book.finish_date %} — {{ book.finish_date }}{% endif %}</div>
+                    <div class="book-date">{{ book.start_date }}{% if book.finish_date %} → {{ book.finish_date }}{% endif %}</div>
+                    {% if note_content != blank %}
+                        <div class="book-note-preview">{{ note_content }}</div>
+                    {% endif %}
                 </div>
             {% endfor %}
             </div>
@@ -1105,14 +1183,6 @@ hide_title: true
     <div class="stat-item">
         <span class="stat-number">{{ total_reading }}</span>
         <span class="stat-label">本在读</span>
-    </div>
-    <div class="stat-item">
-        <span class="stat-number accent">{{ this_year_finished }}</span>
-        <span class="stat-label">今年读完</span>
-    </div>
-    <div class="stat-item">
-        <span class="stat-number accent">{{ this_year_reading }}</span>
-        <span class="stat-label">今年在读</span>
     </div>
 </div>
 
@@ -1240,7 +1310,7 @@ hide_title: true
             modalLink.textContent = name;
 
             let dateText = start;
-            if (finish) dateText += ' — ' + finish;
+            if (finish) dateText += ' → ' + finish;
             modalDates.textContent = dateText;
 
             const statusMap = {

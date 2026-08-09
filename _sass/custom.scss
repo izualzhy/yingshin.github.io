@@ -1,7 +1,10 @@
 /* start custom scss snippet */
 
+$serif: 'Noto Serif SC', 'Noto Serif CJK SC', 'Songti SC', serif;
+
 .article__content {
   font-size: 1.1rem;
+  font-family: $serif;
   p, li {
     line-height: 1.8;
   }
@@ -22,6 +25,75 @@
     color: $text-color-l;
     text-align: right;
     font-style: italic;
+  }
+}
+
+// === Bookshelf page: 接入主题 skin 系统 ===
+.bookshelf-page {
+  --accent: #{$main-color-1};
+  --text-primary: #{$text-color};
+  --text-secondary: #{$text-color-l};
+  --text-muted: mix($text-color, $background-color, 50%);
+  --shelf-line: #{$border-color-l};
+  --bg-page: #{$background-color};
+  --bg-card: mix(#fff, $background-color, 80%);
+  --bg-modal: mix(#fff, $background-color, 92%);
+  --modal-overlay: rgba(#000, .45);
+  --shelf-shadow: rgba(#000, .08);
+  --year-bg: rgba(#000, .04);
+}
+
+// === Friends page: 简洁列表 ===
+.friends-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  font-family: $serif;
+  border-top: 1px solid $border-color-l;
+}
+
+.friend {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid $border-color-l;
+
+  &__num {
+    font-size: 0.85rem;
+    color: $text-color-l;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  &__name {
+    @include link-colors($text-color, $main-color-1);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  &__desc {
+    font-size: 0.9rem;
+    color: $text-color-l;
+    font-style: italic;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .friend {
+    grid-template-columns: 2rem 1fr;
+    gap: 0.8rem;
+    padding: 0.9rem 0.25rem;
   }
 }
 
