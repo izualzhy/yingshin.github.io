@@ -1,10 +1,10 @@
-- name: 也许你该找个人聊聊
-  author: "[美]洛莉·戈特利布"
-  cover: https://izualzhy.cn/assets/images/book/s33944153.jpg
-  start_date: 2026.7.28
-  finish_date:
-  douban_link: https://book.douban.com/subject/35481512/
-  note:
+#- name: 也许你该找个人聊聊
+  #author: "[美]洛莉·戈特利布"
+  #cover: https://izualzhy.cn/assets/images/book/s33944153.jpg
+  #start_date: 2026.7.28
+  #finish_date:
+  #douban_link: https://book.douban.com/subject/35481512/
+  #note:
 
 #- name: 幸福的勇气
   #author: "[日] 岸见一郎, 古贺史健"
@@ -30,11 +30,19 @@
   #douban_link: https://book.douban.com/subject/36948750/
   #note:
 
+- name: "深度学习入门：基于Python的理论与实现"
+  author: "[日］斋藤康毅"
+  cover: https://izualzhy.cn/assets/images/book/s29815955.jpg
+  start_date: 2026-08-09
+  finish_date:
+  douban_link: https://book.douban.com/subject/30270959/
+  note:
+
 - name: 长安十二时辰（全2册）
   author: 马伯庸
   cover: https://izualzhy.cn/assets/images/book/s35236032.jpg
-  start_date: 2026.7.19
-  finish_date: 2026.7.27
+  start_date: 2026-07-19
+  finish_date: 2026-07-27
   douban_link: https://book.douban.com/subject/37495123/
   note: 十年西域兵，九年不良帅。且待万灯明，只身入尘埃。
 
@@ -49,8 +57,8 @@
 - name: 烟火市井：老舍的幽默生存智慧
   author: 老舍
   cover: https://cdn.weread.qq.com/weread/cover/79/cpplatform_4rvdaelp2zeikniflrrdeu/t8_cpplatform_4rvdaelp2zeikniflrrdeu1751530009.jpg
-  start_date: 2026.6.25
-  finish_date: 2026.6.30
+  start_date: 2026-06-25
+  finish_date: 2026-06-30
   douban_link: https://weread.qq.com/web/reader/ada32ec0813aba19eg0106b2
   note: 写的生动又生活，贩卖烟火气的老舍先生。
 
@@ -63,29 +71,29 @@
 
 - name: 说服力：工作型PPT该这样做
   cover: https://izualzhy.cn/assets/images/book/s33645278.jpg
-  start_date: 2026.6.12
-  finish_date: 2026.6.14
+  start_date: 2026-06-12
+  finish_date: 2026-06-14
   douban_link: https://book.douban.com/subject/35044078/
   note: 水分很多，速度读完，没啥收获。
 
 - name: 被讨厌的勇气
   cover: https://izualzhy.cn/assets/images/book/s33828853.jpg
-  start_date: 2026.4.27
-  finish_date: 2026.5.22
+  start_date: 2026-04-27
+  finish_date: 2026-05-22
   douban_link: https://book.douban.com/subject/26369699/
   note: <a href="https://izualzhy.cn/bei-tao-yan-de-yong-qi-reading">思多乱其志，行者多披靡-读《被讨厌的勇气》</a>
 
 - name: 桃花源没事儿
   cover: https://izualzhy.cn/assets/images/book/s35162221.jpg
-  start_date: 2026.4.11
-  finish_date: 2026.4.19
+  start_date: 2026-04-11
+  finish_date: 2026-04-19
   douban_link: https://book.douban.com/subject/37339619/
   note: 又名：懂“阴阳”的小道士的故事
 
 - name: 苏东坡新传
   cover: https://izualzhy.cn/assets/images/book/s33668974.jpg
-  start_date: 2026.2.8
-  finish_date: 2026.4.26
+  start_date: 2026-02-08
+  finish_date: 2026-04-26
   douban_link: https://book.douban.com/subject/34996404/
   note: 1. 食蓼少年、变法与党争、马入尘埃，笔记-<a href="http://izualzhy.cn/sdpxz-reading-a">在名气与牢骚中成长-读《苏东坡新传》-1</a><br/>2. 黄楼、乌台诗狱、黄州五年、飘泊江淮、风雨京华，笔记-<a href="http://izualzhy.cn/sdpxz-reading-b">宠辱两相授-读《苏东坡新传》-2</a><br/>3. 书斋内外、杭州去来、颍州·扬州·定州、惠州流人，笔记-<a href="http://izualzhy.cn/sdpxz-reading-c">一肚皮不合时宜-读《苏东坡新传》-3</a>  <br/>4. 海外东坡、北归、缥缈孤鸿影：父亲与《苏东坡新传》，笔记-<a href="http://izualzhy.cn/sdpxz-reading-d">问汝平生功业-读《苏东坡新传》-4</a>
 
@@ -98,79 +106,79 @@
 
 - name: 长安的荔枝
   cover: https://izualzhy.cn/assets/images/book/s34327482.jpg
-  start_date: 2025.12.27
-  finish_date: 2025.12.27
+  start_date: 2025-12-27
+  finish_date: 2025-12-27
   douban_link: https://book.douban.com/subject/36104107/
   note: 打工日常。印象最深的是这一句：'赵辛民当即应允：“这个自然！等下节帅给大使签一道通行符牒，只要是岭南管内，广、桂、邕、容、交五州无不可去之者，大使便可以大展拳脚了。”'。互联网里感触还是很深的，“这些文档，你都可以去看。这些同事，有问题都可以随便问，当然人力肯定得以xxx项目为主。”（至于这如山的文档哪些是重点，同事会不会给你解答，人力是否能分批出来，就是另外一回事了，手动狗头😄）
 
 - name: 我是你爸爸
   cover: https://izualzhy.cn/assets/images/book/s33321076.jpg
-  start_date: 2025.12.1
-  finish_date: 2025.12.6
+  start_date: 2025-12-01
+  finish_date: 2025-12-06
   douban_link: https://book.douban.com/subject/26288882/
   note: 琐碎杂事凌乱狼藉满地鸡毛蒜皮天上飞，成年人有时幼稚的像个孩子，孩子有时成熟的像个成年人。 以为是怀才不遇，实际是自欺欺人；以为是才思泉涌，实际全是yy。啼笑皆非感慨万千间，突然觉得这不就是中年人么？ 看到最后，发现一切终究是跟自我、跟关系的一场和解。真难以想象这是一本 90 年代写成的书籍。
 
 - name: 从零构建大模型
   author: "[美]塞巴斯蒂安·拉施卡"
   cover: https://izualzhy.cn/assets/images/book/s35123575.jpg
-  start_date: 2025.11.24
-  finish_date:
+  start_date: 2025-11-24
+  finish_date: 2026-08-09
   douban_link: https://book.douban.com/subject/37305124/
-  note:
+  note: 看到 WqWkWv 矩阵那块实在看不懂了(问大模型也还是没有理解)，转而看《GPT图解-大模型是怎样构建的》。看完后转头再继续看这本书，终于还是啃了下来。太多地方依旧不理解为什么，比如为什么 Transformer 要分多层，为什么内层学的是基础语法，而外层是一些个性化内容；为什么多个 head 而不是一个大的矩阵存储所有特征。好处是自我感觉现在入门，能听懂、能提出问题来了。
 
 - name: 为什么不能多印点钱
   cover: https://izualzhy.cn/assets/images/book/s35114855.jpg
-  start_date: 2025.10.26
-  finish_date: 2025.11.23
+  start_date: 2025-10-26
+  finish_date: 2025-11-23
   douban_link: https://book.douban.com/subject/37467536/
   note: <a href="http://izualzhy.cn/wsmbndydq-reading">自我实现的预言-读《为什么不能多印点钱》</a>
 
 - name: 以日为鉴
   cover: https://izualzhy.cn/assets/images/book/s35260224.jpg
-  start_date: 2025.10.17
-  finish_date: 2025.10.25
+  start_date: 2025-10-17
+  finish_date: 2025-10-25
   douban_link: https://book.douban.com/subject/37467536/
   note: 有数据、有分析。缺点也同样明显，以日本现状为论点，列举日本已经发生的事实为论据，但是两者之间是否就是因果关系？书里举了诸如就业率、房地产、返乡潮、冬奥会、出租车行业、医保内药品、退休金、银座的上座率等例子。确实有共鸣，单页怀疑作者拿着论点找论据。书里这些现象的背后，是否真的是相似的原因。
 
 - name: 漫画百年党史•开天辟地
   cover: https://izualzhy.cn/assets/images/book/s33976923.jpg
-  start_date: 2025.9.27
-  finish_date: 2025.9.30
+  start_date: 2025-09-27
+  finish_date: 2025-09-30
   douban_link: https://book.douban.com/subject/35573635/
   note: 在国庆前读完了这本漫画，莫名感觉多了一层意义。作者尽量用了精炼、轻松的文字，但是历史却是沉重的。在那个被侵略者打的满目疮痍的年代，先辈们在寻找光明的道路上崎岖前行。一句话、一个事件的背后，是胆量与智慧、血与泪、相聚与离别的代价，以及民族大义的考验。当目标变得那么遥远，你是否还能坚持下去？
 
 - name: 图解大模型-生成式AI原理与实战
   cover: https://izualzhy.cn/assets/images/book/s35144211.jpg
-  start_date: 2025.8.16
-  finish_date: 2025.9.27
+  start_date: 2025-08-16
+  finish_date: 2025-09-27
   douban_link: https://book.douban.com/subject/37339504/
   note: 涵盖了从训练、调优到智能体的各部分，今年读了几本 AI 的书了，这本书明显比其他书水平高很多。我的一些疑问，终于在这本书里得到了启示或者答案。由于最近对记忆和向量比较感兴趣，专门做了一篇笔记， <a href="http://izualzhy.cn/hands-on-LLM-reading">记忆和向量-读《图解大模型》</a>
 
 - name: AI Agent开发与应用：基于大模型的智能体构建
   cover: https://izualzhy.cn/assets/images/book/s35150148.jpg
-  start_date: 2025.8.9
-  finish_date: 2025.8.9 
+  start_date: 2025-08-09
+  finish_date: 2025-08-09 
   douban_link: https://book.douban.com/subject/37304100/
   note: 看过一天 LangChain 官方文档的话，就没必要看这本书了。作者 4 月份写了这本，6 月份写了 MCP 的一本。看完这本的质量，我直接放弃看 MCP 那本的计划。全书充满了 demo 和糊弄。
 
 - name: 大模型应用开发 动手做AI Agent
   cover: https://izualzhy.cn/assets/images/book/s34857089.jpg
-  start_date: 2025.6.8
-  finish_date: 2025.7.5
+  start_date: 2025-06-08
+  finish_date: 2025-07-05
   douban_link: https://book.douban.com/subject/36884058
   note: 普通人对于 AI 的使用，一定是通过 AI Agent, <a href="http://izualzhy.cn/hands-on-ai-agent-reading">Read & Practice-读《大模型应用开发 动手做AI Agent》</a>
 
 - name: GPT图解-大模型是怎样构建的
   cover: https://izualzhy.cn/assets/images/book/s34713534.jpg
-  start_date: 2025.3.23
-  finish_date: 2026.6.14
+  start_date: 2025-03-23
+  finish_date: 2026-06-14
   douban_link: https://book.douban.com/subject/36668702/
   note: 1. <a href="http://izualzhy.cn/llm-diagrammatize-ngram-nplm-lstm">《GPT 图解》笔记：N-Gram、NPLM、LSTM</a><br/>2. <a href="http://izualzhy.cn/llm-diagrammatize-seq2seq-attention">《GPT 图解》笔记：Seq2Seq及点积注意力</a><br/>3. <a href="http://izualzhy.cn/llm-diagrammatize-attention-qkv-multi-mask">《GPT 图解》笔记：QKV、多头注意力及掩码</a><br/>4. <a href="http://izualzhy.cn/llm-diagrammatize-transformer">《GPT 图解》笔记：Transformer</a><br/>5. <a href="http://izualzhy.cn/llm-diagrammatize-gpt">《GPT 图解》笔记：GPT-从 Decoder 到自回归文本生成</a><br/>6. <a href="http://izualzhy.cn/llm-diagrammatize-ft-rlhf-summary">《GPT 图解》笔记：微调与RLHF、总结</a>
 
 - name: 人工智能工程化：应用落地与中台构建
   cover: https://izualzhy.cn/assets/images/book/s33733919.jpg
-  start_date: 2025.1.26
-  finish_date: 2025.2.2
+  start_date: 2025-01-26
+  finish_date: 2025-02-02
   douban_link: https://book.douban.com/subject/35220391/
   note: 2025读完的第一本书，<a href="http://izualzhy.cn/AI-arch-reading">AI时代，AI 中台需要提早设计和思考</a>
 
@@ -184,8 +192,8 @@
 
 - name: 生成式人工智能
   cover: https://izualzhy.cn/assets/images/book/s34519911.jpg
-  start_date: 2024.11.14
-  finish_date: 2024.11.16
+  start_date: 2024-11-14
+  finish_date: 2024-11-16
   douban_link: https://book.douban.com/subject/36368084/
   note: 两三个小时读完，适合泛泛阅读。
 
@@ -199,896 +207,896 @@
 
 - name: 英雄无泪
   cover: https://izualzhy.cn/assets/images/book/s33871158.jpg
-  start_date: 2024.08.10
-  finish_date: 2024.08.10
+  start_date: 2024-08-10
+  finish_date: 2024-08-10
   douban_link: https://book.douban.com/subject/24760707/
   note: 英雄无泪有情，结局的两次反转非常精彩。
 
 - name: 大数据平台基础架构指南
   cover: https://izualzhy.cn/assets/images/book/s29814424.jpg
-  start_date: 2024.08.02
-  finish_date: 2024.08.08
+  start_date: 2024-08-02
+  finish_date: 2024-08-08
   douban_link: https://book.douban.com/subject/30269326/
   note: 很多关于平台的思考，非常建议大数据平台架构的 RD 和 PM 都读一遍。<a href="https://izualzhy.cn/dsjptjcjgzn-reading">《大数据平台基础架构指南》- 笔记</a>
 
 - name: 数据密集型应用系统设计
   cover: https://izualzhy.cn/assets/images/book/s34186559.jpg
-  start_date: 2024.06.21
-  finish_date: 2024.08.02
+  start_date: 2024-06-21
+  finish_date: 2024-08-02
   douban_link: https://book.douban.com/subject/30329536/
   note: 酣畅淋漓的读完同时想重读的一本书，感觉自己也就读懂了一半。串联起来之前很多散落的知识点，逐渐看清楚系统的全貌和边界。<br/><a href="https://izualzhy.cn/DDIA-reading-1st">1. DDIA-数据系统基础-笔记</a><br/><a href="https://izualzhy.cn/DDIA-reading-2nd">2. DDIA-分布式数据系统-笔记</a><br/><a href="https://izualzhy.cn/DDIA-reading-3rd">3. DDIA-派生数据-笔记</a>
 
 - name: 深度学习入门
   cover: https://izualzhy.cn/assets/images/book/s29815955.jpg
-  start_date: 2024.05.18
-  finish_date: 2024.06.22
+  start_date: 2024-05-18
+  finish_date: 2024-06-22
   douban_link: https://book.douban.com/subject/30270959/
   note: <a href="https://izualzhy.cn/deep-learning-from-scratch-1st">What I cannot create, I do not understand-读《深度学习入门》</a>
 
 - name: Stream Processing with Apache Flink
   cover: https://izualzhy.cn/assets/images/book/s32278655.jpg
-  start_date: 2024.03.26
-  finish_date: 2024.05.03
+  start_date: 2024-03-26
+  finish_date: 2024-05-03
   douban_link: https://book.douban.com/subject/30152777/
   note: Flink 变化挺大的，诸如 scala、querable state 的支持力度等，在最新的版本里已经逐渐看不到了，不过整体上这本书不算过时。特别是前半部分，主要介绍对流计算的思考和解决方式，仍然值得借鉴。读这本书，一方面是从最开始看 Flink PR 里什么都能做，到实践时发现很多不成熟的点，再到看这本书逐渐理解，收获很大；二方面则是系统性的看看英文技术书籍。笔记记录到了：<a href="https://izualzhy.cn/stream-processing-with-apache-flink-reading-1st">Reading《Stream Processing with Apache Flink》-1st</a> , <a href="https://izualzhy.cn/stream-processing-with-apache-flink-reading-2nd">Reading《Stream Processing with Apache Flink》-2nd</a>
 - name: 在工作中，看到中国
   cover: https://izualzhy.cn/assets/images/book/s34251685.jpg
-  start_date: 2024.03.15
-  finish_date: 2024.03.30
+  start_date: 2024-03-15
+  finish_date: 2024-03-30
   douban_link: https://book.douban.com/subject/35796233/
   note: <a href="https://izualzhy.cn/zgzz-kdzg-reading">见人，亦见己-读《在工作中，看到中国》</a>
 
 - name: Kubernetes修炼手册
   cover: https://izualzhy.cn/assets/images/book/s34078881.jpg
-  start_date: 2024.02.03
-  finish_date: 2024.03.10
+  start_date: 2024-02-03
+  finish_date: 2024-03-10
   douban_link: https://book.douban.com/subject/35486781/
   note: <a href="https://izualzhy.cn/k8s-xlsc-reading">《Kubernetes修炼手册》读书笔记</a>
 
 - name: 智慧的疆界
   cover: https://izualzhy.cn/assets/images/book/s29923729.jpg
-  start_date: 2024.01.05
-  finish_date: 2024.02.11
+  start_date: 2024-01-05
+  finish_date: 2024-02-11
   douban_link: https://book.douban.com/subject/30379536/
   note: <a href="https://izualzhy.cn/zhdjj-reading">潜艇会游泳吗？读《智慧的疆界》</a>
 
 - name: 碧血洗银枪
   cover: https://izualzhy.cn/assets/images/book/s26714397.jpg
-  start_date: 2023.12.23
-  finish_date: 2023.12.27
+  start_date: 2023-12-23
+  finish_date: 2023-12-27
   douban_link: https://book.douban.com/subject/24708302/
   note: 前半段写的很精彩，可惜结局嘎然而止。
 
 - name: 麒麟之翼
   cover: https://izualzhy.cn/assets/images/book/s28112461.jpeg
-  start_date: 2023.12.3
-  finish_date: 2023.12.16
+  start_date: 2023-12-03
+  finish_date: 2023-12-16
   douban_link: https://book.douban.com/subject/26387513/
   note: “男子弓着身体，像是在向麒麟像祈祷着什么。”这是青柳武明人生的最后一个动作。<br/> 麒麟是中国的神兽，原本是没有翅膀的。日本桥上的麒麟像，身有羽翼，象征着人们从原点飞往各地。这本书里，麒麟见证的是父母对孩子深沉、绵延的爱。<br/> 父爱如山，要正直、要善良、要直面人生的对与错。我想，这就是青柳先生想对悠人说的话吧。
 
 - name: 暗黑者外传：惩罚
   cover: https://izualzhy.cn/assets/images/book/s28342721.jpeg
-  start_date: 2023.11.15
-  finish_date: 2023.11.26
+  start_date: 2023-11-15
+  finish_date: 2023-11-26
   douban_link: https://book.douban.com/subject/26614581/
   note: “一切有罪之人都要得到惩罚”，看到这个标语的时候，想到的是同为悬疑小说《心理罪》里的“城市之光”，动漫死亡笔记里的Kira。这句话毫无疑问是正确的，可亘古的命题都是谁是那个公正执行的“执法者”呢？
 
 - name: 窦占龙憋宝：七杆八金刚
   cover: https://izualzhy.cn/assets/images/book/s34016059.jpeg
-  start_date: 2023.10.24
-  finish_date: 2023.11.04
+  start_date: 2023-10-24
+  finish_date: 2023-11-04
   douban_link: https://book.douban.com/subject/35621142/
   note: <a href="http://izualzhy.cn//qbbjg-reading">《窦占龙憋宝：七杆八金刚》书摘</a>
 
 - name: 崔老道传奇
   cover: https://izualzhy.cn/assets/images/book/s32296331.jpeg
-  start_date: 2023.10.10
-  finish_date: 2023.10.22
+  start_date: 2023-10-10
+  finish_date: 2023-10-22
   douban_link: https://book.douban.com/subject/30387283/
   note: <a href="http://izualzhy.cn/cldcq-reading">《崔老道传奇》书摘</a>
 
 - name: 太白金星有点烦
   cover: https://izualzhy.cn/assets/images/book/s34544956.jpeg
-  start_date: 2023.10.1
-  finish_date: 2023.10.2
+  start_date: 2023-10-01
+  finish_date: 2023-10-02
   douban_link: https://book.douban.com/subject/36328704/
   note: <a href="http://izualzhy.cn/tbjxydf-reading">《太白金星有点烦》书摘</a>
 
 - name: 中台落地手记
   cover: https://izualzhy.cn/assets/images/book/s33990103.jpg
-  start_date: 2023.7.30
-  finish_date: 2023.10.21
+  start_date: 2023-07-30
+  finish_date: 2023-10-21
   douban_link: http://book.douban.com/subject/35591140/
   note: <a href="http://izualzhy.cn/ztldsj-reading">知易行难-读《中台落地手记》</a>
 
 - name: 为什么精英都是时间控
   cover: https://izualzhy.cn/assets/images/book/s29733031.jpg
-  start_date: 2023.7.9
-  finish_date: 2023.7.22
+  start_date: 2023-07-09
+  finish_date: 2023-07-22
   douban_link: http://book.douban.com/subject/30188003/
   note: <a href="http://izualzhy.cn/wsmjydssjk-reading">意识并且利用自己的专注力-读《为什么精英都是时间控》</a>
 
 - name: 统计学关我什么事
   cover: https://izualzhy.cn/assets/images/book/s29774927.jpg
-  start_date: 2023.6.22
-  finish_date: 2023.7.9
+  start_date: 2023-06-22
+  finish_date: 2023-07-09
   douban_link: http://book.douban.com/subject/30229508/
   note: <a href="http://izualzhy.cn/tjxgwsms-reading">原来这就是贝叶斯统计-读《统计学关我什么事》</a>
 
 - name: 品人录
   cover: https://izualzhy.cn/assets/images/book/s1670160.jpg
-  start_date: 2023.4.16
-  finish_date: 2023.06.22
+  start_date: 2023-04-16
+  finish_date: 2023-06-22
   douban_link: http://book.douban.com/subject/1028805/
   note: <a href="http://izualzhy.cn/prl-reading">不算笔记的笔记-读《品人录》</a>
 
 - name: 流星·蝴蝶·剑
   cover: https://izualzhy.cn/assets/images/book/s28026827.jpg
-  start_date: 2023.3.26
-  finish_date: 2023.4.2
+  start_date: 2023-03-26
+  finish_date: 2023-04-02
   douban_link: http://book.douban.com/subject/24871623/
   note: 
 
 - name: 白鸟与蝙蝠
   cover: https://izualzhy.cn/assets/images/book/s34400654.jpg
-  start_date: 2023.3.5
-  finish_date: 2023.3.26
+  start_date: 2023-03-05
+  finish_date: 2023-03-26
   douban_link: http://book.douban.com/subject/36074757/
   note: 因果循环，时间与空间，昼与夜，光与影，白鸟与蝙蝠。白鸟变成了蝙蝠，蝙蝠又是白鸟。尽管推理有些牵强，但并不妨碍是一本好书。不知道东野是否还会有一本书，超越之前自己。
 
 - name: 史记的读法
   cover: https://izualzhy.cn/assets/images/book/s33506895.jpg
-  start_date: 2023.1.1
-  finish_date: 2023.2.5
+  start_date: 2023-01-01
+  finish_date: 2023-02-05
   douban_link: http://book.douban.com/subject/34781358/
   note: <a href="http://izualzhy.cn/sjddf-reading">如何读史-读《史记的读法》</a>
 
 - name: Hive性能调优实战
   cover: https://izualzhy.cn/assets/images/book/s33636109.jpg
-  start_date: 2022.12.1
-  finish_date: 2022.12.17
+  start_date: 2022-12-01
+  finish_date: 2022-12-17
   douban_link: http://book.douban.com/subject/34940221/
   note: 建议离线数仓的同学都作为必读书籍之一，短小精炼、非常推荐！
 
 - name: 大脑减压的子弹笔记术
   cover: https://izualzhy.cn/assets/images/book/s30015033.jpg
-  start_date: 2022.11.28
-  finish_date: 2022.12.1
+  start_date: 2022-11-28
+  finish_date: 2022-12-01
   douban_link: http://book.douban.com/subject/30474595/
   note: <a href="http://izualzhy.cn/zdbj-reading">Divide And Conquer-读《大脑减压的子弹笔记术》</a>
 
 - name: 只管去做
   cover: https://izualzhy.cn/assets/images/book/s29636101.jpg
-  start_date: 2022.11.27
-  finish_date: 2022.11.27
+  start_date: 2022-11-27
+  finish_date: 2022-11-27
   douban_link: http://book.douban.com/subject/27601521/
   note: <a href="http://izualzhy.cn/zgqz-reading">心流者，事竟成-读《只管去做》</a>
 
 - name: 西蒙学习法
   cover: https://izualzhy.cn/assets/images/book/s34418226.jpg
-  start_date: 2022.10.29
-  finish_date: 2022.11.03
+  start_date: 2022-10-29
+  finish_date: 2022-11-03
   douban_link: http://book.douban.com/subject/36087707/
   note: <a href="http://izualzhy.cn/xmxxf-reading">学习学习的方法-读《西蒙学习法》</a>
 
 - name: 麦肯锡结构化战略思维
   cover: https://izualzhy.cn/assets/images/book/s33757911.jpg
-  start_date: 2022.9.5
-  finish_date: 2022.10.10
+  start_date: 2022-09-05
+  finish_date: 2022-10-10
   douban_link: http://book.douban.com/subject/35252834/
   note: <a href="http://izualzhy.cn/mkxjygxydf-reading">战略思维+专业思维-读《麦肯锡结构化战略思维》</a>
 
 - name: 麦肯锡教我的写作武器
   cover: https://izualzhy.cn/assets/images/book/s26863863.jpg
-  start_date: 2022.8.16
-  finish_date: 2022.8.28
+  start_date: 2022-08-16
+  finish_date: 2022-08-28
   douban_link: http://book.douban.com/subject/24745639/
   note: <a href="http://izualzhy.cn/mkxjwdxzwq-reading">想明白，写出来-读《麦肯锡教我的协作武器》</a>
 
 - name: 七种武器
   cover: https://izualzhy.cn/assets/images/book/s29550057.jpg
-  start_date: 2022.7.16
-  finish_date: 2022.8.6
+  start_date: 2022-07-16
+  finish_date: 2022-08-06
   douban_link: http://book.douban.com/subject/27145895/
   note: <a href="http://izualzhy.cn/qi-zhong-wu-qi-reading">最高贵的品质-读《七种武器》</a>
 
 - name: 高智商犯罪
   cover: https://izualzhy.cn/assets/images/book/s26997555.jpg
-  start_date: 2022.6.18
-  finish_date: 2022.7.2
+  start_date: 2022-06-18
+  finish_date: 2022-07-02
   douban_link: http://book.douban.com/subject/25663137/
   note: <a href="http://izualzhy.cn/gzsfz-reading">社会这所大学-读《高智商犯罪》</a>
 
 - name: 在宇宙间不易被风吹散
   cover: https://izualzhy.cn/assets/images/book/s33520942.jpg
-  start_date: 2022.6.11
-  finish_date: 2022.6.11
+  start_date: 2022-06-11
+  finish_date: 2022-06-11
   douban_link: http://book.douban.com/subject/30341951/
   note: <a href="http://izualzhy.cn/zyzjbybfcs-reading">眼耳鼻舌身意 色声香味触法-读《在宇宙间不易被风吹散》</a>
 
 - name: 云原生数据中台：架构、方法论与实践
   cover: https://izualzhy.cn/assets/images/book/s33891535.jpg
-  start_date: 2022.5.23
-  finish_date: 2022.6.7
+  start_date: 2022-05-23
+  finish_date: 2022-06-07
   douban_link: http://book.douban.com/subject/35454984/
   note: <a href="http://izualzhy.cn/yun-yuan-sheng-shu-ju-zhong-tai-reading">大数据中台，利润中心还是成本中心？-读《云原生数据中台：架构、方法论与实践》</a>
 
 - name: 麦肯锡精英高效阅读法
   cover: https://izualzhy.cn/assets/images/book/s32318249.jpg
-  start_date: 2022.5.15
-  finish_date: 2022.5.22
+  start_date: 2022-05-15
+  finish_date: 2022-05-22
   douban_link: http://book.douban.com/subject/33444642/
   note: <a href="http://izualzhy.cn/mkxjygxydf-reading">愿我们都在白底黑字中读懂自己-读《麦肯锡精英高效阅读法》</a>
 
 - name: 李光耀观天下
   cover: https://izualzhy.cn/assets/images/book/s33687518.jpg
-  start_date: 2022.5.2
-  finish_date: 2022.5.15
+  start_date: 2022-05-02
+  finish_date: 2022-05-15
   douban_link: http://book.douban.com/subject/30175059/
   note: <a href="http://izualzhy.cn/lgygtx-reading">青梅煮酒论英雄-读《李光耀观天下》</a>
 
 - name: 消失的13级台阶
   cover: https://izualzhy.cn/assets/images/book/s34070178.jpg
-  start_date: 2022.2.12
-  finish_date: 2022.2.15
+  start_date: 2022-02-12
+  finish_date: 2022-02-15
   douban_link: http://book.douban.com/subject/34996429/
   note: <a href="http://izualzhy.cn/xsdssjtj-reading">人、社会、法律-读《消失的13级台阶》</a>
 
 - name: 置身事内
   cover: https://izualzhy.cn/assets/images/book/s33956867.jpg
-  start_date: 2022.2.6
-  finish_date: 2022.3.26
+  start_date: 2022-02-06
+  finish_date: 2022-03-26
   douban_link: http://book.douban.com/subject/35546622/
   note: <a href="http://izualzhy.cn/zssn-reading">事莫明于有效，论莫定于有证-读《置身事内》</a>
 
 - name: 冯唐成事心法
   cover: https://izualzhy.cn/assets/images/book/s33775208.jpg
-  start_date: 2021.12.30
-  finish_date: 2022.2.2
+  start_date: 2021-12-30
+  finish_date: 2022-02-02
   douban_link: http://book.douban.com/subject/35267458/
   note: <a href="http://izualzhy.cn/ftcsxf-reading">成事是自我的修行-读《冯唐成事心法》</a>
 
 - name: 杯雪
   cover: https://izualzhy.cn/assets/images/book/s6950019.jpg
-  start_date: 2021.6.21
-  finish_date: 2021.8.25
+  start_date: 2021-06-21
+  finish_date: 2021-08-25
   douban_link: http://book.douban.com/subject/6560171/
   note: 发现读书时炒炒冷饭也挺好的，温故而知新。大学时从图书馆借书，有小椴的、杨叛的，由于借阅者众，书上难免留了些字迹，娟秀、灵动、挺拔皆有。读那些文字也是读书的乐趣之一，字里行间能感受到留字者既爱惜书籍，又忍不住激扬文字的心情。 如今经常对着满屏的书评、推送的书架消息，不知道为什么，读的书却少了。 说回小椴，印象里小椴的文字是美的，比如写江南的雨：“江南的雨总是不知不觉的就来了。来了以后，便连绵不绝，眉边发际，萦绕不止。”，“那雨一开始只潮潮的，像只闻得着，却看不见，渐渐却阴霾不止。”，一瞬间感觉不像是武侠小说。 就像李健被称为音乐诗人，如果要选一个武侠里的诗人的话，我会选小椴。诗词歌赋，水调歌头、哀江南，信手拈来，缺点是诗歌可能乱了年代😅。 最喜欢《夜雨打金荷》这一本，特别是那个雨夜的酒馆，人物悉数登场，故事节奏紧凑，后面几本明显不如了。
 
 - name: 显微镜下的大明
   cover: https://izualzhy.cn/assets/images/book/s29960161.jpg
-  start_date: 2021.2.17
-  finish_date: 2021.3.20
+  start_date: 2021-02-17
+  finish_date: 2021-03-20
   douban_link: http://book.douban.com/subject/30414743/
   note: 历史大多记录的要么是王侯将相，要么是豪杰草莽，总之是那些足够有意义的人和事。换做市井乡间故事，大多因为琐碎重复而难以记入史册。看这本书，仿佛打开了一扇新的门，原来也有人在记录着这些不那么起眼却同样惊心动魄的小事，透过这扇门，不是看编年记事，不是看人物传记，而是看到因为大历史而带来的小生活的变更。就像最近的抗疫，普通人无法出门，公司倒闭，商场关门，过年回家难这些事情，同样值得被记录，因为共鸣而传播，这大概就是抖音快手快速兴起的原因吧。作者将纷繁复杂的文言文，写的精彩纷呈，故事挑的非常用心，虽说只是民间诸事，却总会受到朝廷政策人员变更的影响，透过普通人的生活，更能折射出当时真实的社会，前几篇非常推荐，后面的就略显潦草了。
 
 - name: 伊索寓言
   cover: https://izualzhy.cn/assets/images/book/s23007179.jpg
-  start_date: 2021.2.11
-  finish_date: 2022.2.26
+  start_date: 2021-02-11
+  finish_date: 2022-02-26
   douban_link: http://book.douban.com/subject/2161691/
   note: <a href="http://izualzhy.cn/ysyy-reading">世事洞明皆学问，人情练达即文章-读《伊索寓言》</a>
 
 - name: 林肯传
   cover: https://izualzhy.cn/assets/images/book/s8489383.jpg
-  start_date: 2021.1.23
-  finish_date: 2021.2.11
+  start_date: 2021-01-23
+  finish_date: 2021-02-11
   douban_link: http://book.douban.com/subject/6811183/
   note: 很庆幸在假期里看完了《林肯传》，历史上有很多的名人通过自身的努力实现阶级的变迁。例如刘邦、朱元璋，市井平民出身，靠谋略智慧终成千古帝王。林肯最与众不同的点在于，他在从木匠成为总统之后，仍然恪守着自己的信念，相信人人平等，以解放奴隶、统一全国为目标。真正的伟人，会如同闪电划过长空，瞬间照亮当下的时局，每个人才能看清、找到自己的位置、进而觉醒。就像当年毛泽东坚定的指出需要农村包围城市、枪杆子里出政权，才能有井冈山革命根据地，有红军不怕远征难的万里长征。林肯之于当时的美国，也是如此。「人们通常只能看到林肯想要解放黑奴的思想，却没有看到他想要白人奉行人道的苦心。诚然，他有一次说的非常清楚，劝说白人不再做奴隶主，比解放黑奴更加重要」。在这本书里，你能看到一个个真实的故事，可能他也会焦头烂额耍些心机，也可能左支右绌没有耐心，然而一半靠实力一半靠信念，他最终结束了南北战争统一了美国，避免了星条旗的分裂。 书本的结局令人唏嘘，林肯妻子精神失常，林肯本人像是完成了上帝给他的使命一般，在南北战争正式打响四年后的同一天随之落幕。 不足的地方是人名太多，以至于有的章节看不懂。但是不影响这是一本好书。读一段历史，往往需要全方位的角度。例如你看了《明朝那些事儿》，也还应该看看《万历十五年》；你看了《美国种族简史》，也还应该再看看《林肯传》。
 
 - name: 梦幻花
   cover: https://izualzhy.cn/assets/images/book/s33532030.jpg
-  start_date: 2021.1.10
-  finish_date: 2021.1.10
+  start_date: 2021-01-10
+  finish_date: 2021-01-10
   douban_link: http://book.douban.com/subject/33427878/
   note: 
 
 - name: 掌控习惯
   cover: https://izualzhy.cn/assets/images/book/s33565235.jpg
-  start_date: 2020.10.1
-  finish_date: 2020.10.5
+  start_date: 2020-10-01
+  finish_date: 2020-10-05
   douban_link: http://book.douban.com/subject/34326931/
   note: 
 
 - name: 中国古代文化常识
   cover: https://izualzhy.cn/assets/images/book/s27506982.jpg
-  start_date: 2020.5.21
-  finish_date: 2020.6.21
+  start_date: 2020-05-21
+  finish_date: 2020-06-21
   douban_link: http://book.douban.com/subject/26021455/
   note: 记住了大概千分之一不到吧，补充点理科生的基础古文化常识。编者博古通今，观点中立，鉴古物，亦鉴今人。
 
 - name: 半小时漫画宋词
   cover: https://izualzhy.cn/assets/images/book/s33613256.jpg
-  start_date: 2020.5.1
-  finish_date: 2020.5.16
+  start_date: 2020-05-01
+  finish_date: 2020-05-16
   douban_link: http://book.douban.com/subject/35009938/
   note: 看混子哥的半小时系列，每次都会觉得作者是个惬意的写书人啊，这样的工作令人羡慕。
 
 - name: 大数据技术体系详解：原理、架构与实践
   cover: https://izualzhy.cn/assets/images/book/s29779648.jpg
-  start_date: 2020.3.7
-  finish_date: 2020.9.30
+  start_date: 2020-03-07
+  finish_date: 2020-09-30
   douban_link: http://book.douban.com/subject/30213139/
   note: 赶在国庆节前终于看完了这本书，大数据相关的书籍，系统性断断续续的看了几本了。实际使用很多都是浅尝辄止，难以深入，而大数据的应用和基础又层出不穷，需要注意“乱花渐欲迷人眼，纸上得来终觉浅”。
 
 - name: 楚留香新传（全四册）
   cover: https://izualzhy.cn/assets/images/book/s30024110.jpg
-  start_date: 2020.2.16
-  finish_date: 2020.3.21
+  start_date: 2020-02-16
+  finish_date: 2020-03-21
   douban_link: http://book.douban.com/subject/30366081/
   note: 前两篇还算续了貂，后面就真的是狗尾了，不推荐。
 
 - name: Flink原理、实战与性能优化
   cover: https://izualzhy.cn/assets/images/book/s32303877.jpg
-  start_date: 2019.12.9
-  finish_date: 2020.3.8
+  start_date: 2019-12-09
+  finish_date: 2020-03-08
   douban_link: http://book.douban.com/subject/33426160/
   note: Flink的书籍相对较少，因此本书虽然大篇都是在照抄官方文档的API，但是也显得相对非常难得，作为工具书以及入门都值得推荐。感觉 Flink 一个比较大的问题是接口众多(DataStream/DataSet/TableAPI/SQL)，Environment一共有8种。而不同版本之间接口有有一些不一致(@Deprecated)，不同语言的接口支持范围又不同等，导致学习成本偏高。当然这侧面又反应了 Flink 发展之迅速，这本书基于 1.7 介绍，在看书的过程中，flink又从1.9发展到了1.10。因此即使看完了书，也还是不知道第五章的State怎么应用到第七章的SQL，第十章的监控真正如何用于实际场景，真切体会到了纸上得来终觉浅，绝知此事要躬行。因此相比照搬 API，各种 TroubleShooting 的介绍可能意义更大，真心希望 flink 的国内commiter先把中文文档写清楚。接下来想读一遍 flink 的PMC写的《基于Apache Flink的流处理》，阿里极力推广 flink ，如果能看到阿里出的一本实践书籍就更好了。
 
 - name: 幕后产品
   cover: https://izualzhy.cn/assets/images/book/s33542674.jpg
-  start_date: 2019.12.3
-  finish_date: 2021.11.6
+  start_date: 2019-12-03
+  finish_date: 2021-11-06
   douban_link: http://book.douban.com/subject/33396395/
   note: 可以感受到作者有很多思考，不断的整理和更新方法论，持续学习。不过由于太不了解一个产品经理的工作内容，感觉整本书章节层次组织的比较乱，导致看到后面不记得前面讲了什么，又仿佛在前面看到过。
 
 - name: 西游八十一案-大唐泥犁狱
   cover: https://izualzhy.cn/assets/images/book/s29645267.jpg
-  start_date: 2019.10.31
-  finish_date: 2019.11.07
+  start_date: 2019-10-31
+  finish_date: 2019-11-07
   douban_link: http://book.douban.com/subject/27609563/
   note: 原本以为是玄幻风格，读到后来才发现是推理小说，把玄奘演绎的如同现在荧幕上的狄仁杰一般。作者立意足够宏大，奈何剧情太差。十分给其中的佛法精要辩论机锋，八分文采，三分剧情，零分感情。
 
 - name: 半小时漫画中国史
   cover: https://izualzhy.cn/assets/images/book/s29492853.jpg
-  start_date: 2019.9.29
-  finish_date: 2019.11.28
+  start_date: 2019-09-29
+  finish_date: 2019-11-28
   douban_link: http://book.douban.com/subject/27003014/
   note: 公众号的文章汇集成书，不得不感慨时间的力量，就这样形成了一部中国史和世界史。作者真是个惬意的写书人啊！
 
 - name: 半小时漫画世界史
   cover: https://izualzhy.cn/assets/images/book/s29736949.jpg
-  start_date: 2019.9.29
-  finish_date: 2019.11.28
+  start_date: 2019-09-29
+  finish_date: 2019-11-28
   douban_link: http://book.douban.com/subject/30191803/
   note: 
 
 - name: 半小时漫画经济学-生活常识篇
   cover: https://izualzhy.cn/assets/images/book/s33826853.jpg
-  start_date: 2019.9.22
-  finish_date: 2019.9.24
+  start_date: 2019-09-22
+  finish_date: 2019-09-24
   douban_link: http://book.douban.com/subject/34800351/
   note: 
 
 - name: Scala谜题
   cover: https://izualzhy.cn/assets/images/book/s29652200.jpg
-  start_date: 2019.8.9
-  finish_date: 2019.10.5
+  start_date: 2019-08-09
+  finish_date: 2019-10-05
   douban_link: http://book.douban.com/subject/27616235/
   note: http://izualzhy.cn/scala-puzzlers
 
 - name: 图解HTTP
   cover: https://izualzhy.cn/assets/images/book/s27283822.jpg
-  start_date: 2019.6.23
-  finish_date: 2019.6.29
+  start_date: 2019-06-23
+  finish_date: 2019-06-29
   douban_link: http://book.douban.com/subject/25863515/
   note: 名词介绍居多，看的比较快。工作值周时经常遇到百度抓取失败但是Google能搜到的站点，原本想从这本书入手研究下怎么样才能不要总是让站点修改，不过收获一般。
 
 - name: 长安古意
   cover: https://izualzhy.cn/assets/images/book/s6338264.jpg
-  start_date: 2019.5.8
-  finish_date: 2019.5.13
+  start_date: 2019-05-08
+  finish_date: 2019-05-13
   douban_link: http://book.douban.com/subject/6312491/
   note: 读这本书的时候，我一直在听花粥的《盗将行》，有人说这歌歌词狗屁不通，且不管歌词如何。我看着《长安古意》，耳边响着《盗将行》的曲儿，觉得挺贴切的。以至于书看完了，再听到这个这首歌，也还是想起书里的故事。故事很简单，一代清官故去，留下一母一子带着《肝胆录》，决定朝廷未来是否落于奸佞之手的小册子。带着这本小册子，一路躲避东密的追杀，找到天下可托付肝胆之人。这一路，有人无惧艰险挺身而出，也有人骑墙观望明哲保身，形形色色。最后虽无可托之人，可在一帮热血男儿的帮助下，登高一呼。正是，“天下无肝胆，何妨裙钗与登坛”！
 
 - name: 追风筝的人
   cover: https://izualzhy.cn/assets/images/book/s1727290.jpg
-  start_date: 2019.4.19
-  finish_date: 2019.4.28
+  start_date: 2019-04-19
+  finish_date: 2019-04-28
   douban_link: http://book.douban.com/subject/1770782/
   note: 为你，千千万万遍。这个世界上，总有阳光照不到的地方。作者极其善于心理描写，再加上译者深厚的功力，前半部分看的非常压抑，到了后来才逐渐展现希望。"这本感人至深的小说里面，风筝是象征性的，它既可以是亲情、友情、爱情，也可以是正直、善良、诚实。对阿米尔来说，风筝隐喻他人格中必不可少的部分，只有追到了，他才能成为健全的人，成为他自我期许的阿米尔。也许每个人心中都有一个风筝，无论它意味着什么，让我们勇敢地追。"
 
 - name: 小岛经济学
   cover: https://izualzhy.cn/assets/images/book/s29585484.jpg
-  start_date: 2019.3.21
-  finish_date: 2019.4.18
+  start_date: 2019-03-21
+  finish_date: 2019-04-18
   douban_link: http://book.douban.com/subject/26985299/
   note: 严格意义上，《小岛经济学》是我完整读完的第一本经济有关的书📖. 微信上有个公众号叫《辉哥奇谭》，印象里不止一次说过，经济收入不应该只来源于工作，甚至大部分不应该。当然不是指要去开创副业，而是要懂经济会投资。去年以来，也听身边的同事大佬发表过同样的观点。这本书浅显易懂，因此拿过来看下。书里以小岛上居民作为比喻，再由此引申出现实世界的经济问题分析，一般到了引申的地方我就看不懂了。经济学白痴的一个标志就是觉得别人怎么说都有道理😵
 
 - name: 殉罪者
   cover: https://izualzhy.cn/assets/images/book/s28819195.jpg
-  start_date: 2019.3.17
-  finish_date: 2019.3.19
+  start_date: 2019-03-17
+  finish_date: 2019-03-19
   douban_link: http://book.douban.com/subject/26811407/
   note: 跟《心理罪》是一个作者，仍然非常好看，不过跟前者比还是差了不少。微信读书上看的，我经常在想，对这类推理类的书籍，如果我在最开始就在评论里剧透，后面的读者会是什么想法？
 
 - name: Scala 实用指南
   cover: https://izualzhy.cn/assets/images/book/s29794622.jpg
-  start_date: 2019.3.15
-  finish_date: 2019.6.23
+  start_date: 2019-03-15
+  finish_date: 2019-06-23
   douban_link: http://book.douban.com/subject/30249691/
   note: 看了三个多月才看完，技术的书看的确实是慢啊。读书笔记记录到了这里：http://izualzhy.cn/tags.html#scala
 
 - name: 四时之诗：蒙曼品最美唐诗
   cover: https://izualzhy.cn/assets/images/book/s29715045.jpg
-  start_date: 2019.1.16
-  finish_date: 2019.2.2
+  start_date: 2019-01-16
+  finish_date: 2019-02-02
   douban_link: http://book.douban.com/subject/30160617/
   note: <a href="http://izualzhy.cn/sszm-reading">诗和远方 - 评《四时之美》</a>
 
 - name: 无所畏
   cover: https://izualzhy.cn/assets/images/book/s29872681.jpg
-  start_date: 2019.1.8
-  finish_date: 2019.1.14
+  start_date: 2019-01-08
+  finish_date: 2019-01-14
   douban_link: http://book.douban.com/subject/30314033/
   note: <a href="http://izualzhy.cn/wsw-reading">《无所畏》读书笔记</a>
 
 - name: 网络是怎样连接的
   cover: https://izualzhy.cn/assets/images/book/s29370067.jpg
-  start_date: 2019.1.1
-  finish_date: 2019.3.12
+  start_date: 2019-01-01
+  finish_date: 2019-03-12
   douban_link: http://book.douban.com/subject/26941639/
   note: <a href="http://izualzhy.cn/net-reading">《网络是怎样连接的》读书笔记</a>
 
 - name: 新参者
   cover: https://izualzhy.cn/assets/images/book/s28363320.jpg
-  start_date: 2018.12.25
-  finish_date: 2018.12.30
+  start_date: 2018-12-25
+  finish_date: 2018-12-30
   douban_link: http://book.douban.com/subject/26639966/
   note: <a href="http://izualzhy.cn/xcz-reading">推理之外 - 评《新参者》</a>
 
 - name: 单核工作法图解
   cover: https://izualzhy.cn/assets/images/book/s29602754.jpg
-  start_date: 2018.12.10
-  finish_date: 2018.12.19
+  start_date: 2018-12-10
+  finish_date: 2018-12-19
   douban_link: http://book.douban.com/subject/27177909/
   note: <a href="http://izualzhy.cn/monotasking-reading">单线程的习惯 - 评《单核工作法图解》</a>
 
 - name: 离线和实时大数据开发实战
   cover: https://izualzhy.cn/assets/images/book/s29779297.jpg
-  start_date: 2018.10.16
-  finish_date: 2018.12.10
+  start_date: 2018-10-16
+  finish_date: 2018-12-10
   douban_link: http://book.douban.com/subject/30234022/
   note: <a href="http://izualzhy.cn/dataflow-reading">《离线和实时大数据开发实战》读书笔记</a>
 
 - name: 半小时漫画中国史
   cover: https://izualzhy.cn/assets/images/book/s29445489.jpg
-  start_date: 2018.8.22
-  finish_date: 2018.8.22
+  start_date: 2018-08-22
+  finish_date: 2018-08-22
   douban_link: http://book.douban.com/subject/27039508/
   note: 偶然翻到的一本书，通过漫画讲历史，因为要同时照顾到知识点和漫画的诙谐风格，信息量不大。当做入门科普看看，适合打发时间。
 
 - name: 企业IT架构转型之道：阿里巴巴中台战略思想与架构实战
   cover: https://izualzhy.cn/assets/images/book/s29445489.jpg
-  start_date: 2018.6.8
-  finish_date: 2018.8.22
+  start_date: 2018-06-08
+  finish_date: 2018-08-22
   douban_link: http://book.douban.com/subject/27039508/
   note: <a href="http://izualzhy.cn/alibaba-reading">关于架构的思考 - 评《阿里巴巴中台战略思想与架构实践》</a>
 
 - name: 那些怪诞又实用的日常心理学
   cover: https://izualzhy.cn/assets/images/book/s29085756.jpg
-  start_date: 2018.6.1
-  finish_date: 2018.6.8
+  start_date: 2018-06-01
+  finish_date: 2018-06-08
   douban_link: http://book.douban.com/subject/26888775/
   note: <a href="http://izualzhy.cn/rcxlx-reading">往前看、往后看 - 评《那些怪诞又实用的日常心理学》</a>
 
 - name: 封神演义
   cover: https://izualzhy.cn/assets/images/book/s5867853.jpg
-  start_date: 2018.2.26
-  finish_date: 2018.5.27
+  start_date: 2018-02-26
+  finish_date: 2018-05-27
   douban_link: http://book.douban.com/subject/2974796/
   note: <a href="http://izualzhy.cn/fsyy-reading">AI时代 - 评《封神演义》</a>
 
 - name: 白玉老虎
   cover: https://izualzhy.cn/assets/images/book/s27037124.jpg
-  start_date: 2018.2.21
-  finish_date: 2018.3.4
+  start_date: 2018-02-21
+  finish_date: 2018-03-04
   douban_link: http://book.douban.com/subject/24760712/
   note: <a href="http://izualzhy.cn/bai-yu-lao-hu">人在江湖，身不由己 - 评《白玉老虎》</a>
 
 - name: 心理罪
   cover: https://izualzhy.cn/assets/images/book/s29710294.jpg
-  start_date: 2018.1.9
-  finish_date: 2018.1.21
+  start_date: 2018-01-09
+  finish_date: 2018-01-21
   douban_link: http://book.douban.com/subject/26598142/
   note: 很久没有被这么吸引着看完一本书了，作者逻辑十分严谨，紧张的故事线里探讨了很多社会、心理问题，看的让人绝望又充满希望。看到作者写道自己跟方木说再见时，感慨万千，这个人物不属于任何人，包括作者。像是方木把自己的故事告诉了作者，而作者只是在叙述这段故事，我想，创作的最高境界，就是这样了吧。
 
 - name: 湖畔
   cover: https://izualzhy.cn/assets/images/book/s29710294.jpg
-  start_date: 2017.12.17
-  finish_date: 2017.12.21
+  start_date: 2017-12-17
+  finish_date: 2017-12-21
   douban_link: http://book.douban.com/subject/26598142/
   note: 书比较薄，点杯咖啡，可以一个下午倚在书店的书架下面读完。很真实的描写了社会变态的一面，作者的口气平静的如同这一弯湖水。法律与灵魂的制裁，究竟哪个先来？表面的平静与内里的混乱，究竟能持续多久？
 
 - name: MacTalk人生元编程
   cover: https://izualzhy.cn/assets/images/book/s28409836.jpg
-  start_date: 2017.5.17
-  finish_date: 2017.5.26
+  start_date: 2017-05-17
+  finish_date: 2017-05-26
   douban_link: http://book.douban.com/subject/25826578/
   note: 在多看工作的时候就听说这本书了，最近公司开发的本换成了mac，就赶紧读了一下。内容大多短小精悍，有收获。特别是各种tips，还有作者的各种扯淡。但是怎么说呢，扯淡的部分很快就看完了。
 
 - name: 大明王朝的七张面孔
   cover: https://izualzhy.cn/assets/images/book/s6077038.jpg
-  start_date: 2017.4.9
-  finish_date: 2017.5.31
+  start_date: 2017-04-09
+  finish_date: 2017-05-31
   douban_link: http://book.douban.com/subject/1463256/
   note: 跟《万历十五年》相似，讲了七个人：朱元璋、朱棣、海瑞、魏忠贤、张献忠、吴三桂、郑成功。评论里有人说作者引据太具有个人色彩，对读者而言，我想就是要看到不一样的历史证据和观点，这大概就是为什么古人说要读万卷书的原因了。
 
 - name: 恶意
   cover: https://izualzhy.cn/assets/images/book/s29827014.jpg
-  start_date: 2017.2.6
-  finish_date: 2017.4.16
+  start_date: 2017-02-06
+  finish_date: 2017-04-16
   douban_link: http://book.douban.com/subject/26877752/
   note: 鲁迅说，不惮以最坏的恶意来揣测国人。看了这本书，觉得日本是同样的。本书最大的特点是一波三折。
 
 - name: 三十六大
   cover: https://izualzhy.cn/assets/images/book/s24430317.jpg
-  start_date: 2016.12.3
-  finish_date: 2016.12.17
+  start_date: 2016-12-03
+  finish_date: 2016-12-17
   douban_link: http://book.douban.com/subject/20278799/
   note: 一般，还是三部曲好看。原来金线一词是从这里出来的。
 
 - name: 编写可读代码的艺术
   cover: https://izualzhy.cn/assets/images/book/s10328621.jpg
-  start_date: 2016.11.9
-  finish_date: 2016.11.23
+  start_date: 2016-11-09
+  finish_date: 2016-11-23
   douban_link: http://book.douban.com/subject/10797189/
   note: 工作第二年有人推荐看了这本书的英文版，在厂子里看了很多的代码，反过来再看又有一些新的心得。
 
 - name: 最后一个道士
   cover: https://izualzhy.cn/assets/images/book/s23139097.jpg
-  start_date: 2016.10.7
-  finish_date: 2016.11.2
+  start_date: 2016-10-07
+  finish_date: 2016-11-02
   douban_link: http://book.douban.com/subject/19987171/
   note: 在多看上看完了第三部，不清楚后面还有没，前面比较精彩。
 
 - name: ZooKeeper:分布式过程协同技术详解
   cover: https://izualzhy.cn/assets/images/book/s28606296.jpg
-  start_date: 2016.9.10
-  finish_date: 2016.10.7
+  start_date: 2016-09-10
+  finish_date: 2016-10-07
   douban_link: http://book.douban.com/subject/26766807/
   note: 
 
 - name: 秘密
   cover: https://izualzhy.cn/assets/images/book/s27185093.jpg
-  start_date: 2016.9.13
-  finish_date: 2016.9.17
+  start_date: 2016-09-13
+  finish_date: 2016-09-17
   douban_link: http://book.douban.com/subject/25720041/
   note: 东野的小说读的越多，越来越发现情感为主题，解谜只是部分。
 
 - name: 大漠苍狼
   cover: https://izualzhy.cn/assets/images/book/s4547388.jpg
-  start_date: 2016.7.8
-  finish_date: 2016.7.9
+  start_date: 2016-07-08
+  finish_date: 2016-07-09
   douban_link: http://book.douban.com/subject/5375571/
   note: 号称是填坑了的一本书，但是感觉还是草草结尾。
 
 - name: 中国近代史
   cover: http://img1.doubanio.com/lpic/s2883058.jpg
-  start_date: 2016.7.7
-  finish_date: 2016.8.31
+  start_date: 2016-07-07
+  finish_date: 2016-08-31
   douban_link: http://book.douban.com/subject/2376486/
   note: 历史是多面的，但是了解历史总是要从某一面开始。这本书展开了很多事情、人物的某一面。虽然无法赞同作者的很多观点，但是值得思考。比较有感触的是相比过去的大学生，现在所谓的名牌大学在灌输的更多的是精英主义、利己主义。
 
 - name: 英雄无泪
   cover: https://izualzhy.cn/assets/images/book/s33871158.jpg
-  start_date: 2016.6.8
-  finish_date: 2016.6.13
+  start_date: 2016-06-08
+  finish_date: 2016-06-13
   douban_link: http://book.douban.com/subject/24760707/
   note: 感觉内容太简单了，少数的几个人物串起了整个线条。
 
 - name: 卑鄙的圣人：曹操
   cover: https://izualzhy.cn/assets/images/book/s6528276.jpg
-  start_date: 2016.2.26
-  finish_date: 2016.6.8
+  start_date: 2016-02-26
+  finish_date: 2016-06-08
   douban_link: http://book.douban.com/subject/6533206/
   note: 非常好看！读后感发表在了<a href="http://yingshin.github.io/life/2016/07/09/caocao">这里</a>
 
 - name: 肉蒲团
   cover: 
-  start_date: 2016.2.6
-  finish_date: 2016.2.20
+  start_date: 2016-02-06
+  finish_date: 2016-02-20
   douban_link: 
   note: 非常不错的一本书，一定要读！在肉欲情色中，讲一番道理。看似荒淫无耻，实际上发人深省。
 
 - name: 流行蝴蝶剑
   cover: https://izualzhy.cn/assets/images/book/s28026827.jpg
-  start_date: 2016.2.6
-  finish_date: 2016.2.12
+  start_date: 2016-02-06
+  finish_date: 2016-02-12
   douban_link: http://book.douban.com/subject/24871623/
   note: 看着感觉跟小时候的莲花争霸的人物有很多重叠，查了下果然是从这部小说改编的。整体不如陆小凤、楚留香系列的好看，但是推荐看一遍。
 
 - name: 古董局中局 4
   cover: https://izualzhy.cn/assets/images/book/s28340239.jpg
-  start_date: 2016.2.3
-  finish_date: 2016.2.6
+  start_date: 2016-02-03
+  finish_date: 2016-02-06
   douban_link: http://book.douban.com/subject/26650970/
   note: 这一部主要冲着看下老朝奉是谁去的，整体比较平常的一个结局，但是好处是作者填上了坑，没有用一系列的难以填的坑来吊读者的胃口。
 
 - name: 欢乐英雄
   cover: https://izualzhy.cn/assets/images/book/s26723000.jpg
-  start_date: 2016.1.15
-  finish_date: 2016.1.23
+  start_date: 2016-01-15
+  finish_date: 2016-01-23
   douban_link: http://book.douban.com/subject/24743902/
   note: 英雄也可以是欢乐的，虽然我并没有总结出来他们为什么快乐，知足？武功高？单纯？还是其他？
 
 - name: 七星龙王
   cover: https://izualzhy.cn/assets/images/book/s34657622.jpg
-  start_date: 2016.1.11
-  finish_date: 2015.1.15
+  start_date: 2016-01-11
+  finish_date: 2015-01-15
   douban_link: http://book.douban.com/subject/24708300/
   note: 
 
 - name: 神探伽利略2预知梦
   cover: https://izualzhy.cn/assets/images/book/s28391351.jpg
-  start_date: 2015.11.26
-  finish_date: 2015.12.3
+  start_date: 2015-11-26
+  finish_date: 2015-12-03
   douban_link: http://book.douban.com/subject/22993089/
   note: 感觉一般
 
 - name: 分身
   cover: https://izualzhy.cn/assets/images/book/s4435059.jpg
-  start_date: 2015.10.1
-  finish_date: 2015.10.3
+  start_date: 2015-10-01
+  finish_date: 2015-10-03
   douban_link: http://book.douban.com/subject/4753783/
   note: 关于克隆的思考，慢慢的觉得东野并不是我一直理解的推理小说作家，读多了觉得这个人对社会的思考很多。这本书里面，克隆人未必取得了成功，但至少不是孤独的，这点是最重要的。
 
 - name: 悬疑小说10年精选（下）
   cover: https://izualzhy.cn/assets/images/book/s4524512.jpg
-  start_date: 2015.8
-  finish_date: 2015.9.9
+  start_date: 2015-08-01
+  finish_date: 2015-09-09
   douban_link: http://book.douban.com/subject/5063874/
   note: 最开始以为是许多精彩小故事的集合，看完觉得一般，打发时间可以看下。
 
 - name: 剑毒梅香
   cover: https://izualzhy.cn/assets/images/book/s10203234.jpg
-  start_date: 2015.7.12
-  finish_date: 2015.8.11
+  start_date: 2015-07-12
+  finish_date: 2015-08-11
   douban_link: http://book.douban.com/subject/1088777/
   note: 古龙前期作品，各种奇遇，主人公宽厚仁慈人品完美，不推荐。
 
 - name: 神探伽利略
   cover: https://izualzhy.cn/assets/images/book/s20799003.jpg
-  start_date: 2015.7
-  finish_date: 2015.7.11
+  start_date: 2015-07-01
+  finish_date: 2015-07-11
   douban_link: http://book.douban.com/subject/19951185/
   note: 一些小的推理故事，一般
 
 - name: 信
   cover: https://izualzhy.cn/assets/images/book/s4514129.jpg
-  start_date: 2015.6.27
-  finish_date: 2015.6.28
+  start_date: 2015-06-27
+  finish_date: 2015-06-28
   douban_link: http://book.douban.com/subject/3890174/
   note: 
 
 - name: 我是个算命先生
   cover: https://izualzhy.cn/assets/images/book/s8993763.jpg
-  start_date: 2015.5.16
-  finish_date: 2015.6
+  start_date: 2015-05-16
+  finish_date: 2015-06-01
   douban_link: http://book.douban.com/subject/10506822/
   note: 很一般的一本书
 
 - name: 九州缥缈录-辰月之征
   cover: https://izualzhy.cn/assets/images/book/s2781187.jpg
-  start_date: 2015.5.1
-  finish_date: 2015.5.9
+  start_date: 2015-05-01
+  finish_date: 2015-05-09
   douban_link: http://book.douban.com/subject/2286313/
   note: 五一假期偷闲重读一遍,想到了大学那个爱读奇幻的年纪,想到自己也曾经想写小说.
 
 - name: 时间之墟
   cover: https://izualzhy.cn/assets/images/book/s27127637.jpg
-  start_date: 2015.3.15
-  finish_date: 2015.3.30
+  start_date: 2015-03-15
+  finish_date: 2015-03-30
   douban_link: http://book.douban.com/subject/24935042/
   note: 记得从买第一本科幻世界开始已经十几年的时间了吧，岁月如梭，青葱不再。看完了有时候觉得这不是一本科幻，如果所有人类都只能在一天里轮回，只有记忆保留，会发生怎么样的集权和暴力？乌合之众里的那些疯狂的心理是否成为现实？如果科学无法继续，又怎么去揭示一切背后的秘密呢？
 
 - name: 三国配角演义
   cover: https://izualzhy.cn/assets/images/book/s25996301.jpg
-  start_date: 2015.3.4
-  finish_date: 2015.3.8
+  start_date: 2015-03-04
+  finish_date: 2015-03-08
   douban_link: http://book.douban.com/subject/20470934/
   note: 这种从细节出发进而推出阴谋论的，个人比较喜欢第一人称的叙述。有种徐徐展开、入情入理的感觉，至于一步步的推导，对于我这种理科学生，那种诗词传记透露出来的微妙的语境，很多难以理解。
 
 - name: 白玉老虎
   cover: https://izualzhy.cn/assets/images/book/s27037124.jpg
-  start_date: 2015.2.24
-  finish_date: 2015.3.1
+  start_date: 2015-02-24
+  finish_date: 2015-03-01
   douban_link: http://book.douban.com/subject/24760712/
   note: 看到大半时就觉得这本书不会有结局了，事实如此，算是半部经典。读这本小说，又重新找到了当年读古龙的感觉，每个人物都仿佛值得一读，都有自己的故事，无论大风堂、霹雳堂、唐家堡，代表的都是一种势力，没有正邪，每个人都只是一颗棋子，这本书写的就是这些棋子的爱恨情仇！
 
 - name: 血鹦鹉
   cover: https://izualzhy.cn/assets/images/book/s34657625.jpg
-  start_date: 2015.2.16
-  finish_date: 2015.2.24
+  start_date: 2015-02-16
+  finish_date: 2015-02-24
   douban_link: http://book.douban.com/subject/24708485/
   note: 看着无趣，感觉不像古龙的风格，后来查了下是代笔
 
 - name: 门岭怪谈
   cover: https://izualzhy.cn/assets/images/book/s6912864.jpg
-  start_date: 2015.2
-  finish_date: 2015.2
+  start_date: 2015-02-01
+  finish_date: 2015-02-01
   douban_link: http://book.douban.com/subject/6731600/
   note: 比较无聊
 
 - name: 金棺陵兽
   cover: https://izualzhy.cn/assets/images/book/s28020276.jpg
-  start_date: 2015.2
-  finish_date: 2015.2
+  start_date: 2015-02-01
+  finish_date: 2015-02-01
   douban_link: http://book.douban.com/subject/25696097/
   note: 
 
 - name: 古董局中局3
   cover: https://izualzhy.cn/assets/images/book/s27963366.jpg
-  start_date: 2015.1.15
-  finish_date: 2015.1.23
+  start_date: 2015-01-15
+  finish_date: 2015-01-23
   douban_link: http://book.douban.com/subject/26261240/
   note: 小说很精彩，相比情节，各种古董轶事更加吸引人一些
 
 - name: 地狱
   cover: https://izualzhy.cn/assets/images/book/s27173855.jpg
-  start_date: 2014.1.15
-  finish_date: 2014.2.27
+  start_date: 2014-01-15
+  finish_date: 2014-02-27
   douban_link: http://book.douban.com/subject/25756947/
   note: 不如前几本好看
 
 - name: 毛泽东传
   cover: https://izualzhy.cn/assets/images/book/s34307358.jpg
-  start_date: 2013
-  finish_date: 2014.3.9
+  start_date: 2013-01-01
+  finish_date: 2014-03-09
   douban_link: http://book.douban.com/subject/5246800/
   note: 
 
 - name: 古董局中局2
   cover: https://izualzhy.cn/assets/images/book/s27034669.jpg
-  start_date: 2014.3.17
-  finish_date: 2014.3.23
+  start_date: 2014-03-17
+  finish_date: 2014-03-23
   douban_link: http://book.douban.com/subject/24882288/
   note: 
 
 - name: Understanding and Using C Pointers
   cover: https://izualzhy.cn/assets/images/book/s26544167.jpg
-  start_date: 2014.3.26
-  finish_date: 2014.8.2
+  start_date: 2014-03-26
+  finish_date: 2014-08-02
   douban_link: http://book.douban.com/subject/20491037/
   note: 看完的第二本英文书，主要对英语提升帮助很多，知识点主要是温习的作用。
 
 - name: 曾国藩传
   cover: https://izualzhy.cn/assets/images/book/s6796828.jpg
-  start_date: 2014.5.28
-  finish_date: 2014.6.10
+  start_date: 2014-05-28
+  finish_date: 2014-06-10
   douban_link: http://book.douban.com/subject/6525389/
   note: 
 
 - name: 中国式骗局大全
   cover: 
-  start_date: 2014.6.24
-  finish_date: 2014.6.27
+  start_date: 2014-06-24
+  finish_date: 2014-06-27
   douban_link: 
   note: 天涯连载小说，好像尚未出版，找了本盗版的txt来读。个人感觉非常一般，很容易猜到，文笔又不算精彩。不过作者列了一些书单，决定找几本看看。
 
 - name: 嫌疑犯x的献身
   cover: https://izualzhy.cn/assets/images/book/s3254244.jpg
-  start_date: 2014.6.30
-  finish_date: 2014.7.2
+  start_date: 2014-06-30
+  finish_date: 2014-07-02
   douban_link: http://book.douban.com/subject/3211779/
   note: 看到对石神的描述联想到题目的时候，就想到献身的是谁了，悲观的英雄主义，理想和爱情，信仰，智慧，价值观的一场对决。
 
 - name: 活着活着就老了
   cover: https://izualzhy.cn/assets/images/book/s24438387.jpg
-  start_date: 2014.7.3
-  finish_date: 2015.1.13
+  start_date: 2014-07-03
+  finish_date: 2015-01-13
   douban_link: http://book.douban.com/subject/20365787/
   note: 
 
 - name: 白夜行
   cover: https://izualzhy.cn/assets/images/book/s24514468.jpg
-  start_date: 2014.7.3
-  finish_date: 2014.7.8
+  start_date: 2014-07-03
+  finish_date: 2014-07-08
   douban_link: http://book.douban.com/subject/10554308/
   note: 汤川没有现身，没有诡异的案件与缜密的推理，写的是案件之后人的感情。
 
 - name: 陆小凤传奇1金鹏王朝
   cover: https://izualzhy.cn/assets/images/book/s26681971.jpg
-  start_date: 2014.7.13
-  finish_date: 2014.7.15
+  start_date: 2014-07-13
+  finish_date: 2014-07-15
   douban_link: http://book.douban.com/subject/20516999/
   note: 读古龙总有一种欲罢不能的感觉，即使是重读，仍然被吸引。
 
 - name: 陆小凤传奇2绣花大盗
   cover: https://izualzhy.cn/assets/images/book/s26307052.jpg
-  start_date: 2014.8.3
-  finish_date: 2014.8.5
+  start_date: 2014-08-03
+  finish_date: 2014-08-05
   douban_link: http://book.douban.com/subject/20516998/
   note: 
 
 - name: 陆小凤传奇3决战前后
   cover: https://izualzhy.cn/assets/images/book/s26307053.jpg
-  start_date: 2014.7.27
-  finish_date: 2014.8.3
+  start_date: 2014-07-27
+  finish_date: 2014-08-03
   douban_link: http://book.douban.com/subject/20516996/
   note: 月圆之夜，紫禁之巅，一剑西来，天外飞仙。叶孤城VS西门吹雪!
 
 - name: 陆小凤传奇4银钩赌坊
   cover: https://izualzhy.cn/assets/images/book/s26306511.jpg
-  start_date: 2014.8.3
-  finish_date: 2014.8.9
+  start_date: 2014-08-03
+  finish_date: 2014-08-09
   douban_link: http://book.douban.com/subject/20516997/
   note: 罗刹教，飞虎堂，玉罗刹，飞天玉虎！
 
 - name: 陆小凤传奇5幽灵山庄
   cover: https://izualzhy.cn/assets/images/book/s26306525.jpg
-  start_date: 2014.8.10
-  finish_date: 2014.8.13
+  start_date: 2014-08-10
+  finish_date: 2014-08-13
   douban_link: http://book.douban.com/subject/20516992/
   note: 陆小凤终究还是败给了老刀把子，可惜人算不如天算。冥冥中的那股力量啊！
 
 - name: 陆小凤传奇6凤舞九天
   cover: https://izualzhy.cn/assets/images/book/s26317045.jpg
-  start_date: 2014.8.13
-  finish_date: 2014.8.18
+  start_date: 2014-08-13
+  finish_date: 2014-08-18
   douban_link: http://book.douban.com/subject/20516993/
   note: 陆小凤碰上了宫九，以一种诡异的方式结束了战斗。相比古龙笔下其他的大侠，陆小凤武功更低，缺点更多，但更接近人，真实。
 
 - name: 陆小凤传奇7剑神一笑
   cover: https://izualzhy.cn/assets/images/book/s26589995.jpg
-  start_date: 2014.8.19
-  finish_date: 2014.9.2
+  start_date: 2014-08-19
+  finish_date: 2014-09-02
   douban_link: http://book.douban.com/subject/20516994/
   note: 陆小凤系列里最无趣的一本。
 
 - name: 高级Bash脚本编程指南
   cover: https://izualzhy.cn/assets/images/book/s24938826.jpg
-  start_date: 2014.8.3
-  finish_date: 2015.3.13
+  start_date: 2014-08-03
+  finish_date: 2015-03-13
   douban_link: http://book.douban.com/subject/3010746/
   note: 
 
 - name: 尸语者
   cover: https://izualzhy.cn/assets/images/book/s20710799.jpg
-  start_date: 2014.9.2
-  finish_date: 2014.9.30
+  start_date: 2014-09-02
+  finish_date: 2014-09-30
   douban_link: http://book.douban.com/subject/19950139/
   note: 
 
 - name: 九州·缥缈录V·一生之盟
   cover: https://izualzhy.cn/assets/images/book/s3879732.jpg
-  start_date: 2014.10.2
-  finish_date: 2014.10.14
+  start_date: 2014-10-02
+  finish_date: 2014-10-14
   douban_link: http://book.douban.com/subject/3851790/
   note: 虽然是重看，依旧感觉到热血和震撼。有时候回想，向我这种人，如果回到那个冷兵器的时代，会成为一个武士，军事还是被遗忘的炮灰。这次看有些厌倦了作者许多年以后的口气。
 
 - name: 捉鬼这些年
   cover: http://cover.read.duokan.com/mfsv2/download/s010/p01QWRqZRaQn/0cfVjd9855aHjP.jpg!e
-  start_date: 2014.10.14
-  finish_date: 2014.11.3
+  start_date: 2014-10-14
+  finish_date: 2014-11-03
   douban_link: http://www.duokan.com/book/49210
   note: 很多网络小说都是前面看着过瘾，吊人胃口。后面却往往因为作者挖的坑太深，胡乱潦草结局。PS:最近总再重新看之前看过的书，得注意下了。
 
 - name: 三体
   cover: https://izualzhy.cn/assets/images/book/s2768378.jpg
-  start_date: 2014.11.3
-  finish_date: 2014.11.13
+  start_date: 2014-11-03
+  finish_date: 2014-11-13
   douban_link: http://book.douban.com/subject/2567698/
   note: 大气之后接着煽情，大刘的节奏总是这样。
 
 - name: Learn Python the Hard Way
   cover: https://izualzhy.cn/assets/images/book/s28015604.jpg
-  start_date: 2014.11.2
-  finish_date: 2015.2.22
+  start_date: 2014-11-02
+  finish_date: 2015-02-22
   douban_link: http://book.douban.com/subject/11941213/
   note: 开始还行，后来感觉看不进去，可能比较适合入门吧。
 
 - name: 解忧杂货店
   cover: https://izualzhy.cn/assets/images/book/s27264181.jpg
-  start_date: 2014.11.15
-  finish_date: 2015.3.4
+  start_date: 2014-11-15
+  finish_date: 2015-03-04
   douban_link: http://book.douban.com/subject/25862578/
   note: 非常精彩的一本书
 
 - name: SQL必知必会
   cover: https://izualzhy.cn/assets/images/book/s2593426.jpg
-  start_date: 2014.12.1
-  finish_date: 2015.4.5
+  start_date: 2014-12-01
+  finish_date: 2015-04-05
   douban_link: http://book.douban.com/subject/2124377/
   note: 断断续续终于看完了，入门非常不错的一本书。值得一看！
 
