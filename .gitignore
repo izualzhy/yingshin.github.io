@@ -1,5 +1,19 @@
 _site
 **/.DS_Store
 **/.jekyll-cache
-\n# Ignore obsidian vault\n.obsidian/\n\n# Ignore backup files\n*.bak\n\n# Ignore test scripts\ntest.sh
+# Ignore obsidian vault
+.obsidian/
+# Ignore backup files
+*.bak
+*.bak.*
+# Ignore test scripts
+test.sh
 .idea
+.trae/
+# node
+node_modules/
+package-lock.json
+# local export logs
+waline-comment-log-export-*.json
+# local diff
+git.diff
