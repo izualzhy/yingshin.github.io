@@ -17,3 +17,4 @@ package-lock.json
 waline-comment-log-export-*.json
 # local diff
 git.diff
+.playwright-mcp/

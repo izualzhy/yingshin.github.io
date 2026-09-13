@@ -43,6 +43,114 @@ $serif: 'Noto Serif SC', 'Noto Serif CJK SC', 'Songti SC', serif;
   --year-bg: rgba(#000, .04);
 }
 
+// === Pearls page: 一串珠子 ===
+$pearl-size: 1.375rem;
+$pearl-gutter: 2.5rem;
+
+.pearls {
+  position: relative;
+  margin: map-get($spacers, 2) 0 map-get($spacers, 4);
+
+  // 串珠的线：从第一颗珠子向上伸出线头、穿过三颗珠子、在尾端垂下收尾
+  &::before {
+    content: '';
+    position: absolute;
+    top: -$pearl-size;
+    bottom: -$pearl-size * 0.75;
+    left: calc(#{$pearl-size} / 2 - 1px);
+    width: 2px;
+    background: mix($text-color-l, $background-color, 50%);
+  }
+}
+
+.pearl-group {
+  position: relative;
+  padding-left: $pearl-gutter;
+  margin-bottom: map-get($spacers, 4);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.pearl-group__header {
+  position: relative;
+  margin: map-get($spacers, 3) 0 map-get($spacers, 2);
+  line-height: $pearl-size;
+  font-family: $serif;
+  font-size: $pearl-size;
+  font-weight: map-get($base, font-weight-bold);
+}
+
+.pearl-group__dot {
+  position: absolute;
+  top: 50%;
+  left: -$pearl-gutter;
+  transform: translateY(-50%);
+  width: $pearl-size;
+  height: $pearl-size;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 26%,
+    #fff 0%,
+    lighten($main-color-1, 30%) 14%,
+    $main-color-1 46%,
+    darken($main-color-1, 20%) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(darken($main-color-1, 35%), .15),
+    0 2px 4px rgba(0, 0, 0, .2);
+}
+
+.pearl-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pearl-item {
+  padding: map-get($spacers, 2) 0 map-get($spacers, 3);
+  @include split-line(bottom);
+}
+
+.pearl-item__title {
+  a {
+    @include link-colors($text-color-d, $main-color-1);
+    font-weight: map-get($base, font-weight-bold);
+  }
+}
+
+.pearl-item__tag {
+  margin-left: map-get($spacers, 2);
+  padding: .1rem .4rem;
+  border: 1px solid $border-color-l;
+  border-radius: map-get($base, border-radius);
+  font-size: map-get($base, font-size-xs);
+  color: $text-color-l;
+  white-space: nowrap;
+}
+
+.pearl-item__note {
+  margin-top: map-get($spacers, 1);
+  font-size: map-get($base, font-size-sm);
+  color: $text-color-l;
+  line-height: 1.7;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  $pearl-gutter: 1.9rem;
+
+  .pearl-group {
+    padding-left: $pearl-gutter;
+  }
+
+  .pearl-group__dot {
+    left: -$pearl-gutter;
+  }
+}
+
 // === Friends page: 简洁列表 ===
 .friends-list {
   list-style: none;
