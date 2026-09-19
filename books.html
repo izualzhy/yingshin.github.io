@@ -522,7 +522,7 @@ hide_title: true
             color: var(--text-primary);
         }
 
-        /* Status: dot on cover corner */
+        /* Status: dot on cover corner — 仅非默认状态显示（在读/搁置/弃读），读完的书无标记 */
         .book-status-dot {
             position: absolute;
             top: 8px;
@@ -532,12 +532,13 @@ hide_title: true
             border-radius: 50%;
             z-index: 3;
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
 
-        .book[data-status="reading"] .book-status-dot { background: var(--status-reading); }
-        .book[data-status="read_finished"] .book-status-dot { background: var(--status-finished); }
-        .book[data-status="pending"] .book-status-dot { background: var(--status-pending); }
-        .book[data-status="dropped"] .book-status-dot { background: var(--status-dropped); }
+        .book[data-status="reading"] .book-status-dot { opacity: 1; background: var(--status-reading); }
+        .book[data-status="pending"] .book-status-dot { opacity: 1; background: var(--status-pending); }
+        .book[data-status="dropped"] .book-status-dot { opacity: 1; background: var(--status-dropped); }
 
         /* Shine effect on hover */
         .book-shine {
@@ -567,22 +568,6 @@ hide_title: true
             from { left: -50%; }
             to { left: 150%; }
         }
-
-        .book-status-line {
-            position: absolute;
-            right: 0;
-            top: 8%;
-            bottom: 8%;
-            width: 4px;
-            border-radius: 2px;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .book[data-status="reading"] .book-status-line { background: var(--status-reading); }
-        .book[data-status="read_finished"] .book-status-line { background: var(--status-finished); }
-        .book[data-status="pending"] .book-status-line { background: var(--status-pending); }
-        .book[data-status="dropped"] .book-status-line { background: var(--status-dropped); }
 
         /* === Modal === */
         .book-modal-overlay {
@@ -1121,7 +1106,6 @@ hide_title: true
                           {% endif %}
                             <span class="book-shine"></span>
                             <span class="book-status-dot"></span>
-                            <span class="book-status-line"></span>
                         </div>
                         <div class="book-title">{{ book.name }}</div>
                         <div class="book-date">{{ book.start_date }}</div>
@@ -1161,7 +1145,6 @@ hide_title: true
                       {% endif %}
                         <span class="book-shine"></span>
                         <span class="book-status-dot"></span>
-                        <span class="book-status-line"></span>
                     </div>
                     <div class="book-title">{{ book.name }}</div>
                     <div class="book-date">{{ book.start_date }}{% if book.finish_date %} → {{ book.finish_date }}{% endif %}</div>
