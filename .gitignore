@@ -18,3 +18,19 @@ waline-comment-log-export-*.json
 # local diff
 git.diff
 .playwright-mcp/
+
+# Claude local instructions (not committed)
+CLAUDE.md
+.claude/
+
+# ===== 本地私有：5 篇 read 带图完整版（_y 后缀，不进远程） =====
+_posts/*_y.markdown
+_posts/*_y.md
+
+# ===== 本地私有：图片仅留本地，远程删除 =====
+# DDIA 目录（仅被 5 篇 read 引用）
+assets/images/DDIA/
+# stream 目录（保留被 flink-window 共用的 2 张）
+assets/images/stream_processing_with_apache_flink/
+!assets/images/stream_processing_with_apache_flink/Pasted image 20240423095653.png
+!assets/images/stream_processing_with_apache_flink/Pasted image 20240423095748.png

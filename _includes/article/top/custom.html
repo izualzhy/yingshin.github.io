@@ -3,6 +3,24 @@
   <i class="fas fa-pen-nib"></i> 声明：本站点文章内容均为古法手作，仅用 AI 辅助，没有使用 AI 生成（代码、图片、公式、格式化除外）。
 </div>
 
+{%- assign _low_profile_tags = 'read,courses' | split: ',' -%}
+{%- assign _content_note = nil -%}
+{%- assign _content_note_icon = nil -%}
+{%- if page.tags.size == 1 and _low_profile_tags contains page.tags[0] -%}
+  {%- if page.tags[0] == 'read' -%}
+    {%- assign _content_note = 'Reading Note · 个人阅读记录' -%}
+    {%- assign _content_note_icon = '📖' -%}
+  {%- elsif page.tags[0] == 'courses' -%}
+    {%- assign _content_note = 'Course Note · 课程学习记录' -%}
+    {%- assign _content_note_icon = '📝' -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if _content_note -%}
+  <div class="article__content-note">
+    <span class="article__content-note-icon">{{ _content_note_icon }}</span> {{ _content_note }}
+  </div>
+{%- endif -%}
+
 <style>
   .article__ai-declaration {
     margin: 1.5rem 0;
@@ -16,6 +34,21 @@
     border-radius: 4px;
   }
   .article__ai-declaration i {
+    margin-right: 10px;
+    opacity: 0.7;
+  }
+  .article__content-note {
+    margin: -0.7rem 0 1.5rem;
+    padding: 0.8rem 1rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-left: 3px solid rgba(0, 100, 0, 0.35);
+    font-size: 0.85rem;
+    color: var(--text-color-l);
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+  }
+  .article__content-note-icon {
     margin-right: 10px;
     opacity: 0.7;
   }

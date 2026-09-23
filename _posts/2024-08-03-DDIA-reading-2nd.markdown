@@ -4,7 +4,6 @@ date: 2024-08-03 12:16:21
 tags: read
 cover: /assets/images/book/s34186559.jpg
 ---
-![数据密集型应用系统设计](https://izualzhy.cn/assets/images/book/s34186559.jpg)
 
 这篇笔记记录“第二部分-分布式数据系统”的心得。
 
@@ -21,12 +20,11 @@ cover: /assets/images/book/s34186559.jpg
 mysql 的主从复制最为经典，也容易理解：
 
 <figure>
-  <img src="/assets/images/DDIA/master_slave_backup_dataflow.jpeg"/>
+  
   <figcaption class="img-source">图源：《数据密集型应用系统设计》</figcaption>
 </figure>
 实际应用时，往往还会在用户和 mysql 实例间架一层 proxy，以实现连接复用、代理、SQL 语句路由等  
 
-kafka 的做法是提供了 ack<sup>1</sup> 配置让用户选择: ![kafka_backup_dataflow](/assets/images/DDIA/kafka_backup_dataflow.webp){:width="300"}      
 回到高可用的目的，主从复制要处理两类节点异常：  
 1. 从节点异常：先从全量 t1 恢复，然后顺序订阅 t2(t2 < t1即可)的日志，直到数据完全追赶上。即全量初始化+增量同步，这个过程跟大数据里实时指标上线很像。  
 2. 主节点异常
@@ -77,7 +75,6 @@ public class MasterConnectionStateListener implements ConnectionListener {
 硬件角度，同样很难判断 master 是否异常。举一个我在做主备 YARN 集群时的思考：
 
 Yarn 本身的 ResourceManager 已经通过 ZK 实现了 HA<sup>2</sup>：  
-![Yarn HA architecture](/assets/images/DDIA/yarn_ha_architecture.png)  
 
 如果要启动 Yarn 备集群，第一个问题就是**如何判断 Yarn 主集群已经宕机？**基于上图里的架构，抛几个问题：  
 1. 如何判断 Active 和 Standby 的 ResourceManager 都已经异常，而不是集群自身在主备切换       
@@ -101,7 +98,6 @@ Yarn 本身的 ResourceManager 已经通过 ZK 实现了 HA<sup>2</sup>：
 ### 1.2. 复制滞后问题
 
 复制滞后导致的典型问题：  
-![read null after write](/assets/images/DDIA/read_null_after_write.png)  
 
 这种场景在读写 redis 时也非常常见，即写到主，数据没来得及同步到从，而随后的读落在从上。解决方案为通过请求来源、时间等强制读主。      
 
@@ -121,7 +117,6 @@ Yarn 本身的 ResourceManager 已经通过 ZK 实现了 HA<sup>2</sup>：
 ### 2.1. 数据分区与数据复制
 
 单机存储量的瓶颈靠分区解决，单机可用性的瓶颈靠复制解决：  
-![partitioning and replication](/assets/images/DDIA/data_partitioning_and_replication.jpeg)  
 
 ### 2.2. 键-值数据的分区
 
@@ -139,7 +134,6 @@ Yarn 本身的 ResourceManager 已经通过 ZK 实现了 HA<sup>2</sup>：
 2. 更新索引和更新数据的先后顺序  
 3. 索引的更改
 
-![secondary_index_base_on_document_id](/assets/images/DDIA/secondary_index_base_on_document_id.jpeg)  
 
 **索引的更改相比数据更加复杂**，我之前在设计系统时，特意忽略了该场景，转而在应用层兼容：  
 key = 191 , color 从 red 修改为 black，此时不仅更新 index=color:black 的值(增加 191)，还需要更新 index=color:red 的值(删除 191)。即同时需要变化前后的值，来判断索引如何修改，此时就需要在 qps 压力和一致性间做出取舍。    
@@ -157,13 +151,11 @@ key = 191 , color 从 red 修改为 black，此时不仅更新 index=color:black
 分区之后，需要进一步考虑请求路由的问题。  
 当客户端需要发送请求时，如何知道应该连接哪个节点?如果发生了分区再平衡，分区与节点的对应关系随之还会变化
 
-![request_route_to_right_partition](/assets/images/DDIA/request_route_to_right_partition.jpeg)  
 
 这里又演变成了一个参与者如何达成共识的问题，常见的有 Zookeeper、gossip 协议。  
 但是实际实现里为了避免压力，客户端往往缓存了映射关系；以及如果发送到了错误的 tablet-server，如何转发以及时序性的保证，就是更复杂的话题了。  
 
 除了如何确定请求路由，选择不同的技术方案，系统的落地设计也会不同：  
-![request route](/assets/images/DDIA/request route.png)  
 
 对于复杂系统，我更倾向于增加一层 api 的设计，以应对 node 间可能存在网络不可达的问题，模块功能上也能更加聚焦。  
 简单系统，如果有 sdk 可以采用方案 3；如果没有(比如仅通过 http 协议)，则采用方案 2，好处就是实际维护的模块少。  
@@ -228,7 +220,6 @@ mysql> SELECT @@transaction_isolation;
 
 可以看到这里通过`REPEATABLE-READ`隔离级别防止了脏读，了解隔离性也有助于应用层的程序设计。
 
-**写倾斜**：![Non-repeatable Read](/assets/images/DDIA/isolation_Non-repeatable_Read.jpeg)  
 
 假设Alice在银行有1000美元的存款，分为两个账户，每个500美元。现在有这样一笔转账交易从账户1转100美元到账户2。如果在她提交转账请求之后而银行数据库系统执行转账的过程中间，来查看两个账户的余额，她有可能会看到账号2在收到转账之前的余额(500美元)，和账户1在完成转账之后的余额(400美元)。对于Alice来说，貌似她的账户总共只有900美元，有100美元消失了。这种异常现象被称为不可重复读取(nonrepeatable read)或读倾斜(read skew)。如果Alice在交易结束时再次读取账户1的余额，她将看到不同的值(600美元)。
 
@@ -242,11 +233,9 @@ mysql> SELECT @@transaction_isolation;
 
 上述问题会记录删除的数据，以确保同一个事务 id 读到的数据是一致的：
 
-![isolation_Non-repeatable_Read_MVCC](/assets/images/DDIA/isolation_Non-repeatable_Read_MVCC.jpeg)
 
 图中，事务13从账户2中扣除100美元，余额从500美元减为400美元。accounts表里会出现两行账户2:一个余额为$500但标记为删除的行(由事务13删除)，另一个余额为$400，由事务13创建。
 
-**写倾斜**: ![Phantom Read](/assets/images/DDIA/Phantom_Read.png)  
 如图，每笔事务都会检查`currently_on_call >= 2`，是的话，则设置自身的`on_call = false`.
 
 通过`SELECT FOR UPDATE`、实体化(单独建一个用于加锁的表)等方式可以解决这个问题，但是要注意`SELECT FOR UPDATE`返回空值可能导致方案无效的情况。
@@ -257,7 +246,6 @@ mysql> SELECT @@transaction_isolation;
 
 还有一种解决方式是存储过程：
 
-![transaction_compare_storage_process](/assets/images/DDIA/transaction_compare_storage_process.jpeg)
 
 但是存储过程在数据库中运行代码难以管理：与应用服务器相比，调试更加困难，版本控制与部署复杂，测试不便，并且不容易和指标监控系统集成。
 
@@ -337,7 +325,6 @@ NTP 可能回拨本地时间，因此 1 返回的值可能会变化；而 2 如�
 想法是让一个系统看起来好像只有一个数据副本，且所有的操作都是原子的。有了这个保证，应用程序就不需要关心系统内部的多个副本
 
 简单来说，一旦某个读操作返回了新值，之后所有的读(包括相同或不同的客户端)都必须返回新值：  
-![linearizability_simple](/assets/images/DDIA/linearizability_simple.jpeg)
 
 对于主从复制系统，这个要求就强制了所有写请求和线性化读取都必须发送给主节点，因此可用性取决于主节点。  
 而对于采用其他数据复制方式的系统，一旦出现网络中断，也一样必须在可线性化和可用性之间做出选择了。   

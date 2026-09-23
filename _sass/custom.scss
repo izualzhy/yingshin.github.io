@@ -2,6 +2,9 @@
 
 $serif: 'Noto Serif SC', 'Noto Serif CJK SC', 'Songti SC', serif;
 
+// 代码块底色：比页面底色深一档的暖色，替代 highlight 主题的冷灰 #f7f7f7。
+$code-bg: mix($border-color-l, $background-color, 45%);
+
 .article__content {
   font-size: 1.1rem;
   font-family: $serif;
@@ -28,6 +31,40 @@ $serif: 'Noto Serif SC', 'Noto Serif CJK SC', 'Songti SC', serif;
   }
 }
 
+// === 代码块 / 目录 ===
+// 以下都在 custom 覆盖层实现，不改主题源码，便于主题升级与随时回退。
+
+// --- 1. 代码块：暖底 + 字号降到正文之下 ---
+// 原底色 #f7f7f7 来自 highlight 的 tomorrow 主题，与暖米底色无关，是页面上唯一的冷色；
+// 原字号 17.6px 与正文同号，等宽字的视觉重量反而压过正文。
+// 主题以 !important 声明，这里需要同等强度才能覆盖。
+.article__content .highlight > pre {
+  background-color: $code-bg !important;
+  font-size: .86rem;
+}
+
+// --- 2. 目录：回到正文字族，抬到可读字号 ---
+// 原为 Bitter 11.2px（$base font-size-xs），比正文小 36%，且另起字族。
+ul.toc {
+  font-family: $serif;
+
+  .toc-h2,
+  .toc-h3,
+  .toc-h4,
+  .toc-h5,
+  .toc-h6 {
+    &, a {
+      font-size: map-get($base, font-size-sm);
+    }
+  }
+
+  .toc-h1 {
+    &, a {
+      font-size: map-get($base, font-size);
+    }
+  }
+}
+
 // === Bookshelf page: 接入主题 skin 系统 ===
 .bookshelf-page {
   --accent: #{$main-color-1};
@@ -43,30 +80,15 @@ $serif: 'Noto Serif SC', 'Noto Serif CJK SC', 'Songti SC', serif;
   --year-bg: rgba(#000, .04);
 }
 
-// === Pearls page: 一串珠子 ===
-$pearl-size: 1.375rem;
-$pearl-gutter: 2.5rem;
-
+// === Pearls page: 克制分层，无装饰 ===
+// 设计原则：去掉珠子/圆点/分割线/标签等装饰，仅靠字号、字重与留白区分分组层级，
+// 只使用 beige 皮肤本身的中性色变量，不引入第二强调色，跟随全站换肤。
 .pearls {
-  position: relative;
   margin: map-get($spacers, 2) 0 map-get($spacers, 4);
-
-  // 串珠的线：从第一颗珠子向上伸出线头、穿过三颗珠子、在尾端垂下收尾
-  &::before {
-    content: '';
-    position: absolute;
-    top: -$pearl-size;
-    bottom: -$pearl-size * 0.75;
-    left: calc(#{$pearl-size} / 2 - 1px);
-    width: 2px;
-    background: mix($text-color-l, $background-color, 50%);
-  }
 }
 
 .pearl-group {
-  position: relative;
-  padding-left: $pearl-gutter;
-  margin-bottom: map-get($spacers, 4);
+  margin-bottom: map-get($spacers, 5);
 
   &:last-child {
     margin-bottom: 0;
@@ -74,30 +96,12 @@ $pearl-gutter: 2.5rem;
 }
 
 .pearl-group__header {
-  position: relative;
-  margin: map-get($spacers, 3) 0 map-get($spacers, 2);
-  line-height: $pearl-size;
+  margin: 0 0 map-get($spacers, 2);
   font-family: $serif;
-  font-size: $pearl-size;
-  font-weight: map-get($base, font-weight-bold);
-}
-
-.pearl-group__dot {
-  position: absolute;
-  top: 50%;
-  left: -$pearl-gutter;
-  transform: translateY(-50%);
-  width: $pearl-size;
-  height: $pearl-size;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 26%,
-    #fff 0%,
-    lighten($main-color-1, 30%) 14%,
-    $main-color-1 46%,
-    darken($main-color-1, 20%) 100%);
-  box-shadow:
-    inset 0 0 0 1px rgba(darken($main-color-1, 35%), .15),
-    0 2px 4px rgba(0, 0, 0, .2);
+  font-size: map-get($base, font-size-sm);
+  font-weight: map-get($base, font-weight);
+  color: $text-color-l;
+  letter-spacing: .12em;
 }
 
 .pearl-list {
@@ -107,25 +111,19 @@ $pearl-gutter: 2.5rem;
 }
 
 .pearl-item {
-  padding: map-get($spacers, 2) 0 map-get($spacers, 3);
-  @include split-line(bottom);
+  padding: map-get($spacers, 2) 0;
+
+  + .pearl-item {
+    border-top: 1px solid $border-color-l;
+  }
 }
 
 .pearl-item__title {
   a {
-    @include link-colors($text-color-d, $main-color-1);
+    @include link-colors($text-color, $main-color-1);
+    font-family: $serif;
     font-weight: map-get($base, font-weight-bold);
   }
-}
-
-.pearl-item__tag {
-  margin-left: map-get($spacers, 2);
-  padding: .1rem .4rem;
-  border: 1px solid $border-color-l;
-  border-radius: map-get($base, border-radius);
-  font-size: map-get($base, font-size-xs);
-  color: $text-color-l;
-  white-space: nowrap;
 }
 
 .pearl-item__note {
@@ -136,18 +134,6 @@ $pearl-gutter: 2.5rem;
 
   p:last-child {
     margin-bottom: 0;
-  }
-}
-
-@media (max-width: 640px) {
-  $pearl-gutter: 1.9rem;
-
-  .pearl-group {
-    padding-left: $pearl-gutter;
-  }
-
-  .pearl-group__dot {
-    left: -$pearl-gutter;
   }
 }
 
