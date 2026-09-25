@@ -34,3 +34,5 @@ assets/images/DDIA/
 assets/images/stream_processing_with_apache_flink/
 !assets/images/stream_processing_with_apache_flink/Pasted image 20240423095653.png
 !assets/images/stream_processing_with_apache_flink/Pasted image 20240423095748.png
+# dataflow 目录（仅被 dataflow-reading 引用，书截图高风险）
+assets/images/dataflow/
