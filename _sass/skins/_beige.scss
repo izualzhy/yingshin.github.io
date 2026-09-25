@@ -4,10 +4,11 @@
 ///
 
 // main colors
-$main-color-1:     #fc4d50;
+// 站点统一强调色：灰墨蓝（全站唯一彩色）
+$main-color-1:     #33475C;
 $text-color-1:     #fff;
 
-$main-color-2:     #fca24d;
+$main-color-2:     #4f4d47;
 $text-color-2:     #fff;
 
 $main-color-3:     #f2f2f2;
@@ -16,13 +17,13 @@ $text-color-3:     #333;
 $main-color-theme-light: rgba(#000, .9);
 $main-color-theme-dark:  rgba(#fff, .9);
 
-// page background - light beige color
-$background-color: #f5f0e8;
+// 页面底色 - 暖纸色
+$background-color: #f4f3ec;
 
 // text colors
-$text-color-theme-light-d: #000;
-$text-color-theme-light:   #222;
-$text-color-theme-light-l: #888;
+$text-color-theme-light-d: #1a1a17;
+$text-color-theme-light:   #1a1a17;
+$text-color-theme-light-l: #696660;
 
 $text-color-theme-dark-d:  #fff;
 $text-color-theme-dark:    rgba(#fff, .95);
@@ -32,7 +33,8 @@ $text-color-d:     $text-color-theme-light-d;
 $text-color:       $text-color-theme-light;
 $text-color-l:     $text-color-theme-light-l;
 
-$text-background-color: rgba(#000, .05);
+// 代码/行内底色 - 象牙白表面
+$text-background-color: #faf8f1;
 
 // header and footer colors
 $header-text-color: $text-color-3;
@@ -42,9 +44,9 @@ $footer-text-color: $text-color-3;
 $footer-background: $main-color-3;
 
 // border and shadow colors
-$border-color:     mix(#000, $background-color, 20%);
-$border-color-l:   mix(#000, $background-color, 10%);
-$decorate-color:   rgba(#000, .1);
+$border-color:     #e7e5da;
+$border-color-l:   mix(#000, $background-color, 8%);
+$decorate-color:   #696660;
 $mask-color:       rgba(#000, .9);
 $select-color:     rgba($main-color-1, .5);
 

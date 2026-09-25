@@ -80,7 +80,11 @@ h6 {
 
 strong {
   font-weight: map-get($base, font-weight-bold);
-  color: #d35400;
+  color: $main-color-1;
+  // 淡墨蓝荧光底：保持色系，靠极淡底把加粗从正文里顶出来
+  background: rgba($main-color-1, .08);
+  border-radius: 2px;
+  padding: 0 .18em;
 }
 
 h1 {
