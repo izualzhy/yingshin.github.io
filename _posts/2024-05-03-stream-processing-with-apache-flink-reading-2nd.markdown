@@ -4,7 +4,6 @@ date: 2024-05-03 09:07:21
 tags: read
 cover: /assets/images/book/s32278655.jpg
 ---
-![Stream Processing with Apache Flink](https://izualzhy.cn/assets/images/book/s32278655.jpg)
 
 ## 1 Chapter7: Stateful Operators And Applications
 
@@ -179,7 +178,6 @@ class SelfCleaningTemperatureAlertFunction(val threshold: Double)
 4. Modifying the State of an Operator: 比如`ValueState[String]`修改为`ValueState[Double]`，兼容不全，尽量避免。
 
 ### 1.6 Queryable State
-![architecture of the queryable state service|300](/assets/images/stream_processing_with_apache_flink/architecture_of_the_queryable_state_service.png)
 支持 state 的点查和读取，依赖 flink-queryable-state-client-java.
 注：之前调研 flink 时，这个功能看上去非常强大，不过目前在官网已经看不到相关文档了。
 
@@ -226,14 +224,11 @@ Kafka, Filesystem, etc. 官网比书里已经更详细了。
 ## 3 Chapter9: Setting Up Flink for Streaming Applications
 ### 3.1 Deployment Modes
 + Standalone Cluster:
-  + 启动：![Starting a standalone Flink cluster](assets/images/stream_processing_with_apache_flink/Starting_a_standalone_Flink_cluster.png){:width="300"}
-  + 提交：![Submitting an application to a Flink standalone cluster](assets/images/stream_processing_with_apache_flink/Submitting_an_application_to_a_Flink_standalone_cluster.png){:width="300"}
+  + 提交：
 + Docker
 + YARN:
-  + JobMode: ![Starting a Flink cluster on YARN in job mode](assets/images/stream_processing_with_apache_flink/Starting_a_Flink_cluster_on_YARN_in_job_mode.png){:width="300"}
   + SessionMode:
-    + 启动：![Starting a Flink cluster on YARN in session mode](assets/images/stream_processing_with_apache_flink/Starting_a_Flink_cluster_on_YARN_in_session_mode.png){:width="300"}
-    + 提交：![Submitting a job to a Flink YARN session cluster](assets/images/stream_processing_with_apache_flink/Submitting_a_job_to_a_Flink_YARN_session_cluster.png){:width="300"}
+    + 提交：
   + 注：ApplicationMode 
 + Kubernetes: **生产环境的目标状态应当还是容器化部署**  
 
@@ -291,7 +286,6 @@ val e = d.addSink()
   .setParallelism(2)
 ```
 
-如上代码，不同 task 分配的效果：![Controlling task scheduling with slot-sharing group](assets/images/stream_processing_with_apache_flink/Controlling_task_scheduling_with_slot-sharing_group.png)
 
 ### 4.3 Tuning Checkpointing and Recovery
 

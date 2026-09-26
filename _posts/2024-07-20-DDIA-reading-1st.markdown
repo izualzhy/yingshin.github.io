@@ -4,7 +4,6 @@ date: 2024-07-20 12:16:21
 tags: read
 cover: /assets/images/book/s34186559.jpg
 ---
-![数据密集型应用系统设计](https://izualzhy.cn/assets/images/book/s34186559.jpg)
 
 这本书非常值得一读，对我来讲，主要有两点：
 
@@ -51,8 +50,7 @@ slow disks, bad memory, misconfigured machines, flaky machines, etc.
 作者举了一个 Twitter 的经典场景：“当用户查看时间线时，首先查找所有的关注对象，列出这些人的所有tweet，最后以时间为序来排序合并。”
 
 有两种思路来设计这套系统：
-1. 读更新：![twitter_list_tweet_by_rs](/assets/images/DDIA/twitter_list_tweet_by_rs.jpeg)
-2. 写更新：![twitter_list_tweet_by_fan-out_cache](/assets/images/DDIA/twitter_list_tweet_by_fan-out_cache.jpeg)
+2. 写更新：
 
 方案取决于实际压力数值(现在以及预估未来)，核心交互有两处:   
 1. 发布 tweet 消息：4.6k qps, 峰值 12k qps  
@@ -114,7 +112,6 @@ Twitter 的实际做法是混合了 push && pull: 普通用户发布 push，大 
 |查询数据局部性|内容存储在多个表，读取全部需要花费更多的磁盘 IO 和时间|文档的全部内容都存储在一块，读取方便；但是只读取部分、更新时不方便|
 
 在最近蒋晓伟大佬分享的[分布式 Data Warebase - 让数据涌现智能](https://mp.weixin.qq.com/s/3OUiVJb5tz0LV0oU6h3ARw)也引用了这个观点：
-![rs_and_doc_model_by_protonbase](/assets/images/DDIA/rs_and_doc_model_by_protonbase.webp)  
 > 数据模型是表达信息的语言，有了这种语言后，数据就从比特升级为了表记录或者文档
 
 我的理解：模型关注的是如何表达实体之间的关系，但是又会影响到实现方案，即使当前 PostgreSQL、MySQL 都对 JSON 文档提供了相应支持，但实现方案上差别很大。同时，像 Redis、HBase、ElasticSearch 这些，似乎又不属于上述的模型，或许数据库都在朝着 multi-model 的方向演进。  
@@ -149,7 +146,6 @@ GET _xpack/sql
 在大数据领域，HiveSQL/SparkSQL 可以表达 Spark/MapReduce 任务，FlinkSQL 也可以实现实时任务。  
 当然 SQL 的表达能力是有限的，实际可能混用最为普遍。  
 用一张 flink 的图能够比较清楚的说明数据查询语言的层级，层级越高，表达越简洁，能够表达的含义也越来越少：
-![levels_of_abstraction](/assets/images/flink/levels_of_abstraction.svg)
 {:.success}
 
 ### 2.3. 图状数据模型
@@ -180,11 +176,9 @@ Bitcask(Riak中的默认存储引擎)所采用的核心做法是哈希索引：�
 
 更加推荐的是两种索引结构：LSM-Tree 和 B-Tree.
 
-LSM-Tree：![leveldb_architecture](/assets/images/leveldb/architecture.png)
 
 典型应用如 leveldb，SSTable 排序数据，LSM-Tree 管理 MemTable 和 SSTable，充分利用了磁盘的顺序写，适用于读最近写入数据的场景。当查询不存在的 key 时，会查询到最后一层，因此还使用了 BloomFilter 提前过滤。
 
-B-Tree：![btree-search-keyword](/assets/images/DDIA/btree-search-keyword.jpeg)
 
 B-tree底层的基本写操作是使用新数据覆盖磁盘上的旧页，即原地修改。它假设覆盖不会改变页的磁盘存储位置，也就是说，当页被覆盖时，对该页的所有引用保持不变。**这点跟 leveldb 的追加写是个鲜明的对比。**
 

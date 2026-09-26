@@ -4,7 +4,6 @@ date: 2024-04-27 12:55:45
 tags: read
 cover: /assets/images/book/s32278655.jpg
 ---
-![Stream Processing with Apache Flink](https://izualzhy.cn/assets/images/book/s32278655.jpg)
 
 
 ## 1 Chapter1: Introduction to Stateful Stream Processing
@@ -23,11 +22,9 @@ cover: /assets/images/book/s32278655.jpg
 
 ### 3.1 System Architecture
 
-**Components of a Flink Setup**: ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.10.png){:width="300"}
 
 JobManager(生成和分配ExecutionGraph、任务协调)；ResourceManager(跟 resource provider 交互，申请和回收 taskmanager 资源)； TaskManager(实际的 worker process)；Dispatcher（Rest）.  根据环境不同，有的 components 可能跑在一个 JVM Process 上。*注意跟现在的已经不一样了*
 
-**Task Execution**:![](/assets/images/stream_processing_with_apache_flink/unknown_filename.6.png){:width="300"}
 
 taskmanager 多个 slot，上下游 operator 的 parallelism 不同时，就会发生数据的 exchange.
 
@@ -39,11 +36,8 @@ taskmanager 多个 slot，上下游 operator 的 parallelism 不同时，就会�
 		
 **Task Chaining**: 
 
-用户定义 : ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.22.png){:width="300"}
 
-chain 为函数间的调用关系 : ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.9.png){:width="300"}
 
-有时也会希望在多个线程间执行 : ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.18.png){:width="300"}
 
 t1=0.1s t2=0.8s t3=0.2s，1 个线程 1qps，因此 10 个线程 10qps；也可以 f1 1 个线程，f2 8个，f3 1个(*不过我没想清楚区别在哪*)
 
@@ -58,40 +52,30 @@ t1=0.1s t2=0.8s t3=0.2s，1 个线程 1qps，因此 10 个线程 10qps；也可�
 
 ### 3.4 State Management:
 
-![](/assets/images/stream_processing_with_apache_flink/unknown_filename.19.png){:width="300"}
 
-1. Operator State：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.7.png){:width="300"}，有 ListState、UnionListState、BroadcastState   
-2. Keyed State：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.8.png){:width="300"}，有 ValueState、ListState、MapState
+2. Keyed State：，有 ValueState、ListState、MapState
 3. State Backend：state 的读写速度影响 latency   
-4. Scaling Stateful Operators：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.20.png){:width="300"}，scale out、scale in 都按照 key group，而不是 redistribute.      
-	1. Operator list state : ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.png){:width="300"}   
-	2. Operator union list state: ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.16.png){:width="300"}    
-	3. Operator broadcast state:![](/assets/images/stream_processing_with_apache_flink/unknown_filename.24.png){:width="300"}   
+	1. Operator list state :    
+	3. Operator broadcast state:   
 
 ### 3.5 Checkpoints, Savepoints, and State Recovery
 
 Consistent Checkpoints: naive mechanism 需要暂停数据输入，待所有 in-flight 的数据都处理完成后再 resume，但是 flink 采用了更 sophisticated 的方法：
 
-1. ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.25.png){:width="300"}，Source 产生 1,2,3，... 的数据，在图中的时刻，checkpoint 记录了 Source offset = 5, 而奇数和偶数的 sum 分别为 9 和 6.     
-2. Recovery From a Consistent Checkpoint：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.4.png){:width="300"}, task 失败从 checkpoint 恢复时，从 5 之后继续消费，数据是正确且一致的。注意 sink operators 可能收到多条。   
+2. Recovery From a Consistent Checkpoint：, task 失败从 checkpoint 恢复时，从 5 之后继续消费，数据是正确且一致的。注意 sink operators 可能收到多条。   
 
 Flink's Checkpointing Algorithm : Flink 没有使用 pause-checkpoint-resume 的做法，而是基于 Chandy-Lamport algorithm for distributed snapshots.
 
 例如这个过程：
 
-1. source 分为两部分，每部分都生成递增的数字，当前状态如图所示：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.11.png){:width="300"}    
-2. 此时 JobManager 触发 checkpointID=2(三角形)：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.15.png){:width="300"}    
-3. Source 收到后，记录此时 source 的 offset(3, 4)，并在当前位置插入 checkpoint barrier(ID=2)，跟普通数据一样，发送到下游算子：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.12.png){:width="300"}   
-4. 下游算子收到后，等待所有上游算子实例的 ID=2 的 barrier：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.1.png){:width="300"}，此时上游算子仍然在产生数据，当前算子也缓存着晚于 barrier 的数据(例如 Source1 产生的蓝色圆圈4)   
-5. 当所有 ID=2 的 barrier 到达后，该算子也写入 checkpoint 数据(8, 8)，![](/assets/images/stream_processing_with_apache_flink/unknown_filename.14.png){:width="300"}   
-6. 待当前算子发送所有 ID=2 的 barrier 后，处理缓存的数据并发送：![](/assets/images/stream_processing_with_apache_flink/unknown_filename.13.png){:width="300"}  
-7. 当 sink operators 也 ACK checkpoint 后，就认为 ID=2 的 checkpoint 全部完成![](/assets/images/stream_processing_with_apache_flink/unknown_filename.21.png){:width="300"}   
+2. 此时 JobManager 触发 checkpointID=2(三角形)：    
+4. 下游算子收到后，等待所有上游算子实例的 ID=2 的 barrier：，此时上游算子仍然在产生数据，当前算子也缓存着晚于 barrier 的数据(例如 Source1 产生的蓝色圆圈4)   
+6. 待当前算子发送所有 ID=2 的 barrier 后，处理缓存的数据并发送：  
 
 Performance Implications Of Checkpointing: 异步的将 local snapshot to the remote storage；不强制等待 barrier 对齐，而是继续处理并发送数据到下游（代价是恢复时只能 exactly-once，以及随着非对齐增多导致 state 变大？）
 
 Savepoints: checkpoints 主要用于失败恢复的场景，但是 consistent snapshots 实际上有更多的用途。Using savepoints：比如 fix bugs and reprocesss 的场景，或者 A/B tests，不过需要 application 前后兼容。修改并发、修改集群、pause-resume.
 
-Starting an application from a savepoint : ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.2.png)  
 
 ## 4 Chapter4: Setting Up a Development Environment for Apache Flink
 
@@ -110,16 +94,12 @@ Transformations：
 
 1. Basic Transformations: on individual events, Map/Filter/FlatMap   
 2. KeyedStream Transformations: in context of a key
-	1. keyBy: convert DataStream into KeyedStream ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.5.png){:width="300"}  
 	2. Rolling aggregations: sum/min/max/minBy/maxBy
 	3. Reduce
 
 MultiStream Transformations: merge into one or split into multiple
-1. Union: ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.23.png){:width="300"}   
 2. Connect, coMap, and coFlatMap: DataSteam 的数据是随机处理的，因此 ConnectedStream 常用于两个 KeyedStream、DataStream + Broadcast 以确保结果的确定性，因此用到了 keyedState.   
-3. Split and select: split 与 union 相反 : ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.17.png){:width="300"}，返回 SplitStream, 通过 select 方法返回不同的 DataStream   
 
-Distribution Transformations: 普通情况下是由 operation semantics and parallelism 决定的，不过也支持 shuffle/rebalance/rescale(rebalance vs rescale: ![](/assets/images/stream_processing_with_apache_flink/unknown_filename.3.png)/broadcast/global/partitionCustom(自定义)   
 
 Setting the Parallelism: application 和 opertor 级别
 
@@ -228,9 +208,7 @@ onTimer(timestamp: Long, ctx: OnTimerContext, out: Collector[OUT])
 ### 6.3 Window Operator
 
 window 的作用，即将 events 归到一个 bucket，然后基于 bucket 内有限的数据计算。
-1. Tumbling Windows: ![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240421211822.png){:width="300"}，`TumblingEventTimeWindows.of TumblingProcessingTimeWindows.of`, 默认对齐到 epoch，也可以指定 offset 参数。   
-2. Sliding Windows: ![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240421212141.png){:width="300"}, `SlidingEventTimeWindows.of SlidingProcessingTimeWindows.of`    
-3. Session Window: ![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240421212454.png){:width="300"}, `EventTimeSessionWindows.withGap ProcessingTimeSessionWindows.withGap`     
+2. Sliding Windows: , `SlidingEventTimeWindows.of SlidingProcessingTimeWindows.of`    
 
 作用于 window 的 function 主要有三类：   
 
@@ -240,9 +218,7 @@ window 的作用，即将 events 归到一个 bucket，然后基于 bucket 内�
 
 自定义 window 由三部分组成：assigner, trigger, evictor
 
-1. incremental aggregation function(记录 aggregation 值):![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240423095653.png){:width="300"}  
-2. full window function(记录全部 event，使用 ListState): ![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240423095748.png)){:width="300"}   
-3. mix: ![](/assets/images/stream_processing_with_apache_flink/Pasted image 20240423095809.png){:width="300"}   
+2. full window function(记录全部 event，使用 ListState): ){:width="300"}   
 
 可以通过   
 1. extends WindowAssigner 实现自定义的窗口范围；
@@ -252,7 +228,6 @@ window 的作用，即将 events 归到一个 bucket，然后基于 bucket 内�
 ### 6.4 Joining Stream on Time
 
 Interval Join：INNER JOIN 的语义，且仅支持 Event Time.
-![](/assets/images/stream_processing_with_apache_flink/Pasted%20image%2020240424230517.png)){:width="300"}   
 
 如图，表示 A 会选择 B 里 [-1hour, +15min] 时间范围，相同 key 的数据；如果 JOIN 不到，则忽略该数据。对应代码实现形如：
 ```scala
@@ -267,9 +242,7 @@ B 也是对称的行为，即 JOIN A 对应时间范围内的数据。
 + B 里 >= CurrentWatermark - 1Hour 的数据(A 可能会 JOIN)
 如果两者的 watermark 对不齐，那则取决于更慢的那条流。*注：此时 State 可能会遇到读写、大小的瓶颈*
 
-Window Join:![](/assets/images/stream_processing_with_apache_flink/Pasted%20image%2020240425130815.png){:width="300"}   
 
-Tumbling Window Join 的效果：![](/assets/images/stream_processing_with_apache_flink/Pasted%20image%2020240425201613.png){:width="300"}    
 
 ### 6.5 Handling Late Data
 

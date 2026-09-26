@@ -80,7 +80,11 @@ h6 {
 
 strong {
   font-weight: map-get($base, font-weight-bold);
-  color: #d35400;
+  color: $main-color-1;
+  // 淡墨蓝荧光底：保持色系，靠极淡底把加粗从正文里顶出来
+  background: rgba($main-color-1, .08);
+  border-radius: 2px;
+  padding: 0 .18em;
 }
 
 h1 {
@@ -132,7 +136,8 @@ h6 {
 }
 
 a {
-  font-weight: map-get($base, font-weight-bold);
+  // 链接字重 medium（500）：无衬线下 bold 太抢，让 strong 独占最重层级
+  font-weight: 500;
   @include link-colors($main-color-1);
 }
 

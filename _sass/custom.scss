@@ -1,9 +1,36 @@
 /* start custom scss snippet */
 
+// 正文字族：系统默认无衬线（跨平台，零加载成本）
+// macOS: PingFang SC + SF; Windows: 微软雅黑 + Segoe UI; Linux: Noto Sans CJK SC
+$sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+       "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+       "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif: $sans; // 兼容主题其他处引用 $serif，实际走无衬线
+
+// 等宽字族：终端/代码（代码块内用）
+$mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+// 代码块底色：比页面底色深一档的暖色，替代 highlight 主题的冷灰 #f7f7f7。
+$code-bg: mix($border-color-l, $background-color, 45%);
+
+// === 全局字族覆盖：正文/标题/导航都走无衬线 ===
+body,
+h1, h2, h3, h4, h5, h6,
+.site-title,
+.site-nav {
+  font-family: $sans;
+}
+
 .article__content {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-family: $sans;
   p, li {
-    line-height: 1.8;
+    line-height: 1.7;
+  }
+  // 中文两端对齐：消除尾部参差，更协调
+  p {
+    text-align: justify;
+    text-justify: inter-ideograph;
   }
 }
 
@@ -22,6 +49,170 @@
     color: $text-color-l;
     text-align: right;
     font-style: italic;
+  }
+}
+
+// === 代码块 / 目录 ===
+// 以下都在 custom 覆盖层实现，不改主题源码，便于主题升级与随时回退。
+
+// --- 1. 代码块：暖底 + 字号降到正文之下 ---
+// 原底色 #f7f7f7 来自 highlight 的 tomorrow 主题，与暖米底色无关，是页面上唯一的冷色；
+// 原字号 17.6px 与正文同号，等宽字的视觉重量反而压过正文。
+// 主题以 !important 声明，这里需要同等强度才能覆盖。
+.article__content .highlight > pre {
+  background-color: $code-bg !important;
+  font-size: .86rem;
+}
+
+pre, code, kbd, samp {
+  font-family: $mono;
+}
+
+// --- 2. 目录：回到正文字族，抬到可读字号 ---
+// 原为 Bitter 11.2px（$base font-size-xs），比正文小 36%，且另起字族。
+ul.toc {
+  font-family: $sans;
+
+  .toc-h2,
+  .toc-h3,
+  .toc-h4,
+  .toc-h5,
+  .toc-h6 {
+    &, a {
+      font-size: map-get($base, font-size-sm);
+    }
+  }
+
+  .toc-h1 {
+    &, a {
+      font-size: map-get($base, font-size);
+    }
+  }
+}
+
+// === Bookshelf page: 接入主题 skin 系统 ===
+.bookshelf-page {
+  --accent: #{$main-color-1};
+  --text-primary: #{$text-color};
+  --text-secondary: #{$text-color-l};
+  --text-muted: mix($text-color, $background-color, 50%);
+  --shelf-line: #{$border-color-l};
+  --bg-page: #{$background-color};
+  --bg-card: mix(#fff, $background-color, 80%);
+  --bg-modal: mix(#fff, $background-color, 92%);
+  --modal-overlay: rgba(#000, .45);
+  --shelf-shadow: rgba(#000, .08);
+  --year-bg: rgba(#000, .04);
+}
+
+// === Pearls page: 简洁分层，无装饰 ===
+// 设计原则：去掉珠子/圆点/分割线/标签等装饰，仅靠字号、字重与留白区分分组层级，
+// 只使用 beige 皮肤本身的中性色变量，不引入第二强调色，跟随全站换肤。
+.pearls {
+  margin: map-get($spacers, 2) 0 map-get($spacers, 4);
+}
+
+.pearl-group {
+  margin-bottom: map-get($spacers, 5);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.pearl-group__header {
+  margin: 0 0 map-get($spacers, 2);
+  font-family: $sans;
+  font-size: map-get($base, font-size-sm);
+  font-weight: map-get($base, font-weight);
+  color: $text-color-l;
+  letter-spacing: .12em;
+}
+
+.pearl-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pearl-item {
+  padding: map-get($spacers, 2) 0;
+
+  + .pearl-item {
+    border-top: 1px solid $border-color-l;
+  }
+}
+
+.pearl-item__title {
+  a {
+    @include link-colors($text-color, $main-color-1);
+    font-family: $sans;
+    font-weight: map-get($base, font-weight-bold);
+  }
+}
+
+.pearl-item__note {
+  margin-top: map-get($spacers, 1);
+  font-size: map-get($base, font-size-sm);
+  color: $text-color-l;
+  line-height: 1.7;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// === Friends page: 简洁列表 ===
+.friends-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  font-family: $sans;
+  border-top: 1px solid $border-color-l;
+}
+
+.friend {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid $border-color-l;
+
+  &__num {
+    font-size: 0.85rem;
+    color: $text-color-l;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  &__name {
+    @include link-colors($text-color, $main-color-1);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  &__desc {
+    font-size: 0.9rem;
+    color: $text-color-l;
+    font-style: italic;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .friend {
+    grid-template-columns: 2rem 1fr;
+    gap: 0.8rem;
+    padding: 0.9rem 0.25rem;
   }
 }
 

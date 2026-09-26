@@ -1,6 +1,10 @@
 .site-tags {
+  // 瓦青色 = 天青·明 $chrome-color-2（灰墙蓝瓦里「瓦」的明亮段），随皮肤变量统一
+
   .tag-button {
-    @include clickable($text-color-3, $main-color-3, default, default, $text-color-2,$main-color-2, $text-color-2,$main-color-2);
+    // 线框「灰墙蓝瓦」：瓦青描边 + 瓦青字，激活时填蓝
+    @include clickable($chrome-color-2, transparent, $text-color-1, $chrome-color-2, default, default, $text-color-1, $chrome-color-2);
+    border: 1px solid rgba($chrome-color-2, .55);
     & > .tag-button__count {
       display: inline-block;
       margin-left: map-get($spacers, 1);
@@ -9,16 +13,17 @@
       vertical-align: top;
     }
   }
-  .tag-button-1 {
-    @include clickable($text-color-1, rgba($main-color-1, .4), default, default, $text-color-2,$main-color-2, $text-color-2,$main-color-2);
+  // Show All：次要中性按钮，独立于线框 tag（用完整 border:none 去掉天青描边，避免混味）
+  .tag-button--all {
+    @include clickable($text-color-1, $main-color-2, default, default, $text-color-2,$main-color-2, $text-color-2,$main-color-2);
+    border: none;
   }
-  .tag-button-2 {
-    @include clickable($text-color-1, rgba($main-color-1, .55), default, default, $text-color-2,$main-color-2, $text-color-2,$main-color-2);
-  }
-  .tag-button-3 {
-    @include clickable($text-color-1, rgba($main-color-1, .7), default, default, $text-color-2,$main-color-2, $text-color-2,$main-color-2);
-  }
+  // 数量深浅分档：线框里描边/字同一瓦青，仅 hover 深浅有差别（数量以 count 编码，不再靠底色区分）
+  .tag-button-1,
+  .tag-button-2,
+  .tag-button-3,
   .tag-button-4 {
-    @include clickable($text-color-1, rgba($main-color-1, .9), default, default, $text-color-2,$main-color-2, $text-color-2,$main-color-2);
+    @include clickable($chrome-color-2, transparent, $text-color-1, $chrome-color-2, default, default, $text-color-1, $chrome-color-2);
+    border: 1px solid rgba($chrome-color-2, .55);
   }
 }

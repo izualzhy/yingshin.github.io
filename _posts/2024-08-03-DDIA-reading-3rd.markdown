@@ -4,7 +4,6 @@ date: 2024-08-03 16:51:18
 tags: read
 cover: /assets/images/book/s34186559.jpg
 ---
-![数据密集型应用系统设计](https://izualzhy.cn/assets/images/book/s34186559.jpg)
 
 这篇笔记记录“第三部分-派生数据”的心得。
 
@@ -32,7 +31,7 @@ cat /var/log/nginx/access.log |
 关于 MapReduce，非常推荐 MIT 6.824 的课程 [Lab-1](https://izualzhy.cn/6.824-lab1-notes).
 
 <figure>
-  <img src="/assets/images/DDIA/mr_job_with_3_mappers_and_reducers_example.png"/>
+  
   <figcaption class="img-source">图源：《数据密集型应用系统设计》</figcaption>
 </figure>
 
@@ -40,7 +39,7 @@ MR 里的 join 可能在 map、reduce 阶段执行。
 
 Reduce Join 最为常见和自然：mapper 提取 joinkey，排序后，reducer 类似双指针的方式操作左右表。  
 <figure>
-  <img src="/assets/images/DDIA/mr_sort_merge_join.png"/>
+  
   <figcaption class="img-source">图源：《数据密集型应用系统设计》</figcaption>
 </figure>
 
@@ -71,7 +70,7 @@ MapReduce 的一个特点是中间数据持久化，这使得容错变得相对�
 流式处理第一个需要考虑的问题就是乱序，图里即当 ConsumerGroup 里单个 consumer 挂掉后，rebalance 可能导致的数据乱序：  
 
 <figure>
-  <img src="/assets/images/DDIA/consumer_crash_while_processing.png"/>
+  
   <figcaption class="img-source">图源：《数据密集型应用系统设计》</figcaption>
 </figure>
 

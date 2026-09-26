@@ -4,25 +4,28 @@
 ///
 
 // main colors
-$main-color-1:     #fc4d50;
+// 站点统一强调色：灰墨蓝（全站唯一彩色）
+$main-color-1:     #33475C;
 $text-color-1:     #fff;
 
-$main-color-2:     #fca24d;
+$main-color-2:     #4f4d47;
 $text-color-2:     #fff;
 
-$main-color-3:     #f2f2f2;
+// 次级 UI 底色（header/footer/次要按钮）：暖中性，跟随暖纸世界
+// = mix(#000, #f4f3ec, 5%)，与页面暖纸底同族，消除冷灰断裂
+$main-color-3:     #eae9e2;
 $text-color-3:     #333;
 
 $main-color-theme-light: rgba(#000, .9);
 $main-color-theme-dark:  rgba(#fff, .9);
 
-// page background - light beige color
-$background-color: #f5f0e8;
+// 页面底色 - 暖纸色
+$background-color: #f4f3ec;
 
 // text colors
-$text-color-theme-light-d: #000;
-$text-color-theme-light:   #222;
-$text-color-theme-light-l: #888;
+$text-color-theme-light-d: #1a1a17;
+$text-color-theme-light:   #1a1a17;
+$text-color-theme-light-l: #696660;
 
 $text-color-theme-dark-d:  #fff;
 $text-color-theme-dark:    rgba(#fff, .95);
@@ -32,7 +35,8 @@ $text-color-d:     $text-color-theme-light-d;
 $text-color:       $text-color-theme-light;
 $text-color-l:     $text-color-theme-light-l;
 
-$text-background-color: rgba(#000, .05);
+// 代码/行内底色 - 象牙白表面
+$text-background-color: #faf8f1;
 
 // header and footer colors
 $header-text-color: $text-color-3;
@@ -42,11 +46,16 @@ $footer-text-color: $text-color-3;
 $footer-background: $main-color-3;
 
 // border and shadow colors
-$border-color:     mix(#000, $background-color, 20%);
-$border-color-l:   mix(#000, $background-color, 10%);
-$decorate-color:   rgba(#000, .1);
+$border-color:     #e7e5da;
+$border-color-l:   mix(#000, $background-color, 8%);
+$decorate-color:   #696660;
 $mask-color:       rgba(#000, .9);
-$select-color:     rgba($main-color-1, .5);
+$select-color:     rgba(#7a9cc0, .5);
+
+// 同色相明度轨道：正文细节(链接/加粗)保持墨蓝 $main-color-1；(界面 chrome)走亮档透气
+// $main-color-1 #33475C 墨蓝 → $chrome-color-1 #5b84a6 青瓦·亮(TOC) → $chrome-color-2 #7a9cc0 天青·明(header/tag/选中)
+$chrome-color-1:   #5b84a6;
+$chrome-color-2:   #7a9cc0;
 
 // function colors
 $green:           #52c41a;

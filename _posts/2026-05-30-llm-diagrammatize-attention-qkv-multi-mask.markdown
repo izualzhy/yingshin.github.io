@@ -33,9 +33,9 @@ $$
 $$
 
 假定初时形状:
-\\( Q.\text{shape} = (\text{batch\_size}, Q_y, Q_z) \\)
-\\( K.\text{shape} = (\text{batch\_size}, K_y, K_z) \\)
-\\( V.\text{shape} = (\text{batch\_size}, V_y, V_z) \\)
+\\( Q.\text{shape} = (\text{batch\\_size}, Q_y, Q_z) \\)
+\\( K.\text{shape} = (\text{batch\\_size}, K_y, K_z) \\)
+\\( V.\text{shape} = (\text{batch\\_size}, V_y, V_z) \\)
 
 那么根据如上过程就存在如下约束：  
 1. \\( \text{attn} = \text{softmax}(QK^T) \\): attn.shape = (batch_size, Qy, Ky), 要求 \\( Q_z = K_z \\)，即 Q K 的特征维度相同
