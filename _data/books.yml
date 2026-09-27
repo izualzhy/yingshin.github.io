@@ -38,6 +38,14 @@
 #   douban_link: https://book.douban.com/subject/35193035/
 #   note:
 
+- name: "AI工程：大模型应用开发实战"
+  author: "[越]奇普·萱"
+  cover: https://cdn.weread.qq.com/weread/cover/79/cpplatform_v1cb2ihoo1mpe7kxzqg2qk/t8_cpplatform_v1cb2ihoo1mpe7kxzqg2qk1770627880.jpg
+  start_date: 2026-09-27
+  finish_date:
+  douban_link: https://weread.qq.com/web/reader/d02328c0813abb2b0g0114d5
+  note:
+
 - name: "深度学习入门：基于Python的理论与实现"
   author: "[日］斋藤康毅"
   cover: https://izualzhy.cn/assets/images/book/s29815955.jpg
