@@ -3,7 +3,29 @@
 <script>
   window.Lazyload.js('{{ _sources.mermaid }}', function() {
     mermaid.initialize({
-      startOnLoad: false
+      startOnLoad: false,
+      theme: 'base',
+      // 站点统一图配色：暖纸底、象牙节点、暖灰连线
+      themeVariables: {
+        // 画布底色
+        background: '#f4f3ec',
+        // 节点填充（象牙白）
+        mainBkg: '#faf8f1',
+        // 节点文字（近黑）
+        primaryTextColor: '#1a1a17',
+        // 节点描边（暖灰细边）
+        primaryBorderColor: '#e7e5da',
+        // 子图底色
+        clusterBkg: '#faf8f1',
+        // 子图描边
+        clusterBorder: '#e7e5da',
+        // 连线（暖橄榄灰，非纯黑）
+        lineColor: '#4f4d47',
+        // 连线标签文字（灰）
+        edgeLabelBackground: '#f4f3ec',
+        // 字体
+        fontFamily: '"Charter", Georgia, "TsangerJinKai02", "Source Han Serif SC", "Noto Serif CJK SC", serif'
+      }
     });
     mermaid.run({
       querySelector: '.language-mermaid'

@@ -3,7 +3,6 @@ title: "《离线和实时大数据开发实战》读书笔记"
 date: 2019-01-05 08:20:52
 excerpt: "《离线和实时大数据开发实战》读书笔记"
 tags: read
-cover: /assets/images/dataflow/shujuliucheng.jpeg
 ---
 
 本文是对于《离线和实时大数据开发实战》一书的笔记，在大数据处理这块，我接触更多的是自研或者使用厂内自研的基础工具，虽然思想总是有共通的地方，但是终究缺乏开源实战经验。这是最开始想看这本书的初衷，整个看了一遍下来，工厂环境实战的地方不算多，但是各种简单用例例如 WordCount，非常适合入门。同时，书里系统性的介绍了数据处理的各项开源技术，对之前各种陌生的名词，都能有一个全面的理解。
@@ -14,10 +13,6 @@ cover: /assets/images/dataflow/shujuliucheng.jpeg
 
 数据从产生到进入数据平台中被消费和使用，包含四大主要过程：数据产生、数据采集和传输、数据存储和管理以及数据应用，每个过程都需要很多相关数据技术支撑。了解这些关键环节和过程以及支撑它们的关键技术，对一个数据从业者来说，是基本的素养要求。
 
-<figure>
-  <img src="/assets/images/dataflow/shujuliucheng.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 随着Google关于分布式计算三篇论文的发表内容主体分别是分布式文件系统Google File System，分布式计算框架MapReduce，分布式数据库Bigtable）和基于Google三篇论文开源实现的Hadoop生态系统（分别对应Google三篇论文——HDFS, MapReduce, HBase）兴起，大数据时代真正到来。
 
@@ -25,10 +20,6 @@ cover: /assets/images/dataflow/shujuliucheng.jpeg
 
 流程里对应的主要开源技术：
 
-<figure>
-  <img src="/assets/images/dataflow/主要开源技术.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 当然，实际情况远远不止如此，百家争鸣。
 
@@ -62,10 +53,6 @@ HDFS HBase
 
 ### 2.1. 离线数据平台架构
 
-<figure>
-  <img src="/assets/images/dataflow/离线数据平台架构.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 数据仓库技术上，主要有 OLTP 和 OLAP.
 
@@ -73,17 +60,9 @@ OLTP的全称是Online Transaction Processing，顾名思义，OLTP数据库主�
 
 OLAP数据库本身就能够处理和统计大量的数据，而且不像OLTP数据库需要考虑数据的增删改查和并发锁控制等。OLAP数据一般只需要处理数据查询请求，数据都是批量导入的，因此通过列存储、列压缩和位图索引等技术可以大大加快响应请求的速度。
 
-<figure>
-  <img src="/assets/images/dataflow/OLTP_vs_OLAP.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 ### 2.2. 实时数据平台架构
 
-<figure>
-  <img src="/assets/images/dataflow/实时数据平台架构.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 实时数据采集（如Flume），消息中间件（如Kafka）、流计算框架（如Strom、Spark、Flink和Beam等），以及实时数据存储（如列族存储的HBase）
 
@@ -98,10 +77,6 @@ OLAP数据库本身就能够处理和统计大量的数据，而且不像OLTP数
 
 流计算框架现在最为百花齐放：Storm是最早的流计算技术和框架，也是目前最广为所知的实时数据处理技术，但是实际上还有其他的开源流计算技术，如Storm Trident、Spark Streaming、Samza、Flink、Beam等，商业性的技术还有Google MillWheel和亚马逊的Kinesis等。
 
-<figure>
-  <img src="/assets/images/dataflow/流计算技术.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 ### 2.3. 数据管理
 
@@ -128,10 +103,6 @@ Hadoop是一个蓬勃发展的生态，从底层调度和资源管理的YARN/Zoo
 + 无法高效存储大量小文件  
 + 不支持多用户写入和随机文件修改  
 
-<figure>
-  <img src="/assets/images/dataflow/hdfs_arch.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 #### 3.1.2 MapReduce
 
@@ -147,17 +118,9 @@ Hadoop是一个蓬勃发展的生态，从底层调度和资源管理的YARN/Zoo
 
 MapReduce架构如图：
 
-<figure>
-  <img src="/assets/images/dataflow/mr_arch.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 MapReduce 运行 WordCount 的例子：
 
-<figure>
-  <img src="/assets/images/dataflow/mr_word_count.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 总体来说，Shuffle阶段包含在Map和Reduce两个阶段中，在Map阶段的Shuffle阶段是对Map的结果进行分区（partition）、排序（sort）和分隔（spilt），然后将属于同一个分区的输出合并在一起（merge）并写在磁盘上，同时按照不同的分区划分发送给对应的Reduce（Map输出的划分和Reduce任务的对应关系由JobTracker确定）的整个过程；Reduce阶段的Shuffle又会将各个Map输出的同一个分区划分的输出进行合并，然后对合并的结果进行排序，最后交给Reduce处理的整个过程。
 
@@ -165,37 +128,21 @@ MapReduce 运行 WordCount 的例子：
 
 Hive是建立在Hadoop体系架构上的一层SQL抽象，使得数据相关人员使用他们最为熟悉的SQL语言就可以进行海量数据的处理、分析和统计工作，而不是必须掌握Java等编程语言和具备开发MapReduce程序的能力。
 
-<figure>
-  <img src="/assets/images/dataflow/hive.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 Hive join表的例子：
 
-<figure>
-  <img src="/assets/images/dataflow/hive_join.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 此外还有Impala、Drill、HAWQ、Presto、Dremel等SQL on Hadoop的技术。
 
 值得一提的是：Apache Drill是Dremel的开源实现。
 Google于2010年在《Dremel: Interactive Analysis of WebScaleDatasets》一文中公开了Dremel的设计原理
 
-<figure>
-  <img src="/assets/images/dataflow/sql_on_hadoop.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 数据处理不免遇到数据倾斜，即热点问题：
 
 **“数据量大”从来都不是问题，因为理论上来说，都可以通过增加并发的节点数来解决。
 但是如果数据倾斜或者分布不均了，那么就会是问题。此时不能简单地通过增加并发节点数来解决问题，而必须采用针对性的措施和优化方案来解决。**
 
-<figure>
-  <img src="/assets/images/dataflow/hot_spot.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 在数据处理时，这类问题真正难解，我在实际项目里负责过多个“单点”模块，虽然极力把实例做成了无状态的，但是跟数据倾斜的问题一直在斗争着。
 
@@ -205,10 +152,6 @@ Google于2010年在《Dremel: Interactive Analysis of WebScaleDatasets》一文�
 
 “数据湖”（data lake）的概念最早是在2011年福布斯的一篇文章《Big Data Requires a big new Architecture》中提出的。该文章认为，在大数据时代，数据量的庞大、数据来源和类型的多元化、数据价值密度低、数据增长快速等特性使得传统的数据仓库无法承载，因此需要一个新的架构作为大数据的支撑，而这种架构即是数据湖。
 
-<figure>
-  <img src="/assets/images/dataflow/data_lake.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 跟传统的数据仓库的核心区别：
 
@@ -237,10 +180,6 @@ Hadoop提供了Map和Reduce原语，使得对数据进行批处理变得非常�
 
 Storm集群架构：
 
-<figure>
-  <img src="/assets/images/dataflow/storm_arch.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 Storm关键概念：
 
@@ -263,10 +202,6 @@ Storm关键概念：
 
 Storm计算WordCount的例子：
 
-<figure>
-  <img src="/assets/images/dataflow/storm_word_count_instance.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 介绍Trident的引入之前，首先介绍流计算的三种语义：at most once（至多一次）、at least once（至少一次）以及exactly once（恰好一次）。  
 ❏ at most once：保证每个消息会被投递0次或者1次，在这种机制下，消息很有可能会丢失。  
@@ -300,19 +235,11 @@ Spark则较好地解决了上述这些问题：
 
 RDD是Spark中最为核心和重要的概念。RDD，全称为Resilient Distributed Dataset，在Spark官方文档中被称为“一个可并行操作的有容错机制的数据集合”，这个听起来有点抽象。实际上，RDD就是一个数据集，而且是分布式的，也就是可分布在不同的机器上，同时Spark还对这个分布式数据集提供了丰富的数据操作以及容错性等。
 
-<figure>
-  <img src="/assets/images/dataflow/spark_circle.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 Spark Streaming中数据处理的单位是一批而不是一条，Spark会等采集的源头数据累积到设置的间隔条件后，对数据进行统一的微批处理。这个间隔是Spark Streaming中的核心概念和关键参数，直接决定了Spark Streaming作业的数据处理延迟，当然也决定着数据处理的吞吐量和性能。
 
 Spark Streaming中基本的抽象是离散流（即DStream）。DStream代表一个连续的数据流。在Spark Streaming内部中，DStream实际上是由一系列连续的RDD组成的。每个RDD包含确定时间间隔内的数据，这些离散的RDD连在一起，共同组成了对应的DStream。
 
-<figure>
-  <img src="/assets/images/dataflow/spark_streaming.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 ### 4.3. Flink
 
@@ -336,10 +263,6 @@ Flink几乎具备了流计算所要求的所有特点。
 
 Flink技术栈:
 
-<figure>
-  <img src="/assets/images/dataflow/flink.jpeg"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 Flink底层用流处理模型来同时处理上述两种数据。在Flink看来，有界数据集不过是无界数据集的一种特例；而Spark Streaming走了完全相反的技术路线，即它把无界数据集分割成了有界的数据集而通过微批的方式来对待流计算。
 
@@ -352,14 +275,7 @@ Flink支持对各种窗口进行统计，具体如下。
 
 使用Flink计算WordCount的逻辑及物理流程：
 
-<figure>
-  <img src="/assets/images/dataflow/flink_word_count_logical.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
-<figure>
-  <img src="/assets/images/dataflow/flink_word_count_physical.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
+
 
 同其他流计算框架一样，Flink也有数据输入、数据处理和数据输出组件，只不过在Flink中，它们分别叫作source组件、transformation组件和sink组件，同时对应于Storm中的拓扑（topology），Flink中称之为Flink Stream dataflow。
 
@@ -367,10 +283,6 @@ Flink支持对各种窗口进行统计，具体如下。
 
 Flink容错机制的核心是分布式数据流和状态的快照，为了保证失败时从错误中恢复，因此需要对数据对齐。
 
-<figure>
-  <img src="/assets/images/dataflow/flink_barrier.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 #### 4.3.2. Flink关键技术-存储
 
@@ -384,10 +296,6 @@ Flink相比其他流计算技术的一个重要特性是支持基于事件时间
 
 水位线生成最常用的办法是with periodic watermark，其含义是定义一个最大允许乱序的时间，比如某条日志时间为2017-01-01 08:00:10，如果定义最大乱序时间为10s，那么其水位线时间戳就是2017-01-01 08:00:00，其含义就是说8点之前的所有数据都已经到达，那么某个小时窗口此时就可以被触发并计算该小时内的业务指标。
 
-<figure>
-  <img src="/assets/images/dataflow/flink_watermark.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 解释下窗口机制：例如，某job使用基于事件时间的窗口操作，假定使用5min的翻滚窗口，并且允许延迟1min延迟，那么Flink将在12:00和12:05之间并且当落入此间隔时间戳的第一个元素到达时创建此窗口，并将在watermark超过12:06时将其删除。
 
@@ -405,19 +313,11 @@ Storm是通过监控process bolt中的接收队列负载情况来处理反压，
 离线数据处理基本上都基于Hadoop和Hive，那么实时流计算技术能否像离线数据处理一样出现Hadoop和Hive这种事实上的技术标准呢？Google的答案是：可以，这种技术就是Beam。
 Apache Beam被认为是继MapReduce、GFS、Bigtable等之后，Google在大数据处理领域对开源社区的又一大贡献。当然，Beam也代表了Google对数据处理领域一统江湖的雄心。
 
-<figure>
-  <img src="/assets/images/dataflow/beam.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 此刻不得不说出那句古话：**天下大势分久必合合久必分。**
 
 Apache Beam本身不是一个流处理平台，而是一个统一的编程框架，它提供了开源的、统一的编程模型，帮助用户创建自己的数据处理流水线，从而可以在任意执行引擎之上运行批处理和流处理任务。
 
-<figure>
-  <img src="/assets/images/dataflow/google_cloud_dataflow.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 Beam的特点：
 
@@ -436,10 +336,6 @@ Beam支持如下完整窗口类型。
 
 如同Flink一样，Beam支持通过水印水位线（watermark）来处理迟到的数据。实际上，Beam和Flink都是参考了Google的MillWheel流计算引擎，所以其处理迟到数据的机制非常类似。
 
-<figure>
-  <img src="/assets/images/dataflow/beam_watermark.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 Beam会结合watermark和触发器来决定何时将计算结果输出，实际中的触发机制需要详细考虑，因为触发太早会丢失一部分数据，丧失精确性，而触发太晚又会导致延迟变长，而且会囤积大量数据。
 
@@ -450,9 +346,5 @@ Beam抽象出了数据处理（包含批处理和实时处理）的通用处理�
 
 ### 4.5. Stream SQL
 
-<figure>
-  <img src="/assets/images/dataflow/stream_sql_arch.png"/>
-  <figcaption class="img-source">图源：《离线和实时大数据开发实战》</figcaption>
-</figure>
 
 阿里云Stream SQL的底层就是Flink引擎（实际是Blink，也就是Alibaba Flink，可以认为Blink是Flink的企业版本，它提供了众多企业级特性，同时也在不停回馈Flink社区）。阿里云Stream SQL的语法基本和Flink SQL一致，而且其提供了流计算SQL完善的开发环境支持（IDE环境）。

@@ -95,9 +95,10 @@
         $articles = updatedSectionArticles[i];
         for (j = 0; j < $articles.length; j++) {
           if (tag === '' || tag === undefined) {
-            // 当没有选中标签时，过滤掉只有read标签的文章
+            // 当没有选中标签时，过滤掉只有低调标签的文章（read、courses 等非技术总结类）
+            var lowProfileTags = ['read', 'courses'];
             var tags = $articles.eq(j).data('tags').split(',');
-            if (!(tags.length === 1 && tags[0] === 'read')) {
+            if (!(tags.length === 1 && lowProfileTags.indexOf(tags[0]) !== -1)) {
               result[i] || (result[i] = {});
               result[i][j] = true;
             }
@@ -143,8 +144,9 @@
 
     var query = queryString(), _tag = query.tag;
     init();
-    // 如果URL中包含tag=read，先显示$result，然后再调用tagSelect
-    if (_tag === 'read') {
+    // 如果URL中包含低调标签（read、courses），先显示$result，然后再调用tagSelect
+    var lowProfileTags = ['read', 'courses'];
+    if (lowProfileTags.indexOf(_tag) !== -1) {
       $result.removeClass('d-none');
       tagSelect(_tag);
     } else {

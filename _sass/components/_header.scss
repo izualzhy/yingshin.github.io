@@ -3,7 +3,7 @@
   a {
     font-weight: map-get($base, font-weight);
     text-decoration: none !important;
-    @include link-colors($header-text-color, $main-color-1);
+    @include link-colors($header-text-color, $chrome-color-2);
   }
   .main {
     @include flexbox();
@@ -115,9 +115,9 @@
 }
 .navigation__item--active {
   a {
-    @include link-colors($main-color-1, $main-color-1);
+    @include link-colors($chrome-color-2, $chrome-color-2);
   }
   &::after {
-    @include split-line(bottom, 4px, $main-color-1);
+    @include split-line(bottom, 4px, $chrome-color-2);
   }
 }

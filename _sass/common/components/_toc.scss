@@ -20,11 +20,11 @@ ul.toc {
   .toc-h5,
   .toc-h6 {
     a {
-      @include link-colors($text-color, $main-color-1);
+      @include link-colors($text-color, $chrome-color-1);
     }
     &.active {
       a {
-        @include link-colors($main-color-1);
+        @include link-colors($chrome-color-1);
       }
     }
   }
@@ -51,7 +51,7 @@ ul.toc {
       line-height: map-get($base, line-height-sm);
     }
     a {
-      @include link-colors($text-color-d, $main-color-1);
+      @include link-colors($text-color-d, $chrome-color-1);
     }
   }
   .toc-h2 {
@@ -72,7 +72,7 @@ ul.toc {
   .toc-h6 {
     color: $text-color-l;
     a {
-      @include link-colors($text-color-l, $main-color-1);
+      @include link-colors($text-color-l, $chrome-color-1);
     }
   }
 }
@@ -94,7 +94,7 @@ ul.toc--navigator {
     &.active {
       a {
         margin-left: -4px;
-        @include split-line(left, 4px, $main-color-1);
+        @include split-line(left, 4px, $chrome-color-1);
       }
     }
   }
