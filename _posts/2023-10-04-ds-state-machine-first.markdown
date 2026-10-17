@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler-8: 状态"
 date: 2023-10-04 05:52:30
-tags: dolphin
+tags: DolphinScheduler
 cover: /assets/images/dolphin/dolphin/flink-task-state.png
 ---
 

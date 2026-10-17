@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler-9: 容错"
 date: 2023-10-22 08:39:46
-tags: dolphin
+tags: DolphinScheduler
 cover: /assets/images/dolphin/dolphin/failover.png
 ---
 

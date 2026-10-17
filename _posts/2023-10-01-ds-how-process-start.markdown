@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler-4: 工作流的启动"
 date: 2023-10-01 06:46:03
-tags: dolphin
+tags: DolphinScheduler
 cover: /assets/images/dolphin/dolphin/master-start-process.png
 ---
 

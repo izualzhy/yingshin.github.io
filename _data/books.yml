@@ -42,9 +42,9 @@
   author: 张建飞
   cover: https://izualzhy.cn/assets/images/book/s35636587.jpg
   start_date: 2026-10-17
-  finish_date:
+  finish_date: 2026-10-17
   douban_link: https://book.douban.com/subject/38673762/
-  note:
+  note: 总共花了不到 4 个小时读完，作者还有一本《程序员的底层思维》，虽然没有读完，但是还是能感觉到作者的很多思考的。这本则是水分很大，首先是内容上基本是 opencode 的使用过程，大量的粘贴和复制 Answer，修改内容也都围绕着 AGENTS.md 展开；其次 Harness 工程讲的很少，基本都是在讲演进和思想。我理想中的 Harness 工程，应当是工程本身的设计，比如 SubAgent 如何管理、State如何存储、记忆存什么和怎么存怎么优化怎么使用、长程 Agent 如何确保有效、主子 Agent 的分布式设计等等。感觉 AI 来了，名词越来越多，即使同一个名词，各家都有自己的解释和理解，相差很多，居然也都能自圆其说，神奇。
 
 #- name: "AI工程：大模型应用开发实战"
 #  author: "[越]奇普·萱"

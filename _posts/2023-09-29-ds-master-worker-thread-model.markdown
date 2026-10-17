@@ -1,7 +1,7 @@
 ---
 title: "DolphinScheduler-1: Master、Worker的线程模型"
 date: 2023-09-29 12:26:25
-tags: dolphin
+tags: DolphinScheduler
 cover: /assets/images/dolphin/process-start-flow-1.3.0.png
 ---
 
