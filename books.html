@@ -352,6 +352,10 @@ hide_title: true
             opacity: 1;
         }
 
+        .book-cover.hidden {
+            display: none;
+        }
+
         .book-cover-fallback {
             width: 100%;
             aspect-ratio: 2 / 3;
@@ -1213,14 +1217,21 @@ hide_title: true
         section.classList.toggle('collapsed');
     }
 
-    // Image loading with fade-in
-    document.querySelectorAll('.book-cover').forEach(img => {
-        if (img.complete) {
-            img.classList.add('loaded');
+    // Image loading with fade-in; on error remove the img so the CSS fallback cover shows
+    function setupCover(img) {
+        const show = () => img.classList.add('loaded');
+        const hide = () => img.classList.add('hidden'); // display:none -> fallback 上移占位
+        if (img.complete && img.naturalWidth > 0) {
+            mark();
+        } else if (img.complete) {
+            hide(); // 缓存命中但此前加载失败
         } else {
-            img.addEventListener('load', () => img.classList.add('loaded'));
+            img.addEventListener('load', mark);
+            img.addEventListener('error', hide);
         }
-    });
+        function mark() { img.classList.add('loaded'); }
+    }
+    document.querySelectorAll('.book-cover').forEach(setupCover);
 
     // Generate fallback cover colors from book name hash
     function nameToColor(name) {
