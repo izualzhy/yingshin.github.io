@@ -17,27 +17,39 @@
 </style>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-		// 给包含数学公式的元素添加 loading 类
+		// 匹配 $$...$$、\(...\)、\[...\]、$...$ 的公式
+		var mathRe = /(\$\$[\s\S]+?\$\$)|(\$[^$\n]+\$)|(\\\[[\s\S]+?\\\])|(\\\([\s\S]+?\\\))/;
+
+		// 仅给「本身不包含子元素」的小元素加 loading，
+		// 避免整段文章摘要被正则误伤而隐藏。
 		var mathElements = document.querySelectorAll('p, div, span, td, li');
 		mathElements.forEach(function(el) {
-			if (el.textContent.match(/\$[^$]+\$|\\[\(\[].*?\\[\)\]]/)) {
+			if (el.children.length === 0 && mathRe.test(el.textContent)) {
 				el.classList.add('katex-loading');
 			}
 		});
 
-		// 渲染数学公式
-		renderMathInElement(document.body, {
-			delimiters: [
-				{left: "$$", right: "$$", display: true},
-				{left: "\\[", right: "\\]", display: true},
-				{left: "\\(", right: "\\)", display: false},
-				{left: "$", right: "$", display: false}
-			]
-		});
-
-		// 移除 loading 状态
-		document.querySelectorAll('.katex-loading').forEach(function(el) {
-			el.classList.remove('katex-loading');
-		});
+		// 渲染数学公式；无论成败都要移除 loading，绝不残留占位文案
+		try {
+			if (typeof renderMathInElement === 'function') {
+				renderMathInElement(document.body, {
+					delimiters: [
+						{left: "$$", right: "$$", display: true},
+						{left: "\\[", right: "\\]", display: true},
+						{left: "\\(", right: "\\)", display: false},
+						{left: "$", right: "$", display: false}
+					],
+					throwOnError: false
+				});
+			} else {
+				throw new Error('KaTeX auto-render 未加载');
+			}
+		} catch (e) {
+			console.warn('KaTeX 渲染失败，已跳过占位隐藏:', e);
+		} finally {
+			document.querySelectorAll('.katex-loading').forEach(function(el) {
+				el.classList.remove('katex-loading');
+			});
+		}
 	});
 </script>
