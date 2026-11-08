@@ -1084,51 +1084,22 @@ hide_title: true
         </div>
         <div class="books-shelf">
             <div class="books-container">
+            {% comment %} 最新年份区块：在读 + 当年读完合并，统一按 start_date 降序；其余年份仅读完的，按 finish_date 降序 {% endcomment %}
             {% if current_year == latest_year and unfinished_books.size > 0 %}
-                {% assign unfinished_sorted = unfinished_books | sort: "start_date" | reverse %}
-                {% for book in unfinished_sorted %}
-                    {% if book.status == "hidden" %}{% continue %}{% endif %}
-                    {% if book.status %}{% assign state = book.status %}{% else %}{% assign state = "reading" %}{% endif %}
-                    {% assign note_content = book.note | strip_html | strip %}
-                    <div class="book"
-                         data-name="{{ book.name | xml_escape }}"
-                         data-author="{{ book.author | xml_escape }}"
-                         data-cover="{{ book.cover }}"
-                         data-start="{{ book.start_date }}"
-                         data-finish=""
-                         data-note="{{ book.note | xml_escape }}"
-                         data-link="{{ book.douban_link }}"
-                         data-status="{{ state }}">
-                        <div class="book-cover-wrap">
-                          {% if book.cover %}
-                            <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}" loading="lazy"/>
-                          {% else %}
-                            <div class="book-cover-fallback" data-name="{{ book.name | xml_escape }}" data-author="{{ book.author | xml_escape }}">
-                              <span class="fallback-text">{{ book.name }}</span>
-                              {% if book.author %}<span class="fallback-author">{{ book.author }}</span>{% endif %}
-                            </div>
-                          {% endif %}
-                            <span class="book-shine"></span>
-                            <span class="book-status-dot"></span>
-                        </div>
-                        <div class="book-title">{{ book.name }}</div>
-                        <div class="book-date">{{ book.start_date }}</div>
-                        {% if note_content != blank %}
-                            <div class="book-note-preview">{{ note_content }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {% assign year_books = unfinished_books | concat: year.items | sort: "start_date" | reverse %}
+            {% else %}
+                {% assign year_books = year.items | sort: "finish_date" | reverse %}
             {% endif %}
-            {% assign year_items = year.items | sort: "finish_date" | reverse %}
-            {% for book in year_items %}
-                {% if book.status == "hidden" %}
-                    {% continue %}
+            {% for book in year_books %}
+                {% if book.status == "hidden" %}{% continue %}{% endif %}
+                {% if book.finish_date %}
+                    {% assign state = "read_finished" %}
+                {% elsif book.status %}
+                    {% assign state = book.status %}
+                {% else %}
+                    {% assign state = "reading" %}
                 {% endif %}
-
-                {% assign state = "read_finished" %}
-
                 {% assign note_content = book.note | strip_html | strip %}
-
                 <div class="book"
                      data-name="{{ book.name | xml_escape }}"
                      data-author="{{ book.author | xml_escape }}"
