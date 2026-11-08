@@ -38,13 +38,13 @@
 #   douban_link: https://book.douban.com/subject/35193035/
 #   note:
 
-- name: "线性代数：数据科学实践与Python应用"
-  author: "[荷兰] 迈克·X.科恩"
-  cover: https://izualzhy.cn/assets/images/book/s35477910.jpg
-  start_date: 2026-10-29
-  finish_date:
-  douban_link: https://book.douban.com/subject/38434147/
-  note:
+# - name: "线性代数：数据科学实践与Python应用"
+#   author: "[荷兰] 迈克·X.科恩"
+#   cover: https://izualzhy.cn/assets/images/book/s35477910.jpg
+#   start_date: 2026-10-29
+#   finish_date:
+#   douban_link: https://book.douban.com/subject/38434147/
+#   note:
 
 - name: "古龙经典-陆小凤传奇（共 7 册）"
   author: 古龙
