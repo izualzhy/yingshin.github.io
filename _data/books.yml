@@ -46,6 +46,22 @@
 #   douban_link: https://book.douban.com/subject/38434147/
 #   note:
 
+- name: 恶意
+  author: 东野圭吾
+  cover: https://izualzhy.cn/assets/images/book/weread_3300020529.jpg
+  start_date: 2026-11-13
+  finish_date:
+  douban_link: https://weread.qq.com/web/reader/f7932970813ab6e84g019b96
+  note:
+
+- name: "非对称风险"
+  author: "纳西姆·尼古拉斯·塔勒布"
+  cover: https://izualzhy.cn/assets/images/book/weread_23934823.jpg
+  start_date: 2026-11-14
+  finish_date:
+  douban_link: https://weread.qq.com/web/reader/26a32c10716d376726aee58
+  note:
+
 - name: "古龙经典-陆小凤传奇（共 7 册）"
   author: 古龙
   cover: https://izualzhy.cn/assets/images/book/weread_23796701.jpg

@@ -288,10 +288,6 @@ hide_title: true
             grid-column: span 2;
         }
 
-        .book[data-status="reading"] .book-cover {
-            aspect-ratio: 3 / 4;
-        }
-
         .year-section.collapsed .books-shelf {
             max-height: 0;
             opacity: 0;
@@ -340,8 +336,11 @@ hide_title: true
         }
 
         .book-cover {
+            position: absolute;
+            inset: 0;
+            z-index: 2; /* 盖过 fallback 的装饰伪元素（z1），低于书脊阴影(z4)/状态点(z3) */
             width: 100%;
-            aspect-ratio: 2 / 3;
+            height: 100%;
             object-fit: cover;
             display: block;
             opacity: 0;
@@ -1110,13 +1109,13 @@ hide_title: true
                      data-link="{{ book.douban_link }}"
                      data-status="{{ state }}">
                     <div class="book-cover-wrap">
+                      {% comment %} fallback 始终渲染垫底：img 加载中/404 时露出 CSS 书衣封面 {% endcomment %}
+                      <div class="book-cover-fallback" data-name="{{ book.name | xml_escape }}" data-author="{{ book.author | xml_escape }}">
+                        <span class="fallback-text">{{ book.name }}</span>
+                        {% if book.author %}<span class="fallback-author">{{ book.author }}</span>{% endif %}
+                      </div>
                       {% if book.cover %}
                         <img class="book-cover" src="{{ book.cover }}" alt="{{ book.name }}" loading="lazy"/>
-                      {% else %}
-                        <div class="book-cover-fallback" data-name="{{ book.name | xml_escape }}" data-author="{{ book.author | xml_escape }}">
-                          <span class="fallback-text">{{ book.name }}</span>
-                          {% if book.author %}<span class="fallback-author">{{ book.author }}</span>{% endif %}
-                        </div>
                       {% endif %}
                         <span class="book-shine"></span>
                         <span class="book-status-dot"></span>
@@ -1255,11 +1254,27 @@ hide_title: true
             const status = book.dataset.status;
 
             modalCover.alt = name;
+            // 封面 404 时切回 CSS 书衣；src 比对防止上一次的延迟 error 误伤当前封面
+            const showCoverFallback = () => {
+                if (cover && modalCover.src && !modalCover.src.endsWith(cover)) return;
+                modalCover.style.display = 'none';
+                modalFallback.style.display = 'flex';
+                modalFallbackText.textContent = name;
+                modalFallback.style.background = nameToColor(name);
+                if (author) {
+                    modalFallbackAuthor.textContent = author;
+                    modalFallbackAuthor.style.display = '';
+                } else {
+                    modalFallbackAuthor.style.display = 'none';
+                }
+            };
             if (cover) {
                 modalCover.src = cover;
                 modalCover.style.display = '';
                 modalFallback.style.display = 'none';
+                modalCover.onerror = showCoverFallback;
             } else {
+                modalCover.onerror = null;
                 modalCover.style.display = 'none';
                 modalFallback.style.display = 'flex';
                 modalFallbackText.textContent = name;
